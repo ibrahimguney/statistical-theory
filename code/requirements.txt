@@ -1,0 +1,5 @@
+# İstatistik Teorisi — kod gereksinimleri
+# Kodlar şu sürümlerle test edilmiştir: Python 3.13.17, numpy 2.5.3, scipy 1.18.1, matplotlib 3.11.2
+numpy>=1.22
+scipy>=1.9
+matplotlib>=3.5

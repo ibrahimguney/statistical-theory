@@ -1,0 +1,274 @@
+\documentclass[main.tex]{subfiles}
+\begin{document}
+
+\chapter{Probability Spaces and Kolmogorov's Axioms}\label{ch:olasilik-uzaylari}
+
+Probability theory is the mathematics of assigning numerical weights, in a consistent way, to the outcomes of experiments that involve uncertainty. The word ``consistent'' is crucial: unless we specify in advance which sets may receive a probability (the $\sigma$-algebra) and which rules the assignment must obey (Kolmogorov's axioms), arguments that look intuitively correct can lead to contradictions. In this chapter we lay the foundation on which the rest of the book is built.
+
+\section{Definitions}
+
+\begin{definition}[Sample Space and Event]
+The set of all possible outcomes of a random experiment is called the \emph{sample space} and is denoted by $\Omega$. Its elements $\omega\in\Omega$ are called \emph{outcomes} (or elementary events), and the subsets $A\subseteq\Omega$ to which a probability can be assigned are called \emph{events}.
+\end{definition}
+
+\begin{definition}[$\sigma$-Algebra]\label{def:sigma-cebiri}
+A family $\F \subseteq \mathcal{P}(\Omega)$ of subsets of the sample space $\Omega$ is a $\sigma$-algebra if
+\begin{enumerate}
+    \item $\Omega \in \F$,
+    \item $A \in \F \implies A^c = \Omega \setminus A \in \F$,
+    \item $A_1, A_2, \dots \in \F \implies \bigcup_{i=1}^\infty A_i \in \F$.
+\end{enumerate}
+The pair $(\Omega,\F)$ is called a \emph{measurable space}. If the third condition is required only for finite unions, $\F$ is called an \emph{algebra} (or field).
+\end{definition}
+
+\begin{remark}
+By De Morgan's law $\left(\bigcup_i A_i\right)^c = \bigcap_i A_i^c$, a $\sigma$-algebra is also closed under countable intersections, under differences ($A\setminus B = A\cap B^c$), and contains $\emptyset=\Omega^c$.
+\end{remark}
+
+\begin{definition}[Generated $\sigma$-Algebra]
+Let $\mathcal{C}\subseteq\mathcal{P}(\Omega)$ be any family of sets. The intersection of all $\sigma$-algebras containing $\mathcal{C}$,
+\[
+\sigma(\mathcal{C}) = \bigcap\{\mathcal{G} : \mathcal{G} \text{ is a } \sigma\text{-algebra and } \mathcal{C}\subseteq\mathcal{G}\},
+\]
+is again a $\sigma$-algebra, and it is the \emph{smallest} $\sigma$-algebra containing $\mathcal{C}$. (The intersection is over a non-empty family, since $\mathcal{P}(\Omega)$ always belongs to it.)
+\end{definition}
+
+\begin{definition}[Kolmogorov's Axioms of Probability \cite{kolmogorov33}]\label{def:kolmogorov}
+A function $\P: \F \to [0, 1]$ defined on a measurable space $(\Omega, \F)$ is a \emph{probability measure} if it satisfies:
+\begin{enumerate}
+    \item (Non-negativity) $\P(A) \ge 0$ for every $A \in \F$.
+    \item (Normalisation) $\P(\Omega) = 1$.
+    \item (Countable additivity) For every sequence $\{A_i\}_{i=1}^\infty$ of pairwise disjoint events, $\P\left(\bigcup_{i=1}^\infty A_i\right) = \sum_{i=1}^\infty \P(A_i)$.
+\end{enumerate}
+The triple $(\Omega,\F,\P)$ is called a \emph{probability space}.
+\end{definition}
+
+\begin{definition}[Conditional Probability]
+For $\P(B)>0$, the conditional probability of $A$ given $B$ is defined by
+\[
+\P(A\mid B) = \frac{\P(A\cap B)}{\P(B)} .
+\]
+For fixed $B$, the map $A\mapsto \P(A\mid B)$ is a new probability measure on $(\Omega,\F)$.
+\end{definition}
+
+\begin{definition}[Independence]
+Events $A,B\in\F$ are \emph{independent} if $\P(A\cap B)=\P(A)\P(B)$. A family $\{A_i\}_{i\in\mathcal{I}}$ is \emph{mutually independent} if
+\[
+\P\Big(\bigcap_{j\in J} A_j\Big) = \prod_{j\in J}\P(A_j)
+\]
+for every finite $J\subseteq\mathcal{I}$. If the condition is required only for $|J|=2$, the family is \emph{pairwise independent}.
+\end{definition}
+
+\begin{definition}[Limit Superior and Limit Inferior of a Sequence of Events]
+For a sequence of events $\{A_n\}$,
+\[
+\limsup_{n\to\infty} A_n = \bigcap_{n=1}^\infty\bigcup_{k=n}^\infty A_k = \{A_n \text{ occurs infinitely often}\},\qquad
+\liminf_{n\to\infty} A_n = \bigcup_{n=1}^\infty\bigcap_{k=n}^\infty A_k .
+\]
+$\liminf A_n$ is the event ``from some index on, all the $A_n$ occur''. Both belong to $\F$.
+\end{definition}
+
+\section{Main Theorems and Proofs}
+
+\begin{proposition}[Basic Properties of a Probability Measure]\label{prop:temel-ozellikler}
+Let $(\Omega,\F,\P)$ be a probability space and $A,B\in\F$.
+\begin{enumerate}
+  \item $\P(\emptyset)=0$.
+  \item (Finite additivity) If $A_1,\dots,A_n$ are pairwise disjoint, then $\P(\bigcup_{i=1}^n A_i)=\sum_{i=1}^n\P(A_i)$.
+  \item $\P(A^c)=1-\P(A)$.
+  \item (Monotonicity) $A\subseteq B \implies \P(A)\le \P(B)$ and $\P(B\setminus A)=\P(B)-\P(A)$.
+  \item (Inclusion--exclusion) $\P(A\cup B)=\P(A)+\P(B)-\P(A\cap B)$.
+  \item (Boole's inequality) For every $\{A_i\}\subseteq\F$, $\P(\bigcup_{i=1}^\infty A_i)\le\sum_{i=1}^\infty \P(A_i)$.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+(1) Applying Axiom~3 to the disjoint sequence $A_1=\Omega$, $A_i=\emptyset$ ($i\ge2$) gives $1 = 1 + \sum_{i\ge 2}\P(\emptyset)$; a sum of non-negative terms equal to zero forces $\P(\emptyset)=0$.
+
+(2) Take $A_{n+1}=A_{n+2}=\dots=\emptyset$ and use Axiom~3 together with (1).
+
+(3) From the disjoint union $\Omega = A\cup A^c$ we get $1=\P(A)+\P(A^c)$.
+
+(4) $B = A\cup(B\setminus A)$ is a disjoint union; hence $\P(B)=\P(A)+\P(B\setminus A)\ge \P(A)$.
+
+(5) From the disjoint unions $A\cup B = A\cup (B\setminus A)$ and $B = (A\cap B)\cup(B\setminus A)$ we obtain $\P(A\cup B)=\P(A)+\P(B)-\P(A\cap B)$.
+
+(6) The sets $B_1=A_1$, $B_n = A_n\setminus\bigcup_{i<n}A_i$ are pairwise disjoint, $B_n\subseteq A_n$ and $\bigcup B_n=\bigcup A_n$. By Axiom~3 and monotonicity, $\P(\bigcup A_n)=\sum \P(B_n)\le\sum\P(A_n)$.
+\end{proof}
+
+\begin{theorem}[Continuity of Probability]\label{thm:sureklilik}
+If $A_1 \subseteq A_2 \subseteq \dots$ is an increasing sequence of events and $A = \bigcup_{n=1}^\infty A_n$, then
+\[
+\lim_{n \to \infty} \P(A_n) = \P(A).
+\]
+\end{theorem}
+\begin{proof}
+Define disjoint rings: $C_1 = A_1$ and $C_n = A_n \setminus A_{n-1} \in \F$ for $n \ge 2$. The sets are pairwise disjoint, $\bigcup_{i=1}^n C_i = A_n$ and $\bigcup_{i=1}^\infty C_i = A$. By Kolmogorov's Axiom~3 and finite additivity,
+\[
+\P(A) = \P\left(\bigcup_{i=1}^\infty C_i\right) = \sum_{i=1}^\infty \P(C_i) = \lim_{n \to \infty} \sum_{i=1}^n \P(C_i) = \lim_{n \to \infty} \P(A_n). \qedhere
+\]
+\end{proof}
+
+\begin{corollary}[Continuity from Above]\label{cor:yukaridan}
+If $A_1\supseteq A_2\supseteq\dots$ is a decreasing sequence and $A=\bigcap_{n=1}^\infty A_n$, then $\lim_{n\to\infty}\P(A_n)=\P(A)$.
+\end{corollary}
+\begin{proof}
+The sequence $A_n^c$ is increasing, and by De Morgan $\bigcup_n A_n^c = A^c$. By Theorem~\ref{thm:sureklilik}, $1-\P(A_n)=\P(A_n^c)\to\P(A^c)=1-\P(A)$.
+\end{proof}
+
+\begin{remark}
+Theorem~\ref{thm:sureklilik} is in fact \emph{equivalent} to Axiom~3: every finitely additive set function that is continuous from below is countably additive. Continuity is thus the ``analytic face'' of countable additivity. In Chapter~\ref{ch:rastgele-degiskenler}, the right-continuity of the CDF will follow directly from Corollary~\ref{cor:yukaridan}.
+\end{remark}
+
+\begin{theorem}[Law of Total Probability and Bayes' Formula]\label{thm:bayes}
+Let $\{B_i\}_{i\ge1}$ be a countable partition of $\Omega$ (pairwise disjoint with $\bigcup B_i=\Omega$) with $\P(B_i)>0$. For every $A\in\F$,
+\[
+\P(A)=\sum_{i}\P(A\mid B_i)\P(B_i),
+\qquad
+\P(B_j\mid A)=\frac{\P(A\mid B_j)\P(B_j)}{\sum_i \P(A\mid B_i)\P(B_i)}\quad(\P(A)>0).
+\]
+\end{theorem}
+\begin{proof}
+$A=\bigcup_i (A\cap B_i)$ is a disjoint union; by Axiom~3 and the definition of conditional probability, $\P(A)=\sum_i\P(A\cap B_i)=\sum_i\P(A\mid B_i)\P(B_i)$. Bayes' formula follows by writing the numerator and denominator of $\P(B_j\mid A)=\P(A\cap B_j)/\P(A)$ in this way.
+\end{proof}
+
+\begin{theorem}[Borel--Cantelli Lemmas; see {\cite[Section~2.3]{durrett}}]\label{thm:borel-cantelli}
+Let $\{A_n\}$ be a sequence of events.
+\begin{enumerate}
+  \item If $\sum_{n=1}^\infty \P(A_n)<\infty$, then $\P(\limsup A_n)=0$.
+  \item If the $\{A_n\}$ are mutually independent and $\sum_{n=1}^\infty \P(A_n)=\infty$, then $\P(\limsup A_n)=1$.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+(1) For every $n$, $\limsup A_k\subseteq\bigcup_{k\ge n}A_k$; by Boole's inequality $\P(\limsup A_k)\le\sum_{k\ge n}\P(A_k)$. The right-hand side is the tail of a convergent series and tends to zero as $n\to\infty$.
+
+(2) Since $(\limsup A_n)^c=\bigcup_n\bigcap_{k\ge n}A_k^c$, it suffices to show that $\P(\bigcap_{k\ge n}A_k^c)=0$ for every $n$. By independence and the inequality $1-x\le e^{-x}$, for every $m>n$,
+\[
+\P\Big(\bigcap_{k=n}^{m}A_k^c\Big)=\prod_{k=n}^{m}(1-\P(A_k))\le \exp\Big(-\sum_{k=n}^m\P(A_k)\Big)\xrightarrow{m\to\infty}0 .
+\]
+Corollary~\ref{cor:yukaridan} then gives $\P(\bigcap_{k\ge n}A_k^c)=0$.
+\end{proof}
+
+\section{Worked Examples}
+
+\begin{example}[A Finite $\sigma$-Algebra]
+For a roll of a die let $\Omega=\{1,\dots,6\}$. If we are interested only in the information ``odd or even?'', then $\F=\{\emptyset,\{1,3,5\},\{2,4,6\},\Omega\}$ is a $\sigma$-algebra. This $\F$ does not contain the event $\{1\}$, so at this level of information no probability can be assigned to the event ``a 1 was rolled''. Interpreting a $\sigma$-algebra as a body of \emph{information} is the basis of the conditional expectation in Chapter~\ref{ch:beklenen-deger}.
+\end{example}
+
+\begin{example}[An Algebra That Is Not a $\sigma$-Algebra]
+Let $\Omega=\N$ and $\mathcal{A}=\{A\subseteq\N: A \text{ is finite or } A^c \text{ is finite}\}$. $\mathcal{A}$ is closed under complements and finite unions, so it is an algebra. However, the set of even numbers, which is the union of the finite sets $A_i=\{2i\}$, is neither finite nor co-finite; hence $\mathcal{A}$ is not a $\sigma$-algebra.
+\end{example}
+
+\begin{example}[The Birthday Problem]\label{ex:dogum-gunu}
+Suppose the birthdays in a group of $n$ people are independent and uniformly distributed over 365 days. By the complement rule, the probability that at least two people share a birthday is
+\[
+p_n = 1-\prod_{k=0}^{n-1}\frac{365-k}{365} .
+\]
+The approximation $1-x\approx e^{-x}$ gives $p_n\approx 1-\exp\{-n(n-1)/730\}$; for $n=23$, $p_{23}\approx 0.507$. This counter-intuitive result is explained by the existence of $\binom{23}{2}=253$ distinct pairs of people.
+\end{example}
+
+\begin{example}[A Medical Diagnostic Test --- Bayes' Formula]\label{ex:tani}
+Let the prevalence of a disease be $\P(D)=0.01$, the sensitivity of the test $\P(+\mid D)=0.99$ and its specificity $\P(-\mid D^c)=0.95$. By Theorem~\ref{thm:bayes},
+\[
+\P(D\mid +)=\frac{0.99\cdot 0.01}{0.99\cdot0.01+0.05\cdot0.99}=\frac{0.0099}{0.0594}\approx 0.167 .
+\]
+A person with a positive result is actually ill with probability only 16.7\%. A low prior probability (prevalence) lowers the positive predictive value of even a highly accurate test. This is the simplest instance of the discussion of ``the role of prior information'' in Chapter~\ref{ch:bayes}.
+\end{example}
+
+\begin{example}[Events That Are Pairwise but Not Mutually Independent]
+Toss two fair coins: $A=\{\text{first toss H}\}$, $B=\{\text{second toss H}\}$, $C=\{\text{both tosses equal}\}$. Since $\P(A)=\P(B)=\P(C)=1/2$ and every pairwise intersection has probability $1/4$, the events are pairwise independent. However, $\P(A\cap B\cap C)=\P(\{HH\})=1/4\neq 1/8=\P(A)\P(B)\P(C)$. Mutual independence is therefore a strictly stronger condition than pairwise independence.
+\end{example}
+
+\begin{example}[An Application of Borel--Cantelli]
+If the events $A_n$ are independent with $\P(A_n)=1/n^2$, then since $\sum 1/n^2=\pi^2/6<\infty$, with probability 1 only finitely many of the $A_n$ occur. If $\P(A_n)=1/n$, then $\sum 1/n=\infty$ and, under independence, the $A_n$ occur infinitely often with probability 1. The difference between the two sequences decides whether ``rare'' events eventually die out.
+\end{example}
+
+\section{Computational Applications}
+
+\subsection{Verifying Continuity by Monte Carlo}
+For $\Omega=[0,1]$ with Lebesgue measure $\P$ and the increasing sequence $A_n=[0,1-1/n]$, we have $A=\bigcup A_n=[0,1)$ and $\P(A)=1$. By Theorem~\ref{thm:sureklilik}, $\P(A_n)=1-1/n\to 1$.
+
+\pycode{code/ch01/c01_1_continuity_monte_carlo.py}
+\begin{lstlisting}[style=output]
+n =  1 | Theoretical P(A_n): 0.0000 | Monte Carlo: 0.0000
+n =  5 | Theoretical P(A_n): 0.8000 | Monte Carlo: 0.8005
+n = 10 | Theoretical P(A_n): 0.9000 | Monte Carlo: 0.9000
+n = 25 | Theoretical P(A_n): 0.9600 | Monte Carlo: 0.9601
+n = 50 | Theoretical P(A_n): 0.9800 | Monte Carlo: 0.9799
+\end{lstlisting}
+
+\subsection{The Birthday Problem: Exact Value and Simulation}
+
+\pycode{code/ch01/c01_2_birthday_problem.py}
+\begin{lstlisting}[style=output]
+n=10 | exact=0.1169 | exponential approx.=0.1160 | MC=0.1179
+n=23 | exact=0.5073 | exponential approx.=0.5000 | MC=0.5067
+n=30 | exact=0.7063 | exponential approx.=0.6963 | MC=0.7086
+n=50 | exact=0.9704 | exponential approx.=0.9651 | MC=0.9707
+\end{lstlisting}
+
+\subsection{Bayes' Formula: Simulating a Diagnostic Test}
+
+\pycode{code/ch01/c01_3_bayes_diagnostic_test.py}
+\begin{lstlisting}[style=output]
+P(D | +) theory    : 0.1667
+P(D | +) simulation: 0.1664
+P(+)     theory    : 0.0594 | simulation: 0.0592
+\end{lstlisting}
+
+\section{Comments and Notes}
+
+\begin{remark}[Why Not Assign a Probability to Every Subset?]
+It is impossible to assign a translation-invariant, countably additive ``length'' to \emph{all} subsets of $\Omega=[0,1]$ (the Vitali set; this requires the axiom of choice). We therefore define probability only on a $\sigma$-algebra of ``sufficiently regular'' sets. Every set met in practice (intervals, their countable unions and intersections, and so on) belongs to the Borel $\sigma$-algebra.
+\end{remark}
+
+\begin{remark}[Probability Zero Is Not Impossibility]
+In the uniform example above, $\P(\{\omega\})=0$ for every single point $\{\omega\}$, yet the outcome of the experiment is always some point. This is why events of probability 1 are said to occur ``almost surely'' (a.s.).
+\end{remark}
+
+\begin{remark}[Monte Carlo Error]
+When a probability $p$ is estimated by the proportion in $N$ independent trials, the standard error is $\sqrt{p(1-p)/N}$. For $N=500\,000$ and $p=0.5$ this is about $0.0007$; the differences between the theoretical and simulated values in the outputs above are of this order. The proportion is guaranteed to converge by the Law of Large Numbers in Chapter~\ref{ch:esitsizlikler}.
+\end{remark}
+
+% --- CHAPTER SUMMARY (generated by tools/summaries.py) ---
+\section{Chapter Summary}
+\begin{summary}
+\begin{itemize}
+  \item A probability model is a triple $(\Omega,\F,\P)$: the events form a $\sigma$-algebra (Definition~\ref{def:sigma-cebiri}) and $\P$ satisfies Kolmogorov's axioms, in particular countable additivity (Definition~\ref{def:kolmogorov}).
+  \item The complement rule, monotonicity, inclusion--exclusion and Boole's inequality are derived from the axioms (Proposition~\ref{prop:temel-ozellikler}).
+  \item A probability measure is continuous along monotone sequences of events (Theorem~\ref{thm:sureklilik}). Being able to interchange limits and probability underlies all later convergence results.
+  \item Conditional probability, the law of total probability and Bayes' formula (Theorem~\ref{thm:bayes}) are the probabilistic counterpart of Bayesian inference (Chapter~\ref{ch:bayes}). Mutual independence is stronger than pairwise independence.
+  \item Borel--Cantelli lemmas (Theorem~\ref{thm:borel-cantelli}): if $\sum\P(A_n)<\infty$, the $A_n$ occur infinitely often with probability $0$; for independent events with $\sum\P(A_n)=\infty$ this probability is $1$. They are the main tool in proofs of almost sure convergence.
+\end{itemize}
+\end{summary}
+% --- END OF CHAPTER SUMMARY ---
+
+\paragraph{Further reading.} For measure-theoretic foundations see \cite[Chapter~1]{durrett} and \cite[Sections~1--4]{billingsley}; for a more introductory treatment see \cite[Chapter~1]{casella} and \cite[Chapter~1]{wasserman}.
+
+\section{Exercises}
+
+\begin{exercise}\label{exr:01-1}
+Show that if $\F_1$ and $\F_2$ are $\sigma$-algebras, then so is $\F_1\cap\F_2$, but that $\F_1\cup\F_2$ in general is not, by giving an example.
+\hfill\hyperref[coz:01-1]{\footnotesize$\rightarrow$\,Solution}
+\end{exercise}
+
+\begin{exercise}\label{exr:01-2}
+Prove the inclusion--exclusion formula for three events and obtain the general formula for $n$ events by induction. Use it to show that when $n$ letters are placed in envelopes at random, the probability that no letter goes into its own envelope converges to $e^{-1}$ as $n\to\infty$.
+\hfill\hyperref[coz:01-2]{\footnotesize$\rightarrow$\,Solution}
+\end{exercise}
+
+\begin{exercise}\label{exr:01-3}
+Prove the Bonferroni inequality $\P(\bigcap_{i=1}^n A_i)\ge 1-\sum_{i=1}^n \P(A_i^c)$. Discuss its use in multiple hypothesis testing (Chapter~\ref{ch:neyman-pearson}).
+\hfill\hyperref[coz:01-3]{\footnotesize$\rightarrow$\,Solution}
+\end{exercise}
+
+\begin{exercise}\label{exr:01-4}
+Show that if $A$ and $B$ are independent, then so are $A$ and $B^c$, and $A^c$ and $B^c$.
+\hfill\hyperref[coz:01-4]{\footnotesize$\rightarrow$\,Solution}
+\end{exercise}
+
+\begin{exercise}\label{exr:01-5}
+Write Python code that plots $\P(D\mid+)$ in Example~\ref{ex:tani} as the prevalence $\P(D)$ varies over $[0.001,\,0.5]$. Find analytically the prevalence threshold above which the positive predictive value exceeds 50\%.
+\hfill\hyperref[coz:01-5]{\footnotesize$\rightarrow$\,Solution}
+\end{exercise}
+
+\end{document}

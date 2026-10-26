@@ -1,0 +1,139 @@
+\documentclass[11pt,a4paper,oneside]{book}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[english]{babel}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{bm}
+\usepackage{geometry}
+\geometry{top=2.5cm, bottom=2.5cm, left=3cm, right=2.5cm}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{booktabs}
+\usepackage{longtable,array}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{subfiles}
+\usepackage{makeidx}
+\makeindex                       % index: main.ind is produced by tools/make_index.py build
+\usepackage[most]{tcolorbox}
+% Chapter summary box (filled by tools/summaries.py)
+\newtcolorbox{summary}{breakable,enhanced,colback=blue!4!white,colframe=blue!50!black,
+  boxrule=0.6pt,arc=2pt,left=6pt,right=6pt,top=4pt,bottom=4pt,
+  before upper={\setlist[itemize]{leftmargin=1.2em,itemsep=3pt,topsep=2pt,parsep=0pt}}}
+\emergencystretch=2.5em          % avoids overfull lines with long inline math
+
+% ------------------------------------------------------------------
+% Theorem environments (all share one counter per chapter:
+% Definition 3.2, Theorem 3.3, Example 3.4 ... which makes items easy to find)
+% ------------------------------------------------------------------
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[chapter]
+\newtheorem{example}[definition]{Example}
+\newtheorem{exercise}{Exercise}[chapter]
+% Appendix B: solutions to exercises (linked back to the exercise)
+\newenvironment{solution}[1]{\par\medskip\noindent\phantomsection\label{coz:#1}\textbf{Exercise~\ref{exr:#1}.}\enspace}{\par}
+\theoremstyle{plain}
+\newtheorem{theorem}[definition]{Theorem}
+\newtheorem{lemma}[definition]{Lemma}
+\newtheorem{proposition}[definition]{Proposition}
+\newtheorem{corollary}[definition]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}[definition]{Remark}
+
+% ------------------------------------------------------------------
+% Common macros
+% ------------------------------------------------------------------
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\E}{\mathbb{E}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\I}{\mathbb{I}}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Corr}{Corr}
+\DeclareMathOperator{\Bias}{Bias}
+\DeclareMathOperator{\MSE}{MSE}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\newcommand{\iid}{\overset{\text{i.i.d.}}{\sim}}
+\newcommand{\pto}{\xrightarrow{P}}
+\newcommand{\dto}{\xrightarrow{d}}
+\newcommand{\asto}{\xrightarrow{\text{a.s.}}}
+\newcommand{\Lto}[1]{\xrightarrow{L^{#1}}}
+\newcommand{\Normal}{\mathcal{N}}
+\newcommand{\X}{\mathbf{X}}
+\newcommand{\x}{\mathbf{x}}
+\newcommand{\indep}{\perp\!\!\!\perp}
+
+% ------------------------------------------------------------------
+% Code listings
+% ------------------------------------------------------------------
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.96,0.96,0.96}
+\definecolor{outcolour}{rgb}{0.93,0.95,1.0}
+\lstdefinestyle{pythonstyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{blue}\bfseries,
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breaklines=true,
+    numbers=left,
+    frame=single,
+    columns=fullflexible,
+    keepspaces=true,
+    showstringspaces=false,
+    upquote=true
+}
+\lstdefinestyle{output}{
+    backgroundcolor=\color{outcolour},
+    basicstyle=\ttfamily\footnotesize,
+    breaklines=true,
+    numbers=none,
+    frame=leftline,
+    rulecolor=\color{blue!50},
+    columns=fullflexible,
+    keepspaces=true,
+    title={\footnotesize\itshape Output}
+}
+\lstset{style=pythonstyle,
+    literate={ı}{{\i}}1 {İ}{{\.I}}1 {ğ}{{\u{g}}}1 {Ğ}{{\u{G}}}1
+             {ş}{{\c{s}}}1 {Ş}{{\c{S}}}1 {ç}{{\c{c}}}1 {Ç}{{\c{C}}}1
+             {ö}{{\"o}}1 {Ö}{{\"O}}1 {ü}{{\"u}}1 {Ü}{{\"U}}1 {â}{{\^a}}1
+             {é}{{\'e}}1 {≤}{{$\le$}}1 {≥}{{$\ge$}}1 {θ}{{$\theta$}}1
+             {λ}{{$\lambda$}}1 {μ}{{$\mu$}}1 {σ}{{$\sigma$}}1 {α}{{$\alpha$}}1
+             {β}{{$\beta$}}1 {χ}{{$\chi$}}1 {²}{{$^2$}}1 {≈}{{$\approx$}}1
+}
+
+% Python code is read from separate files under code/; the first two lines (header comment) are hidden.
+\newcommand{\pycode}[1]{\lstinputlisting[language=Python,firstline=3,firstnumber=1,title={\footnotesize\ttfamily\detokenize{#1}}]{#1}}
+
+\title{\textbf{\Huge Theory of Statistics}\\[4pt] \Large Axiomatic Foundations, Proofs and Computational Applications}
+\author{\textbf{İbrahim Güney}}
+\date{\today}
+
+\begin{document}
+\frontmatter
+\maketitle
+\subfile{preface}
+\tableofcontents
+
+\mainmatter
+\part{Foundations of Probability Theory}
+\subfile{ch01_probability_spaces}
+
+\appendix
+\part{Appendices}
+\subfile{app_b_solutions}
+
+\backmatter
+\subfile{bibliography}
+
+\end{document}

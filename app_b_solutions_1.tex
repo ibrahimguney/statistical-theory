@@ -1,0 +1,46 @@
+% Appendix B, part one (Chapters 1-10). Included by app_b_solutions.tex via \input.
+
+\section{Probability Spaces}
+\noindent{\small Chapter~\ref{ch:olasilik-uzaylari}.}
+
+\begin{solution}{01-1}
+Let $\F=\F_1\cap\F_2$. Since $\Omega$ is in both, $\Omega\in\F$. If $A\in\F$, then $A$ belongs to both families, and since both are closed under complements, $A^c\in\F_1\cap\F_2$. The same argument works for countable unions. (The same proof works for the intersection of arbitrarily many $\sigma$-algebras; the definition of the generated $\sigma$-algebra rests on this.)
+Counterexample for the union: $\Omega=\{1,2,3\}$, $\F_1=\{\emptyset,\{1\},\{2,3\},\Omega\}$, $\F_2=\{\emptyset,\{2\},\{1,3\},\Omega\}$. Then $\{1\},\{2\}\in\F_1\cup\F_2$, but $\{1\}\cup\{2\}=\{1,2\}$ is in neither; the union is not closed under unions.
+\end{solution}
+
+\begin{solution}{01-2}
+Applying the two-event formula to $A\cup B$ and $C$ and using distributivity gives
+\[
+\P(A\cup B\cup C)=\P(A)+\P(B)+\P(C)-\P(AB)-\P(AC)-\P(BC)+\P(ABC)
+\]
+($AB=A\cap B$). The general formula
+\[
+\P\Big(\bigcup_{i=1}^nA_i\Big)=\sum_{k=1}^n(-1)^{k+1}\sum_{i_1<\dots<i_k}\P(A_{i_1}\cap\dots\cap A_{i_k})
+\]
+follows by induction: for $B=\bigcup_{i\le n}A_i$, $\P(B\cup A_{n+1})=\P(B)+\P(A_{n+1})-\P\big(\bigcup_{i\le n}(A_i\cap A_{n+1})\big)$; apply the induction hypothesis to the two unions on the right and collect terms.
+\emph{Matching problem:} let $A_i=\{\text{letter } i \text{ is in the right envelope}\}$. The probability that $k$ given letters are in the right place is $(n-k)!/n!$, and there are $\binom nk$ such choices; the inner sum equals $1/k!$. The probability that no letter is in the right place is
+\[
+1-\sum_{k=1}^n\frac{(-1)^{k+1}}{k!}=\sum_{k=0}^n\frac{(-1)^k}{k!}\xrightarrow{n\to\infty}e^{-1}\approx0.368 .
+\]
+Convergence is very fast: for $n=6$ the difference is below $10^{-4}$.
+\end{solution}
+
+\begin{solution}{01-3}
+By De Morgan and Boole's inequality, $\P(\bigcap A_i)=1-\P(\bigcup A_i^c)\ge1-\sum\P(A_i^c)$.
+\emph{Multiple testing:} for $m$ true null hypotheses let $A_i=\{\text{test } i \text{ does not reject falsely}\}$. If each test is carried out at level $\alpha/m$, then $\P(A_i^c)\le\alpha/m$, and the probability of no false rejection at all is $\ge1-\alpha$. This is the Bonferroni correction (see Exercise~\ref{exr:13-4}); it holds whatever the dependence between the tests, but it is conservative when the tests are positively dependent.
+\end{solution}
+
+\begin{solution}{01-4}
+$\P(A\cap B^c)=\P(A)-\P(A\cap B)=\P(A)-\P(A)\P(B)=\P(A)\P(B^c)$, so $A\indep B^c$. Applying this result again to the pair $(B^c,A)$ gives $B^c\indep A^c$.
+\end{solution}
+
+\begin{solution}{01-5}
+With prevalence $\pi$ the positive predictive value is $\mathrm{PPV}(\pi)=\frac{0.99\pi}{0.99\pi+0.05(1-\pi)}$. Then $\mathrm{PPV}>\frac12\iff0.99\pi>0.05(1-\pi)\iff\pi>\frac{0.05}{1.04}\approx0.0481$. So unless the prevalence exceeds about $4.8\%$, most positive results are false positives. For the plot:
+\begin{lstlisting}[language=Python]
+import numpy as np, matplotlib.pyplot as plt
+pi = np.linspace(0.001, 0.5, 500)
+ppv = 0.99*pi / (0.99*pi + 0.05*(1 - pi))
+plt.semilogx(pi, ppv); plt.axhline(0.5, ls=":"); plt.axvline(0.05/1.04, ls=":")
+plt.xlabel("prevalence"); plt.ylabel("P(D | +)"); plt.show()
+\end{lstlisting}
+\end{solution}

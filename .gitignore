@@ -1,0 +1,22 @@
+# LaTeX ara dosyaları
+*.aux
+*.log
+*.out
+*.toc
+*.idx
+*.ilg
+*.lof
+*.lot
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+# bölümlerin tek başına derlenmesiyle oluşan PDF'ler (main.pdf hariç)
+ch*.pdf
+app_*.pdf
+preface.pdf
+bibliography.pdf
+# Python
+__pycache__/
+.ipynb_checkpoints/
+notebooks/_figures/
+_tek/

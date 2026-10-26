@@ -1,0 +1,52 @@
+\documentclass[main.tex]{subfiles}
+\begin{document}
+
+\chapter{Preface}
+
+This book aims to present the core ideas of mathematical statistics as a single whole, starting from measure-theoretic probability and continuing through point estimation, hypothesis testing, interval estimation and Bayesian inference. The final part unifies these topics within decision theory (minimaxity and admissibility) and extends them to three topics that arise often in practice: nonparametric methods, multiple testing and the false discovery rate, and the EM algorithm together with generalized linear models. Every chapter follows the same structure:
+
+\begin{enumerate}[label=\textbf{\arabic*.}]
+  \item \textbf{Introduction and motivation:} the question the chapter sets out to answer.
+  \item \textbf{Definitions:} precise, axiomatic statements.
+  \item \textbf{Theorems and proofs:} the main results, with their assumptions stated explicitly.
+  \item \textbf{Worked examples:} what the theory says for the classical distributions.
+  \item \textbf{Computational applications:} Python code that checks the theoretical results by Monte Carlo simulation, together with the actual output of that code.
+  \item \textbf{Comments:} the limits of the results, common mistakes and links to other chapters.
+  \item \textbf{Chapter summary:} a box collecting the main results with their theorem numbers, and a note pointing to the corresponding chapters of standard textbooks.
+  \item \textbf{Exercises:} for consolidating the material.
+\end{enumerate}
+
+\paragraph{Appendices.} Appendix~\ref{ek:dagilimlar} at the end of the book is a reference table of the densities, means, variances and MGFs of common distributions, the relations between them and their conjugate priors. Appendix~\ref{ek:cozumler} gives solutions to all the exercises; the link at the end of each exercise leads to its solution, and the heading of each solution leads back to the exercise. The \emph{Index} at the very end lists the pages on which the main concepts appear; the page on which a concept is defined is set in bold.
+
+\paragraph{About the code.} All code is written in Python~3 with \texttt{numpy}, \texttt{scipy} and \texttt{matplotlib}. Each code block is a separate file in the \texttt{code/} folder of the book (the file name is printed above the code box) and runs on its own; all of them can be run with \texttt{python3 code/\allowbreak run\_all.py}. The simulations use numpy's recommended random number interface:
+\begin{center}\texttt{rng = np.random.default\_rng(42)}\end{center}
+Because the seed is fixed, the results are reproducible. The ``Output'' boxes directly below the code blocks were produced by actually running the code. Throughout the book the Gamma and exponential distributions are written with a \emph{rate} parameter (see Notation), whereas \texttt{numpy} and \texttt{scipy} parametrise them by the \emph{scale} $=1/\text{rate}$. Expressions such as \texttt{scale=1/beta} in the code perform this conversion.
+
+\section*{Notation}
+
+\begin{center}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Symbol} & \textbf{Meaning} \\
+\midrule
+$(\Omega,\F,\P)$ & Probability space \\
+$\B(\R)$ & Borel $\sigma$-algebra on $\R$ \\
+$F_X$, $f_X$, $p_X$ & Distribution function (CDF), density (pdf), probability mass function (pmf) \\
+$\E$, $\Var$, $\Cov$ & Expectation, variance, covariance \\
+$X_1,\dots,X_n \iid F$ & Independent and identically distributed sample \\
+$\bar X_n$, $S_n^2$ & Sample mean, unbiased sample variance (divided by $n-1$) \\
+$X_{(1)}\le\dots\le X_{(n)}$ & Order statistics \\
+$\pto$, $\dto$, $\asto$, $\Lto{p}$ & Convergence in probability, in distribution, almost surely, in $L^p$ \\
+$L(\theta;\x)$, $\ell(\theta;\x)$ & Likelihood and log-likelihood function \\
+$I_1(\theta)$, $I_n(\theta)$ & Fisher information for one and for $n$ observations \\
+$\Phi$, $\varphi$, $z_\alpha$ & Standard normal CDF, pdf and upper $\alpha$ quantile: $\Phi(z_\alpha)=1-\alpha$ \\
+$\chi^2_{k,\alpha}$, $t_{k,\alpha}$ & Upper $\alpha$ quantiles of the chi-square and $t$ distributions \\
+$\text{Gamma}(\alpha,\beta)$ & Shape $\alpha$, \emph{rate} $\beta$: $f(x)=\frac{\beta^\alpha}{\Gamma(\alpha)}x^{\alpha-1}e^{-\beta x}$, mean $\alpha/\beta$ \\
+$\text{Exp}(\lambda)$ & Rate $\lambda$: $\text{Gamma}(1,\lambda)$, mean $1/\lambda$; also $\chi^2_k=\text{Gamma}(k/2,\frac12)$ \\
+$\I_A$ & Indicator function of the event $A$ \\
+$\indep$ & Independence \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\end{document}
