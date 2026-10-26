@@ -215,3 +215,36 @@ $\E\bar X^2=\mu^2+\sigma^2/n$: in Theorem~\ref{thm:jackknife}, $a=\sigma^2$, $b=
 That is, the jackknife correction automatically produces the UMVUE of $\mu^2$ (in the normal model). Numerical check ($n=12$): the two expressions agree exactly, $5.369554$.
 \end{solution}
 
+\section{Bayesian Inference}
+\noindent{\small Chapter~\ref{ch:bayes}.}
+
+\begin{solution}{19-1}
+The posterior is $\text{Gamma}(\alpha+\sum x_i,\beta+n)$, with mean
+$\frac{\alpha+n\bar x}{\beta+n}=\frac{\beta}{\beta+n}\cdot\frac\alpha\beta+\frac{n}{\beta+n}\cdot\bar x$.
+For $\alpha=2$, $\beta=1$, $n=10$, $\sum x_i=34$: the posterior is $\text{Gamma}(36,11)$, with mean $36/11=3.273=\frac1{11}\cdot2+\frac{10}{11}\cdot3.4$; the $95\%$ equal-tailed credible interval is $[2.292,\,4.425]$. The posterior predictive distribution of a new observation is $\text{NegBin}\big(36,\frac{11}{12}\big)$ (in the parametrisation of Appendix~\ref{ek:dagilimlar}): mean $3.273$, variance $3.570$ (larger than for a Poisson; parameter uncertainty); $\P(\tilde X=0,\dots,5)=0.044;\ 0.131;\ 0.202;\ 0.213;\ 0.173;\ 0.115$.
+\end{solution}
+
+\begin{solution}{19-2}
+The joint posterior is $\pi(\mu,\sigma^2\mid\x)\propto(\sigma^2)^{-n/2-1}\exp\big\{-\frac{(n-1)s^2+n(\mu-\bar x)^2}{2\sigma^2}\big\}$. Integrating over $\sigma^2$ (an inverse-Gamma kernel):
+\[
+\pi(\mu\mid\x)\propto\big[(n-1)s^2+n(\mu-\bar x)^2\big]^{-n/2}\propto\Big(1+\frac{t^2}{n-1}\Big)^{-n/2},\qquad t=\frac{\mu-\bar x}{s/\sqrt n},
+\]
+which is the $t_{n-1}$ kernel. Hence the $95\%$ HPD interval $\bar x\pm t_{n-1,0.025}s/\sqrt n$ is numerically identical to the classical $t$ interval; the interpretation differs (posterior probability vs.\ long-run coverage). This ``matching prior'' example is an exact finite-sample version of the Bernstein--von Mises theorem of Chapter~\ref{ch:bayes}.
+\end{solution}
+
+\begin{solution}{19-3}
+With $w=\frac{\tau^2}{\tau^2+\sigma^2/n}$, $\mu_n=(1-w)\mu_0+w\bar X$. The frequentist MSE is $\MSE_\theta(\mu_n)=w^2\frac{\sigma^2}{n}+(1-w)^2(\theta-\mu_0)^2$. $\MSE_\theta(\mu_n)<\sigma^2/n\iff(1-w)^2\Delta^2<(1-w^2)\frac{\sigma^2}{n}\iff\Delta^2<\frac{1+w}{1-w}\cdot\frac{\sigma^2}{n}=2\tau^2+\frac{\sigma^2}{n}$, where $\Delta=\theta-\mu_0$. If the true value is closer to the prior mean than about $\sqrt{2\tau^2+\sigma^2/n}$, the Bayes estimator is better; if the prior is in the ``wrong'' place, the MSE grows without bound. The James--Stein estimator of Chapter~\ref{ch:nokta-tahmin} removes this risk by estimating $\mu_0$ and $\tau^2$ from the data.
+\end{solution}
+
+\begin{solution}{19-4}
+$N=5\times10^4$ iterations, discarding the first $5000$:
+\begin{center}\small
+\begin{tabular}{@{}cccc@{}}\toprule
+$s$ & Acceptance rate & Lag-1 autocorrelation & Effective sample ($/45\,000$)\\\midrule
+$0.05$ & $0.949$ & $0.991$ & $\approx200$\\
+$0.6$ & $0.540$ & $0.651$ & $\approx9600$\\
+$5$ & $0.087$ & $0.885$ & $\approx2600$\\\bottomrule
+\end{tabular}
+\end{center}
+Very small steps are almost always accepted, but the chain moves slowly; very large steps are mostly rejected and the chain stays put. Both extremes produce high autocorrelation and a low effective sample size. For one-dimensional, roughly normal targets an acceptance rate of about $0.44$ is recommended \cite{roberts01}; $s=0.6$ is close to this. (The effective sample size was computed by summing the $\rho_k$ until they first fall below $0.05$.)
+\end{solution}
