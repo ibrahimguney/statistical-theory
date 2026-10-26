@@ -88,3 +88,167 @@ $\E(X-c)^2=\Var X+(\E X-c)^2$ is minimised at $c=\E X$, with minimum $\Var X$. $
 \begin{solution}{03-4}
 $\Var Y=\rho^2+(1-\rho^2)=1$ and $\Cov(X,Y)=\rho\Var Z_1=\rho$, so $\Corr=\rho$. Since $(X,Y)$ is a linear transformation of $(Z_1,Z_2)$, it is jointly normal. $Y-\rho X=\sqrt{1-\rho^2}Z_2$ is independent of $X=Z_1$; therefore $\E[Y\mid X]=\rho X+\E[\sqrt{1-\rho^2}Z_2]=\rho X$ and $\Var(Y\mid X)=1-\rho^2$. (A special case of Theorem~\ref{thm:mvn}(4); this construction is also the standard way of generating a bivariate normal.)
 \end{solution}
+
+\section{Joint Distributions and Transformations}
+\noindent{\small Chapter~\ref{ch:ortak}.}
+
+\begin{solution}{04-1}
+$f_{X+Y}(z)=\int_0^1\I\{0<z-x<1\}dx$: this is $z$ for $0<z\le1$ and $2-z$ for $1<z<2$ (triangular). Irwin--Hall: $\E\sum U_i=n/2$, $\Var=n/12$. For $n=12$, $\sum U_i-6$ has mean $0$ and variance $1$ and is approximately standard normal by the CLT; its excess kurtosis is only $-1.2/n=-0.1$. It needs only additions, so it was used when logarithms and trigonometric functions were expensive. Its flaw is that the support is restricted to $[-6,6]$ and the tails are wrong: the probability $\P(|Z|>6)\approx2\times10^{-9}$ is never produced.
+\end{solution}
+
+\begin{solution}{04-2}
+Map $(Z,V)\mapsto(T,V)$; the inverse is $z=t\sqrt{v/k}$ with $|J|=\sqrt{v/k}$. By Theorem~\ref{thm:jacobian},
+\[
+f_T(t)=\int_0^\infty\frac{e^{-t^2v/(2k)}}{\sqrt{2\pi}}\cdot\frac{v^{k/2-1}e^{-v/2}}{2^{k/2}\Gamma(k/2)}\sqrt{\frac vk}\,dv
+=\frac{1}{\sqrt{2\pi k}\,2^{k/2}\Gamma(k/2)}\int_0^\infty v^{\frac{k+1}{2}-1}e^{-\frac v2(1+t^2/k)}dv .
+\]
+The Gamma integral equals $\Gamma(\frac{k+1}2)\big(\frac{2}{1+t^2/k}\big)^{(k+1)/2}$; simplifying gives
+$f_T(t)=\frac{\Gamma(\frac{k+1}{2})}{\sqrt{k\pi}\,\Gamma(\frac k2)}\big(1+\frac{t^2}{k}\big)^{-\frac{k+1}{2}}$.
+\end{solution}
+
+\begin{solution}{04-3}
+$\P(X_{(1)}>x)=\prod\P(X_i>x)=e^{-n\lambda x}$. The joint density of the order statistics is $n!\lambda^ne^{-\lambda\sum_ix_{(i)}}$ ($0<x_{(1)}<\dots<x_{(n)}$). The transformation $D_k=(n-k+1)(X_{(k)}-X_{(k-1)})$ ($X_{(0)}=0$) is linear with a triangular matrix; the absolute Jacobian is $\prod_k(n-k+1)^{-1}=1/n!$ and $\sum_ix_{(i)}=\sum_kd_k$. Hence $f_{\mathbf D}(\mathbf d)=\lambda^ne^{-\lambda\sum d_k}$, $d_k>0$: the $D_k$ are i.i.d.\ $\text{Exp}(\lambda)$.
+Simulation ($n=6$, $\lambda=2$, $3\times10^5$ replications): the means of the $D_k$ are $0.498$--$0.501$ (theory $0.5$), the largest absolute correlation between them is $0.0045$, and $\E X_{(1)}=0.0830$ (theory $1/(n\lambda)=0.0833$).
+\end{solution}
+
+\begin{solution}{04-4}
+Let $X=Z_1$, $Y=\rho Z_1+\sqrt{1-\rho^2}Z_2$ and $(Z_1,Z_2)=(R\cos\Theta,R\sin\Theta)$ with $\Theta\sim\text{Uniform}(0,2\pi)$. With $\phi=\arcsin\rho$, $Y=R\sin(\Theta+\phi)$. Then $\{X>0\}=\{\Theta\in(-\frac\pi2,\frac\pi2)\}$ and $\{Y>0\}=\{\Theta\in(-\phi,\pi-\phi)\}$; their intersection is $(-\phi,\frac\pi2)$, of length $\frac\pi2+\phi$. Therefore $\P(X>0,Y>0)=\frac{\pi/2+\phi}{2\pi}=\frac14+\frac{\arcsin\rho}{2\pi}$. Simulation: for $\rho=-0.5,\,0.3,\,0.8$ we get $0.1670,\ 0.2992,\ 0.3975$ (formula: $0.1667,\ 0.2985,\ 0.3976$).
+\end{solution}
+
+\section{Inequalities and the Law of Large Numbers}
+\noindent{\small Chapter~\ref{ch:esitsizlikler}.}
+
+\begin{solution}{05-1}
+Take $\mu=0$. For every $u\ge0$, $\{X\ge t\}\subseteq\{(X+u)^2\ge(t+u)^2\}$; by Markov,
+$\P(X\ge t)\le\frac{\E(X+u)^2}{(t+u)^2}=\frac{\sigma^2+u^2}{(t+u)^2}$. The right-hand side is minimised at $u=\sigma^2/t$, where it equals $\frac{\sigma^2(t^2+\sigma^2)/t^2}{(t^2+\sigma^2)^2/t^2}=\frac{\sigma^2}{\sigma^2+t^2}$. This is always better than applying Chebyshev to one tail ($\sigma^2/t^2$).
+\end{solution}
+
+\begin{solution}{05-2}
+$M_X(t)=e^{\lambda(e^t-1)}$; Chernoff gives $\P(X\ge a)\le\inf_{t>0}\exp\{-ta+\lambda(e^t-1)\}$. Setting the derivative to zero gives $e^t=a/\lambda$ ($t>0$ since $a>\lambda$). Substituting yields $(\lambda/a)^ae^{a-\lambda}=e^{-\lambda}(e\lambda/a)^a$.
+For $\lambda=10$, $a=20$: Chebyshev gives $\P(|X-10|\ge10)\le10/100=0.1$; Chernoff gives $\le0.0210$; the exact value is $\P(X\ge20)=0.00345$. Chernoff is $5$ times better than Chebyshev and $6$ times above the exact value --- it captures the exponential rate correctly but loses a constant factor.
+\end{solution}
+
+\begin{solution}{05-3}
+By convergence in probability we can choose, for every $k$, an $n_k$ with $\P(|X_n-X|>1/k)\le2^{-k}$, and take $n_1<n_2<\dots$. For $A_k=\{|X_{n_k}-X|>1/k\}$, $\sum\P(A_k)\le\sum2^{-k}<\infty$; by Borel--Cantelli (Theorem~\ref{thm:borel-cantelli}), with probability 1 only finitely many $A_k$ occur. Hence for almost every $\omega$, $|X_{n_k}(\omega)-X(\omega)|\le1/k\to0$ for all large $k$.
+\end{solution}
+
+\begin{solution}{05-4}
+$p=\pi/4$ and $\hat\pi=4\hat p$. $|\hat\pi-\pi|\le0.01\iff|\hat p-p|\le0.0025$. Hoeffding (variables in $[0,1]$): $2e^{-2n(0.0025)^2}\le0.01\iff n\ge\frac{\ln200}{1.25\times10^{-5}}\approx423\,866$. For comparison, the CLT approximation with $\Var(4\,\I)=16p(1-p)\approx2.697$ gives $n\approx(2.576)^2\cdot2.697/10^{-4}\approx178\,900$; Hoeffding is about $2.4$ times more conservative because it uses only the bounds, not the variance.
+\end{solution}
+
+\section{Characteristic Functions and the CLT}
+\noindent{\small Chapter~\ref{ch:clt}.}
+
+\begin{solution}{06-1}
+$\varphi_X(t)=\frac{\beta^\alpha}{\Gamma(\alpha)}\int_0^\infty x^{\alpha-1}e^{-(\beta-it)x}dx=\frac{\beta^\alpha}{(\beta-it)^\alpha}=(1-it/\beta)^{-\alpha}$. (Since $\operatorname{Re}(\beta-it)=\beta>0$, the Gamma integral equals $\Gamma(\alpha)/s^\alpha$ for complex $s$ as well; analytic continuation.) For independent $X_j\sim\text{Gamma}(\alpha_j,\beta)$, $\prod_j(1-it/\beta)^{-\alpha_j}=(1-it/\beta)^{-\sum\alpha_j}$; by the uniqueness theorem, $\sum X_j\sim\text{Gamma}(\sum\alpha_j,\beta)$.
+\end{solution}
+
+\begin{solution}{06-2}
+$\varphi_{X_n}(t)=\big(1-\frac\lambda n+\frac\lambda ne^{it}\big)^n=\big(1+\frac{\lambda(e^{it}-1)}{n}\big)^n\to e^{\lambda(e^{it}-1)}$ (Lemma~\ref{lem:karmasik-limit}), the CF of Poisson$(\lambda)$. Lévy's continuity theorem gives the result.
+\end{solution}
+
+\begin{solution}{06-3}
+For $y\ge0$, $\P(Y_n>y)=\P(X_{(n)}<1-y/n)=(1-y/n)^n\to e^{-y}$. An extreme value must be scaled by $n$, not by $\sqrt n$ as for the mean: $\theta-X_{(n)}=O_P(1/n)$. This is why the variance of the German tank estimator is $O(1/n^2)$ (Example~\ref{ex:alman-tanki}) and why the limit distribution is exponential rather than normal; normal-based intervals are inappropriate for this problem (see the pivot interval, Chapter~\ref{ch:guven}).
+\end{solution}
+
+\begin{solution}{06-4}
+Let $Z\sim\Normal(0,1)$, $X_n=Z$ and $Y_n=-Z$. By symmetry $Y_n\overset d=Z$, so $X_n\dto X$ and $Y_n\dto Y$ (with $X,Y$ independent standard normals, say). But $X_n+Y_n=0$, whereas $X+Y\sim\Normal(0,2)$. Convergence in distribution concerns only the marginals; it does not determine the joint distribution. When the limit is a constant, joint convergence $(X_n,Y_n)\dto(X,c)$ holds automatically (proof of Slutsky) and continuous mapping can be applied.
+\end{solution}
+
+\section{Unbiasedness, Consistency and MSE}
+\noindent{\small Chapter~\ref{ch:nokta-tahmin}.}
+
+\begin{solution}{07-1}
+For the Poisson, $\E X=\Var X=\lambda$, so $\E\bar X=\lambda$ and $\E S^2=\sigma^2=\lambda$. $\Var\bar X=\lambda/n$; by Theorem~\ref{thm:s2-yansiz}(3),
+$\Var S^2=\frac1n\big(\lambda+3\lambda^2-\frac{n-3}{n-1}\lambda^2\big)=\frac\lambda n+\frac{2\lambda^2}{n-1}$. The variance of $\bar X$ is always smaller; indeed $\bar X$ is a function of the complete sufficient $\sum X_i$ and is the UMVUE (Chapter~\ref{ch:tamlik}).
+\end{solution}
+
+\begin{solution}{07-2}
+$\sum_xT(x)e^{-\lambda}\lambda^x/x!=e^{-2\lambda}$ for every $\lambda$ $\iff\sum_xT(x)\lambda^x/x!=e^{-\lambda}=\sum_x(-1)^x\lambda^x/x!$. By uniqueness of power series, $T(x)=(-1)^x$. The estimand lies in $(0,1)$, but the estimator takes only the values $\pm1$: when $X$ is odd it gives a negative ``probability'' estimate. $\MSE((-1)^X)=\Var=1-e^{-4\lambda}$. Comparison with the biased $e^{-2X}$:
+\begin{center}\small
+\begin{tabular}{@{}lccc@{}}\toprule
+ & $\lambda=0.5$ & $\lambda=1$ & $\lambda=2$\\\midrule
+$\MSE((-1)^X)$ & $0.865$ & $0.982$ & $1.000$\\
+$\MSE(e^{-2X})$ & $0.270$ & $0.279$ & $0.134$\\\bottomrule
+\end{tabular}
+\end{center}
+(computed exactly using $\E e^{-sX}=e^{\lambda(e^{-s}-1)}$). For the sake of unbiasedness, the MSE is $3$--$7$ times worse.
+\end{solution}
+
+\begin{solution}{07-3}
+The distribution is symmetric about $\theta$; $\bar X-\theta$ and $\frac{X_{(1)}+X_{(n)}}2-\theta$ are symmetric about zero, so both estimators are unbiased. $\Var\bar X=\frac{1}{12n}$, while the variance of the midrange is $\frac{1}{2(n+1)(n+2)}$. Simulation: $8.38\times10^{-3}$ and $3.80\times10^{-3}$ for $n=10$; $8.34\times10^{-4}$ and $4.84\times10^{-5}$ for $n=100$. The midrange converges at rate $O(1/n^2)$. Reason: $(X_{(1)},X_{(n)})$ is sufficient, whereas $\bar X$ is not (compare Example~\ref{ex:uniform-uc}).
+\end{solution}
+
+\begin{solution}{07-4}
+$m=\frac{\alpha}{\alpha+\beta}$, $v=\frac{\alpha\beta}{(\alpha+\beta)^2(\alpha+\beta+1)}=\frac{m(1-m)}{\alpha+\beta+1}$. Hence $\alpha+\beta=\frac{m(1-m)}{v}-1$ and
+$\tilde\alpha=\bar X\Big(\frac{\bar X(1-\bar X)}{\hat\sigma^2}-1\Big)$, $\tilde\beta=(1-\bar X)\Big(\frac{\bar X(1-\bar X)}{\hat\sigma^2}-1\Big)$.
+With $\alpha=2$, $\beta=5$, $n=50$ and $10^5$ replications: for $\tilde\alpha$, bias $+0.117$ and MSE $0.215$; for $\tilde\beta$, bias $+0.315$ and MSE $1.515$. The positive bias comes from $\hat\sigma^2$ being in the denominator (Jensen).
+\end{solution}
+
+\section{Cramér--Rao and Fisher Information}
+\noindent{\small Chapter~\ref{ch:cramer-rao}.}
+
+\begin{solution}{08-1}
+$\ln f=\ln p+(k-1)\ln(1-p)$, $\partial^2_p\ln f=-\frac1{p^2}-\frac{k-1}{(1-p)^2}$. With $\E(k-1)=\frac{1-p}{p}$, $I_1(p)=\frac1{p^2}+\frac{1}{p(1-p)}=\frac{1}{p^2(1-p)}$. For $g(p)=1/p=\E X$, $\bar X$ is unbiased, $\Var\bar X=\frac{1-p}{np^2}$, and the CRLB is $\frac{(1/p^2)^2}{n/(p^2(1-p))}=\frac{1-p}{np^2}$: $\bar X$ is efficient. (The geometric distribution is an exponential family and $1/p$ is a linear function of the mean of the sufficient statistic; Corollary~\ref{cor:crlb-esitlik}.)
+\end{solution}
+
+\begin{solution}{08-2}
+With $\sigma^2=h(\sigma)$, $h'(\sigma)=2\sigma$ and $I^{(\sigma^2)}=\frac{1}{2\sigma^4}$ we get $I^{(\sigma)}=\frac{4\sigma^2}{2\sigma^4}=\frac{2}{\sigma^2}$; the CRLB is $\frac{\sigma^2}{2n}$. Since $\E S=c_4\sigma$, $\Var(S/c_4)=\sigma^2(c_4^{-2}-1)$. For $\sigma=1$:
+$n=5$: $c_4=0.9400$, $\Var=0.1318$ (simulation $0.1319$), CRLB $0.100$, efficiency $0.76$;
+$n=20$: $\Var=0.0267$, CRLB $0.025$, efficiency $0.94$. $S/c_4$ is the UMVUE (Example~\ref{ex:normal-basu}) but it is not efficient; the efficiency tends to $1$ as $n\to\infty$.
+\end{solution}
+
+\begin{solution}{08-3}
+$\ln f=\alpha\ln\beta-\ln\Gamma(\alpha)+(\alpha-1)\ln x-\beta x$. Second derivatives: $\partial^2_\alpha=-\psi'(\alpha)$, $\partial_\alpha\partial_\beta=1/\beta$, $\partial^2_\beta=-\alpha/\beta^2$. Hence
+\[
+I_1(\alpha,\beta)=\begin{pmatrix}\psi'(\alpha)&-1/\beta\\-1/\beta&\alpha/\beta^2\end{pmatrix}.
+\]
+If $\beta$ is known, the CRLB is $\frac{1}{n\psi'(\alpha)}$; if not, it is $[I^{-1}]_{11}/n=\frac{\alpha}{n(\alpha\psi'(\alpha)-1)}$. The ratio is $\frac{\alpha\psi'(\alpha)}{\alpha\psi'(\alpha)-1}$; at $\alpha=2$, $\psi'(2)=\pi^2/6-1\approx0.6449$ and the ratio is $\approx4.45$. Not knowing the scale more than quadruples the variance for estimating the shape; the two parameters are strongly ``entangled'' (the off-diagonal term is non-zero).
+\end{solution}
+
+\begin{solution}{08-4}
+$\bar X\sim\Normal(\theta,1/n)$: $\E\bar X^2=\theta^2+1/n$, so $\bar X^2-1/n$ is unbiased. Writing $\bar X=\theta+Z/\sqrt n$, $\bar X^2=\theta^2+2\theta Z/\sqrt n+Z^2/n$; since $\Cov(Z,Z^2)=0$, $\Var=\frac{4\theta^2}{n}+\frac{2}{n^2}$. The CRLB is $\frac{(2\theta)^2}{n}$. The gap arises because $\theta^2$ is not a linear function of $\E\bar X$ (Corollary~\ref{cor:crlb-esitlik}); that it is $O(1/n^2)$ shows that the estimator is \emph{asymptotically} efficient. At $\theta=0$ the CRLB is zero but the variance is $2/n^2$: at this point the bound is attained by no unbiased estimator.
+\end{solution}
+
+\section{Sufficiency and Rao--Blackwell}
+\noindent{\small Chapter~\ref{ch:yeterlilik}.}
+
+\begin{solution}{09-1}
+A two-parameter full-rank exponential family (the natural parameter $(\alpha-1,-\beta)$ ranges over an open set): $\big(\sum\ln X_i,\sum X_i\big)$ is minimal sufficient (Theorem~\ref{thm:ustel-yeterli}). If $\alpha$ is known, $\sum X_i$ alone is minimal sufficient; if $\beta$ is known, $\sum\ln X_i$ (i.e.\ the geometric mean) alone is.
+\end{solution}
+
+\begin{solution}{09-2}
+$L(\theta;\x)=\I\{x_{(n)}-1<\theta<x_{(1)}\}$. For $L(\theta;\x)/L(\theta;\mathbf y)$ to be independent of $\theta$ (apart from the $0/0$ ambiguity), the two indicators must equal $1$ on the same set of $\theta$, i.e.\ $(x_{(n)}-1,x_{(1)})=(y_{(n)}-1,y_{(1)})$. By Theorem~\ref{thm:minimal}, $(X_{(1)},X_{(n)})$ is minimal sufficient. A two-dimensional minimal sufficient statistic for one parameter shows that the data contain a component that carries no information about $\theta$ but cannot be discarded (the range $R$, which is ancillary); the statistic is not complete and there is no UMVUE (Example~\ref{ex:tam-degil}).
+\end{solution}
+
+\begin{solution}{09-3}
+$W^*=\P(X_1=X_2=1\mid T=t)$. Given $T=t$, the positions of the successes form $\binom nt$ equally likely arrangements (Example~\ref{ex:bernoulli-yeterli}); the number of arrangements in which the first two trials are successes is $\binom{n-2}{t-2}$. Hence
+$W^*=\binom{n-2}{t-2}\big/\binom nt=\frac{t(t-1)}{n(n-1)}$. By completeness, this is the UMVUE of $p^2$.
+\end{solution}
+
+\begin{solution}{09-4}
+$\E[\I\{X_1\le c\}\mid\bar X]=\P(X_1\le c\mid\bar X)=\Phi\big((c-\bar X)/\sqrt{1-1/n}\big)$. With $n=5$, $\mu=0$, $c=1$ (target $\Phi(1)=0.8413$) and $4\times10^5$ replications: the mean of the Rao--Blackwell estimator is $0.8415$ (unbiased), MSE $0.01280$; the mean of the plug-in $\Phi(c-\bar X)$ is $0.8195$ (bias $-0.022$), MSE $0.01273$. At this point the two estimators have almost the same MSE: the bias of the plug-in is balanced by the extra variance introduced by dividing by $\sqrt{1-1/n}$.
+\end{solution}
+
+\section{Completeness and UMVUE}
+\noindent{\small Chapter~\ref{ch:tamlik}.}
+
+\begin{solution}{10-1}
+$T=\sum X_i\sim\text{Gamma}(n,\lambda)$ is complete sufficient. Since $\E[1/T]=\frac{\lambda}{n-1}$, $\frac{n-1}{T}$ is the UMVUE of $\lambda$ and $\bar X=T/n$ that of $1/\lambda$. For $\P(X>c)$, $W=\I\{X_1>c\}$ is unbiased. By Exercise~\ref{exr:10-4}, $X_1/T\sim\text{Beta}(1,n-1)$ independently of $T$; hence
+\[
+\E[W\mid T]=\P\Big(\frac{X_1}{T}>\frac cT\ \Big|\ T\Big)=\Big(1-\frac cT\Big)^{n-1}\quad(T>c),\qquad 0\ (T\le c),
+\]
+because $\P(\text{Beta}(1,n-1)>u)=(1-u)^{n-1}$. By Lehmann--Scheffé this is the UMVUE.
+\end{solution}
+
+\begin{solution}{10-2}
+$\bar X$ is complete sufficient in the $\Normal(\mu,1)$ family. $(X_1,\bar X)$ is jointly normal with $\Cov(X_1,\bar X)=1/n=\Var\bar X$, so by Theorem~\ref{thm:mvn}(4) $X_1\mid\bar X\sim\Normal(\bar X,1-1/n)$. Thus $\E[\I\{X_1\le c\}\mid\bar X]=\Phi\big((c-\bar X)/\sqrt{1-1/n}\big)$, which by Lehmann--Scheffé is the UMVUE. (For a numerical comparison see Exercise~\ref{exr:09-4}.)
+\end{solution}
+
+\begin{solution}{10-3}
+$L\propto\theta^{-n}\exp\{\frac1\theta\sum x_i-\frac{1}{2\theta^2}\sum x_i^2\}$. $L(\x)/L(\mathbf y)$ is independent of $\theta$ iff $\frac a\theta-\frac{b}{2\theta^2}\equiv0$ ($a,b$: the differences of the sums), i.e.\ $a=b=0$; so $(\sum X_i,\sum X_i^2)$, equivalently $(\bar X,S^2)$, is minimal sufficient. However, $\E\bar X^2=\theta^2+\theta^2/n$ and $\E S^2=\theta^2$; hence $g=\frac{n}{n+1}\bar X^2-S^2$ has mean zero for every $\theta$ without being zero: the statistic is not complete. The violated condition: the natural parameter $(1/\theta,-1/(2\theta^2))$ traces a \emph{curve} in $\R^2$ and contains no open set.
+\end{solution}
+
+\begin{solution}{10-4}
+Writing $X_i=Y_i/\lambda$ with $Y_i\iid\text{Exp}(1)$, $X_i/T=Y_i/\sum Y_j$; its distribution does not depend on $\lambda$, i.e.\ $\mathbf U$ is ancillary. Since $T$ is complete sufficient, Basu's theorem gives $T\indep\mathbf U$. By $\sum_iU_i=1$ and symmetry, $\E U_1=1/n$. (A second route via Basu: $\E X_1=\E[U_1T]=\E U_1\cdot\E T$, i.e.\ $1/\lambda=\E U_1\cdot n/\lambda$.) Moreover, by Example~\ref{ex:beta-gamma}, $U_1\sim\text{Beta}(1,n-1)$.
+\end{solution}
