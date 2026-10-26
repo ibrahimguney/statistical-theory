@@ -1,0 +1,247 @@
+\documentclass[main.tex]{subfiles}
+\begin{document}
+
+\chapter{The Cramér--Rao Lower Bound and Fisher Information}\label{ch:cramer-rao}\chaptermark{Cramér--Rao and Fisher Information}
+
+In the previous chapter we compared estimators by their MSE. A natural question is: how small can the variance be among unbiased estimators? The Cramér--Rao inequality answers with a lower bound that comes \emph{from the model itself} and that no unbiased estimator can beat. At the heart of this bound is the Fisher information: the amount of information an observation carries about the parameter is measured by how ``sharply'' the log-likelihood changes with the parameter. Fisher information will reappear as the asymptotic variance of the MLE (Chapter~\ref{ch:mle-asimptotik}), in Wald and score tests (Chapter~\ref{ch:lrt}) and in the Jeffreys prior (Chapter~\ref{ch:bayes}).
+
+\section{Definitions}
+
+\begin{definition}[Regularity Conditions]\label{def:duzenlilik}
+Let $\{f(x;\theta):\theta\in\Theta\}$, with $\Theta\subseteq\R$ an open interval, be a family of densities (or pmfs). We call the following the \emph{(Cramér) regularity conditions}:
+\begin{enumerate}[label=(R\arabic*)]
+  \item The support $\{x: f(x;\theta)>0\}$ does not depend on $\theta$.
+  \item For every $x$, $\theta\mapsto f(x;\theta)$ is twice differentiable.
+  \item The integral $\int f(x;\theta)\,dx$ can be differentiated twice with respect to $\theta$ under the integral sign.
+  \item $0<I_1(\theta)<\infty$ (defined below).
+\end{enumerate}
+\end{definition}
+
+\begin{definition}[Score Function]
+For a single observation the \emph{score} is $s(\theta;X)=\frac{\partial}{\partial\theta}\ln f(X;\theta)$; for an i.i.d.\ sample,
+\[
+S_n(\theta)=\frac{\partial}{\partial\theta}\ln L_n(\theta;\X)=\sum_{i=1}^n s(\theta;X_i).
+\]
+\end{definition}
+
+\begin{definition}[Fisher Information \cite{fisher22}]\label{def:fisher}
+The Fisher information of a single observation is
+\[
+I_1(\theta)=\E_\theta\Big[\big(s(\theta;X)\big)^2\Big]=-\E_\theta\left[\frac{\partial^2}{\partial \theta^2}\ln f(X;\theta)\right]
+\]
+(the second equality holds under Lemma~\ref{lem:skor}). The information of an i.i.d.\ sample of size $n$ is
+\[
+I_n(\theta) = -n\, \E_\theta\left[\frac{\partial^2}{\partial \theta^2}\ln f(X;\theta)\right]=n\,I_1(\theta).
+\]
+\end{definition}
+
+\begin{definition}[Efficient Estimator]
+An unbiased estimator of $g(\theta)$ whose variance equals the Cramér--Rao lower bound (below) for every $\theta$ is called \emph{efficient}. The \emph{efficiency} of an unbiased $T$ is $e(T)=\text{CRLB}/\Var_\theta(T)\in(0,1]$.
+\end{definition}
+
+\begin{definition}[Fisher Information Matrix]
+For $\bm\theta\in\Theta\subseteq\R^k$, the $k\times k$ Fisher information matrix is
+\[
+[I_1(\bm\theta)]_{jl}=\E_{\bm\theta}\Big[\frac{\partial\ln f}{\partial\theta_j}\frac{\partial\ln f}{\partial\theta_l}\Big]=-\E_{\bm\theta}\Big[\frac{\partial^2\ln f}{\partial\theta_j\partial\theta_l}\Big].
+\]
+\end{definition}
+
+\section{Main Theorems and Proofs}
+
+\begin{lemma}[Moments of the Score and the Information Identity]\label{lem:skor}
+Under (R1)--(R3),
+\[
+\E_\theta[s(\theta;X)]=0,\qquad \Var_\theta[s(\theta;X)]=I_1(\theta)=-\E_\theta\big[\partial_\theta^2\ln f(X;\theta)\big].
+\]
+\end{lemma}
+\begin{proof}
+Differentiate the identity $\int f(x;\theta)dx=1$ with respect to $\theta$ (R3):
+\[
+0=\int\partial_\theta f\,dx=\int\frac{\partial_\theta f}{f}f\,dx=\E_\theta[s(\theta;X)].
+\]
+Differentiating once more: $0=\int\partial_\theta\big(s\,f\big)dx=\int(\partial_\theta s)f\,dx+\int s\,\partial_\theta f\,dx=\E[\partial_\theta s]+\E[s^2]$, because $\partial_\theta f=s f$. Hence $\E[s^2]=-\E[\partial^2_\theta\ln f]$, and since $\E s=0$, $\Var(s)=\E s^2$.
+\end{proof}
+
+\begin{theorem}[Cramér--Rao Lower Bound --- CRLB \cite{rao45,cramer46}]\label{thm:crlb}
+Assume (R1)--(R4), and let $T=T(\X)$ be a statistic with $\E_\theta[T] = g(\theta)$, $\Var_\theta T<\infty$ and $\frac{d}{d\theta}\int T(\x)L(\theta;\x)d\x=\int T(\x)\partial_\theta L(\theta;\x)d\x$. Then
+\[
+\Var_\theta(T) \ge \frac{[g'(\theta)]^2}{n I_1(\theta)}\qquad\text{for every }\theta\in\Theta.
+\]
+\end{theorem}
+\begin{proof}
+For the score $S_n=\sum s(\theta;X_i)$, Lemma~\ref{lem:skor} and independence give $\E S_n=0$ and $\Var(S_n) = n I_1(\theta)$. Moreover,
+\[
+g'(\theta)=\frac{d}{d\theta}\int T\,L\,d\x=\int T\,\frac{\partial_\theta L}{L}\,L\,d\x=\E_\theta[T S_n]=\Cov_\theta(T,S_n),
+\]
+where the last step used $\E S_n=0$. By the Cauchy--Schwarz inequality (Corollary~\ref{cor:korelasyon}),
+\[
+[\Cov_\theta(T, S_n)]^2 \le \Var_\theta(T)\Var_\theta(S_n),\quad\text{i.e.}\quad [g'(\theta)]^2\le\Var_\theta(T)\cdot nI_1(\theta). \qedhere
+\]
+\end{proof}
+
+\begin{corollary}[The Equality Condition and Exponential Families]\label{cor:crlb-esitlik}
+Equality in the CRLB holds if and only if, for some function $a(\theta)$,
+\[
+S_n(\theta)=a(\theta)\big(T(\X)-g(\theta)\big)\quad\text{a.s.}
+\]
+Integrating this equation in $\theta$ gives $\ln L=A(\theta)T(\x)+B(\theta)+H(\x)$; that is, an efficient estimator exists only if the model is an \emph{exponential family} (Definition~\ref{def:ustel-aile}) and the estimand is a \emph{linear} function of the expectation of the sufficient statistic $T$.
+\end{corollary}
+\begin{proof}
+Equality in Cauchy--Schwarz is equivalent to $S_n$ and $T-g(\theta)$ being a.s.\ linearly dependent (Theorem~\ref{thm:cauchy-schwarz}); since $\E S_n=0$, there is no constant term.
+\end{proof}
+
+\begin{proposition}[Reparametrisation]\label{prop:yeniden-param}
+If $\theta=h(\eta)$ with $h$ differentiable and one-to-one, the information in the $\eta$ parametrisation is $I^{(\eta)}(\eta)=I^{(\theta)}(h(\eta))\,[h'(\eta)]^2$.
+\end{proposition}
+\begin{proof}
+Chain rule: $\partial_\eta\ln f=\partial_\theta\ln f\cdot h'(\eta)$; take the expectation of its square.
+\end{proof}
+
+\begin{theorem}[Multiparameter CRLB]\label{thm:crlb-cok}
+If $\bm\theta\in\R^k$, $T$ is scalar and $\E_{\bm\theta}T=g(\bm\theta)$, then under suitable regularity conditions
+\[
+\Var_{\bm\theta}(T)\ge\nabla g(\bm\theta)^\top\,[nI_1(\bm\theta)]^{-1}\,\nabla g(\bm\theta).
+\]
+In particular, the variance of an unbiased estimator of $\theta_1$ is $\ge[I_n^{-1}]_{11}\ge1/[I_n]_{11}$: \emph{unknown nuisance parameters reduce information} (or at best leave it unchanged).
+\end{theorem}
+\begin{proof}
+Let $I_n=nI_1(\bm\theta)$ be positive definite and $\mathbf S=\nabla_{\bm\theta}\ell(\bm\theta;\X)$ the score vector. Assume the regularity conditions of the one-parameter case (interchanging derivative and integral) hold for each component. Then $\E\mathbf S=\mathbf 0$, $\Cov(\mathbf S)=I_n$ and, differentiating $\E T=g(\bm\theta)$,
+\[
+\Cov(T,\mathbf S)=\E[T\,\mathbf S]=\nabla g(\bm\theta).
+\]
+For every $\mathbf c\in\R^k$,
+\[
+0\le\Var\big(T-\mathbf c^\top\mathbf S\big)=\Var T-2\,\mathbf c^\top\nabla g+\mathbf c^\top I_n\mathbf c .
+\]
+Choosing $\mathbf c=I_n^{-1}\nabla g$ gives $0\le\Var T-\nabla g^\top I_n^{-1}\nabla g$, the first claim. ($\mathbf c$ is the minimising choice; it corresponds to the $L^2$ projection of $T$ onto the score vector.)
+
+For $g(\bm\theta)=\theta_1$, $\nabla g=\mathbf e_1$ and the bound is $[I_n^{-1}]_{11}$. By Cauchy--Schwarz,
+\[
+1=\big(\mathbf e_1^\top I_n^{-1/2}\,I_n^{1/2}\mathbf e_1\big)^2\le\big(\mathbf e_1^\top I_n^{-1}\mathbf e_1\big)\big(\mathbf e_1^\top I_n\mathbf e_1\big)=[I_n^{-1}]_{11}\,[I_n]_{11},
+\]
+i.e.\ $[I_n^{-1}]_{11}\ge1/[I_n]_{11}$. The block inverse formula $[I_n^{-1}]_{11}=\big(I_{11}-I_{12}I_{22}^{-1}I_{21}\big)^{-1}$ (Schur complement) shows that equality holds if and only if $I_{12}=\mathbf 0$, i.e.\ when the score for $\theta_1$ is uncorrelated with the other scores.
+\end{proof}
+
+\section{Worked Examples}
+
+\begin{example}[Poisson]\label{ex:poisson-fisher}
+$\ln f(x;\lambda)=-\lambda+x\ln\lambda-\ln x!$, $s=-1+x/\lambda$, $\partial^2_\lambda\ln f=-x/\lambda^2$. Hence $I_1(\lambda)=\E X/\lambda^2=1/\lambda$ and the CRLB is $\lambda/n$. Since $\Var(\bar X)=\lambda/n$, $\bar X$ is efficient; indeed $S_n=\frac{n}{\lambda}(\bar X-\lambda)$ has the form of Corollary~\ref{cor:crlb-esitlik}.
+\end{example}
+
+\begin{example}[Bernoulli and the Normal Mean]
+$\text{Bernoulli}(p)$: $I_1(p)=\frac{1}{p(1-p)}$; $\hat p=\bar X$ is efficient. The information is smallest at $p=1/2$: when a coin toss is most ``uncertain'', a single observation carries the least information.
+$\Normal(\mu,\sigma^2)$ with $\sigma^2$ known: $s=(x-\mu)/\sigma^2$, $I_1(\mu)=1/\sigma^2$; $\bar X$ is efficient.
+\end{example}
+
+\begin{example}[Normal: Two Parameters and an Inefficient UMVUE]\label{ex:normal-fisher-matris}
+For $\bm\theta=(\mu,\sigma^2)$,
+\[
+\ln f=-\tfrac12\ln(2\pi\sigma^2)-\frac{(x-\mu)^2}{2\sigma^2},\qquad
+I_1(\mu,\sigma^2)=\begin{pmatrix}1/\sigma^2 & 0\\ 0 & 1/(2\sigma^4)\end{pmatrix}.
+\]
+The CRLB for unbiased estimators of $\sigma^2$ is $2\sigma^4/n$, whereas $\Var(S^2)=2\sigma^4/(n-1)$. So $S^2$ is not efficient (efficiency $(n-1)/n$). Nevertheless, in Chapter~\ref{ch:tamlik} we shall see that $S^2$ is the UMVUE: \emph{the CRLB is not always attainable}. (The diagonal form of the matrix shows that not knowing $\mu$ does not reduce the information about $\sigma^2$; this is the case of ``orthogonal parameters''.)
+\end{example}
+
+\begin{example}[Exponential: $\lambda$ Cannot Be Estimated Efficiently]\label{ex:ustel-crlb}
+$f(x;\lambda)=\lambda e^{-\lambda x}$ and $I_1(\lambda)=1/\lambda^2$. For the mean $g(\lambda)=1/\lambda$, $\bar X$ is unbiased with $\Var\bar X=\frac{1}{n\lambda^2}=\frac{[g'(\lambda)]^2}{nI_1}=\frac{\lambda^{-4}}{n\lambda^{-2}}$; i.e.\ it is efficient. But for $\lambda$ itself, with $T=\sum X_i\sim\text{Gamma}(n,\lambda)$, $\E[1/T]=\frac{\lambda}{n-1}$ and $\E[1/T^2]=\frac{\lambda^2}{(n-1)(n-2)}$, the estimator $\tilde\lambda=\frac{n-1}{T}$ is unbiased and
+\[
+\Var(\tilde\lambda)=\frac{\lambda^2}{n-2}>\frac{\lambda^2}{n}=\text{CRLB}.
+\]
+Since $\lambda$ is not a linear function of $\E T=n/\lambda$, by Corollary~\ref{cor:crlb-esitlik} no efficient estimator exists; but the efficiency $(n-2)/n\to1$.
+\end{example}
+
+\begin{example}[Violated Regularity: $\text{Uniform}(0,\theta)$]\label{ex:uniform-crlb}
+The support depends on $\theta$; (R1) is violated. Applying the ``formula'' anyway gives $\partial_\theta\ln(1/\theta)=-1/\theta$, $I_1=1/\theta^2$ and a pseudo-bound $\theta^2/n$. Yet $\frac{n+1}{n}X_{(n)}$ is unbiased with variance $\frac{\theta^2}{n(n+2)}$ --- $n+2$ times smaller than the pseudo-bound! Moreover $\E[s]=-1/\theta\neq0$: Lemma~\ref{lem:skor} also breaks down. The regularity conditions are not decoration.
+\end{example}
+
+\begin{example}[The Cauchy Location Family]
+For $f(x;\theta)=\frac{1}{\pi(1+(x-\theta)^2)}$, $I_1(\theta)=\frac12$. Hence the variance of any unbiased estimator is $\ge2/n$. The sample mean has infinite variance (indeed $\bar X$ is not even consistent); the sample median has asymptotic variance $\frac{\pi^2}{4n}\approx\frac{2.47}{n}$, and the MLE $\frac2n$ (Chapter~\ref{ch:mle-asimptotik}).
+\end{example}
+
+\section{Computational Applications}
+
+\subsection{Poisson: $\bar X$ Attains the CRLB}
+
+\pycode{code/ch08/c08_1_poisson_attains_crlb.py}
+\begin{lstlisting}[style=output]
+n =   5 | CRLB: 0.600000 | Empirical Var: 0.597129
+n =  15 | CRLB: 0.200000 | Empirical Var: 0.199763
+n =  30 | CRLB: 0.100000 | Empirical Var: 0.099790
+n = 100 | CRLB: 0.030000 | Empirical Var: 0.030091
+\end{lstlisting}
+
+\subsection{Moments of the Score: Checking Lemma~\ref{lem:skor}}
+
+\pycode{code/ch08/c08_2_score_moments.py}
+\begin{lstlisting}[style=output]
+Gamma : E[s]=-0.0009 | Var(s)=0.7509 | -E[s']=0.7500 | theory I=0.7500
+Cauchy: E[s]=+0.0007 | Var(s)=0.5001 | -E[s']=0.5005 | theory I=0.5000
+Uniform: E[s] = -1/theta = -0.500  (not zero!)
+\end{lstlisting}
+
+\subsection{When the CRLB Is Not Attained and When It Is Violated}
+
+\pycode{code/ch08/c08_3_crlb_not_attained_or_violated.py}
+\begin{lstlisting}[style=output]
+Exp(lambda): lambda_tilde = (n-1)/sum X
+  n=  5 | mean=2.0012 | Var=1.33392 | theory 1.33333 | CRLB 0.80000
+  n= 20 | mean=1.9998 | Var=0.22107 | theory 0.22222 | CRLB 0.20000
+  n=100 | mean=2.0003 | Var=0.04089 | theory 0.04082 | CRLB 0.04000
+Uniform(0,theta): (n+1)/n * max  vs  'pseudo-CRLB' theta^2/n
+  n=  5 | Var=0.028442 | theory 0.028571 | pseudo-CRLB 0.200000
+  n= 20 | Var=0.002279 | theory 0.002273 | pseudo-CRLB 0.050000
+  n=100 | Var=0.000099 | theory 0.000098 | pseudo-CRLB 0.010000
+\end{lstlisting}
+
+\section{Comments and Notes}
+
+\begin{remark}[A Geometric Interpretation of Fisher Information]
+$-\partial^2_\theta\ln L$ is the curvature of the log-likelihood curve at its peak. A sharp peak means that the parameter is well determined by the data; a flat peak expresses uncertainty. The observed information $J_n(\hat\theta)=-\partial^2_\theta\ell(\hat\theta)$ is the data-based counterpart of the expected information $I_n(\theta)$ and is often preferred in practice for computing standard errors \cite{efron-hinkley78}.
+\end{remark}
+
+\begin{remark}[Information Is Additive]
+The information of independent observations adds up: $I_n=nI_1$. This is the source of the $1/n$ rate of the CRLB and of the rule ``standard error $\propto1/\sqrt n$''. Information is also the local curvature of the Kullback--Leibler divergence between $f(\cdot;\theta)$ and $f(\cdot;\theta+\delta)$: $\mathrm{KL}(\theta\,\|\,\theta+\delta)\approx\frac12I_1(\theta)\delta^2$.
+\end{remark}
+
+\begin{remark}[Limits of the CRLB]
+The CRLB is a bound for \emph{unbiased} estimators only. For biased estimators the general form is $\Var_\theta T\ge[1+b'(\theta)]^2/I_n(\theta)$ ($b$: the bias function); hence a biased estimator can go below the bound in MSE (James--Stein, shrinkage estimators). Furthermore, when regularity fails as in Example~\ref{ex:uniform-crlb}, convergence faster than $1/n$ is possible (``superefficiency'').
+\end{remark}
+
+% --- CHAPTER SUMMARY (generated by tools/summaries.py) ---
+\section{Chapter Summary}
+\begin{summary}
+\begin{itemize}
+  \item The score function has mean $0$ and variance equal to the Fisher information. The information identity reads $I(\theta)=-\E\,\partial^2_\theta\ln f$ (Lemma~\ref{lem:skor}).
+  \item Cramér--Rao lower bound (Theorem~\ref{thm:crlb}): under regularity conditions, every $T$ with $\E T=g(\theta)$ satisfies $\Var T\ge g'(\theta)^2/(nI_1(\theta))$.
+  \item The bound is attained only in exponential families and only by linear functions of the natural sufficient statistic (Corollary~\ref{cor:crlb-esitlik}). Hence in most problems the CRLB is not attainable.
+  \item Under reparametrisation, Fisher information scales with the square of the derivative (Proposition~\ref{prop:yeniden-param}). In the multiparameter case the bound becomes $\nabla g^\top I_n^{-1}\nabla g$; unknown nuisance parameters raise the bound (Theorem~\ref{thm:crlb-cok}).
+  \item In models whose support depends on the parameter, regularity fails and the bound is invalid (Example~\ref{ex:uniform-crlb}).
+\end{itemize}
+\end{summary}
+% --- END OF CHAPTER SUMMARY ---
+
+\paragraph{Further reading.} \cite[Section~7.3]{casella}, \cite[Section~2.5]{lehmann-casella}, \cite[Chapter~3]{shao}.
+
+\section{Exercises}
+
+\begin{exercise}\label{exr:08-1}
+Compute $I_1(p)$ for the $\text{Geometric}(p)$ distribution ($\P(X=k)=p(1-p)^{k-1}$, $k\ge1$). Does $1/p$ have an efficient estimator?
+\hfill\hyperref[coz:08-1]{\footnotesize$\rightarrow$\,Solution}
+\end{exercise}
+
+\begin{exercise}\label{exr:08-2}
+In $\Normal(\mu,\sigma^2)$, find the Fisher information for $\sigma$ (the standard deviation, not the variance) using Proposition~\ref{prop:yeniden-param}, and compare the variance of $c_4^{-1}S$ (Chapter~\ref{ch:beklenen-deger}) with the CRLB by simulation.
+\hfill\hyperref[coz:08-2]{\footnotesize$\rightarrow$\,Solution}
+\end{exercise}
+
+\begin{exercise}\label{exr:08-3}
+Find the $2\times2$ Fisher information matrix of $\text{Gamma}(\alpha,\beta)$ (shape--rate) in terms of $\psi'(\alpha)$ (the trigamma function). For $\alpha=2$, compute how much larger the CRLB for $\alpha$ is when $\beta$ is unknown than when $\beta$ is known.
+\hfill\hyperref[coz:08-3]{\footnotesize$\rightarrow$\,Solution}
+\end{exercise}
+
+\begin{exercise}\label{exr:08-4}
+Let $X_i\iid\Normal(\theta,1)$ and $g(\theta)=\theta^2$. Show that $\bar X^2-1/n$ is unbiased with variance $\frac{4\theta^2}{n}+\frac{2}{n^2}$. What is the CRLB? Why is the difference $O(1/n^2)$?
+\hfill\hyperref[coz:08-4]{\footnotesize$\rightarrow$\,Solution}
+\end{exercise}
+
+\end{document}

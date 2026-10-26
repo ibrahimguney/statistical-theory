@@ -1,0 +1,212 @@
+\documentclass[main.tex]{subfiles}
+\begin{document}
+
+\chapter{Completeness, Lehmann--Scheffé and the UMVUE}\label{ch:tamlik}
+
+The Rao--Blackwell theorem lets us improve any unbiased estimator by conditioning on a sufficient statistic. Two questions remain open, however: (i) can different starting estimators lead to different results? (ii) is the resulting estimator really the ``best''? The notion of completeness answers both at once: if the sufficient statistic is also complete, the unbiased estimator that is a function of it is \emph{unique} and has uniformly minimum variance among all unbiased estimators. In this chapter we study this summit of point estimation theory and Basu's theorem, an unexpected by-product of completeness.
+
+\section{Definitions}
+
+\begin{definition}[Complete Statistic]\label{def:tam}
+Let $\{\P_\theta^T:\theta\in\Theta\}$ be the family of distributions of a statistic $T$. If for every measurable $g$
+\[
+\E_\theta[g(T)] = 0\quad \forall \theta\in\Theta \implies \P_\theta(g(T) = 0) = 1\quad\forall\theta\in\Theta,
+\]
+then $T$ (or its family) is called \emph{complete}. If the condition is required only for bounded $g$, it is called \emph{boundedly complete}.
+\end{definition}
+
+\begin{remark}[Interpretation]
+Completeness says that the family of distributions of $T$ is ``rich enough'': as $\theta$ varies, the distributions of $T$ are so varied that no non-zero $g(T)$ can have mean zero for every $\theta$. In linear-algebra terms, the densities $\{f_T(\cdot;\theta)\}_\theta$ ``span'' the function space; the only function orthogonal to all of them is zero.
+\end{remark}
+
+\begin{definition}[Ancillary Statistic]
+A statistic $A(\X)$ whose distribution does not depend on $\theta$ is called \emph{ancillary}. An ancillary statistic by itself carries no information about $\theta$.
+\end{definition}
+
+\begin{definition}[UMVUE]\label{def:umvue}
+An estimator $W^\circ$ of $g(\theta)$ is called a \emph{uniformly minimum variance unbiased estimator} (UMVUE) if (i) it is unbiased and (ii) $\Var_\theta(W^\circ)\le\Var_\theta(W)$ for every unbiased $W$ and \emph{every} $\theta\in\Theta$.
+\end{definition}
+
+\section{Main Theorems and Proofs}
+
+\begin{theorem}[Lehmann--Scheffé Theorem \cite{lehmann-scheffe50}]\label{thm:lehmann-scheffe}
+Let $T$ be a complete sufficient statistic. If there is a $\phi(T)$ with $\E_\theta[\phi(T)]=g(\theta)$, then $\phi(T)$ is the \emph{unique} UMVUE of $g(\theta)$.
+\end{theorem}
+\begin{proof}
+\emph{Uniqueness:} if $\phi_1(T)$ and $\phi_2(T)$ are unbiased, then $\E_\theta[\phi_1(T)-\phi_2(T)]=0$ for every $\theta$; by completeness $\phi_1(T)=\phi_2(T)$ a.s. So the unbiased estimator that is a function of $T$ is unique (in the a.s.\ sense).
+
+\emph{Optimality:} let $W$ be any unbiased estimator of $g(\theta)$. By Rao--Blackwell (Theorem~\ref{thm:rao-blackwell}), $W^*=\E[W\mid T]$ is an unbiased function of $T$ with $\Var_\theta W^*\le\Var_\theta W$. By uniqueness, $W^*=\phi(T)$ a.s. Hence $\Var_\theta\phi(T)\le\Var_\theta W$ for every $\theta$.
+\end{proof}
+
+\begin{remark}[Two Ways to Find a UMVUE]
+The theorem gives two practical recipes: (a) guess a function of the complete sufficient $T$ whose expectation is $g(\theta)$; (b) take any simple unbiased $W$ and compute $\E[W\mid T]$ (Rao--Blackwellisation). The estimator $(1-1/n)^T$ in Example~\ref{ex:poisson-rb} was found by route (b), and we now know that it is the UMVUE.
+\end{remark}
+
+\begin{theorem}[Completeness in Exponential Families; see {\cite[Section~4.3]{lehmann-romano}}]\label{thm:ustel-tam}
+Let $X_1,\dots,X_n$ be i.i.d.\ from a $k$-parameter exponential family (Definition~\ref{def:ustel-aile}) whose natural parameter space $\{(w_1(\bm\theta),\dots,w_k(\bm\theta))\}$ contains a non-empty open set in $\R^k$. Then
+\[
+\mathbf T(\X)=\Big(\sum_i t_1(X_i),\dots,\sum_i t_k(X_i)\Big)
+\]
+is a complete (and sufficient) statistic.
+\end{theorem}
+\begin{proof}[Idea of proof]
+$\E_{\bm\eta}[g(\mathbf T)]=\int g(\mathbf t)e^{\bm\eta^\top\mathbf t}\,d\nu(\mathbf t)\cdot e^{-nA(\bm\eta)}$; this means that the Laplace transforms of $g^+$ and $g^-$ agree on an open set. By uniqueness of the Laplace transform (analytic continuation), $g^+=g^-$ $\nu$-a.e. For details on uniqueness and analytic continuation see \cite[Theorem~2.7.1 and Section~4.3]{lehmann-romano}.
+\end{proof}
+
+\begin{theorem}[Basu's Theorem \cite{basu55}]\label{thm:basu}
+If $T$ is complete and (minimal) sufficient and $A$ is ancillary, then $T$ and $A$ are independent for every $\theta$.
+\end{theorem}
+\begin{proof}
+Fix a set $B$. Since $A$ is ancillary, $p_B=\P_\theta(A\in B)$ does not depend on $\theta$. Since $T$ is sufficient, $\eta_B(T)=\P(A\in B\mid T)$ is also a statistic free of $\theta$. By the tower rule, $\E_\theta[\eta_B(T)-p_B]=0$ for every $\theta$; since $\eta_B-p_B$ is bounded, bounded completeness suffices and $\eta_B(T)=p_B$ a.s. That is, $\P(A\in B\mid T)=\P(A\in B)$: independence.
+\end{proof}
+
+\begin{theorem}[Characterisation of the UMVUE]\label{thm:umvue-karakter}
+Let $W$ be an unbiased estimator of $g(\theta)$ with finite variance. Then $W$ is the UMVUE $\iff$ $W$ is uncorrelated with every unbiased estimator of zero with finite variance: $\E_\theta U=0\ \forall\theta\implies\Cov_\theta(W,U)=0\ \forall\theta$.
+\end{theorem}
+\begin{proof}
+($\Rightarrow$) Let $W$ be the UMVUE and $U$ an unbiased estimator of zero. For every $a\in\R$, $W+aU$ is unbiased and
+$\Var(W+aU)=\Var W+2a\Cov(W,U)+a^2\Var U\ge\Var W$. This is possible for all $a$ only if $\Cov(W,U)=0$ (otherwise $a=-\Cov(W,U)/\Var U$ reduces the variance).
+($\Leftarrow$) Let $W'$ be another unbiased estimator; $U=W'-W$ is an unbiased estimator of zero. Then $\Var W'=\Var W+\Var U+2\Cov(W,U)=\Var W+\Var U\ge\Var W$.
+\end{proof}
+
+\begin{remark}
+Bahadur's theorem: if a minimal sufficient statistic exists, every boundedly complete sufficient statistic is minimal sufficient. The converse is false: a minimal sufficient statistic need not be complete (Example~\ref{ex:tam-degil}).
+\end{remark}
+
+\section{Worked Examples}
+
+\begin{example}[Completeness of the Binomial]\label{ex:binom-tam}
+Let $T\sim\text{Bin}(n,p)$, $p\in(0,1)$. With $r=p/(1-p)\in(0,\infty)$,
+\[
+\E_p[g(T)]=(1-p)^n\sum_{t=0}^n g(t)\binom nt r^t=0\quad\forall p\iff\sum_{t=0}^n g(t)\binom nt r^t=0\quad\forall r>0 .
+\]
+A polynomial that vanishes identically on an open interval has all coefficients zero: $g(t)=0$, $t=0,\dots,n$. Hence $T$ is complete and $\bar X=T/n$ is the UMVUE of $p$.
+\end{example}
+
+\begin{example}[Bernoulli: the UMVUE of $p(1-p)$]
+Since $\E[T]=np$ and $\E[T^2]=np(1-p)+n^2p^2$, $\E[T(n-T)]=n(n-1)p(1-p)$. Hence
+\[
+\widehat{p(1-p)}=\frac{T(n-T)}{n(n-1)}
+\]
+is unbiased and, by Lehmann--Scheffé, the UMVUE. This is nothing but $S^2$ of 0/1 data: $S^2=\frac{T(n-T)}{n(n-1)}$. The plug-in estimator $\bar X(1-\bar X)$ is biased by the factor $\frac{n-1}{n}$.
+\end{example}
+
+\begin{example}[$\text{Uniform}(0,\theta)$ and the German Tank Problem]\label{ex:alman-tanki}
+$T=X_{(n)}$ has density $f_T(t)=nt^{n-1}/\theta^n$, $0<t<\theta$. If $\E_\theta g(T)=0$ for every $\theta>0$, then
+\[
+\int_0^\theta g(t)t^{n-1}dt=0\quad\forall\theta>0 ;
+\]
+differentiating with respect to $\theta$ (Lebesgue's differentiation theorem) gives $g(\theta)\theta^{n-1}=0$ for almost every $\theta$, i.e.\ $g=0$ a.e. $T$ is complete. Since $\E T=\frac{n}{n+1}\theta$, $\frac{n+1}{n}X_{(n)}$ is the UMVUE, and
+\[
+\Var X_{(n)}=\frac{n}{n+2}\theta^2-\frac{n^2}{(n+1)^2}\theta^2=\frac{n\theta^2}{(n+1)^2(n+2)}\implies\Var\Big(\tfrac{n+1}{n}X_{(n)}\Big)=\frac{\theta^2}{n(n+2)} .
+\]
+\emph{Historical note:} in the Second World War the Allies estimated monthly production from the serial numbers of captured German tanks with estimators of this kind. In the discrete version ($k$ draws without replacement from serial numbers $1,\dots,N$, with maximum $m$) the UMVUE is $\hat N=m(1+1/k)-1$. While intelligence estimates often overstated monthly production several times over, the statistical estimates turned out to be quite close to the production records captured after the war.
+\end{example}
+
+\begin{example}[Normal: UMVUEs and Basu]\label{ex:normal-basu}
+Let $X_i\iid\Normal(\mu,\sigma^2)$. $(\sum X_i,\sum X_i^2)$, hence $(\bar X,S^2)$, is complete sufficient (Theorem~\ref{thm:ustel-tam}). Accordingly, $\bar X$ is the UMVUE of $\mu$, $S^2$ that of $\sigma^2$, and $S/c_4(n)$ that of $\sigma$. We saw in Example~\ref{ex:normal-fisher-matris} that $S^2$ does not attain the CRLB: a UMVUE need not be efficient.
+
+\emph{An application of Basu:} hold $\sigma^2$ fixed. In the family indexed by $\mu$, $\bar X$ is complete sufficient and $S^2$ is ancillary (the distribution of the $X_i-\bar X$ does not depend on $\mu$). By Basu's theorem, $\bar X\indep S^2$. This is the key to the derivation of the $t$ distribution in Chapter~\ref{ch:guven}, and it requires no density computations at all.
+\end{example}
+
+\begin{example}[A Minimal Sufficient Statistic That Is Not Complete]\label{ex:tam-degil}
+Let $X_i\iid\text{Uniform}(\theta,\theta+1)$. $(X_{(1)},X_{(n)})$ is minimal sufficient (Chapter~\ref{ch:yeterlilik}, Exercise). However, the distribution of the range $R=X_{(n)}-X_{(1)}$ does not depend on $\theta$, and $\E R=\frac{n-1}{n+1}$. Hence $g(X_{(1)},X_{(n)})=R-\frac{n-1}{n+1}$ has mean zero for every $\theta$ without being zero: the statistic is not complete. In this model $\theta$ has \emph{no} UMVUE; different estimators attain the smallest variance at different values of $\theta$.
+\end{example}
+
+\begin{example}[Poisson: the UMVUE of $\P(X=k)$]
+$T=\sum X_i\sim\text{Poisson}(n\lambda)$ is complete sufficient. $W=\I\{X_1=k\}$ is unbiased, and since $X_1\mid T=t\sim\text{Bin}(t,1/n)$,
+\[
+\widehat{\P(X=k)}=\binom Tk\Big(\frac1n\Big)^k\Big(1-\frac1n\Big)^{T-k}
+\]
+is the UMVUE. The case $k=0$ is $(1-1/n)^T$ of Example~\ref{ex:poisson-rb}.
+\end{example}
+
+\section{Computational Applications}
+
+\subsection{The German Tank Problem}
+
+\pycode{code/ch10/c10_1_german_tank.py}
+\begin{lstlisting}[style=output]
+UMVUE variance: 83.0691 (theory: 83.3333)
+MM (2*Xbar) variance: 332.5476 (theory: 333.3333)
+\end{lstlisting}
+
+Discrete version: suppose $k=8$ tanks have been captured without replacement from $N=250$ serial numbers.
+
+\pycode{code/ch10/c10_2_german_tank_discrete.py}
+\begin{lstlisting}[style=output]
+m(1+1/k)-1 : mean=249.91 (target 250) | std=27.65
+2*mean - 1 : mean=250.12 | std=50.36
+Theory std(UMVUE) = 27.55
+\end{lstlisting}
+
+\subsection{Basu's Theorem: $\bar X\indep S^2$ Only for the Normal}
+
+\pycode{code/ch10/c10_3_basu_only_normal.py}
+\begin{lstlisting}[style=output]
+Normal  | Corr(Xbar, S^2) = +0.0042 | Corr(|Xbar-med|, S^2) = +0.0016
+Expon.  | Corr(Xbar, S^2) = +0.6962 | Corr(|Xbar-med|, S^2) = +0.3975
+Uniform | Corr(Xbar, S^2) = -0.0000 | Corr(|Xbar-med|, S^2) = -0.2594
+\end{lstlisting}
+
+For the exponential distribution $\Cov(\bar X,S^2)=\mu_3/n>0$, hence the strong positive correlation. For the uniform the first correlation is zero (symmetry, $\mu_3=0$), but the second column reveals dependence: uncorrelatedness is not independence. The normal is the \emph{only} distribution for which $\bar X$ and $S^2$ are independent (the Geary--Lukacs characterisation).
+
+\subsection{Checking the Characterisation of the UMVUE}
+In the Bernoulli model, $U=X_1-X_2$ is an unbiased estimator of zero. By Theorem~\ref{thm:umvue-karakter}, the UMVUE $\bar X$ must be uncorrelated with $U$, whereas the non-UMVUE $W=X_1$ is not.
+
+\pycode{code/ch10/c10_4_umvue_characterisation_check.py}
+\begin{lstlisting}[style=output]
+Cov(Xbar, U) = -0.00017  (UMVUE -> 0)
+Cov(X_1,  U) = +0.21002  (theory p(1-p) = 0.21000)
+T(n-T)/(n(n-1)) mean = 0.20996 | target p(1-p) = 0.21000
+Xbar(1-Xbar)    mean = 0.17497 | theory 0.17500
+\end{lstlisting}
+
+\section{Comments and Notes}
+
+\begin{remark}[Limits of the UMVUE]
+The UMVUE is a strong notion of optimality, but: (i) because of the unbiasedness constraint it can be beaten in MSE (in Example~\ref{ex:en-iyi-bolen}, $S^2$ is the UMVUE but $\frac{1}{n+1}SS$ has smaller MSE); (ii) it can be absurd (Chapter~\ref{ch:nokta-tahmin}, Exercise~\ref{exr:sacma-yansiz}: $(-1)^X$ is the only unbiased function of the complete sufficient $X$, hence the UMVUE!); (iii) it may not exist (Example~\ref{ex:tam-degil}).
+\end{remark}
+
+\begin{remark}[Completeness and Inference]
+Completeness is used not only in estimation but also in testing: in constructing similar tests and UMPU tests, one conditions on a complete sufficient statistic for the nuisance parameter (Neyman structure). Fisher's exact test is an example.
+\end{remark}
+
+% --- CHAPTER SUMMARY (generated by tools/summaries.py) ---
+\section{Chapter Summary}
+\begin{summary}
+\begin{itemize}
+  \item If $T$ is complete, $\E_\theta g(T)=0$ ($\forall\theta$) implies $g(T)=0$ a.s.\ (Definition~\ref{def:tam}). Completeness makes unbiased functions of $T$ unique.
+  \item Lehmann--Scheffé theorem (Theorem~\ref{thm:lehmann-scheffe}): an unbiased function of a complete sufficient statistic is the unique UMVUE. The practical recipe: either find this function directly, or improve any unbiased estimator by Rao--Blackwell.
+  \item In exponential families whose natural parameter space contains an open set, the natural sufficient statistic is complete (Theorem~\ref{thm:ustel-tam}).
+  \item Basu's theorem (Theorem~\ref{thm:basu}): a complete sufficient statistic is independent of every ancillary statistic. The independence of $\bar X$ and $S^2$ in normal samples follows in a few lines.
+  \item An estimator is the UMVUE if and only if it is uncorrelated with every unbiased estimator of zero (Theorem~\ref{thm:umvue-karakter}). A UMVUE may not exist and may be beaten in MSE by biased estimators.
+\end{itemize}
+\end{summary}
+% --- END OF CHAPTER SUMMARY ---
+
+\paragraph{Further reading.} \cite[Sections~6.2 and 7.3]{casella}, \cite[Sections~1.6 and 2.1]{lehmann-casella}, \cite[Section~4.3]{lehmann-romano}.
+
+\section{Exercises}
+
+\begin{exercise}\label{exr:10-1}
+Let $X_i\iid\text{Exp}(\lambda)$ (rate). Find the UMVUEs of $\lambda$ and $1/\lambda$. Show that the UMVUE of $\P(X>c)=e^{-\lambda c}$ is $\big(1-\frac{c}{T}\big)_+^{n-1}$ ($T=\sum X_i$).
+\hfill\hyperref[coz:10-1]{\footnotesize$\rightarrow$\,Solution}
+\end{exercise}
+
+\begin{exercise}\label{exr:10-2}
+Show that for $X_i\iid\Normal(\mu,1)$ the UMVUE of $\Phi(c-\mu)=\P(X\le c)$ is $\Phi\Big(\frac{c-\bar X}{\sqrt{1-1/n}}\Big)$.
+\hfill\hyperref[coz:10-2]{\footnotesize$\rightarrow$\,Solution}
+\end{exercise}
+
+\begin{exercise}\label{exr:10-3}
+Let $X_i\iid\Normal(\theta,\theta^2)$, $\theta>0$ (a ``curved exponential family''). Show that $(\bar X,S^2)$ is minimal sufficient but not complete. (Hint: write $\E[\bar X^2]$ and $\E[S^2]$ in terms of $\theta^2$.) Which condition of Theorem~\ref{thm:ustel-tam} is violated?
+\hfill\hyperref[coz:10-3]{\footnotesize$\rightarrow$\,Solution}
+\end{exercise}
+
+\begin{exercise}\label{exr:10-4}
+Use Basu's theorem to show that for $X_i\iid\text{Exp}(\lambda)$, $T=\sum X_i$ and the vector $\mathbf{U}=(X_1/T,\dots,X_n/T)$ are independent. Use this to compute $\E[X_1/T]$.
+\hfill\hyperref[coz:10-4]{\footnotesize$\rightarrow$\,Solution}
+\end{exercise}
+
+\end{document}
