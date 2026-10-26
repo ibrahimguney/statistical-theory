@@ -88,8 +88,37 @@ boxes under the code blocks were produced by actually running the code.
   are taken from `main.aux`. Do not edit the notebooks by hand.
 - `check_log.py` — fails if `main.log` contains undefined references/citations or overfull boxes
   above 4pt.
+- `sync_editions.py` — keeps this edition in step with the Turkish one (istatistik-teorisi); see
+  "Keeping the two editions in step" below. The same file is `araclar/baski_esle.py` in the
+  Turkish repository.
 - `translate_code.py` — helper used to produce the English code files from the Turkish edition
   (string replacements, with a check that no Turkish text remains).
+
+## Keeping the two editions in step
+Both editions share chapter numbers, code numbering and every `\label`, so a place in one edition
+can be found in the other by its label. With both repositories cloned side by side
+(`statistical-theory/` and `istatistik-teorisi/`, or point to the other one with `--other PATH`):
+
+    python3 tools/sync_editions.py changes --from tr   # what changed in the Turkish edition since
+                                                        # the sync point, and where it goes here
+    python3 tools/sync_editions.py check                # structural comparison of the two editions
+    python3 tools/sync_editions.py mark                 # record the new sync point
+
+- `changes` lists, for every file changed since the last sync point (uncommitted changes
+  included), the place in the other edition: the label of the theorem/example/exercise
+  (edits inside a proof are attributed to the theorem it proves), unlabelled environments by their
+  position in the section, the chapter introduction, code files and Output boxes, all with line
+  numbers in the target file. New labels are reported with the label they should follow; deleted
+  labels and environments are reported too. `--from en` gives the reverse direction;
+  `--since REV` uses another starting commit.
+- `check` compares the editions structurally: labels of every chapter and appendix (set and order),
+  citation keys, figures, the code files (token structure with identifiers, strings and comments
+  ignored, so translated messages and renamed variables are fine but a changed number or call is
+  not) and the numbers in every Output box. It exits with code 1 if anything differs.
+- `mark` writes both current commits to `tools/sync_point.json`; commit that file.
+
+Workflow: edit the Turkish edition and commit → `changes --from tr` → update the English edition
+→ `check` until it reports no difference → `mark`, and commit `tools/sync_point.json`.
 
 ## Automatic checks (GitHub Actions)
 `.github/workflows/check.yml` does the following on every push and pull request; if any step
@@ -111,3 +140,4 @@ produced with these versions. If you upgrade them, rerun `run_blocks.py` and
 | A Python file | `python3 tools/run_blocks.py chXX_*.tex` and `python3 tools/make_notebooks.py --run` |
 | Text | `python3 tools/make_index.py add`, then compile |
 | Order of chapters/theorems | compile twice; labels are resolved automatically |
+| The Turkish edition | `python3 tools/sync_editions.py changes --from tr`, update, `check`, `mark` |
