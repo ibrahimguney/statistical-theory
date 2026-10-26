@@ -3,12 +3,12 @@
 
 \chapter{The Neyman--Pearson Lemma and Most Powerful Tests}\label{ch:neyman-pearson}\chaptermark{The Neyman--Pearson Lemma}
 
-Estimation answers the question ``what is $\theta$?''; hypothesis testing answers the question ``are the data consistent with a particular claim about $\theta$?''. The contribution of Neyman and Pearson in 1933 \cite{neyman-pearson33} was to set up the testing problem as an optimisation problem: bound the probability of a type I error at a prespecified level $\alpha$ and, subject to this constraint, minimise the type II error (maximise the power). For two simple hypotheses the solution is surprisingly simple: reject $H_0$ where the likelihood ratio is large. This chapter lays the foundation for the next three (UMP tests, likelihood ratio tests, confidence intervals).
+Estimation answers the question ``what is $\theta$?''; hypothesis testing\index{hypothesis test@hypothesis test} answers the question ``are the data consistent with a particular claim about $\theta$?''. The contribution of Neyman and Pearson in 1933 \cite{neyman-pearson33} was to set up the testing problem as an optimisation problem: bound the probability of a type I\index{type i and type ii errors@type I and type II errors} error at a prespecified level $\alpha$ and, subject to this constraint, minimise the type II error (maximise the power). For two simple hypotheses the solution is surprisingly simple: reject $H_0$ where the likelihood ratio\index{likelihood ratio@likelihood ratio} is large. This chapter lays the foundation for the next three (UMP\index{uniformly most powerful ump test@uniformly most powerful (UMP) test} tests, likelihood ratio tests\index{likelihood ratio test lrt@likelihood ratio test (LRT)}, confidence intervals).
 
 \section{Definitions}
 
 \begin{definition}[Hypotheses]
-Let $\Theta=\Theta_0\cup\Theta_1$ be a disjoint decomposition. $H_0:\theta\in\Theta_0$ is the \emph{null hypothesis} and $H_1:\theta\in\Theta_1$ the \emph{alternative hypothesis}. If $\Theta_j$ consists of a single point the hypothesis is \emph{simple}, otherwise it is \emph{composite}.
+Let $\Theta=\Theta_0\cup\Theta_1$ be a disjoint decomposition. $H_0:\theta\in\Theta_0$ is the \emph{null hypothesis\index{null hypothesis@null hypothesis}} and $H_1:\theta\in\Theta_1$ the \emph{alternative hypothesis}. If $\Theta_j$ consists of a single point the hypothesis is \emph{simple}, otherwise it is \emph{composite}.
 \end{definition}
 
 \begin{definition}[Test Function]
@@ -19,7 +19,7 @@ A \emph{(randomised) test} is a measurable function $\phi:\mathcal X^n\to[0,1]$:
 \[
 \beta_\phi(\theta)=\E_\theta[\phi(\X)]\qquad(\text{power function}).
 \]
-For $\theta\in\Theta_0$, $\beta_\phi(\theta)$ is the probability of a \emph{type I error}; for $\theta\in\Theta_1$, $1-\beta_\phi(\theta)$ is the probability of a \emph{type II error} and $\beta_\phi(\theta)$ is the \emph{power} of the test at $\theta$.
+For $\theta\in\Theta_0$, $\beta_\phi(\theta)$ is the probability of a \emph{type I\index{type i and type ii errors@type I and type II errors} error}; for $\theta\in\Theta_1$, $1-\beta_\phi(\theta)$ is the probability of a \emph{type II error} and $\beta_\phi(\theta)$ is the \emph{power} of the test at $\theta$.
 \end{definition}
 
 \begin{definition}[Level and Size]
@@ -36,7 +36,7 @@ Let $\{\mathcal R_\alpha\}_{\alpha\in(0,1)}$ be nested rejection regions satisfy
 
 \section{The Neyman--Pearson Lemma}
 
-\begin{theorem}[Neyman--Pearson Lemma \cite{neyman-pearson33}]\label{thm:neyman-pearson}
+\begin{theorem}[Neyman--Pearson Lemma \cite{neyman-pearson33}]\label{thm:neyman-pearson}\index{neyman pearson lemma@Neyman--Pearson lemma}
 Let $H_0: \theta = \theta_0$, $H_1: \theta = \theta_1$ and $f_j(\x)=L(\theta_j;\x)$.
 \begin{enumerate}
   \item \textbf{(Sufficiency)} If for some $k\ge0$ and $\gamma\in[0,1]$
@@ -63,14 +63,14 @@ because when $f_1>kf_0$, $\phi^*=1\ge\phi$; when $f_1<kf_0$, $\phi^*=0\le\phi$; 
 \end{proof}
 
 \begin{corollary}[An MP Test Is Unbiased]\label{cor:mp-yansiz}
-If $\phi^*$ is an MP test of level $\alpha\in(0,1)$, then $\beta_{\phi^*}(\theta_1)\ge\alpha$; if $f_0\neq f_1$, the inequality is strict.
+If $\phi^*$ is an MP test\index{most powerful mp test@most powerful (MP) test} of level $\alpha\in(0,1)$, then $\beta_{\phi^*}(\theta_1)\ge\alpha$; if $f_0\neq f_1$, the inequality is strict.
 \end{corollary}
 \begin{proof}
 The test $\phi\equiv\alpha$, which does not use the data at all, has level $\alpha$ and power $\alpha$; the MP test must be at least as powerful.
 \end{proof}
 
 \begin{corollary}[Expression via a Sufficient Statistic]\label{cor:np-yeterli}
-If $T$ is sufficient and $g(t;\theta_j)$ is the factor in the factorisation, then the MP test has the form $g(T;\theta_1)/g(T;\theta_0)>k$; that is, it depends only on $T$.
+If $T$ is sufficient and $g(t;\theta_j)$ is the factor in the factorisation\index{factorisation theorem@factorisation theorem}, then the MP test has the form $g(T;\theta_1)/g(T;\theta_0)>k$; that is, it depends only on $T$.
 \end{corollary}
 \begin{proof}
 By factorisation, $f(\x;\theta_j)=g(T(\x);\theta_j)h(\x)$. For every $\x$ with $h(\x)>0$,
@@ -81,23 +81,23 @@ $\frac{f(\x;\theta_1)}{f(\x;\theta_0)}=\frac{g(T(\x);\theta_1)}{g(T(\x);\theta_0
 If the distribution of $T$ under (simple) $H_0$ is continuous and the test has the form ``reject for large $T$'', then $p(\X)=1-F_0(T(\X))\sim\text{Uniform}(0,1)$ under $H_0$. For discrete $T$, $\P_{\theta_0}(p(\X)\le u)\le u$ (stochastically larger than uniform).
 \end{theorem}
 \begin{proof}
-By the probability integral transform (Theorem~\ref{thm:pit}), $F_0(T)\sim\text{Uniform}(0,1)$, and therefore so is $1-F_0(T)$.
+By the probability integral transform\index{probability integral transform@probability integral transform} (Theorem~\ref{thm:pit}), $F_0(T)\sim\text{Uniform}(0,1)$, and therefore so is $1-F_0(T)$.
 \end{proof}
 
 \section{Worked Examples}
 
 \begin{example}[Normal Mean: MP Test and the Power Formula]\label{ex:normal-mp}
-$X_i\iid\Normal(\mu,\sigma^2)$ with $\sigma$ known; $H_0:\mu=\mu_0$, $H_1:\mu=\mu_1>\mu_0$. The likelihood ratio
+$X_i\iid\Normal(\mu,\sigma^2)$ with $\sigma$ known; $H_0:\mu=\mu_0$, $H_1:\mu=\mu_1>\mu_0$. The likelihood ratio\index{likelihood ratio@likelihood ratio}
 \[
 \frac{L(\mu_1)}{L(\mu_0)}=\exp\Big\{\frac{\mu_1-\mu_0}{\sigma^2}\sum x_i-\frac{n(\mu_1^2-\mu_0^2)}{2\sigma^2}\Big\}
 \]
-is an increasing function of $\bar x$. Hence the MP test has the form $\bar X>c$, and $\P_{\mu_0}(\bar X>c)=\alpha$ gives $c=\mu_0+z_\alpha\sigma/\sqrt n$. Power:
+is an increasing function of $\bar x$. Hence the MP test\index{most powerful mp test@most powerful (MP) test} has the form $\bar X>c$, and $\P_{\mu_0}(\bar X>c)=\alpha$ gives $c=\mu_0+z_\alpha\sigma/\sqrt n$. Power:
 \[
 \beta(\mu_1)=\P_{\mu_1}(\bar X>c)=1-\Phi\Big(z_\alpha-\frac{\sqrt n(\mu_1-\mu_0)}{\sigma}\Big).
 \]
 With $\mu_0=0$, $\mu_1=1$, $\sigma=2$, $n=16$, $\alpha=0.05$: $c=1.645\cdot0.5=0.822$ and $\beta=1-\Phi(1.645-2)=\Phi(0.355)\approx0.639$.
 
-Note: the critical value $c$ \emph{does not depend on $\mu_1$}. This observation is the key to the UMP tests of Chapter~\ref{ch:karlin-rubin}.
+Note: the critical value $c$ \emph{does not depend on $\mu_1$}. This observation is the key to the UMP\index{uniformly most powerful ump test@uniformly most powerful (UMP) test} tests of Chapter~\ref{ch:karlin-rubin}.
 \end{example}
 
 \begin{example}[Sample Size Calculation]\label{ex:orneklem-guc}
@@ -109,7 +109,7 @@ For $\sigma=2$, $\Delta=1$, $\alpha=0.05$ and power $0.80$ ($z_{0.20}=0.842$), $
 \end{example}
 
 \begin{example}[Poisson: A Randomised MP Test]\label{ex:poisson-rastgele}
-$X_1,\dots,X_{10}\iid\text{Poisson}(\lambda)$, $H_0:\lambda=1$, $H_1:\lambda=2$, $\alpha=0.05$. $T=\sum X_i$ is sufficient and the likelihood ratio $(2/1)^Te^{-10}$ is increasing in $T$. Under $H_0$, $T\sim\text{Poisson}(10)$. Since $\P_0(T\ge16)\approx0.0487<0.05<\P_0(T\ge15)\approx0.0835$ (values verified with the code below), no non-randomised test can have size exactly $0.05$. The MP test is
+$X_1,\dots,X_{10}\iid\text{Poisson}(\lambda)$, $H_0:\lambda=1$, $H_1:\lambda=2$, $\alpha=0.05$. $T=\sum X_i$ is sufficient and the likelihood ratio $(2/1)^Te^{-10}$ is increasing in $T$. Under $H_0$, $T\sim\text{Poisson}(10)$. Since $\P_0(T\ge16)\approx0.0487<0.05<\P_0(T\ge15)\approx0.0835$ (values verified with the code below), no non-randomised test\index{randomised test@randomised test} can have size exactly $0.05$. The MP test is
 \[
 \phi^*(T)=\begin{cases}1, & T\ge16\\ \gamma, & T=15\\ 0,& T\le14\end{cases},\qquad\gamma=\frac{0.05-\P_0(T\ge16)}{\P_0(T=15)}.
 \]
@@ -161,18 +161,18 @@ mu=0.5: P(p <= 0.05) = 0.2606
 \section{Comments and Notes}
 
 \begin{remark}[An Asymmetric Approach]
-The Neyman--Pearson framework does not treat $H_0$ and $H_1$ symmetrically: the type I error is kept under control, while the type II error is only minimised. Therefore ``$H_0$ could not be rejected'' does not mean ``$H_0$ is true''; a low-power test frequently fails to reject $H_0$. This is why power analysis is an integral part of experimental design.
+The Neyman--Pearson\index{neyman pearson lemma@Neyman--Pearson lemma} framework does not treat $H_0$ and $H_1$ symmetrically: the type I\index{type i and type ii errors@type I and type II errors} error is kept under control, while the type II error is only minimised. Therefore ``$H_0$ could not be rejected'' does not mean ``$H_0$ is true''; a low-power test frequently fails to reject $H_0$. This is why power analysis is an integral part of experimental design.
 \end{remark}
 
 \begin{remark}[Randomisation in Practice]
-Randomised tests are needed in theory (for the existence of an MP test), but they are rarely used in practice, because the same data can lead to different decisions. Practitioners report either the conservative test ($\gamma=0$) or the $p$-value; the ``mid-$p$'' value $\P(T>t)+\frac12\P(T=t)$ is a compromise.
+Randomised tests\index{randomised test@randomised test} are needed in theory (for the existence of an MP test\index{most powerful mp test@most powerful (MP) test}), but they are rarely used in practice, because the same data can lead to different decisions. Practitioners report either the conservative test ($\gamma=0$) or the $p$-value; the ``mid-$p$'' value $\P(T>t)+\frac12\P(T=t)$ is a compromise.
 \end{remark}
 
 \begin{remark}[What Does a $p$-Value Not Measure?]
 The $p$-value is \emph{not} the probability that $H_0$ is true; it is the probability, when $H_0$ is true, of obtaining a result at least as extreme as the one observed. Nor does it measure effect size: for very large $n$, even negligibly small differences produce very small $p$-values. The 2016 statement of the American Statistical Association \cite{wasserstein16} discusses these misinterpretations in detail. The relationship between $p$-values and posterior probabilities is taken up in Chapter~\ref{ch:bayes}.
 \end{remark}
 
-% --- CHAPTER SUMMARY (generated by tools/summaries.py) ---
+% --- CHAPTER SUMMARY ---
 \section{Chapter Summary}
 \begin{summary}
 \begin{itemize}

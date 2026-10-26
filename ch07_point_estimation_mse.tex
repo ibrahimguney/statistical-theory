@@ -3,15 +3,15 @@
 
 \chapter{Unbiasedness, Consistency and the MSE Decomposition}\label{ch:nokta-tahmin}\chaptermark{Unbiasedness, Consistency and MSE}
 
-With this chapter we move from probability theory to statistical inference. The distribution is now unknown; we assume that it belongs to a parametric family $\{f(\cdot;\theta):\theta\in\Theta\}$ and make inferences about $\theta$ (or a function $g(\theta)$ of it) from the observed sample $\X=(X_1,\dots,X_n)$. The first question is: what is a ``good'' estimator? In this chapter we discuss bias, variance and mean squared error (MSE); we see that unbiasedness, while a virtue, is not the only criterion; and we introduce consistency, which measures large-sample behaviour.
+With this chapter we move from probability theory to statistical inference. The distribution is now unknown; we assume that it belongs to a parametric family $\{f(\cdot;\theta):\theta\in\Theta\}$ and make inferences about $\theta$ (or a function $g(\theta)$ of it) from the observed sample $\X=(X_1,\dots,X_n)$. The first question is: what is a ``good'' estimator\index{estimator@estimator}? In this chapter we discuss bias, variance and mean squared error\index{mean squared error mse@mean squared error (MSE)} (MSE); we see that unbiasedness, while a virtue, is not the only criterion; and we introduce consistency\index{consistency@consistency}, which measures large-sample behaviour.
 
 \section{Definitions}
 
-\begin{definition}[Statistic and Estimator]
+\begin{definition}[Statistic and Estimator]\index{estimator@estimator|textbf}
 A measurable function $T=T(\X)$ of the sample that does not depend on the unknown parameter is called a \emph{statistic}. A statistic used to estimate $g(\theta)$ is called an \emph{estimator} of $g(\theta)$, and its observed value $T(\x)$ an \emph{estimate}.
 \end{definition}
 
-\begin{definition}[Bias and MSE]
+\begin{definition}[Bias and MSE]\index{mean squared error mse@mean squared error (MSE)|textbf}
 Let $\hat\theta$ be an estimator of $\theta$:
 \[
 \Bias_\theta(\hat{\theta}) = \E_\theta[\hat{\theta}] - \theta,\qquad \MSE_\theta(\hat{\theta}) = \E_\theta[(\hat{\theta} - \theta)^2].
@@ -19,17 +19,17 @@ Let $\hat\theta$ be an estimator of $\theta$:
 If $\Bias_\theta(\hat\theta)=0$ for every $\theta\in\Theta$, $\hat\theta$ is \emph{unbiased}. If $\lim_{n\to\infty}\Bias_\theta(\hat\theta_n)=0$, it is \emph{asymptotically unbiased}.
 \end{definition}
 
-\begin{definition}[Consistency]
+\begin{definition}[Consistency]\index{consistency@consistency|textbf}
 A sequence of estimators $\{\hat\theta_n\}$ is \emph{(weakly) consistent} if $\hat\theta_n\pto\theta$ (under $\P_\theta$) for every $\theta\in\Theta$. It is \emph{strongly consistent} if $\hat\theta_n\asto\theta$, and \emph{MSE-consistent} if $\MSE_\theta(\hat\theta_n)\to0$.
 \end{definition}
 
-\begin{definition}[Loss, Risk and Admissibility]\label{def:risk}
-A \emph{loss function} $L:\Theta\times\R\to[0,\infty)$ measures the cost of the estimate $a$ when the true value is $\theta$. The \emph{risk function} of $\hat\theta$ is $R(\theta,\hat\theta)=\E_\theta[L(\theta,\hat\theta(\X))]$. Under squared loss $L(\theta,a)=(a-\theta)^2$ the risk is the MSE.
+\begin{definition}[Loss, Risk and Admissibility]\label{def:risk}\index{admissibility@admissibility|textbf}
+A \emph{loss function\index{loss function@loss function}} $L:\Theta\times\R\to[0,\infty)$ measures the cost of the estimate $a$ when the true value is $\theta$. The \emph{risk function\index{risk function@risk function}} of $\hat\theta$ is $R(\theta,\hat\theta)=\E_\theta[L(\theta,\hat\theta(\X))]$. Under squared loss $L(\theta,a)=(a-\theta)^2$ the risk is the MSE.
 If $R(\theta,\hat\theta_1)\le R(\theta,\hat\theta_2)$ for every $\theta$, with strict inequality for at least one $\theta$, then $\hat\theta_1$ \emph{dominates} $\hat\theta_2$. An estimator dominated by no other estimator is called \emph{admissible}.
 \end{definition}
 
 \begin{definition}[Method of Moments]\label{def:momentler}
-Let $\theta=(\theta_1,\dots,\theta_k)$ and $\mu_j'(\theta)=\E_\theta[X^j]$. The \emph{method of moments} (MM) estimator is the solution in $\theta$ of the system
+Let $\theta=(\theta_1,\dots,\theta_k)$ and $\mu_j'(\theta)=\E_\theta[X^j]$. The \emph{method of moments\index{method of moments@method of moments}} (MM) estimator is the solution in $\theta$ of the system
 \[
 \mu_j'(\theta)=m_j'=\frac1n\sum_{i=1}^n X_i^j,\qquad j=1,\dots,k .
 \]
@@ -37,7 +37,7 @@ Let $\theta=(\theta_1,\dots,\theta_k)$ and $\mu_j'(\theta)=\E_\theta[X^j]$. The 
 
 \section{Main Theorems and Proofs}
 
-\begin{theorem}[Bias--Variance Decomposition of the MSE]\label{thm:mse-ayrisim}
+\begin{theorem}[Bias--Variance Decomposition of the MSE]\label{thm:mse-ayrisim}\index{mean squared error mse@mean squared error (MSE)}
 If $\E_\theta[\hat\theta^2]<\infty$, then
 \[
 \MSE_\theta(\hat{\theta}) = \Var_\theta(\hat{\theta}) + [\Bias_\theta(\hat{\theta})]^2.
@@ -52,17 +52,17 @@ i.e.\ the cross term vanishes: $2\E[(\hat{\theta}-\E[\hat{\theta}])(\E[\hat{\the
 \end{proof}
 
 \begin{remark}
-This decomposition is the formula behind the \emph{bias--variance trade-off} of statistics and machine learning: if accepting some bias reduces the variance by more, the MSE goes down. Shrinkage, regularisation (ridge, lasso) and Bayes estimators rest on this principle.
+This decomposition is the formula behind the \emph{bias--variance\index{bias variance decomposition@bias--variance decomposition} trade-off} of statistics and machine learning: if accepting some bias reduces the variance by more, the MSE goes down. Shrinkage\index{shrinkage@shrinkage}, regularisation (ridge\index{ridge regression@ridge regression}, lasso) and Bayes estimators\index{bayes estimator@Bayes estimator}\index{estimator@estimator} rest on this principle.
 \end{remark}
 
-\begin{theorem}[MSE-Consistency Implies Consistency]\label{thm:mse-tutarlilik}
+\begin{theorem}[MSE-Consistency Implies Consistency]\label{thm:mse-tutarlilik}\index{consistency@consistency}\index{mean squared error mse@mean squared error (MSE)}
 If $\MSE_\theta(\hat\theta_n)\to0$, then $\hat\theta_n\pto\theta$. Equivalently, $\Bias_\theta(\hat\theta_n)\to0$ and $\Var_\theta(\hat\theta_n)\to0$ together form a \emph{sufficient} (but not necessary) condition for consistency.
 \end{theorem}
 \begin{proof}
-Markov's inequality: $\P_\theta(|\hat\theta_n-\theta|\ge\varepsilon)\le\MSE_\theta(\hat\theta_n)/\varepsilon^2\to0$.
+Markov's inequality\index{markov s inequality@Markov's inequality}: $\P_\theta(|\hat\theta_n-\theta|\ge\varepsilon)\le\MSE_\theta(\hat\theta_n)/\varepsilon^2\to0$.
 \end{proof}
 
-\begin{theorem}[Unbiasedness and Consistency of the Sample Variance]\label{thm:s2-yansiz}
+\begin{theorem}[Unbiasedness and Consistency of the Sample Variance]\label{thm:s2-yansiz}\index{consistency@consistency}
 Let $X_1,\dots,X_n$ be i.i.d.\ with $\E X=\mu$ and $\Var X=\sigma^2<\infty$. For $S^2=\frac{1}{n-1}\sum_{i=1}^n(X_i-\bar X)^2$,
 \begin{enumerate}
   \item $\E[S^2]=\sigma^2$ (unbiased), whereas $\hat\sigma^2=\frac{n-1}{n}S^2$ has bias $-\sigma^2/n$;
@@ -72,25 +72,25 @@ Let $X_1,\dots,X_n$ be i.i.d.\ with $\E X=\mu$ and $\Var X=\sigma^2<\infty$. For
 \end{theorem}
 \begin{proof}
 (1) From the algebraic identity $\sum(X_i-\bar X)^2=\sum(X_i-\mu)^2-n(\bar X-\mu)^2$ and $\E(\bar X-\mu)^2=\sigma^2/n$, $\E\sum(X_i-\bar X)^2=n\sigma^2-\sigma^2=(n-1)\sigma^2$.
-(2) $S^2=\frac{n}{n-1}\Big[\frac1n\sum X_i^2-\bar X^2\Big]$; by the SLLN, $\frac1n\sum X_i^2\asto\sigma^2+\mu^2$ and $\bar X\asto\mu$; by continuous mapping, $S^2\asto\sigma^2$.
+(2) $S^2=\frac{n}{n-1}\Big[\frac1n\sum X_i^2-\bar X^2\Big]$; by the SLLN\index{law of large numbers@law of large numbers!strong slln@strong (SLLN)}, $\frac1n\sum X_i^2\asto\sigma^2+\mu^2$ and $\bar X\asto\mu$; by continuous mapping, $S^2\asto\sigma^2$.
 (3) By expanding fourth moments (a long but direct computation); the normal case also follows from $(n-1)S^2/\sigma^2\sim\chi^2_{n-1}$ in Chapter~\ref{ch:guven} and $\Var(\chi^2_k)=2k$.
 \end{proof}
 
-\begin{theorem}[Consistency of the Method of Moments]\label{thm:mm-tutarli}
+\begin{theorem}[Consistency of the Method of Moments]\label{thm:mm-tutarli}\index{consistency@consistency}
 If the map $\theta\mapsto\mu'(\theta)=(\mu_1'(\theta),\dots,\mu_k'(\theta))$ is one-to-one with continuous inverse $h=\mu'^{-1}$ and $\E|X|^k<\infty$, then the MM estimator $\tilde\theta_n=h(m_1',\dots,m_k')$ is consistent.
 \end{theorem}
 \begin{proof}
-By the WLLN, $m_j'\pto\mu_j'(\theta)$ for every $j\le k$; by the continuous mapping theorem (the vector version of Theorem~\ref{thm:cmt-p}), $\tilde\theta_n\pto h(\mu'(\theta))=\theta$.
+By the WLLN\index{law of large numbers@law of large numbers!weak wlln@weak (WLLN)}, $m_j'\pto\mu_j'(\theta)$ for every $j\le k$; by the continuous mapping theorem\index{continuous mapping theorem@continuous mapping theorem} (the vector version of Theorem~\ref{thm:cmt-p}), $\tilde\theta_n\pto h(\mu'(\theta))=\theta$.
 \end{proof}
 
 \section{Worked Examples}
 
 \begin{example}[The Best Divisor in the Family $cS^2$]\label{ex:en-iyi-bolen}
-Consider the estimators $\hat\sigma^2_c=cS^2$ for a normal sample. By Theorems~\ref{thm:s2-yansiz}(3) and~\ref{thm:mse-ayrisim},
+Consider the estimators\index{estimator@estimator} $\hat\sigma^2_c=cS^2$ for a normal sample. By Theorems~\ref{thm:s2-yansiz}(3) and~\ref{thm:mse-ayrisim},
 \[
 \MSE(c)=c^2\frac{2\sigma^4}{n-1}+(c-1)^2\sigma^4 .
 \]
-Setting the derivative in $c$ to zero gives $c^*=\frac{n-1}{n+1}$; i.e.\ the smallest MSE is attained by $\frac{1}{n+1}\sum(X_i-\bar X)^2$. For three divisors:
+Setting the derivative in $c$ to zero gives $c^*=\frac{n-1}{n+1}$; i.e.\ the smallest MSE\index{mean squared error mse@mean squared error (MSE)} is attained by $\frac{1}{n+1}\sum(X_i-\bar X)^2$. For three divisors:
 \begin{center}
 \begin{tabular}{@{}lccc@{}}
 \toprule
@@ -102,7 +102,7 @@ $n+1$ (smallest MSE) & $-\frac{2\sigma^2}{n+1}$ & $\frac{2(n-1)\sigma^4}{(n+1)^2
 \bottomrule
 \end{tabular}
 \end{center}
-For $n=5$ and $\sigma^2=4$ the MSE values are $8$, $5.76$ and $5.33$ respectively. The unbiased estimator is the worst in terms of MSE!
+For $n=5$ and $\sigma^2=4$ the MSE values are $8$, $5.76$ and $5.33$ respectively. The unbiased estimator\index{unbiased estimator@unbiased estimator} is the worst in terms of MSE!
 \end{example}
 
 \begin{example}[$\text{Uniform}(0,\theta)$: Three Estimators]\label{ex:uniform-uc}
@@ -111,7 +111,7 @@ $X_{(n)}=\max X_i$ has density $f(x)=nx^{n-1}/\theta^n$, $0<x<\theta$; $\E X_{(n
 \[
 \MSE(X_{(n)})=\frac{2\theta^2}{(n+1)(n+2)},\qquad \MSE\Big(\tfrac{n+1}{n}X_{(n)}\Big)=\frac{\theta^2}{n(n+2)} .
 \]
-The estimators based on the order statistic have MSE $O(1/n^2)$, while the MM estimator has $O(1/n)$. The reason will be explained in Chapter~\ref{ch:yeterlilik}: $X_{(n)}$ is sufficient, $\bar X$ is not.
+The estimators based on the order statistic\index{order statistics@order statistics} have MSE $O(1/n^2)$, while the MM estimator has $O(1/n)$. The reason will be explained in Chapter~\ref{ch:yeterlilik}: $X_{(n)}$ is sufficient, $\bar X$ is not.
 \end{example}
 
 \begin{example}[Method of Moments for the Gamma Distribution]\label{ex:gamma-mm}
@@ -131,7 +131,7 @@ is a polynomial in $p$ of degree at most $n$, which stays bounded as $p\to0$, wh
 \end{example}
 
 \begin{example}[Consistent but Biased; Unbiased but Inconsistent]
-$\hat\sigma^2=\frac1n\sum(X_i-\bar X)^2$ is biased but consistent. On the other hand, $T_n=X_1$ (the first observation only) is an unbiased but inconsistent estimator of $\mu$: its distribution does not depend on $n$. Unbiasedness is a finite-sample property and consistency a large-sample property; neither implies the other.
+$\hat\sigma^2=\frac1n\sum(X_i-\bar X)^2$ is biased but consistent. On the other hand, $T_n=X_1$ (the first observation only) is an unbiased but inconsistent estimator of $\mu$: its distribution does not depend on $n$. Unbiasedness is a finite-sample property and consistency\index{consistency@consistency} a large-sample property; neither implies the other.
 \end{example}
 
 \section{Computational Applications}
@@ -146,7 +146,7 @@ divisor=5 | bias=-0.7946 | var=5.1689 | MSE=5.8004 | theory MSE=5.7600
 divisor=6 | bias=-1.3289 | var=3.5895 | MSE=5.3554 | theory MSE=5.3333
 \end{lstlisting}
 
-Theoretical MSE formula: for $\hat\sigma^2_d=SS/d$, $\MSE=\sigma^4\,[(n-1-d)^2+2(n-1)]/d^2$; $d=n+1$ minimises this expression.
+Theoretical MSE\index{mean squared error mse@mean squared error (MSE)} formula: for $\hat\sigma^2_d=SS/d$, $\MSE=\sigma^4\,[(n-1-d)^2+2(n-1)]/d^2$; $d=n+1$ minimises this expression.
 
 \subsection{Estimators for $\text{Uniform}(0,\theta)$}
 
@@ -159,7 +159,7 @@ Theoretical MSE formula: for $\hat\sigma^2_d=SS/d$, $\MSE=\sigma^4\,[(n-1-d)^2+2
 \end{lstlisting}
 
 \subsection{Inadmissibility: the James--Stein Estimator}
-For a single observation $\X\sim\Normal_k(\bm\theta,I_k)$ under total squared loss $\|\hat{\bm\theta}-\bm\theta\|^2$, the natural estimator $\hat{\bm\theta}=\X$ has risk $k$. Stein \cite{stein56} showed that for $k\ge3$, $\X$ is \emph{inadmissible}: the James--Stein estimator \cite{james-stein61}
+For a single observation $\X\sim\Normal_k(\bm\theta,I_k)$ under total squared loss $\|\hat{\bm\theta}-\bm\theta\|^2$, the natural estimator\index{estimator@estimator} $\hat{\bm\theta}=\X$ has risk $k$. Stein \cite{stein56} showed that for $k\ge3$, $\X$ is \emph{inadmissible\index{admissibility@admissibility}}: the James--Stein\index{james stein estimator@James--Stein estimator} estimator \cite{james-stein61}
 \[
 \hat{\bm\theta}_{JS}=\Big(1-\frac{k-2}{\|\X\|^2}\Big)\X
 \]
@@ -178,14 +178,14 @@ The gain is very large near $\bm\theta=\mathbf 0$ (the risk falls from $k=10$ to
 \section{Comments and Notes}
 
 \begin{remark}[Why Unbiasedness Alone Is Not Enough]
-(i) As in Example~\ref{ex:en-iyi-bolen}, an unbiased estimator may be poor in terms of MSE. (ii) Unbiasedness is not preserved under transformations: $S^2$ is unbiased for $\sigma^2$, whereas $S$ is biased for $\sigma$. (iii) An unbiased estimator may not exist (Example~\ref{ex:yansiz-yok}) or may be absurd (Exercise~\ref{exr:sacma-yansiz}). Still, unbiasedness is valuable as a constraint that makes estimators comparable: within the class of unbiased estimators the notion of a ``best'' estimator (UMVUE) makes sense (Chapter~\ref{ch:tamlik}), whereas in the class of all estimators there is in general no estimator with the smallest MSE at every $\theta$ (the constant $\hat\theta\equiv\theta_0$ has zero MSE at $\theta_0$).
+(i) As in Example~\ref{ex:en-iyi-bolen}, an unbiased estimator\index{unbiased estimator@unbiased estimator}\index{estimator@estimator} may be poor in terms of MSE\index{mean squared error mse@mean squared error (MSE)}. (ii) Unbiasedness is not preserved under transformations: $S^2$ is unbiased for $\sigma^2$, whereas $S$ is biased for $\sigma$. (iii) An unbiased estimator may not exist (Example~\ref{ex:yansiz-yok}) or may be absurd (Exercise~\ref{exr:sacma-yansiz}). Still, unbiasedness is valuable as a constraint that makes estimators comparable: within the class of unbiased estimators the notion of a ``best'' estimator (UMVUE\index{umvue@UMVUE}) makes sense (Chapter~\ref{ch:tamlik}), whereas in the class of all estimators there is in general no estimator with the smallest MSE at every $\theta$ (the constant $\hat\theta\equiv\theta_0$ has zero MSE at $\theta_0$).
 \end{remark}
 
 \begin{remark}[The Asymptotic View]
-In large samples the bias is usually of order $O(1/n)$ and the standard deviation of order $O(1/\sqrt n)$; hence the variance dominates the MSE, and asymptotic variances suffice to compare estimators. This is the rationale for the notion of asymptotic efficiency in Chapter~\ref{ch:mle-asimptotik}.
+In large samples the bias is usually of order $O(1/n)$ and the standard deviation of order $O(1/\sqrt n)$; hence the variance dominates the MSE, and asymptotic variances suffice to compare estimators. This is the rationale for the notion of asymptotic efficiency\index{asymptotic relative efficiency@asymptotic relative efficiency} in Chapter~\ref{ch:mle-asimptotik}.
 \end{remark}
 
-% --- CHAPTER SUMMARY (generated by tools/summaries.py) ---
+% --- CHAPTER SUMMARY ---
 \section{Chapter Summary}
 \begin{summary}
 \begin{itemize}
@@ -198,7 +198,7 @@ In large samples the bias is usually of order $O(1/n)$ and the standard deviatio
 \end{summary}
 % --- END OF CHAPTER SUMMARY ---
 
-\paragraph{Further reading.} \cite[Chapter~7]{casella}, \cite[Chapters~1--2]{lehmann-casella}; for inadmissibility and James--Stein see \cite[Chapter~5]{lehmann-casella}.
+\paragraph{Further reading.} \cite[Chapter~7]{casella}, \cite[Chapters~1--2]{lehmann-casella}; for inadmissibility\index{admissibility@admissibility} and James--Stein\index{james stein estimator@James--Stein estimator} see \cite[Chapter~5]{lehmann-casella}.
 
 \section{Exercises}
 

@@ -3,7 +3,7 @@
 
 \chapter{Basic Inequalities and the Law of Large Numbers}\label{ch:esitsizlikler}
 
-The most basic intuition of statistics is this: the average of independent observations approaches the true mean as the number of observations grows. To turn this intuition into a precise theorem we need two tools: (i) probability inequalities that bound the probability that a random variable deviates from its mean \emph{in terms of its moments}, and (ii) precise notions of convergence for sequences of random variables. In this chapter we study the family of inequalities from Markov to Hoeffding, the hierarchy between the modes of convergence, and the Law of Large Numbers.
+The most basic intuition of statistics is this: the average of independent observations approaches the true mean as the number of observations grows. To turn this intuition into a precise theorem we need two tools: (i) probability inequalities that bound the probability that a random variable deviates from its mean \emph{in terms of its moments}, and (ii) precise notions of convergence for sequences of random variables. In this chapter we study the family of inequalities from Markov to Hoeffding, the hierarchy between the modes of convergence\index{hierarchy of convergence@hierarchy of convergence}, and the Law of Large Numbers.
 
 \section{Definitions: Convergence of Random Variables}
 
@@ -22,7 +22,7 @@ If $p\ge1$, $\E|X_n|^p<\infty$ and $\lim_{n\to\infty}\E|X_n-X|^p=0$, we write $X
 \end{definition}
 
 \begin{remark}
-A fourth mode, \emph{convergence in distribution} ($\dto$), will be defined in Chapter~\ref{ch:clt}. Almost sure convergence is a statement at the level of ``each sample path'', whereas convergence in probability only says that ``for large $n$, the probability of a large deviation is small''.
+A fourth mode, \emph{convergence in distribution\index{convergence in distribution@convergence in distribution}} ($\dto$), will be defined in Chapter~\ref{ch:clt}. Almost sure convergence\index{almost sure convergence@almost sure convergence} is a statement at the level of ``each sample path'', whereas convergence in probability\index{convergence in probability@convergence in probability} only says that ``for large $n$, the probability of a large deviation is small''.
 \end{remark}
 
 \section{Probability Inequalities}
@@ -34,7 +34,7 @@ If $X\ge0$ and $a>0$, then $\displaystyle\P(X\ge a)\le\frac{\E X}{a}$.
 $a\,\I\{X\ge a\}\le X$ holds pointwise. Monotonicity of expectation gives $a\P(X\ge a)\le\E X$.
 \end{proof}
 
-\begin{theorem}[Chebyshev's Inequality]\label{thm:chebyshev}
+\begin{theorem}[Chebyshev's Inequality]\label{thm:chebyshev}\index{chebyshev s inequality@Chebyshev's inequality}
 If $\E X=\mu$ and $\Var X<\infty$, then for every $\varepsilon>0$
 \[
 \P(|X - \mu| \ge \varepsilon) \le \frac{\Var(X)}{\varepsilon^2}.
@@ -42,15 +42,15 @@ If $\E X=\mu$ and $\Var X<\infty$, then for every $\varepsilon>0$
 Equivalently, with $\sigma=\sqrt{\Var X}$ and $k>0$, $\P(|X-\mu|\ge k\sigma)\le 1/k^2$.
 \end{theorem}
 \begin{proof}
-Apply Markov's inequality to the variable $(X-\mu)^2\ge0$ with $a=\varepsilon^2$: $\P(|X-\mu|\ge\varepsilon)=\P((X-\mu)^2\ge\varepsilon^2)\le\E(X-\mu)^2/\varepsilon^2$.
+Apply Markov's inequality\index{markov s inequality@Markov's inequality} to the variable $(X-\mu)^2\ge0$ with $a=\varepsilon^2$: $\P(|X-\mu|\ge\varepsilon)=\P((X-\mu)^2\ge\varepsilon^2)\le\E(X-\mu)^2/\varepsilon^2$.
 \end{proof}
 
 \begin{example}[Chebyshev's Bound Is Sharp]\label{ex:chebyshev-keskin}
 For $k>1$ let $X$ take the values $\{-k,0,k\}$ with probabilities $\frac{1}{2k^2},\,1-\frac1{k^2},\,\frac1{2k^2}$. Then $\E X=0$, $\Var X=1$ and $\P(|X|\ge k)=1/k^2$. So without further assumptions Chebyshev's bound cannot be improved.
 \end{example}
 
-\begin{theorem}[Chernoff Bound]\label{thm:chernoff}
-For $X$ with MGF $M_X(t)$ and every $a\in\R$,
+\begin{theorem}[Chernoff Bound]\label{thm:chernoff}\index{chernoff bound@Chernoff bound}
+For $X$ with MGF\index{moment generating function mgf@moment generating function (MGF)} $M_X(t)$ and every $a\in\R$,
 \[
 \P(X\ge a)\le\inf_{t>0}e^{-ta}M_X(t).
 \]
@@ -67,7 +67,7 @@ Let $X_1,\dots,X_n$ be independent with $X_i\in[a_i,b_i]$ a.s. For $S_n=\sum X_i
 In particular, if the $X_i\in[a,b]$ are i.i.d., then $\P(|\bar X_n-\mu|\ge\varepsilon)\le 2\exp\{-2n\varepsilon^2/(b-a)^2\}$.
 \end{theorem}
 \begin{proof}
-\emph{Hoeffding's lemma: if $\E Y=0$ and $Y\in[a,b]$, then $\E e^{\lambda Y}\le e^{\lambda^2(b-a)^2/8}$ for every $\lambda\in\R$.} Since $\E Y=0$, $a\le0\le b$; the claim is obvious if $a=b$, so assume $a<b$. Since $y\mapsto e^{\lambda y}$ is convex, for $y\in[a,b]$
+\emph{Hoeffding's lemma\index{hoeffding s inequality@Hoeffding's inequality}: if $\E Y=0$ and $Y\in[a,b]$, then $\E e^{\lambda Y}\le e^{\lambda^2(b-a)^2/8}$ for every $\lambda\in\R$.} Since $\E Y=0$, $a\le0\le b$; the claim is obvious if $a=b$, so assume $a<b$. Since $y\mapsto e^{\lambda y}$ is convex, for $y\in[a,b]$
 \[
 e^{\lambda y}\le\frac{b-y}{b-a}e^{\lambda a}+\frac{y-a}{b-a}e^{\lambda b}.
 \]
@@ -90,11 +90,11 @@ Chebyshev relies only on the second moment and bounds the deviation probability 
 
 \section{Laws of Large Numbers}
 
-\begin{theorem}[Weak Law of Large Numbers --- WLLN]\label{thm:wlln}
+\begin{theorem}[Weak Law of Large Numbers --- WLLN]\label{thm:wlln}\index{law of large numbers@law of large numbers!weak wlln@weak (WLLN)}
 If $\{X_i\}$ is an i.i.d.\ sequence with mean $\mu$ and variance $\sigma^2 < \infty$, then $\bar{X}_n=\frac1n\sum_{i=1}^nX_i \pto \mu$.
 \end{theorem}
 \begin{proof}
-By linearity and independence, $\E\bar X_n=\mu$ and $\Var(\bar{X}_n) = \frac{1}{n^2}\sum_{i=1}^n\Var X_i=\frac{\sigma^2}{n}$. By Chebyshev, for every $\varepsilon>0$
+By linearity and independence, $\E\bar X_n=\mu$ and $\Var(\bar{X}_n) = \frac{1}{n^2}\sum_{i=1}^n\Var X_i=\frac{\sigma^2}{n}$. By Chebyshev\index{chebyshev s inequality@Chebyshev's inequality}, for every $\varepsilon>0$
 \[
 \P(|\bar{X}_n - \mu| \ge \varepsilon) \le \frac{\sigma^2}{n\varepsilon^2} \xrightarrow{n \to \infty} 0. \qedhere
 \]
@@ -104,7 +104,7 @@ By linearity and independence, $\E\bar X_n=\mu$ and $\Var(\bar{X}_n) = \frac{1}{
 The proof actually shows more: (i) it suffices that the $X_i$ be \emph{uncorrelated} with uniformly bounded variances; (ii) since $\E(\bar X_n-\mu)^2=\sigma^2/n\to0$, the convergence also holds in $L^2$.
 \end{remark}
 
-\begin{theorem}[Khinchin's WLLN]\label{thm:khinchin}
+\begin{theorem}[Khinchin's WLLN]\label{thm:khinchin}\index{khinchin s theorem@Khinchin's theorem}\index{law of large numbers@law of large numbers!weak wlln@weak (WLLN)}
 If $\{X_i\}$ are i.i.d.\ and only $\E|X_1|<\infty$, then $\bar X_n\pto\mu=\E X_1$.
 \end{theorem}
 \begin{proof}[Proof (truncation)]
@@ -116,19 +116,19 @@ For each $n$ define the truncated variables $Y_{ni}=X_i\I\{|X_i|\le n\}$, $i\le 
 
 (iii) \emph{Variance:} $\Var T_n\le\frac1n\E\big[X_1^2\I\{|X_1|\le n\}\big]\le\E\Big[|X_1|\min\Big(\frac{|X_1|}{n},1\Big)\Big]\to0$, because the integrand tends to zero pointwise and is bounded by $|X_1|$.
 
-By Chebyshev, (iii) gives $T_n-\E T_n\pto0$, and with (ii) $T_n\pto\mu$. Finally, $\P(|\bar X_n-\mu|>\varepsilon)\le\P(\bar X_n\ne T_n)+\P(|T_n-\mu|>\varepsilon)\to0$. (A short second proof using characteristic functions is given in Example~\ref{ex:wlln-kf}.)
+By Chebyshev, (iii) gives $T_n-\E T_n\pto0$, and with (ii) $T_n\pto\mu$. Finally, $\P(|\bar X_n-\mu|>\varepsilon)\le\P(\bar X_n\ne T_n)+\P(|T_n-\mu|>\varepsilon)\to0$. (A short second proof using characteristic functions\index{characteristic function@characteristic function} is given in Example~\ref{ex:wlln-kf}.)
 \end{proof}
 
-\begin{theorem}[Kolmogorov's Strong Law of Large Numbers --- SLLN \cite{etemadi81}]\label{thm:slln}
+\begin{theorem}[Kolmogorov's Strong Law of Large Numbers --- SLLN \cite{etemadi81}]\label{thm:slln}\index{law of large numbers@law of large numbers!strong slln@strong (SLLN)}
 Let $\{X_i\}$ be i.i.d. Then $\bar X_n\asto\mu$ if and only if $\E|X_1|<\infty$ and $\mu=\E X_1$.
 \end{theorem}
 
 \begin{proof}[A restricted proof: the case $\E X_1^4<\infty$]
-Without loss of generality $\mu=0$. For $S_n=\sum X_i$, $\E S_n^4=n\E X_1^4+3n(n-1)\sigma^4\le Cn^2$ (terms with an odd power have zero expectation by independence). By Markov's inequality
+Without loss of generality $\mu=0$. For $S_n=\sum X_i$, $\E S_n^4=n\E X_1^4+3n(n-1)\sigma^4\le Cn^2$ (terms with an odd power have zero expectation by independence). By Markov's inequality\index{markov s inequality@Markov's inequality}
 \[
 \P(|\bar X_n|\ge\varepsilon)=\P(S_n^4\ge n^4\varepsilon^4)\le\frac{C}{n^2\varepsilon^4},
 \]
-and $\sum_n 1/n^2<\infty$. By Borel--Cantelli (Theorem~\ref{thm:borel-cantelli}), with probability 1, $|\bar X_n|\ge\varepsilon$ occurs for only finitely many $n$. Taking the countable intersection over $\varepsilon=1/k$, $k\in\N$, gives $\bar X_n\asto0$.
+and $\sum_n 1/n^2<\infty$. By Borel--Cantelli\index{borel cantelli lemmas@Borel--Cantelli lemmas} (Theorem~\ref{thm:borel-cantelli}), with probability 1, $|\bar X_n|\ge\varepsilon$ occurs for only finitely many $n$. Taking the countable intersection over $\varepsilon=1/k$, $k\in\N$, gives $\bar X_n\asto0$.
 \end{proof}
 
 \section{Relations Between the Modes of Convergence}
@@ -152,7 +152,7 @@ Let $\Omega=[0,1]$ with Lebesgue measure. For $n=2^k+j$ ($0\le j<2^k$) let $X_n=
 \end{example}
 
 \begin{example}[A.S.\ Convergence Without $L^1$ Convergence]
-Let $U\sim\text{Uniform}(0,1)$ and $X_n=n\,\I\{U<1/n\}$. For every $\omega$ (since $U(\omega)>0$), $X_n(\omega)=0$ for all large $n$; so $X_n\asto0$. However $\E X_n=1$ for every $n$, so $\E|X_n-0|\not\to0$. This example shows that convergence in probability does not guarantee convergence of moments: an estimator may be consistent while its MSE does not tend to zero (Chapter~\ref{ch:nokta-tahmin}).
+Let $U\sim\text{Uniform}(0,1)$ and $X_n=n\,\I\{U<1/n\}$. For every $\omega$ (since $U(\omega)>0$), $X_n(\omega)=0$ for all large $n$; so $X_n\asto0$. However $\E X_n=1$ for every $n$, so $\E|X_n-0|\not\to0$. This example shows that convergence in probability\index{convergence in probability@convergence in probability} does not guarantee convergence of moments: an estimator may be consistent while its MSE does not tend to zero (Chapter~\ref{ch:nokta-tahmin}).
 \end{example}
 
 \begin{theorem}[Continuous Mapping Theorem --- in Probability]\label{thm:cmt-p}
@@ -165,7 +165,7 @@ Given $\varepsilon>0$, continuity gives a $\delta>0$ with $|x-c|<\delta\implies|
 \section{Worked Examples}
 
 \begin{example}[Chebyshev versus the Normal Tail]
-For $X\sim\Normal(\mu,\sigma^2)$, $\P(|X-\mu|\ge2\sigma)\approx0.0455$, whereas Chebyshev guarantees only $\le0.25$. The looseness of the bound is the price of its validity for \emph{all} distributions with finite variance (Example~\ref{ex:chebyshev-keskin}).
+For $X\sim\Normal(\mu,\sigma^2)$, $\P(|X-\mu|\ge2\sigma)\approx0.0455$, whereas Chebyshev\index{chebyshev s inequality@Chebyshev's inequality} guarantees only $\le0.25$. The looseness of the bound is the price of its validity for \emph{all} distributions with finite variance (Example~\ref{ex:chebyshev-keskin}).
 \end{example}
 
 \begin{example}[Choosing a Sample Size: Three Approaches]\label{ex:orneklem-buyuklugu}
@@ -173,13 +173,13 @@ We want to estimate a proportion $p$ to within $\varepsilon=0.05$ with at least 
 \begin{itemize}
   \item \textbf{Chebyshev:} since $p(1-p)\le1/4$, $\frac{1}{4n\varepsilon^2}\le0.05\implies n\ge2000$.
   \item \textbf{Hoeffding:} $X_i\in[0,1]$, $2e^{-2n\varepsilon^2}\le0.05\implies n\ge\frac{\ln 40}{2\cdot0.0025}\approx737.8$, i.e.\ $n\ge738$.
-  \item \textbf{CLT approximation} (Chapter~\ref{ch:clt}): $n\ge\left(\frac{z_{0.025}}{2\varepsilon}\right)^2=\left(\frac{1.96}{0.1}\right)^2\approx384.2$, i.e.\ $n\ge385$.
+  \item \textbf{CLT\index{central limit theorem clt@central limit theorem (CLT)} approximation} (Chapter~\ref{ch:clt}): $n\ge\left(\frac{z_{0.025}}{2\varepsilon}\right)^2=\left(\frac{1.96}{0.1}\right)^2\approx384.2$, i.e.\ $n\ge385$.
 \end{itemize}
 The first two are exact guarantees valid for every $n$; the third is an asymptotic approximation but gives the most economical result in practice.
 \end{example}
 
 \begin{example}[Monte Carlo Integration]\label{ex:monte-carlo}
-The integral $I=\int_0^1 g(x)\,dx$ can be estimated by $\hat I_n=\frac1n\sum g(U_i)$ with $U_i\iid\text{Uniform}(0,1)$. Then $\E\hat I_n=I$ and, by the SLLN, $\hat I_n\asto I$. The error is of order $\sqrt{\Var g(U)/n}$ and --- unlike numerical quadrature rules --- \emph{independent of the dimension}. All simulations in the book rest on this principle.
+The integral $I=\int_0^1 g(x)\,dx$ can be estimated by $\hat I_n=\frac1n\sum g(U_i)$ with $U_i\iid\text{Uniform}(0,1)$. Then $\E\hat I_n=I$ and, by the SLLN\index{law of large numbers@law of large numbers!strong slln@strong (SLLN)}, $\hat I_n\asto I$. The error is of order $\sqrt{\Var g(U)/n}$ and --- unlike numerical quadrature rules --- \emph{independent of the dimension}. All simulations in the book rest on this principle.
 \end{example}
 
 \section{Computational Applications}
@@ -207,7 +207,7 @@ p=0.2 | Hoeffding n= 738 | P(|p_hat-p|>=0.05) = 0.0007 (target <= 0.05)
 p=0.2 | CLT       n= 385 | P(|p_hat-p|>=0.05) = 0.0130 (target <= 0.05)
 \end{lstlisting}
 
-At $p=0.5$ the CLT rule roughly hits the target (it may not be exactly $0.05$ because of discreteness), whereas Chebyshev and Hoeffding are overly conservative. For $p=0.2$ the variance is $p(1-p)=0.16<0.25$, so all three rules recommend larger samples than necessary.
+At $p=0.5$ the CLT\index{central limit theorem clt@central limit theorem (CLT)} rule roughly hits the target (it may not be exactly $0.05$ because of discreteness), whereas Chebyshev\index{chebyshev s inequality@Chebyshev's inequality} and Hoeffding are overly conservative. For $p=0.2$ the variance is $p(1-p)=0.16<0.25$, so all three rules recommend larger samples than necessary.
 
 \subsection{The Law of Large Numbers and the Cauchy Counterexample}
 
@@ -229,14 +229,14 @@ The output shows that the interquartile width of the Cauchy sample mean does \em
 \section{Comments and Notes}
 
 \begin{remark}[The Difference Between the Weak and Strong Laws]
-WLLN: ``for a fixed large $n$, the probability that $\bar X_n$ is far from $\mu$ is small.'' SLLN: ``for almost every sequence of observations, the sequence $\bar X_n$ converges to $\mu$.'' Statistical consistency (Chapter~\ref{ch:nokta-tahmin}) is usually defined via the weak version; but the ``one long run'' logic of Monte Carlo methods relies on the strong version.
+WLLN\index{law of large numbers@law of large numbers!weak wlln@weak (WLLN)}: ``for a fixed large $n$, the probability that $\bar X_n$ is far from $\mu$ is small.'' SLLN\index{law of large numbers@law of large numbers!strong slln@strong (SLLN)}: ``for almost every sequence of observations, the sequence $\bar X_n$ converges to $\mu$.'' Statistical consistency (Chapter~\ref{ch:nokta-tahmin}) is usually defined via the weak version; but the ``one long run'' logic of Monte Carlo\index{monte carlo method@Monte Carlo method} methods relies on the strong version.
 \end{remark}
 
 \begin{remark}[The Role of the Assumptions]
-The variance condition in the WLLN is for convenience of proof (Khinchin requires only $\E|X|<\infty$), but the \emph{existence of the mean} is indispensable, as the Cauchy example clearly shows. This is the theoretical reason why, for very heavy-tailed data (financial returns, network traffic), robust estimators such as the median or a trimmed mean are preferred to the sample mean.
+The variance condition in the WLLN is for convenience of proof (Khinchin\index{khinchin s theorem@Khinchin's theorem} requires only $\E|X|<\infty$), but the \emph{existence of the mean} is indispensable, as the Cauchy example clearly shows. This is the theoretical reason why, for very heavy-tailed data (financial returns, network traffic), robust estimators such as the median or a trimmed mean are preferred to the sample mean.
 \end{remark}
 
-% --- CHAPTER SUMMARY (generated by tools/summaries.py) ---
+% --- CHAPTER SUMMARY ---
 \section{Chapter Summary}
 \begin{summary}
 \begin{itemize}

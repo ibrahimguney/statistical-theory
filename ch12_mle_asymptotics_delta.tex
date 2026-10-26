@@ -3,12 +3,12 @@
 
 \chapter{Asymptotic Theory of the MLE and the Delta Method}\label{ch:mle-asimptotik}\chaptermark{MLE Asymptotics and the Delta Method}
 
-The finite-sample properties of the MLE vary from model to model: sometimes it is biased, sometimes it has no closed form at all. In large samples, however, under regularity conditions, the MLE shows universal and very strong behaviour: it is consistent, asymptotically normal, and its asymptotic variance attains the Cramér--Rao bound. This chapter covers these three results, the information inequality that makes them possible, and the delta method, which gives the asymptotic distribution of transformations of an estimator. These results are the theoretical basis of almost all standard errors and Wald confidence intervals reported in applied statistics.
+The finite-sample properties of the MLE\index{maximum likelihood estimator mle@maximum likelihood estimator (MLE)} vary from model to model: sometimes it is biased, sometimes it has no closed form at all. In large samples, however, under regularity conditions\index{regularity conditions@regularity conditions}, the MLE shows universal and very strong behaviour: it is consistent, asymptotically normal\index{asymptotic normality@asymptotic normality}, and its asymptotic variance attains the Cramér--Rao\index{cramer rao lower bound crlb@Cramér--Rao lower bound (CRLB)} bound. This chapter covers these three results, the information inequality\index{information inequality@information inequality} that makes them possible, and the delta method\index{delta method@delta method}, which gives the asymptotic distribution of transformations of an estimator. These results are the theoretical basis of almost all standard errors and Wald confidence intervals\index{wald confidence interval@Wald confidence interval} reported in applied statistics.
 
 \section{Definitions}
 
 \begin{definition}[Asymptotic Normality and Asymptotic Variance]
-If $\sqrt n(T_n-\theta)\dto\Normal(0,v(\theta))$, then $T_n$ is called \emph{asymptotically normal} (AN) and $v(\theta)$ its \emph{asymptotic variance}; we write $T_n\approx\Normal(\theta,v(\theta)/n)$. The asymptotic variance need not equal $\lim n\Var(T_n)$ (the latter may not exist).
+If $\sqrt n(T_n-\theta)\dto\Normal(0,v(\theta))$, then $T_n$ is called \emph{asymptotically normal\index{asymptotic normality@asymptotic normality}} (AN) and $v(\theta)$ its \emph{asymptotic variance}; we write $T_n\approx\Normal(\theta,v(\theta)/n)$. The asymptotic variance need not equal $\lim n\Var(T_n)$ (the latter may not exist).
 \end{definition}
 
 \begin{definition}[Asymptotic Efficiency and Asymptotic Relative Efficiency]
@@ -16,11 +16,11 @@ In a regular model, $T_n$ is called \emph{asymptotically efficient} if $v(\theta
 \[
 \mathrm{ARE}(T^{(1)},T^{(2)})=\frac{v_2(\theta)}{v_1(\theta)}
 \]
-is the \emph{asymptotic relative efficiency}. Interpretation: $T^{(2)}$ needs roughly $n/\mathrm{ARE}$ observations to reach the precision that $T^{(1)}$ achieves with $n$.
+is the \emph{asymptotic relative efficiency\index{asymptotic relative efficiency@asymptotic relative efficiency}}. Interpretation: $T^{(2)}$ needs roughly $n/\mathrm{ARE}$ observations to reach the precision that $T^{(1)}$ achieves with $n$.
 \end{definition}
 
 \begin{definition}[Observed Information]
-The random quantity $J_n(\theta)=-\ell''(\theta;\X)=-\sum_{i=1}^n\partial^2_\theta\ln f(X_i;\theta)$ is called the \emph{observed Fisher information}. $\E_\theta J_n(\theta)=I_n(\theta)$ and, by the WLLN, $J_n(\theta)/n\pto I_1(\theta)$.
+The random quantity $J_n(\theta)=-\ell''(\theta;\X)=-\sum_{i=1}^n\partial^2_\theta\ln f(X_i;\theta)$ is called the \emph{observed Fisher information\index{observed information@observed information}\index{fisher information@Fisher information}}. $\E_\theta J_n(\theta)=I_n(\theta)$ and, by the WLLN\index{law of large numbers@law of large numbers!weak wlln@weak (WLLN)}, $J_n(\theta)/n\pto I_1(\theta)$.
 \end{definition}
 
 \section{Consistency}
@@ -32,14 +32,14 @@ If $\theta\neq\theta_0$ and $\P_\theta\neq\P_{\theta_0}$ (identifiability), then
 \]
 \end{lemma}
 \begin{proof}
-Since $\ln$ is strictly concave, Jensen's inequality (Theorem~\ref{thm:jensen}) gives
+Since $\ln$ is strictly concave, Jensen\index{jensen s inequality@Jensen's inequality}'s inequality (Theorem~\ref{thm:jensen}) gives
 \[
 \E_{\theta_0}\ln\frac{f(X;\theta)}{f(X;\theta_0)}<\ln\E_{\theta_0}\frac{f(X;\theta)}{f(X;\theta_0)}=\ln\int f(x;\theta)\,dx=\ln1=0 .
 \]
 The strict inequality comes from the ratio not being a.s.\ constant (identifiability). The left-hand side is $-\mathrm{KL}(f_{\theta_0}\|f_\theta)$.
 \end{proof}
 
-\begin{theorem}[Consistency of the MLE \cite{wald49}]\label{thm:mle-tutarli}
+\begin{theorem}[Consistency of the MLE \cite{wald49}]\label{thm:mle-tutarli}\index{maximum likelihood estimator mle@maximum likelihood estimator (MLE)}\index{consistency@consistency}
 Let $X_i\iid f(\cdot;\theta_0)$ with an identifiable model. Suppose moreover that (i) $\Theta$ is compact, (ii) $\theta\mapsto\ln f(x;\theta)$ is continuous for every $x$, and (iii) $\E_{\theta_0}\sup_{\theta\in\Theta}|\ln f(X;\theta)|<\infty$. Then $\hat\theta_n\asto\theta_0$.
 \end{theorem}
 \begin{proof}
@@ -51,7 +51,7 @@ m_r(x;\theta)=\sup_{\theta'\in B(\theta,r)}\ln f(x;\theta').
 \]
 By (ii), $m_r(x;\theta)\to\ln f(x;\theta)$ as $r\downarrow0$, and by (iii) $|m_r|\le\sup_{\Theta}|\ln f(x;\cdot)|$ is integrable. By dominated convergence, $\E_{\theta_0}m_r(X;\theta)\to M(\theta)<M(\theta_0)$; hence there is an $r_\theta>0$ with $\E_{\theta_0}m_{r_\theta}(X;\theta)<M(\theta_0)$. Let $B_1,\dots,B_m$ (centres $\theta^{(1)},\dots,\theta^{(m)}$) be a finite subcover of the open cover $\{B(\theta,r_\theta):\theta\in K\}$.
 
-By the strong law of large numbers, for each of the finitely many $j$ and for $\theta_0$, almost surely
+By the strong law of large numbers\index{law of large numbers@law of large numbers!strong slln@strong (SLLN)}, for each of the finitely many $j$ and for $\theta_0$, almost surely
 \[
 \frac1n\sum_{i=1}^n m_{r_j}(X_i;\theta^{(j)})\to\E_{\theta_0}m_{r_j}(X;\theta^{(j)})<M(\theta_0),\qquad M_n(\theta_0)\to M(\theta_0).
 \]
@@ -64,7 +64,7 @@ i.e.\ $\hat\theta_n\notin K$: $|\hat\theta_n-\theta_0|<\varepsilon$. Intersectin
 
 \section{Asymptotic Normality}
 
-\begin{theorem}[Asymptotic Normality of the MLE \cite{cramer46}]\label{thm:mle-an}
+\begin{theorem}[Asymptotic Normality of the MLE \cite{cramer46}]\label{thm:mle-an}\index{maximum likelihood estimator mle@maximum likelihood estimator (MLE)}
 In addition to conditions (R1)--(R4) of Chapter~\ref{ch:cramer-rao}, let $\theta_0$ be an interior point, let $\hat\theta_n$ be a consistent root of the likelihood equation, and suppose $|\partial^3_\theta\ln f(x;\theta)|\le M(x)$ in a neighbourhood of $\theta_0$ with $\E_{\theta_0}M(X)<\infty$. Then
 \[
 \sqrt{n}(\hat{\theta}_{n} - \theta_0) \dto \Normal\left(0, \frac{1}{I_1(\theta_0)}\right).
@@ -80,11 +80,11 @@ Rearranging,
 \sqrt n(\hat\theta_n-\theta_0)=\frac{\frac{1}{\sqrt n}\ell'(\theta_0)}{-\frac1n\ell''(\theta_0)-\frac1{2n}(\hat\theta_n-\theta_0)\ell'''(\theta_n^*)} .
 \]
 \begin{itemize}
-  \item \emph{Numerator:} $\ell'(\theta_0)=\sum s(\theta_0;X_i)$ is a sum of i.i.d.\ terms with mean $0$ and variance $I_1(\theta_0)$ (Lemma~\ref{lem:skor}). By the CLT, $\frac{1}{\sqrt n}\ell'(\theta_0)\dto\Normal(0,I_1(\theta_0))$.
-  \item \emph{Denominator, first term:} by the WLLN, $-\frac1n\ell''(\theta_0)\pto I_1(\theta_0)$ (information identity).
+  \item \emph{Numerator:} $\ell'(\theta_0)=\sum s(\theta_0;X_i)$ is a sum of i.i.d.\ terms with mean $0$ and variance $I_1(\theta_0)$ (Lemma~\ref{lem:skor}). By the CLT\index{central limit theorem clt@central limit theorem (CLT)}, $\frac{1}{\sqrt n}\ell'(\theta_0)\dto\Normal(0,I_1(\theta_0))$.
+  \item \emph{Denominator, first term:} by the WLLN\index{law of large numbers@law of large numbers!weak wlln@weak (WLLN)}, $-\frac1n\ell''(\theta_0)\pto I_1(\theta_0)$ (information identity\index{information identity@information identity}).
   \item \emph{Denominator, second term:} $|\frac1n\ell'''(\theta^*_n)|\le\frac1n\sum M(X_i)\pto\E M(X)<\infty$ and $\hat\theta_n-\theta_0\pto0$; the product $\pto0$.
 \end{itemize}
-By Slutsky's theorem (Theorem~\ref{thm:slutsky}), $\sqrt n(\hat\theta_n-\theta_0)\dto\Normal(0,I_1)/I_1=\Normal(0,1/I_1(\theta_0))$.
+By Slutsky\index{slutsky s theorem@Slutsky's theorem}'s theorem (Theorem~\ref{thm:slutsky}), $\sqrt n(\hat\theta_n-\theta_0)\dto\Normal(0,I_1)/I_1=\Normal(0,1/I_1(\theta_0))$.
 \end{proof}
 
 \begin{corollary}[The Wald Confidence Interval]\label{cor:wald}
@@ -99,7 +99,7 @@ Since $\hat\theta_n\pto\theta_0$ and $I_1$ is continuous, Theorem~\ref{thm:cmt-p
 \[
 \P_{\theta_0}\Big(\theta_0\in\hat\theta_n\pm z_{\alpha/2}/\sqrt{nI_1(\hat\theta_n)}\Big)=\P(|Z_n|\le z_{\alpha/2})\to1-\alpha
 \]
-(because $\pm z_{\alpha/2}$ are continuity points of $\Phi$). For the observed information write $\frac1nJ_n(\hat\theta_n)=-\frac1n\ell''(\hat\theta_n)$; as in the proof of Theorem~\ref{thm:mle-an}, $|\frac1n\ell''(\hat\theta_n)-\frac1n\ell''(\theta_0)|\le|\hat\theta_n-\theta_0|\frac1n\sum M(X_i)\pto0$ and $-\frac1n\ell''(\theta_0)\pto I_1(\theta_0)$; the same argument applies. The multiparameter statement is the vector form of the proof of Theorem~\ref{thm:mle-an} (multivariate CLT for the score vector, Theorem~\ref{thm:cok-degiskenli-clt}).
+(because $\pm z_{\alpha/2}$ are continuity points of $\Phi$). For the observed information\index{observed information@observed information} write $\frac1nJ_n(\hat\theta_n)=-\frac1n\ell''(\hat\theta_n)$; as in the proof of Theorem~\ref{thm:mle-an}, $|\frac1n\ell''(\hat\theta_n)-\frac1n\ell''(\theta_0)|\le|\hat\theta_n-\theta_0|\frac1n\sum M(X_i)\pto0$ and $-\frac1n\ell''(\theta_0)\pto I_1(\theta_0)$; the same argument applies. The multiparameter statement is the vector form of the proof of Theorem~\ref{thm:mle-an} (multivariate CLT for the score vector, Theorem~\ref{thm:cok-degiskenli-clt}).
 \end{proof}
 
 \section{The Delta Method}
@@ -115,7 +115,7 @@ Since $\sqrt n(T_n-\theta)=O_P(1)$, $T_n\pto\theta$. By the definition of the de
 \[
 \sqrt n\big(g(T_n)-g(\theta)\big)=\big[g'(\theta)+r(T_n)\big]\cdot\sqrt n(T_n-\theta).
 \]
-By the continuous mapping theorem $r(T_n)\pto0$; by Slutsky the limit is $g'(\theta)\cdot\Normal(0,\sigma^2)$.
+By the continuous mapping theorem\index{continuous mapping theorem@continuous mapping theorem} $r(T_n)\pto0$; by Slutsky\index{slutsky s theorem@Slutsky's theorem} the limit is $g'(\theta)\cdot\Normal(0,\sigma^2)$.
 \end{proof}
 
 \begin{theorem}[Second-Order Delta Method]\label{thm:delta2}
@@ -147,11 +147,11 @@ If $\sqrt n(T_n-\theta)\dto\Normal(0,\sigma^2(\theta))$, then for the transforma
 \section{Worked Examples}
 
 \begin{example}[The Odds]\label{ex:odds}
-$\hat p=\bar X$, $\sqrt n(\hat p-p)\dto\Normal(0,p(1-p))$. For the odds $\tau=g(p)=\frac{p}{1-p}$, $g'(p)=\frac{1}{(1-p)^2}$. By the delta method,
+$\hat p=\bar X$, $\sqrt n(\hat p-p)\dto\Normal(0,p(1-p))$. For the odds $\tau=g(p)=\frac{p}{1-p}$, $g'(p)=\frac{1}{(1-p)^2}$. By the delta method\index{delta method@delta method},
 \[
 \sqrt n(\hat\tau-\tau)\dto\Normal\Big(0,\frac{p(1-p)}{(1-p)^4}\Big)=\Normal\Big(0,\frac{p}{(1-p)^3}\Big).
 \]
-For the log-odds $\eta=\ln\frac p{1-p}$, $g'(p)=\frac{1}{p(1-p)}$ and the asymptotic variance is $\frac{1}{p(1-p)}$; this is the source of standard errors in logistic regression.
+For the log-odds $\eta=\ln\frac p{1-p}$, $g'(p)=\frac{1}{p(1-p)}$ and the asymptotic variance is $\frac{1}{p(1-p)}$; this is the source of standard errors in logistic regression\index{logistic regression@logistic regression}.
 \end{example}
 
 \begin{example}[Variance-Stabilising Transformations]\label{ex:varyans-dengeleme}
@@ -176,7 +176,7 @@ Cauchy$(\theta,1)$ & $\infty$ & $\pi^2/4$ & $\infty$ \\
 \bottomrule
 \end{tabular}
 \end{center}
-For normal data the median needs about $57\%$ more observations to match the efficiency of the mean; for the Laplace the median is twice as efficient (and is the MLE). For the Cauchy, the efficiency of the median relative to the MLE is $8/\pi^2\approx0.81$.
+For normal data the median needs about $57\%$ more observations to match the efficiency of the mean; for the Laplace the median is twice as efficient (and is the MLE\index{maximum likelihood estimator mle@maximum likelihood estimator (MLE)}). For the Cauchy, the efficiency of the median relative to the MLE is $8/\pi^2\approx0.81$.
 \end{example}
 
 \begin{example}[Second-Order Delta: $p(1-p)$ at $p=1/2$]
@@ -195,7 +195,7 @@ Log-odds delta variance: 0.009524 | Empirical: 0.009570
 \end{lstlisting}
 
 \subsection{Asymptotic Normality of the MLE and Coverage of the Wald Interval}
-For the Gamma shape parameter $\alpha$ (rate known, $\beta=1$), $I_1(\alpha)=\psi'(\alpha)$ (trigamma). The MLE solves $\psi(\hat\alpha)=\overline{\ln X}$.
+For the Gamma shape parameter $\alpha$ (rate known, $\beta=1$), $I_1(\alpha)=\psi'(\alpha)$ (trigamma). The MLE\index{maximum likelihood estimator mle@maximum likelihood estimator (MLE)} solves $\psi(\hat\alpha)=\overline{\ln X}$.
 
 \pycode{code/ch12/c12_2_mle_asymptotic_normality_wald.py}
 \begin{lstlisting}[style=output]
@@ -204,7 +204,7 @@ n=  50 | bias=+0.0113 | n*Var=1.5671 (1/I=1.5505) | skewness(z)=+0.219 | Wald 95
 n= 400 | bias=+0.0012 | n*Var=1.5378 (1/I=1.5505) | skewness(z)=+0.075 | Wald 95% coverage=0.9522
 \end{lstlisting}
 
-For small $n$ the positive bias and right skewness are clear, and $n\Var(\hat\alpha)$ is above its asymptotic value; as $n$ grows, the bias vanishes at rate $O(1/n)$ and the skewness at rate $O(1/\sqrt n)$. In this model the \emph{total} coverage of the Wald interval is close to the target even at $n=10$, but this is because the errors in the two tails offset each other: because of the skewness, the interval misses too often on one side and too rarely on the other (Exercise: compute the two tail errors separately).
+For small $n$ the positive bias and right skewness\index{skewness@skewness} are clear, and $n\Var(\hat\alpha)$ is above its asymptotic value; as $n$ grows, the bias vanishes at rate $O(1/n)$ and the skewness at rate $O(1/\sqrt n)$. In this model the \emph{total} coverage of the Wald interval\index{wald confidence interval@Wald confidence interval} is close to the target even at $n=10$, but this is because the errors in the two tails offset each other: because of the skewness, the interval misses too often on one side and too rarely on the other (Exercise: compute the two tail errors separately).
 
 \subsection{ARE, Variance Stabilisation and the Second-Order Delta Method}
 
@@ -225,18 +225,18 @@ The normal and $t_3$ rows are very close to the theoretical ARE values ($0.637$ 
 \section{Comments and Notes}
 
 \begin{remark}[Hodges' Superefficient Estimator]
-The estimator $T_n=\bar X\,\I\{|\bar X|\ge n^{-1/4}\}$ behaves like $\bar X$ in the $\Normal(\theta,1)$ model for $\theta\ne0$, while at $\theta=0$ its asymptotic variance is $0$: it seemingly ``beats'' the CRLB. However, its risk deteriorates in a neighbourhood of $\theta=0$; Le Cam's theorem \cite{lecam53} shows that superefficiency is possible only on a set of measure zero. This is why asymptotic efficiency is defined together with local uniformity (regularity) (the Hájek--Le Cam convolution theorem).
+The estimator $T_n=\bar X\,\I\{|\bar X|\ge n^{-1/4}\}$ behaves like $\bar X$ in the $\Normal(\theta,1)$ model for $\theta\ne0$, while at $\theta=0$ its asymptotic variance is $0$: it seemingly ``beats'' the CRLB\index{cramer rao lower bound crlb@Cramér--Rao lower bound (CRLB)}. However, its risk deteriorates in a neighbourhood of $\theta=0$; Le Cam's theorem \cite{lecam53} shows that superefficiency\index{hodges superefficiency@Hodges' superefficiency} is possible only on a set of measure zero. This is why asymptotic efficiency\index{asymptotic relative efficiency@asymptotic relative efficiency} is defined together with local uniformity (regularity) (the Hájek--Le Cam convolution\index{convolution@convolution} theorem).
 \end{remark}
 
 \begin{remark}[Expected or Observed Information?]
-Either $I_n(\hat\theta)$ or $J_n(\hat\theta)$ may be used in the Wald interval; both are asymptotically valid. The observed information is usually more accurate from the point of view of conditional inference, because it reflects ancillary information in the data, and it comes for free as a by-product of the Newton--Raphson algorithm.
+Either $I_n(\hat\theta)$ or $J_n(\hat\theta)$ may be used in the Wald interval\index{wald confidence interval@Wald confidence interval}; both are asymptotically valid. The observed information\index{observed information@observed information} is usually more accurate from the point of view of conditional inference, because it reflects ancillary\index{ancillary statistic@ancillary statistic} information in the data, and it comes for free as a by-product of the Newton--Raphson\index{newton raphson method@Newton--Raphson method} algorithm.
 \end{remark}
 
 \begin{remark}[Limits of the Delta Method]
-The delta method is a local linearisation; if $g$ changes rapidly or the variance of $T_n$ is large, the approximation deteriorates. For example, $\hat\tau=\hat p/(1-\hat p)$ has infinite mean in finite samples because $\hat p=1$ has positive probability; yet its asymptotic distribution is well defined. In such cases the bootstrap (Chapter~\ref{ch:bootstrap}) or profile likelihood intervals are preferred.
+The delta method\index{delta method@delta method} is a local linearisation; if $g$ changes rapidly or the variance of $T_n$ is large, the approximation deteriorates. For example, $\hat\tau=\hat p/(1-\hat p)$ has infinite mean in finite samples because $\hat p=1$ has positive probability; yet its asymptotic distribution is well defined. In such cases the bootstrap (Chapter~\ref{ch:bootstrap}) or profile likelihood\index{profile likelihood@profile likelihood} intervals are preferred.
 \end{remark}
 
-% --- CHAPTER SUMMARY (generated by tools/summaries.py) ---
+% --- CHAPTER SUMMARY ---
 \section{Chapter Summary}
 \begin{summary}
 \begin{itemize}

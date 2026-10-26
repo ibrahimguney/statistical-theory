@@ -3,19 +3,19 @@
 
 \chapter{Maximum Likelihood and the Invariance Principle}\label{ch:mle}\chaptermark{Maximum Likelihood and Invariance}
 
-The unbiased estimation theory of the previous chapters is elegant but not applicable to every problem: a complete sufficient statistic may not exist, and an unbiased estimator may not exist. Fisher's maximum likelihood (ML) principle, by contrast, offers an almost universal recipe: choose the parameter value that makes the observed data ``most likely''. ML estimators are usually biased, but in large samples they are consistent, asymptotically normal and efficient (Chapter~\ref{ch:mle-asimptotik}). In this chapter we discuss the definition of the MLE, its computation, its invariance property and its pitfalls.
+The unbiased estimation theory of the previous chapters is elegant but not applicable to every problem: a complete sufficient statistic\index{complete statistic@complete statistic}\index{sufficient statistic@sufficient statistic} may not exist, and an unbiased estimator\index{unbiased estimator@unbiased estimator} may not exist. Fisher's maximum likelihood\index{maximum likelihood estimator mle@maximum likelihood estimator (MLE)} (ML) principle, by contrast, offers an almost universal recipe: choose the parameter value that makes the observed data ``most likely''. ML estimators are usually biased, but in large samples they are consistent, asymptotically normal\index{asymptotic normality@asymptotic normality} and efficient (Chapter~\ref{ch:mle-asimptotik}). In this chapter we discuss the definition of the MLE, its computation, its invariance property and its pitfalls.
 
 \section{Definitions}
 
 \begin{definition}[Likelihood and Log-Likelihood]
-After $\x$ has been observed, the function $\theta\mapsto L(\theta;\x)=f(\x;\theta)$ is called the \emph{likelihood function} and $\ell(\theta;\x)=\ln L(\theta;\x)$ the \emph{log-likelihood}. For an i.i.d.\ sample, $L(\theta;\x)=\prod_{i=1}^nf(x_i;\theta)$ and $\ell(\theta;\x)=\sum_{i=1}^n\ln f(x_i;\theta)$.
+After $\x$ has been observed, the function $\theta\mapsto L(\theta;\x)=f(\x;\theta)$ is called the \emph{likelihood function\index{likelihood function@likelihood function}} and $\ell(\theta;\x)=\ln L(\theta;\x)$ the \emph{log-likelihood\index{log likelihood@log-likelihood}}. For an i.i.d.\ sample, $L(\theta;\x)=\prod_{i=1}^nf(x_i;\theta)$ and $\ell(\theta;\x)=\sum_{i=1}^n\ln f(x_i;\theta)$.
 \end{definition}
 
 \begin{remark}
 The likelihood is a function of $\theta$ and is \emph{not} a probability distribution on $\theta$: $\int L(\theta;\x)d\theta$ is generally not $1$. Only its ratios are meaningful; $L(\theta_1;\x)/L(\theta_2;\x)$ measures how much the data support $\theta_1$ relative to $\theta_2$ (the likelihood principle).
 \end{remark}
 
-\begin{definition}[Maximum Likelihood Estimator --- MLE]
+\begin{definition}[Maximum Likelihood Estimator --- MLE]\index{maximum likelihood estimator mle@maximum likelihood estimator (MLE)|textbf}
 A statistic $\hat\theta(\X)$ satisfying, for every $\x$,
 \[
 L(\hat\theta(\x);\x)=\sup_{\theta\in\Theta}L(\theta;\x)
@@ -28,12 +28,12 @@ Let $g:\Theta\to\Lambda$ be a function, not necessarily one-to-one. For $\eta\in
 \[
 L^*(\eta;\x)=\sup_{\{\theta:\,g(\theta)=\eta\}}L(\theta;\x)
 \]
-is called the \emph{induced likelihood}. The $\hat\eta$ maximising $L^*$ is called the MLE of $g(\theta)$.
+is called the \emph{induced likelihood\index{profile likelihood@profile likelihood}}. The $\hat\eta$ maximising $L^*$ is called the MLE of $g(\theta)$.
 \end{definition}
 
 \section{Main Theorems and Proofs}
 
-\begin{theorem}[Zehna's Invariance Principle \cite{zehna66}]\label{thm:zehna}
+\begin{theorem}[Zehna's Invariance Principle \cite{zehna66}]\label{thm:zehna}\index{zehna s invariance principle@Zehna's invariance principle}
 If $\hat{\theta}$ is the MLE of $\theta$, then for \emph{any} function $g$ the MLE of $g(\theta)$ is $g(\hat{\theta})$:
 \[
 \widehat{g(\theta)}_{\text{MLE}} = g(\hat{\theta}_{\text{MLE}}).
@@ -51,22 +51,22 @@ On the other hand, since $\hat\theta$ belongs to $\{\theta:g(\theta)=\hat\eta\}$
 Invariance is a property that unbiasedness \emph{lacks}: $S^2$ is unbiased for $\sigma^2$ while $S$ is biased for $\sigma$; but if $\hat\sigma^2$ is the MLE of $\sigma^2$, then $\hat\sigma=\sqrt{\hat\sigma^2}$ is the MLE of $\sigma$. Practical consequence: the parametrisation in which you set up a model does not change the MLE; in numerical optimisation, unconstrained parametrisations (e.g.\ $\ln\sigma$, logit) can be used freely.
 \end{remark}
 
-\begin{proposition}[The MLE Is a Function of the Sufficient Statistic]\label{prop:mle-yeterli}
+\begin{proposition}[The MLE Is a Function of the Sufficient Statistic]\label{prop:mle-yeterli}\index{maximum likelihood estimator mle@maximum likelihood estimator (MLE)}
 If $T$ is sufficient and the MLE is unique, then $\hat\theta$ depends only on $T$.
 \end{proposition}
 \begin{proof}
-By factorisation, $L(\theta;\x)=g(T(\x),\theta)h(\x)$; the constant factor $h(\x)>0$ does not affect the maximiser, so $\hat\theta=\argmax_\theta g(T(\x),\theta)$.
+By factorisation\index{factorisation theorem@factorisation theorem}, $L(\theta;\x)=g(T(\x),\theta)h(\x)$; the constant factor $h(\x)>0$ does not affect the maximiser, so $\hat\theta=\argmax_\theta g(T(\x),\theta)$.
 \end{proof}
 
-\begin{theorem}[The MLE in a Natural Exponential Family]\label{thm:ustel-mle}
-Let the $X_i$ be i.i.d.\ from the natural-form family $f(x;\bm\eta)=h(x)\exp\{\bm\eta^\top\mathbf t(x)-A(\bm\eta)\}$ with an open natural parameter space. Then $\ell(\bm\eta)=\bm\eta^\top\sum\mathbf t(x_i)-nA(\bm\eta)+\text{const}$ is strictly concave and the MLE (if it exists) is unique; the likelihood equation
+\begin{theorem}[The MLE in a Natural Exponential Family]\label{thm:ustel-mle}\index{maximum likelihood estimator mle@maximum likelihood estimator (MLE)}
+Let the $X_i$ be i.i.d.\ from the natural-form family $f(x;\bm\eta)=h(x)\exp\{\bm\eta^\top\mathbf t(x)-A(\bm\eta)\}$ with an open natural parameter\index{natural parameter@natural parameter} space. Then $\ell(\bm\eta)=\bm\eta^\top\sum\mathbf t(x_i)-nA(\bm\eta)+\text{const}$ is strictly concave and the MLE (if it exists) is unique; the likelihood equation
 \[
 \nabla A(\hat{\bm\eta})=\E_{\hat{\bm\eta}}[\mathbf t(X)]=\frac1n\sum_{i=1}^n\mathbf t(X_i)
 \]
 takes the form ``equate theoretical moments with sample moments''.
 \end{theorem}
 \begin{proof}
-Differentiating $e^{A(\bm\eta)}=\int h(x)e^{\bm\eta^\top\mathbf t(x)}dx$ gives $\nabla A=\E[\mathbf t(X)]$ and $\nabla^2A=\Cov(\mathbf t(X))$. Since the covariance matrix is positive definite (for a full-rank family), $A$ is strictly convex and $\ell$ strictly concave; a strictly concave function has at most one critical point, and that point is the global maximum.
+Differentiating $e^{A(\bm\eta)}=\int h(x)e^{\bm\eta^\top\mathbf t(x)}dx$ gives $\nabla A=\E[\mathbf t(X)]$ and $\nabla^2A=\Cov(\mathbf t(X))$. Since the covariance matrix\index{covariance matrix@covariance matrix} is positive definite (for a full-rank family), $A$ is strictly convex and $\ell$ strictly concave; a strictly concave function has at most one critical point, and that point is the global maximum.
 \end{proof}
 
 \section{Worked Examples}
@@ -81,11 +81,11 @@ The Hessian at $(\hat\mu,\hat\sigma^2)$ is $\mathrm{diag}(-n/\hat\sigma^2,\,-n/(
 \end{example}
 
 \begin{example}[$\text{Uniform}(0,\theta)$: When Differentiation Does Not Help]\label{ex:uniform-mle}
-$L(\theta;\x)=\theta^{-n}\I\{\theta\ge x_{(n)}\}$. For $\theta<x_{(n)}$, $L=0$; for $\theta\ge x_{(n)}$, $L$ is strictly decreasing. Hence $\hat\theta=X_{(n)}$. The likelihood equation $-n/\theta=0$ has no solution: the maximum is at the boundary point where the likelihood is discontinuous. The MLE is biased ($\E X_{(n)}=\frac{n}{n+1}\theta$); the UMVUE rescales it by $\frac{n+1}{n}$.
+$L(\theta;\x)=\theta^{-n}\I\{\theta\ge x_{(n)}\}$. For $\theta<x_{(n)}$, $L=0$; for $\theta\ge x_{(n)}$, $L$ is strictly decreasing. Hence $\hat\theta=X_{(n)}$. The likelihood equation $-n/\theta=0$ has no solution: the maximum is at the boundary point where the likelihood is discontinuous. The MLE\index{maximum likelihood estimator mle@maximum likelihood estimator (MLE)} is biased ($\E X_{(n)}=\frac{n}{n+1}\theta$); the UMVUE\index{umvue@UMVUE} rescales it by $\frac{n+1}{n}$.
 \end{example}
 
 \begin{example}[Bernoulli and the Boundary Problem]
-$\ell(p)=t\ln p+(n-t)\ln(1-p)$ and $\hat p=t/n$. But if $t=0$ is observed, $\hat p=0$; the open interval $\Theta=(0,1)$ does not contain this value, so the MLE (on the open interval) does not exist. Taking $\Theta=[0,1]$ gives $\hat p=0$; but then the Wald standard error $\sqrt{\hat p(1-\hat p)/n}=0$ and the Wald confidence interval collapses to a point (to be fixed with the Wilson interval in Chapter~\ref{ch:guven}).
+$\ell(p)=t\ln p+(n-t)\ln(1-p)$ and $\hat p=t/n$. But if $t=0$ is observed, $\hat p=0$; the open interval $\Theta=(0,1)$ does not contain this value, so the MLE (on the open interval) does not exist. Taking $\Theta=[0,1]$ gives $\hat p=0$; but then the Wald standard error $\sqrt{\hat p(1-\hat p)/n}=0$ and the Wald confidence interval\index{wald confidence interval@Wald confidence interval} collapses to a point (to be fixed with the Wilson\index{wilson interval@Wilson interval} interval in Chapter~\ref{ch:guven}).
 \end{example}
 
 \begin{example}[The Laplace Location Family: the Median]
@@ -101,11 +101,11 @@ Let $X_i\iid\text{Gamma}(\alpha,\beta)$ (shape $\alpha$, rate $\beta$). $\ell=n\
 \[
 \ln\hat\alpha-\psi(\hat\alpha)=\ln\bar x-\overline{\ln x}\quad(=:s>0)
 \]
-($\psi$: digamma). The left-hand side is strictly decreasing on $(0,\infty)$, so there is a unique solution, found by Newton--Raphson:
+($\psi$: digamma). The left-hand side is strictly decreasing on $(0,\infty)$, so there is a unique solution, found by Newton--Raphson\index{newton raphson method@Newton--Raphson method}:
 \[
 \alpha_{k+1}=\alpha_k-\frac{\ln\alpha_k-\psi(\alpha_k)-s}{1/\alpha_k-\psi'(\alpha_k)} .
 \]
-The method of moments estimate (Example~\ref{ex:gamma-mm}) is a good starting value.
+The method of moments\index{method of moments@method of moments} estimate (Example~\ref{ex:gamma-mm}) is a good starting value.
 \end{example}
 
 \begin{example}[Cauchy: a Multimodal Likelihood]\label{ex:cauchy-mle}
@@ -124,7 +124,7 @@ Numerical (var   param.): mu=9.8540, sd=2.8169, -logL=613.6412
 Numerical (logsd param.): mu=9.8540, sd=2.8169, -logL=613.6412
 \end{lstlisting}
 
-Three different parametrisations give the same $(\hat\mu,\hat\sigma)$ and the same maximal log-likelihood: the numerical counterpart of the invariance principle.
+Three different parametrisations give the same $(\hat\mu,\hat\sigma)$ and the same maximal log-likelihood\index{log likelihood@log-likelihood}: the numerical counterpart of the invariance principle\index{zehna s invariance principle@Zehna's invariance principle}.
 
 \subsection{Gamma MLE: Newton--Raphson}
 
@@ -141,7 +141,7 @@ Newton MLE : alpha=2.54140, beta(rate)=0.63481
 scipy.fit  : alpha=2.54140, beta(rate)=0.63481
 \end{lstlisting}
 
-Newton--Raphson converges quadratically: the number of correct digits roughly doubles at each iteration.
+Newton--Raphson\index{newton raphson method@Newton--Raphson method} converges quadratically: the number of correct digits roughly doubles at each iteration.
 
 \subsection{Multimodality of the Cauchy Likelihood}
 
@@ -165,9 +165,9 @@ start=-3.12 -> theta_hat=-3.1171, logL=-12.2092
 
 \begin{remark}[When the MLE Can Fail]
 \begin{itemize}
-  \item \textbf{Unbounded likelihood:} in a two-component normal mixture, if the mean of one component is set equal to an observation and its variance is sent to $0$, then $L\to\infty$; the global MLE is meaningless and one looks for ``the best local maximum'' (the EM algorithm).
-  \item \textbf{Number of parameters growing with $n$} (the Neyman--Scott problem \cite{neyman-scott48}): if $X_{ij}\sim\Normal(\mu_i,\sigma^2)$, $j=1,2$, $i=1,\dots,n$, then $\hat\sigma^2\pto\sigma^2/2$: the MLE is inconsistent.
-  \item \textbf{True parameter on the boundary:} asymptotic normality breaks down (in Chapter~\ref{ch:lrt}, the counterpart of Wilks' theorem is a mixture of chi-squares).
+  \item \textbf{Unbounded likelihood:} in a two-component normal mixture, if the mean of one component is set equal to an observation and its variance is sent to $0$, then $L\to\infty$; the global MLE\index{maximum likelihood estimator mle@maximum likelihood estimator (MLE)} is meaningless and one looks for ``the best local maximum'' (the EM algorithm).
+  \item \textbf{Number of parameters growing with $n$} (the Neyman--Scott\index{neyman scott problem@Neyman--Scott problem} problem \cite{neyman-scott48}): if $X_{ij}\sim\Normal(\mu_i,\sigma^2)$, $j=1,2$, $i=1,\dots,n$, then $\hat\sigma^2\pto\sigma^2/2$: the MLE is inconsistent.
+  \item \textbf{True parameter on the boundary:} asymptotic normality\index{asymptotic normality@asymptotic normality} breaks down (in Chapter~\ref{ch:lrt}, the counterpart of Wilks\index{wilks theorem@Wilks' theorem}' theorem is a mixture of chi-squares).
 \end{itemize}
 \end{remark}
 
@@ -176,7 +176,7 @@ $\frac1n\ell(\theta)=\frac1n\sum\ln f(X_i;\theta)\asto\E_{\theta_0}\ln f(X;\thet
 $\E_{\theta_0}\ln f(X;\theta_0)-\E_{\theta_0}\ln f(X;\theta)=\mathrm{KL}(f_{\theta_0}\|f_\theta)\ge0$. That is, the MLE minimises the KL divergence between the empirical distribution and the model. If the model is misspecified, the MLE converges to the member of the model closest in KL to the true distribution (the quasi-likelihood / QMLE interpretation).
 \end{remark}
 
-% --- CHAPTER SUMMARY (generated by tools/summaries.py) ---
+% --- CHAPTER SUMMARY ---
 \section{Chapter Summary}
 \begin{summary}
 \begin{itemize}
@@ -188,7 +188,7 @@ $\E_{\theta_0}\ln f(X;\theta_0)-\E_{\theta_0}\ln f(X;\theta)=\mathrm{KL}(f_{\the
 \end{summary}
 % --- END OF CHAPTER SUMMARY ---
 
-\paragraph{Further reading.} \cite[Section~7.2]{casella}, \cite[Chapter~9]{wasserman}; for misbehaviour of the MLE see \cite[Chapter~6]{lehmann-casella}.
+\paragraph{Further reading.} \cite[Section~7.2]{casella}, \cite[Chapter~9]{wasserman}; for misbehaviour of the MLE\index{maximum likelihood estimator mle@maximum likelihood estimator (MLE)} see \cite[Chapter~6]{lehmann-casella}.
 
 \section{Exercises}
 

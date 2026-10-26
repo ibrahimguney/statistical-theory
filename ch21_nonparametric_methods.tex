@@ -3,12 +3,12 @@
 
 \chapter{Nonparametric Methods}\label{ch:parametrik-olmayan}
 
-For most of the book we have assumed that the data come from a family determined by finitely many parameters. This assumption yields strong results (the Cramér--Rao bound, UMP tests, efficiency of the MLE), but if the model is wrong these results may become invalid. \emph{Nonparametric} methods make only weak assumptions about $F$, such as continuity or symmetry. In this chapter we follow two ideas. First, the distribution of statistics based on the \emph{ranks} of the observations rather than their values does not depend on $F$ under the null hypothesis; this yields tests of exact level (sign, Wilcoxon, Mann--Whitney, Kolmogorov--Smirnov) and exact confidence intervals for quantiles. Second, $F$ or its density can itself be estimated; the density counterpart of the empirical CDF of Chapter~\ref{ch:rastgele-degiskenler} is the \emph{kernel density estimate}. We close the chapter with the question of how much power nonparametric tests lose, i.e.\ with Pitman asymptotic relative efficiency. The answer surprises most readers: even for normal data the loss is only about $5\%$.
+For most of the book we have assumed that the data come from a family determined by finitely many parameters. This assumption yields strong results (the Cramér--Rao\index{cramer rao lower bound crlb@Cramér--Rao lower bound (CRLB)} bound, UMP\index{uniformly most powerful ump test@uniformly most powerful (UMP) test} tests, efficiency of the MLE), but if the model is wrong these results may become invalid. \emph{Nonparametric\index{nonparametric methods@nonparametric methods}} methods make only weak assumptions about $F$, such as continuity or symmetry. In this chapter we follow two ideas. First, the distribution of statistics based on the \emph{ranks} of the observations rather than their values does not depend on $F$ under the null hypothesis; this yields tests of exact level (sign, Wilcoxon, Mann--Whitney\index{wilcoxon mann whitney test@Wilcoxon--Mann--Whitney test}, Kolmogorov--Smirnov\index{kolmogorov smirnov test@Kolmogorov--Smirnov test}) and exact confidence intervals for quantiles. Second, $F$ or its density can itself be estimated; the density counterpart of the empirical CDF\index{empirical distribution function@empirical distribution function} of Chapter~\ref{ch:rastgele-degiskenler} is the \emph{kernel density estimate\index{kernel density estimation@kernel density estimation}}. We close the chapter with the question of how much power nonparametric tests lose, i.e.\ with Pitman\index{pitman efficiency@Pitman efficiency} asymptotic relative efficiency\index{asymptotic relative efficiency@asymptotic relative efficiency}. The answer surprises most readers: even for normal data the loss is only about $5\%$.
 
 \section{Definitions}
 
 \begin{definition}[Distribution-Free Statistic]\label{def:dagilimdan-bagimsiz}
-For a class $\mathcal F$ of distributions (e.g.\ all continuous distributions), if the distribution of $T(\X)$ when $X_1,\dots,X_n\iid F$ is the same for every $F\in\mathcal F$, then $T$ is called \emph{distribution-free} over $\mathcal F$.
+For a class $\mathcal F$ of distributions (e.g.\ all continuous distributions), if the distribution of $T(\X)$ when $X_1,\dots,X_n\iid F$ is the same for every $F\in\mathcal F$, then $T$ is called \emph{distribution-free\index{distribution free statistic@distribution-free statistic}} over $\mathcal F$.
 \end{definition}
 
 \begin{definition}[Ranks]\label{def:sira}
@@ -19,27 +19,27 @@ Let $X_1,\dots,X_n$ be observations without ties. The \emph{rank} of $X_i$ is $R
 Let $X_1,\dots,X_n$ be i.i.d.\ from a continuous distribution with median $\theta$; $H_0:\theta=0$.
 \begin{itemize}
   \item \emph{Sign statistic:} $S=\sum_i\I\{X_i>0\}$.
-  \item \emph{Wilcoxon signed-rank statistic:} with $R_i^+$ the rank of $|X_i|$ among $|X_1|,\dots,|X_n|$, $W^+=\sum_iR_i^+\I\{X_i>0\}$.
+  \item \emph{Wilcoxon signed-rank\index{wilcoxon signed rank test@Wilcoxon signed-rank test} statistic:} with $R_i^+$ the rank of $|X_i|$ among $|X_1|,\dots,|X_n|$, $W^+=\sum_iR_i^+\I\{X_i>0\}$.
 \end{itemize}
 \end{definition}
 
-\begin{definition}[Two Samples: Wilcoxon--Mann--Whitney]\label{def:mann-whitney}
+\begin{definition}[Two Samples: Wilcoxon--Mann--Whitney]\label{def:mann-whitney}\index{wilcoxon mann whitney test@Wilcoxon--Mann--Whitney test|textbf}
 Let $X_1,\dots,X_m\iid F$ and $Y_1,\dots,Y_n\iid G$ be independent, $N=m+n$. The sum of the ranks of the $Y_j$ in the combined sample is called the \emph{Wilcoxon rank sum} $W$ \cite{wilcoxon45}, and $U=\sum_{i,j}\I\{X_i<Y_j\}$ the \emph{Mann--Whitney statistic} \cite{mann-whitney47}. $H_0:F=G$ is rejected for large values of $U$ in favour of the alternative that $G$ is shifted to the right.
 \end{definition}
 
-\begin{definition}[Kolmogorov--Smirnov Statistics]\label{def:ks}
+\begin{definition}[Kolmogorov--Smirnov Statistics]\label{def:ks}\index{kolmogorov smirnov test@Kolmogorov--Smirnov test|textbf}
 One sample: $D_n=\sup_x|\hat F_n(x)-F_0(x)|$, for $H_0:F=F_0$. Two samples: $D_{m,n}=\sup_x|\hat F_m(x)-\hat G_n(x)|$, for $H_0:F=G$.
 \end{definition}
 
 \begin{definition}[Kernel Density Estimator]\label{def:kde}
-Let $K\ge0$ be a symmetric \emph{kernel} with $\int K=1$, $\int uK(u)du=0$, $\mu_2(K)=\int u^2K(u)du<\infty$ and $R(K)=\int K^2<\infty$, and let $h>0$ be the \emph{bandwidth}. The kernel density estimator \cite{rosenblatt56,parzen62} is defined as
+Let $K\ge0$ be a symmetric \emph{kernel} with $\int K=1$, $\int uK(u)du=0$, $\mu_2(K)=\int u^2K(u)du<\infty$ and $R(K)=\int K^2<\infty$, and let $h>0$ be the \emph{bandwidth\index{bandwidth@bandwidth}}. The kernel density estimator\index{kernel density estimation@kernel density estimation} \cite{rosenblatt56,parzen62} is defined as
 \[
 \hat f_h(x)=\frac1{nh}\sum_{i=1}^nK\Big(\frac{x-X_i}{h}\Big) .
 \]
 Each observation is replaced by a small ``bump'' of width $h$ centred at it. As the error criterion the \emph{mean integrated squared error} is used: $\mathrm{MISE}(h)=\E\int(\hat f_h-f)^2$.
 \end{definition}
 
-\begin{definition}[Pitman Asymptotic Relative Efficiency]\label{def:pitman}
+\begin{definition}[Pitman Asymptotic Relative Efficiency]\label{def:pitman}\index{pitman efficiency@Pitman efficiency|textbf}
 Suppose two sequences of level-$\alpha$ tests require $n_1$ and $n_2$ observations, respectively, to achieve the same limiting power against alternatives approaching $\theta_0$ at the rate $\theta_n=\theta_0+h/\sqrt n$. The limit of the ratio $n_2/n_1$ is called the \emph{Pitman ARE} of the first test relative to the second. It is the testing counterpart of the estimator ARE of Chapter~\ref{ch:mle-asimptotik}.
 \end{definition}
 
@@ -60,12 +60,12 @@ $B=\#\{i:X_i\le\xi_p\}\sim\text{Bin}(n,p)$, because $\P(X_i\le\xi_p)=F(\xi_p)=p$
 If $X_1,\dots,X_n\iid F$ with $F$ continuous, then
 \begin{enumerate}
   \item there are a.s.\ no ties, and $\mathbf R$ is uniformly distributed over the $n!$ permutations of $\{1,\dots,n\}$;
-  \item $\mathbf R$ is independent of the vector of order statistics $(X_{(1)},\dots,X_{(n)})$.
+  \item $\mathbf R$ is independent of the vector of order statistics\index{order statistics@order statistics} $(X_{(1)},\dots,X_{(n)})$.
 \end{enumerate}
-Consequently, every function of the ranks is distribution-free over all continuous distributions.
+Consequently, every function of the ranks is distribution-free\index{distribution free statistic@distribution-free statistic} over all continuous distributions.
 \end{theorem}
 \begin{proof}
-(1) For $i\ne j$, $\P(X_i=X_j)=\int\P(X_i=x)\,dF(x)=0$, because a continuous distribution has no atoms; a finite union also has probability zero. (2) For a permutation $\sigma$, $(X_{\sigma(1)},\dots,X_{\sigma(n)})$ has the same distribution as $(X_1,\dots,X_n)$ by the i.i.d.\ structure (exchangeability). The event $\mathbf R=\mathbf r$ is the event ``the position of $X_i$ in the ordered vector is $r_i$''. A permutation leaves the ordered vector unchanged but carries the rank vector to another permutation. Hence for every measurable $B$ and any two permutations $\mathbf r,\mathbf r'$,
+(1) For $i\ne j$, $\P(X_i=X_j)=\int\P(X_i=x)\,dF(x)=0$, because a continuous distribution has no atoms; a finite union also has probability zero. (2) For a permutation $\sigma$, $(X_{\sigma(1)},\dots,X_{\sigma(n)})$ has the same distribution as $(X_1,\dots,X_n)$ by the i.i.d.\ structure (exchangeability\index{exchangeability@exchangeability}). The event $\mathbf R=\mathbf r$ is the event ``the position of $X_i$ in the ordered vector is $r_i$''. A permutation leaves the ordered vector unchanged but carries the rank vector to another permutation. Hence for every measurable $B$ and any two permutations $\mathbf r,\mathbf r'$,
 \[
 \P\big(\mathbf R=\mathbf r,\ (X_{(1)},\dots,X_{(n)})\in B\big)=\P\big(\mathbf R=\mathbf r',\ (X_{(1)},\dots,X_{(n)})\in B\big).
 \]
@@ -83,7 +83,7 @@ and $\E W^+=\frac{n(n+1)}4$, $\Var W^+=\frac{n(n+1)(2n+1)}{24}$. Moreover $S\sim
 Under symmetry and continuity, $\I\{X_i>0\}$ and $|X_i|$ are independent: for every $t\ge0$, $\P(X_i>0,|X_i|\le t)=\P(0<X_i\le t)=\frac12\P(|X_i|\le t)$, and $\P(X_i>0)=\frac12$. Hence the signs $\epsilon_i=\I\{X_i>0\}$ are $\text{Bernoulli}(1/2)$ variables independent of the vector $(|X_1|,\dots,|X_n|)$ and of each other. If $B_j$ denotes the sign of the observation in position $j$ of the ordered $|X|$'s, the $B_j$ are also i.i.d.\ $\text{Bernoulli}(1/2)$, independent of the ordering of the $(|X_i|)$, and $W^+=\sum_jjB_j$. Moments: $\E W^+=\frac12\sum_jj=\frac{n(n+1)}4$, $\Var W^+=\frac14\sum_jj^2=\frac{n(n+1)(2n+1)}{24}$. Since $S=\sum_iB_i$, the last claim is clear.
 \end{proof}
 
-\begin{theorem}[Null Moments of the Wilcoxon--Mann--Whitney Statistic]\label{thm:mann-whitney}
+\begin{theorem}[Null Moments of the Wilcoxon--Mann--Whitney Statistic]\label{thm:mann-whitney}\index{wilcoxon mann whitney test@Wilcoxon--Mann--Whitney test}
 Under $H_0:F=G$ ($F$ continuous),
 \[
 U=W-\frac{n(n+1)}2,\qquad\E W=\frac{n(N+1)}2,\qquad\Var W=\Var U=\frac{mn(N+1)}{12}.
@@ -96,24 +96,24 @@ U=W-\frac{n(n+1)}2,\qquad\E W=\frac{n(N+1)}2,\qquad\Var W=\Var U=\frac{mn(N+1)}{
 \end{proof}
 
 \begin{remark}
-$U/(mn)$ is an unbiased estimator of $\P(X<Y)$; the area under the ROC curve (AUC) is exactly this quantity. Under $H_0$, $\P(X<Y)=\frac12$. The alternatives against which the test is consistent are those with $\P(X<Y)\ne\frac12$; that is, the Mann--Whitney test does not answer the question ``are the means equal?'' but the question ``is an observation chosen at random from one group more likely to be larger than one from the other?''.
+$U/(mn)$ is an unbiased estimator\index{unbiased estimator@unbiased estimator} of $\P(X<Y)$; the area under the ROC curve (AUC) is exactly this quantity. Under $H_0$, $\P(X<Y)=\frac12$. The alternatives against which the test is consistent are those with $\P(X<Y)\ne\frac12$; that is, the Mann--Whitney test does not answer the question ``are the means equal?'' but the question ``is an observation chosen at random from one group more likely to be larger than one from the other?''.
 \end{remark}
 
-\begin{theorem}[The KS Statistic Is Distribution-Free]\label{thm:ks}
+\begin{theorem}[The KS Statistic Is Distribution-Free]\label{thm:ks}\index{kolmogorov smirnov test@Kolmogorov--Smirnov test}
 If $F_0$ is continuous and $H_0:F=F_0$ is true, the distribution of $D_n$ equals that of $\sup_{u\in[0,1]}|\hat G_n(u)-u|$ built from $U_i\iid\text{Uniform}(0,1)$; i.e.\ it does not depend on $F_0$. Moreover \cite{kolmogorov33b}
 \[
 \lim_{n\to\infty}\P\big(\sqrt nD_n\le t\big)=1-2\sum_{k=1}^\infty(-1)^{k-1}e^{-2k^2t^2},\qquad t>0 .
 \]
 \end{theorem}
 \begin{proof}[Proof (first part)]
-Let $U_i=F_0(X_i)\iid\text{Uniform}(0,1)$ (Theorem~\ref{thm:pit}) and let $\hat G_n$ be their empirical CDF. Since $F_0$ is non-decreasing, $X_i\le x\Rightarrow U_i\le F_0(x)$; conversely, $X_i>x$ while $U_i\le F_0(x)$ requires $F_0$ to be constant on $[x,X_i]$, an event of probability zero. Hence a.s., for every $x$, $\hat F_n(x)=\hat G_n(F_0(x))$ and
+Let $U_i=F_0(X_i)\iid\text{Uniform}(0,1)$ (Theorem~\ref{thm:pit}) and let $\hat G_n$ be their empirical CDF\index{empirical distribution function@empirical distribution function}. Since $F_0$ is non-decreasing, $X_i\le x\Rightarrow U_i\le F_0(x)$; conversely, $X_i>x$ while $U_i\le F_0(x)$ requires $F_0$ to be constant on $[x,X_i]$, an event of probability zero. Hence a.s., for every $x$, $\hat F_n(x)=\hat G_n(F_0(x))$ and
 \[
 D_n=\sup_x\big|\hat G_n(F_0(x))-F_0(x)\big|=\sup_{u\in(0,1)}\big|\hat G_n(u)-u\big|,
 \]
 because the range of a continuous $F_0$ contains $(0,1)$; at the endpoints the difference is zero. The limit distribution comes from the convergence of the process $\sqrt n(\hat G_n-u)$ to a Brownian bridge and from the distribution of the supremum of a Brownian bridge; see \cite[Chapter~19]{vdv}.
 \end{proof}
 
-\begin{theorem}[Bias, Variance and Optimal Bandwidth of the Kernel Estimator]\label{thm:kde}
+\begin{theorem}[Bias, Variance and Optimal Bandwidth of the Kernel Estimator]\label{thm:kde}\index{bandwidth@bandwidth}
 Let $f$ be twice continuously differentiable with $f''$ bounded. As $h\to0$ and $nh\to\infty$, for every $x$,
 \[
 \E\hat f_h(x)-f(x)=\frac{h^2}2\mu_2(K)f''(x)+o(h^2),\qquad\Var\hat f_h(x)=\frac{f(x)R(K)}{nh}+o\Big(\frac1{nh}\Big).
@@ -136,11 +136,11 @@ Since $f''$ is continuous and bounded and $u^2K(u)$ is integrable, by dominated 
 
 \emph{Variance.} $\hat f_h(x)$ is the mean of the i.i.d.\ variables $Z_i=\frac1hK(\frac{x-X_i}h)$: $\Var\hat f_h(x)=\frac1n\big(\E Z_1^2-(\E Z_1)^2\big)$. With the same change of variables $\E Z_1^2=\frac1h\int K(u)^2f(x-hu)\,du=\frac1h\big(f(x)R(K)+o(1)\big)$ and $(\E Z_1)^2=O(1)$; hence $\Var\hat f_h(x)=\frac{f(x)R(K)}{nh}+O(\frac1n)$, and as $h\to0$, $O(1/n)=o(1/(nh))$.
 
-\emph{AMISE.} $\mathrm{MSE}=\text{bias}^2+\text{variance}$; integrate over $x$ and use $\int f=1$. With $A=\mu_2^2R(f'')/4$ and $B=R(K)/n$, the derivative of $Ah^4+B/h$ is $4Ah^3-B/h^2$, which vanishes at $h^5=B/(4A)$; this is $h^*$. At this point $B/h=4Ah^4$, so the value is $5Ah^{*4}=\frac54(4A)^{1/5}B^{4/5}$.
+\emph{AMISE\index{mise@MISE}.} $\mathrm{MSE}=\text{bias}^2+\text{variance}$; integrate over $x$ and use $\int f=1$. With $A=\mu_2^2R(f'')/4$ and $B=R(K)/n$, the derivative of $Ah^4+B/h$ is $4Ah^3-B/h^2$, which vanishes at $h^5=B/(4A)$; this is $h^*$. At this point $B/h=4Ah^4$, so the value is $5Ah^{*4}=\frac54(4A)^{1/5}B^{4/5}$.
 \end{proof}
 
-\begin{theorem}[Pitman Efficiencies]\label{thm:pitman-are}
-Let $X_i=\theta+\varepsilon_i$, with the $\varepsilon_i$ i.i.d., symmetric about $0$, with density $f$ and variance $\sigma^2$; $H_0:\theta=0$. Under sufficient regularity conditions,
+\begin{theorem}[Pitman Efficiencies]\label{thm:pitman-are}\index{pitman efficiency@Pitman efficiency}
+Let $X_i=\theta+\varepsilon_i$, with the $\varepsilon_i$ i.i.d., symmetric about $0$, with density $f$ and variance $\sigma^2$; $H_0:\theta=0$. Under sufficient regularity conditions\index{regularity conditions@regularity conditions},
 \[
 \mathrm{ARE}(S,t)=4\sigma^2f(0)^2,\qquad\mathrm{ARE}(W^+,t)=12\sigma^2\Big(\int f^2\Big)^2 .
 \]
@@ -175,17 +175,17 @@ Uniform $(-1,1)$ & $\frac12$ & $1$ & $1/3$\\
 \bottomrule
 \end{tabular}
 \end{center}
-(For the logistic, $s$ is the scale parameter, $\sigma^2=\pi^2s^2/3$ and $f(0)=\frac1{4s}$.) Hodges and Lehmann \cite{hodges-lehmann56} showed that over the class of symmetric continuous densities $\mathrm{ARE}(W^+,t)\ge\frac{108}{125}=0.864$, and that there is no upper bound. That is, relative to the $t$-test the Wilcoxon test loses at most $14\%$ efficiency in the worst case, but can gain without limit. The sign test, on the other hand, wastes a third of the observations for normal data.
+(For the logistic, $s$ is the scale parameter, $\sigma^2=\pi^2s^2/3$ and $f(0)=\frac1{4s}$.) Hodges and Lehmann \cite{hodges-lehmann56} showed that over the class of symmetric continuous densities $\mathrm{ARE}(W^+,t)\ge\frac{108}{125}=0.864$, and that there is no upper bound. That is, relative to the $t$-test the Wilcoxon test loses at most $14\%$ efficiency in the worst case, but can gain without limit. The sign test\index{sign test@sign test}, on the other hand, wastes a third of the observations for normal data.
 \end{example}
 
 \begin{example}[Mann--Whitney: Exact Small-Sample Distribution]\label{ex:mw-kesin}
-$m=n=3$, $N=6$. Under $H_0$ the ranks of the $Y$'s are each of the $\binom63=20$ subsets with probability $\frac1{20}$. $W$ takes values from $6$ to $15$; $\P(W=15)=\P(W=6)=\frac1{20}$. Hence the one-sided test with $\alpha=0.05$ rejects only if all the $Y$'s are larger than all the $X$'s. In very small samples, the attainable levels of nonparametric tests form a coarse grid.
+$m=n=3$, $N=6$. Under $H_0$ the ranks of the $Y$'s are each of the $\binom63=20$ subsets with probability $\frac1{20}$. $W$ takes values from $6$ to $15$; $\P(W=15)=\P(W=6)=\frac1{20}$. Hence the one-sided test with $\alpha=0.05$ rejects only if all the $Y$'s are larger than all the $X$'s. In very small samples, the attainable levels of nonparametric\index{nonparametric methods@nonparametric methods} tests form a coarse grid.
 \end{example}
 
 \section{Computational Applications}
 
 \subsection{Level and Power of Three Tests}
-With $n=30$ observations from four distributions scaled to variance $1$, we compute the rejection rates of the $t$, Wilcoxon signed-rank and sign tests under $\theta=0$ (level) and $\theta=0.5$ (power) with $M=4000$ replications.
+With $n=30$ observations from four distributions scaled to variance $1$, we compute the rejection rates of the $t$, Wilcoxon signed-rank\index{wilcoxon signed rank test@Wilcoxon signed-rank test} and sign tests\index{sign test@sign test} under $\theta=0$ (level) and $\theta=0.5$ (power) with $M=4000$ replications.
 
 \pycode{code/ch21/c21_1_t_wilcoxon_sign_power.py}
 \begin{lstlisting}[style=output]
@@ -201,7 +201,7 @@ Uniform |  0.5  |  0.761  |  0.689   | 0.342
 Theoretical Pitman ARE (Wilcoxon/t, sign/t): {'Normal': (0.955, 0.637), 'Laplace': (1.5, 2.0), 'Uniform': (1.0, 0.333)}
 \end{lstlisting}
 
-The power ranking follows the Pitman ARE table. For normal data $t$ is most powerful, but the loss of Wilcoxon is small; the sign test lags clearly behind. For heavy-tailed distributions such as the Laplace and $t_3$, both nonparametric tests beat $t$. For the uniform distribution the power of the sign test collapses ($\mathrm{ARE}=1/3$). Under the null hypothesis all three tests approximately keep the level. The sign test is slightly conservative, because the binomial distribution is discrete and the exact $5\%$ level is not attainable.
+The power ranking follows the Pitman\index{pitman efficiency@Pitman efficiency} ARE table. For normal data $t$ is most powerful, but the loss of Wilcoxon is small; the sign test lags clearly behind. For heavy-tailed distributions such as the Laplace and $t_3$, both nonparametric\index{nonparametric methods@nonparametric methods} tests beat $t$. For the uniform distribution the power of the sign test collapses ($\mathrm{ARE}=1/3$). Under the null hypothesis all three tests approximately keep the level. The sign test is slightly conservative, because the binomial distribution is discrete and the exact $5\%$ level is not attainable.
 
 \subsection{Kolmogorov--Smirnov and the Lilliefors Problem}
 
@@ -216,10 +216,10 @@ H0 true, parameters estimated: rejection rate (target 0.05) = 0.0000
 0.95 quantile of the estimated statistic = 0.1909 (KS critical value 0.2941)
 \end{lstlisting}
 
-The quantiles of $D_n$ computed from normal and exponential data agree within Monte Carlo error and match the exact distribution (\texttt{kstwo}): the distribution-freeness claim of Theorem~\ref{thm:ks}. At $n=20$ the asymptotic Kolmogorov distribution slightly overstates the quantiles. The last two lines show a common mistake. If, when testing normality, $\mu$ and $\sigma$ are estimated from the data and the standard KS critical values are used, the test almost never rejects. Since the estimated distribution is ``too close'' to the data, $D_n$ is systematically smaller. The correct critical values (Lilliefors \cite{lilliefors67}) must be obtained by simulation or by the parametric bootstrap (Chapter~\ref{ch:bootstrap}).
+The quantiles of $D_n$ computed from normal and exponential data agree within Monte Carlo error and match the exact distribution (\texttt{kstwo}): the distribution-freeness\index{distribution free statistic@distribution-free statistic} claim of Theorem~\ref{thm:ks}. At $n=20$ the asymptotic Kolmogorov distribution slightly overstates the quantiles. The last two lines show a common mistake. If, when testing normality, $\mu$ and $\sigma$ are estimated from the data and the standard KS\index{kolmogorov smirnov test@Kolmogorov--Smirnov test} critical values are used, the test almost never rejects. Since the estimated distribution is ``too close'' to the data, $D_n$ is systematically smaller. The correct critical values (Lilliefors\index{lilliefors problem@Lilliefors problem} \cite{lilliefors67}) must be obtained by simulation or by the parametric bootstrap\index{bootstrap@bootstrap!parametric@parametric} (Chapter~\ref{ch:bootstrap}).
 
 \subsection{Kernel Density Estimation: Bandwidth and Rate of Convergence}
-For a bimodal mixture density we plot the Gaussian-kernel estimator with different values of $h$, and measure by Monte Carlo the AMISE-optimal $h^*$ of Theorem~\ref{thm:kde} and the rate at which the MISE decreases with $n$.
+For a bimodal mixture density we plot the Gaussian-kernel estimator\index{kernel density estimation@kernel density estimation} with different values of $h$, and measure by Monte Carlo the AMISE\index{mise@MISE}-optimal $h^*$ of Theorem~\ref{thm:kde} and the rate at which the MISE decreases with $n$.
 
 \pycode{code/ch21/c21_3_kernel_density.py}
 \begin{lstlisting}[style=output]
@@ -239,7 +239,7 @@ n=200: Silverman h = 0.592 | AMISE-optimal h = 0.245
 \caption{Kernel density estimates with $n=200$ observations. Small $h$ (dotted) is noisy; large $h$ (dash-dotted) is biased enough to merge the two modes. Silverman's rule (dashed), derived for the normal distribution, oversmooths the bimodal density.}
 \end{figure}
 
-The log--log slope of the MISE is about $-0.76$, close to the theoretical $-4/5$. For small $n$ the slope is somewhat flatter because of the terms neglected by AMISE. This rate is slower than the $1/n$ of parametric models: estimating a density locally at every point is harder than estimating finitely many parameters. The rate $n^{-4/5}$ is the minimax rate over the class of twice-differentiable densities (Chapter~\ref{ch:karar}). That Silverman's rule gives $0.59$, far from the optimal $0.25$, is a reminder that the ``rule'' rests on a normality assumption.
+The log--log slope of the MISE is about $-0.76$, close to the theoretical $-4/5$. For small $n$ the slope is somewhat flatter because of the terms neglected by AMISE. This rate is slower than the $1/n$ of parametric models: estimating a density locally at every point is harder than estimating finitely many parameters. The rate $n^{-4/5}$ is the minimax\index{minimax rule@minimax rule} rate over the class of twice-differentiable densities (Chapter~\ref{ch:karar}). That Silverman\index{silverman s rule@Silverman's rule}'s rule gives $0.59$, far from the optimal $0.25$, is a reminder that the ``rule'' rests on a normality assumption.
 
 \section{Comments and Notes}
 
@@ -248,14 +248,14 @@ In real data, ties arise from rounding of measurements. In that case tied observ
 \end{remark}
 
 \begin{remark}[The Hodges--Lehmann Estimator and Confidence Intervals]
-By the duality of Chapter~\ref{ch:guven}, every test produces a confidence interval and a point estimate. Inverting the Wilcoxon signed-rank test gives the confidence interval built from the \emph{Walsh averages} $(X_i+X_j)/2$, $i\le j$. The median of these averages is the \emph{Hodges--Lehmann estimator}. Its ARE is the same as that of the Wilcoxon test: $0.955$ for normal data, and much better than the mean for heavy tails.
+By the duality\index{test interval duality@test--interval duality} of Chapter~\ref{ch:guven}, every test produces a confidence interval and a point estimate. Inverting the Wilcoxon signed-rank\index{wilcoxon signed rank test@Wilcoxon signed-rank test} test gives the confidence interval built from the \emph{Walsh averages} $(X_i+X_j)/2$, $i\le j$. The median of these averages is the \emph{Hodges--Lehmann\index{hodges lehmann estimator@Hodges--Lehmann estimator} estimator}. Its ARE is the same as that of the Wilcoxon test: $0.955$ for normal data, and much better than the mean for heavy tails.
 \end{remark}
 
 \begin{remark}[The Price of Nonparametric Inference]
-Rank tests lose almost no power against shift alternatives. In estimating densities and regression functions, by contrast, the price is paid in the rate of convergence: $n^{-4/5}$ becomes $n^{-4/(4+d)}$ in $d$ dimensions. This \emph{curse of dimensionality} explains why high-dimensional nonparametric estimation requires structural assumptions (additivity, sparsity).
+Rank tests lose almost no power against shift alternatives. In estimating densities and regression functions, by contrast, the price is paid in the rate of convergence: $n^{-4/5}$ becomes $n^{-4/(4+d)}$ in $d$ dimensions. This \emph{curse of dimensionality} explains why high-dimensional nonparametric\index{nonparametric methods@nonparametric methods} estimation requires structural assumptions (additivity, sparsity).
 \end{remark}
 
-% --- CHAPTER SUMMARY (generated by tools/summaries.py) ---
+% --- CHAPTER SUMMARY ---
 \section{Chapter Summary}
 \begin{summary}
 \begin{itemize}

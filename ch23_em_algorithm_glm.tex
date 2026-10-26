@@ -3,21 +3,21 @@
 
 \chapter{The EM Algorithm and Generalised Linear Models}\label{ch:em-glm}\chaptermark{The EM Algorithm and GLMs}
 
-When the maximum likelihood principle (Chapters~\ref{ch:mle}--\ref{ch:mle-asimptotik}) does not give a closed-form solution, the MLE is found numerically. This chapter deals with the two numerical MLE problems met most often in statistics and with the algorithms specific to them. The first is \emph{missing data} problems: mixture models, censored observations, latent variables. In these, the likelihood is a sum or integral over unobserved variables. The EM algorithm of Dempster, Laird and Rubin \cite{dempster77} turns the observation ``the problem would be easy if the missing data were known'' into an iterative method that increases the likelihood at every step. The second is \emph{generalised linear models} (GLMs) \cite{nelder-wedderburn72}: the generalisation of the linear model of Chapter~\ref{ch:dogrusal} to binary, count and positive continuous responses. Here Fisher scoring becomes the IRLS algorithm, each step of which is a weighted LS problem. Both topics show the computational power of exponential family structure (Chapter~\ref{ch:yeterlilik}).
+When the maximum likelihood principle (Chapters~\ref{ch:mle}--\ref{ch:mle-asimptotik}) does not give a closed-form solution, the MLE is found numerically. This chapter deals with the two numerical MLE problems met most often in statistics and with the algorithms specific to them. The first is \emph{missing data\index{missing data@missing data}} problems: mixture\index{mixture distribution@mixture distribution} models, censored observations, latent variables. In these, the likelihood is a sum or integral over unobserved variables. The EM algorithm\index{em algorithm@EM algorithm} of Dempster, Laird and Rubin \cite{dempster77} turns the observation ``the problem would be easy if the missing data were known'' into an iterative method that increases the likelihood at every step. The second is \emph{generalised linear\index{generalised linear model glm@generalised linear model (GLM)} models} (GLMs) \cite{nelder-wedderburn72}: the generalisation of the linear model of Chapter~\ref{ch:dogrusal} to binary, count and positive continuous responses. Here Fisher scoring\index{fisher scoring@Fisher scoring} becomes the IRLS\index{irls@IRLS} algorithm, each step of which is a weighted LS problem. Both topics show the computational power of exponential family\index{exponential family@exponential family} structure (Chapter~\ref{ch:yeterlilik}).
 
 \section{Definitions}
 
 \begin{definition}[Missing Data Structure and the $Q$ Function]\label{def:em}
-Let $\x$ be the observed data and $\mathbf z$ the unobserved (missing or latent) data; let the density of the \emph{complete data} $(\x,\mathbf z)$ be $f_c(\x,\mathbf z;\theta)$, and that of the observed data $f(\x;\theta)=\int f_c(\x,\mathbf z;\theta)\,d\mathbf z$. The observed-data and complete-data log-likelihoods are $\ell(\theta)=\ln f(\x;\theta)$ and $\ell_c(\theta)=\ln f_c(\x,\mathbf z;\theta)$. The conditional density of the missing data is $k(\mathbf z\mid\x;\theta)=f_c(\x,\mathbf z;\theta)/f(\x;\theta)$.
+Let $\x$ be the observed data and $\mathbf z$ the unobserved (missing or latent) data; let the density of the \emph{complete data} $(\x,\mathbf z)$ be $f_c(\x,\mathbf z;\theta)$, and that of the observed data $f(\x;\theta)=\int f_c(\x,\mathbf z;\theta)\,d\mathbf z$. The observed-data and complete-data log-likelihoods\index{log likelihood@log-likelihood} are $\ell(\theta)=\ln f(\x;\theta)$ and $\ell_c(\theta)=\ln f_c(\x,\mathbf z;\theta)$. The conditional density of the missing data\index{missing data@missing data} is $k(\mathbf z\mid\x;\theta)=f_c(\x,\mathbf z;\theta)/f(\x;\theta)$.
 \[
 Q(\theta\mid\theta')=\E_{\theta'}\big[\ell_c(\theta;\x,\mathbf Z)\,\big|\,\x\big],\qquad H(\theta\mid\theta')=\E_{\theta'}\big[\ln k(\mathbf Z\mid\x;\theta)\,\big|\,\x\big].
 \]
 \end{definition}
 
-\begin{definition}[The EM Algorithm]\label{def:em-algoritma}
+\begin{definition}[The EM Algorithm]\label{def:em-algoritma}\index{em algorithm@EM algorithm|textbf}
 Starting from an initial $\theta^{(0)}$, for $t=0,1,2,\dots$:
 \begin{itemize}
-  \item \emph{E-step:} compute $Q(\theta\mid\theta^{(t)})$ (find the conditional expectations of the sufficient statistics of the missing data).
+  \item \emph{E-step:} compute $Q(\theta\mid\theta^{(t)})$ (find the conditional expectations\index{conditional expectation@conditional expectation} of the sufficient statistics\index{sufficient statistic@sufficient statistic} of the missing data).
   \item \emph{M-step:} $\theta^{(t+1)}=\argmax_\theta Q(\theta\mid\theta^{(t)})$.
 \end{itemize}
 If instead of full maximisation the M-step only ensures $Q(\theta^{(t+1)}\mid\theta^{(t)})\ge Q(\theta^{(t)}\mid\theta^{(t)})$, the algorithm is called \emph{generalised EM} (GEM).
@@ -28,15 +28,15 @@ Densities (or probability mass functions) of the form
 \[
 f(y;\theta,\phi)=\exp\Big\{\frac{y\theta-b(\theta)}{a(\phi)}+c(y,\phi)\Big\}
 \]
-are called an \emph{exponential dispersion family}; $\theta$ is the natural (canonical) parameter and $\phi$ the dispersion parameter. If $\phi$ is known, this is a one-parameter exponential family with sufficient statistic $T(y)=y$.
+are called an \emph{exponential dispersion family\index{exponential dispersion family@exponential dispersion family}}; $\theta$ is the natural (canonical) parameter and $\phi$ the dispersion parameter. If $\phi$ is known, this is a one-parameter exponential family\index{exponential family@exponential family} with sufficient statistic $T(y)=y$.
 \end{definition}
 
 \begin{definition}[Generalised Linear Model]\label{def:glm}
-Let $Y_1,\dots,Y_n$ be independent, each from an exponential dispersion family; $\mu_i=\E Y_i$. A GLM has three components:
+Let $Y_1,\dots,Y_n$ be independent, each from an exponential dispersion family; $\mu_i=\E Y_i$. A GLM\index{generalised linear model glm@generalised linear model (GLM)} has three components:
 \begin{enumerate}
   \item \emph{Random component:} the distribution of $Y_i$ in the exponential dispersion family;
   \item \emph{Linear predictor:} $\eta_i=\mathbf x_i^\top\bm\beta$;
-  \item \emph{Link function:} $g(\mu_i)=\eta_i$ with $g$ monotone and differentiable.
+  \item \emph{Link function\index{link function@link function}:} $g(\mu_i)=\eta_i$ with $g$ monotone and differentiable.
 \end{enumerate}
 If $g=(b')^{-1}$, i.e.\ $\theta_i=\eta_i$, then $g$ is called the \emph{canonical link}. $V(\mu)=b''(\theta(\mu))$ is called the \emph{variance function}.
 \begin{center}
@@ -53,13 +53,13 @@ $\text{Gamma}$ (shape $\nu$, mean $\mu$) & $-\ln(-\theta)$ & $\mu^2$ & $1/\nu$ &
 \end{center}
 \end{definition}
 
-\begin{definition}[Deviance]\label{def:sapma}
+\begin{definition}[Deviance]\label{def:sapma}\index{deviance@deviance|textbf}
 Let $\ell_{\text{sat}}$ be the log-likelihood of the (\emph{saturated}) model that gives each observation its own mean. $D=2a(\phi)\big[\ell_{\text{sat}}-\ell(\hat{\bm\beta})\big]$ is called the \emph{deviance}, and $D/a(\phi)$ the \emph{scaled deviance}. In the normal model $D=\mathrm{SSE}$; the deviance is the GLM counterpart of the residual sum of squares. In the Bernoulli model $D=2\sum_i\big[y_i\ln\frac{y_i}{\hat\mu_i}+(1-y_i)\ln\frac{1-y_i}{1-\hat\mu_i}\big]$ ($0\ln0=0$).
 \end{definition}
 
 \section{Main Theorems and Proofs}
 
-\begin{theorem}[Monotonicity of EM \cite{dempster77}]\label{thm:em-monoton}
+\begin{theorem}[Monotonicity of EM \cite{dempster77}]\label{thm:em-monoton}\index{em algorithm@EM algorithm}
 For the EM (and GEM) sequence, $\ell(\theta^{(t+1)})\ge\ell(\theta^{(t)})$. Equality holds only if $Q(\theta^{(t+1)}\mid\theta^{(t)})=Q(\theta^{(t)}\mid\theta^{(t)})$ and $k(\cdot\mid\x;\theta^{(t+1)})=k(\cdot\mid\x;\theta^{(t)})$ a.e.
 \end{theorem}
 \begin{proof}
@@ -67,11 +67,11 @@ For every $\mathbf z$, $\ell(\theta)=\ell_c(\theta;\x,\mathbf z)-\ln k(\mathbf z
 \[
 \ell(\theta)=Q(\theta\mid\theta')-H(\theta\mid\theta')\qquad\text{for all }\theta,\theta'.
 \]
-Applying the information inequality (Lemma~\ref{lem:bilgi-esitsizligi}) to two conditional densities for the same $\x$,
+Applying the information inequality\index{information inequality@information inequality} (Lemma~\ref{lem:bilgi-esitsizligi}) to two conditional densities for the same $\x$,
 \[
 H(\theta\mid\theta')-H(\theta'\mid\theta')=\E_{\theta'}\Big[\ln\frac{k(\mathbf Z\mid\x;\theta)}{k(\mathbf Z\mid\x;\theta')}\,\Big|\,\x\Big]\le\ln\E_{\theta'}\Big[\frac{k(\mathbf Z\mid\x;\theta)}{k(\mathbf Z\mid\x;\theta')}\,\Big|\,\x\Big]\le0,
 \]
-i.e.\ $H(\cdot\mid\theta')$ attains its maximum at $\theta'$ (Jensen; with equality only if the two conditional densities are equal a.e.). With $\theta'=\theta^{(t)}$ and $\theta=\theta^{(t+1)}$,
+i.e.\ $H(\cdot\mid\theta')$ attains its maximum at $\theta'$ (Jensen\index{jensen s inequality@Jensen's inequality}; with equality only if the two conditional densities are equal a.e.). With $\theta'=\theta^{(t)}$ and $\theta=\theta^{(t+1)}$,
 \[
 \ell(\theta^{(t+1)})-\ell(\theta^{(t)})=\underbrace{\big[Q(\theta^{(t+1)}\mid\theta^{(t)})-Q(\theta^{(t)}\mid\theta^{(t)})\big]}_{\ge0\ \text{(M-step)}}-\underbrace{\big[H(\theta^{(t+1)}\mid\theta^{(t)})-H(\theta^{(t)}\mid\theta^{(t)})\big]}_{\le0}\ \ge0 .
 \qedhere
@@ -94,26 +94,26 @@ Monotonicity guarantees convergence of the sequence $\ell(\theta^{(t)})$ if $\el
 \[
 J=\frac{I_{\text{miss}}}{I_{\text{com}}}=1-\frac{I_{\text{obs}}}{I_{\text{com}}},\qquad I_{\text{com}}=-\partial^2_\theta Q(\theta\mid\theta^*)\big|_{\theta^*},\quad I_{\text{obs}}=-\ell''(\theta^*).
 \]
-$J$ is the \emph{fraction of missing information} \cite{dempster77}: if the missing data carry most of the information, EM is slow.
+$J$ is the \emph{fraction of missing information} \cite{dempster77}: if the missing data\index{missing data@missing data} carry most of the information, EM is slow.
 \end{remark}
 
 \begin{proposition}[Moments of the Exponential Dispersion Family]\label{prop:edf-moment}
 For the family of Definition~\ref{def:ustel-dagilim}, $\E Y=b'(\theta)$ and $\Var Y=a(\phi)\,b''(\theta)$.
 \end{proposition}
 \begin{proof}
-For $\ell(\theta)=\frac{y\theta-b(\theta)}{a(\phi)}+c(y,\phi)$ the score is $\ell'=\frac{y-b'(\theta)}{a(\phi)}$ and $\ell''=-\frac{b''(\theta)}{a(\phi)}$. By Lemma~\ref{lem:skor}, $\E\ell'=0$, i.e.\ $\E Y=b'(\theta)$. The information identity $\E[\ell'^2]=-\E\ell''$ gives $\frac{\Var Y}{a(\phi)^2}=\frac{b''(\theta)}{a(\phi)}$.
+For $\ell(\theta)=\frac{y\theta-b(\theta)}{a(\phi)}+c(y,\phi)$ the score is $\ell'=\frac{y-b'(\theta)}{a(\phi)}$ and $\ell''=-\frac{b''(\theta)}{a(\phi)}$. By Lemma~\ref{lem:skor}, $\E\ell'=0$, i.e.\ $\E Y=b'(\theta)$. The information identity\index{information identity@information identity} $\E[\ell'^2]=-\E\ell''$ gives $\frac{\Var Y}{a(\phi)^2}=\frac{b''(\theta)}{a(\phi)}$.
 \end{proof}
 
-\begin{theorem}[Score and Fisher Information in a GLM]\label{thm:glm-skor}
+\begin{theorem}[Score and Fisher Information in a GLM]\label{thm:glm-skor}\index{generalised linear model glm@generalised linear model (GLM)}
 In a GLM with $\phi$ known,
 \begin{gather*}
 \mathbf U(\bm\beta)=\nabla_{\bm\beta}\ell=\frac1{a(\phi)}\sum_{i=1}^n\frac{y_i-\mu_i}{V(\mu_i)\,g'(\mu_i)}\,\mathbf x_i,\\
 I(\bm\beta)=\frac1{a(\phi)}X^\top WX,\qquad W=\mathrm{diag}\Big(\frac1{V(\mu_i)g'(\mu_i)^2}\Big).
 \end{gather*}
-For the canonical link, $\mathbf U=\frac1{a(\phi)}X^\top(\mathbf y-\bm\mu)$, the observed information equals the expected information ($-\nabla^2\ell=I(\bm\beta)$, independent of the data), and $\ell$ is a concave function of $\bm\beta$; if $X$ has full column rank it is strictly concave.
+For the canonical link\index{link function@link function}, $\mathbf U=\frac1{a(\phi)}X^\top(\mathbf y-\bm\mu)$, the observed information\index{observed information@observed information} equals the expected information ($-\nabla^2\ell=I(\bm\beta)$, independent of the data), and $\ell$ is a concave function of $\bm\beta$; if $X$ has full column rank it is strictly concave.
 \end{theorem}
 \begin{proof}
-Chain rule: $\frac{\partial\ell_i}{\partial\bm\beta}=\frac{\partial\ell_i}{\partial\theta_i}\frac{d\theta_i}{d\mu_i}\frac{d\mu_i}{d\eta_i}\frac{\partial\eta_i}{\partial\bm\beta}$. Here $\frac{\partial\ell_i}{\partial\theta_i}=\frac{y_i-\mu_i}{a(\phi)}$, $\frac{d\mu_i}{d\theta_i}=b''(\theta_i)=V(\mu_i)$, $\frac{d\mu_i}{d\eta_i}=\frac1{g'(\mu_i)}$ and $\frac{\partial\eta_i}{\partial\bm\beta}=\mathbf x_i$. The product gives the score formula. For independent terms the Fisher information is $I=\sum_i\Cov(\nabla\ell_i)$, and using $\Var Y_i=a(\phi)V(\mu_i)$ from Proposition~\ref{prop:edf-moment},
+Chain rule: $\frac{\partial\ell_i}{\partial\bm\beta}=\frac{\partial\ell_i}{\partial\theta_i}\frac{d\theta_i}{d\mu_i}\frac{d\mu_i}{d\eta_i}\frac{\partial\eta_i}{\partial\bm\beta}$. Here $\frac{\partial\ell_i}{\partial\theta_i}=\frac{y_i-\mu_i}{a(\phi)}$, $\frac{d\mu_i}{d\theta_i}=b''(\theta_i)=V(\mu_i)$, $\frac{d\mu_i}{d\eta_i}=\frac1{g'(\mu_i)}$ and $\frac{\partial\eta_i}{\partial\bm\beta}=\mathbf x_i$. The product gives the score formula. For independent terms the Fisher information\index{fisher information@Fisher information} is $I=\sum_i\Cov(\nabla\ell_i)$, and using $\Var Y_i=a(\phi)V(\mu_i)$ from Proposition~\ref{prop:edf-moment},
 \[
 I(\bm\beta)=\sum_i\frac{a(\phi)V(\mu_i)}{a(\phi)^2V(\mu_i)^2g'(\mu_i)^2}\mathbf x_i\mathbf x_i^\top=\frac1{a(\phi)}X^\top WX .
 \]
@@ -121,11 +121,11 @@ For the canonical link $\theta_i=\eta_i$, so $g'(\mu)=d\theta/d\mu=1/V(\mu)$ and
 \end{proof}
 
 \begin{theorem}[Fisher Scoring = Iteratively Reweighted Least Squares]\label{thm:irls}
-The Fisher scoring step $\bm\beta^{\text{new}}=\bm\beta+I(\bm\beta)^{-1}\mathbf U(\bm\beta)$ is the same as
+The Fisher scoring\index{fisher scoring@Fisher scoring} step $\bm\beta^{\text{new}}=\bm\beta+I(\bm\beta)^{-1}\mathbf U(\bm\beta)$ is the same as
 \[
 \bm\beta^{\text{new}}=(X^\top WX)^{-1}X^\top W\mathbf z,\qquad z_i=\eta_i+(y_i-\mu_i)\,g'(\mu_i),
 \]
-where $W$, $\eta$, $\mu$ are computed at the current $\bm\beta$. That is, each step is a weighted LS regression of the \emph{working response} $\mathbf z$ on $X$ with weights $W$ (IRLS). For the canonical link, Fisher scoring coincides with the Newton--Raphson method.
+where $W$, $\eta$, $\mu$ are computed at the current $\bm\beta$. That is, each step is a weighted LS regression of the \emph{working response} $\mathbf z$ on $X$ with weights $W$ (IRLS\index{irls@IRLS}). For the canonical link, Fisher scoring coincides with the Newton--Raphson\index{newton raphson method@Newton--Raphson method} method.
 \end{theorem}
 \begin{proof}
 Since $\frac{y_i-\mu_i}{V(\mu_i)g'(\mu_i)}=W_{ii}\,(y_i-\mu_i)g'(\mu_i)$, $a(\phi)\mathbf U=X^\top W\mathbf r$ with $r_i=(y_i-\mu_i)g'(\mu_i)$. Hence
@@ -135,17 +135,17 @@ X^\top WX\,\bm\beta^{\text{new}}=X^\top WX\bm\beta+X^\top W\mathbf r=X^\top W(X\
 ($a(\phi)$ cancels). For the canonical link, the observed and expected information are equal (Theorem~\ref{thm:glm-skor}), so the Newton step $\bm\beta-[\nabla^2\ell]^{-1}\mathbf U$ and the Fisher step are the same.
 \end{proof}
 
-\begin{corollary}[Asymptotic Inference in GLMs]\label{cor:glm-asimptotik}
-Under regularity conditions (Chapter~\ref{ch:mle-asimptotik}), $\hat{\bm\beta}\approx\Normal_p\big(\bm\beta,\ a(\phi)(X^\top\hat WX)^{-1}\big)$; Wald intervals are constructed as $\hat\beta_j\pm z_{\alpha/2}\,\mathrm{se}(\hat\beta_j)$. For two nested models, the difference of scaled deviances $\big(D_0-D_1\big)/a(\phi)$ is $2\ln$ of the likelihood ratio and, by Wilks' theorem (Theorem~\ref{thm:wilks}), is approximately $\chi^2_{p_1-p_0}$.
+\begin{corollary}[Asymptotic Inference in GLMs]\label{cor:glm-asimptotik}\index{generalised linear model glm@generalised linear model (GLM)}
+Under regularity conditions\index{regularity conditions@regularity conditions} (Chapter~\ref{ch:mle-asimptotik}), $\hat{\bm\beta}\approx\Normal_p\big(\bm\beta,\ a(\phi)(X^\top\hat WX)^{-1}\big)$; Wald intervals\index{wald confidence interval@Wald confidence interval} are constructed as $\hat\beta_j\pm z_{\alpha/2}\,\mathrm{se}(\hat\beta_j)$. For two nested models, the difference of scaled deviances\index{deviance@deviance} $\big(D_0-D_1\big)/a(\phi)$ is $2\ln$ of the likelihood ratio and, by Wilks\index{wilks theorem@Wilks' theorem}' theorem (Theorem~\ref{thm:wilks}), is approximately $\chi^2_{p_1-p_0}$.
 \end{corollary}
 \begin{proof}
-$\hat{\bm\beta}$ is an MLE and $I(\bm\beta)$ is given in Theorem~\ref{thm:glm-skor}. For independent but not identically distributed observations, asymptotic normality is obtained by checking the Lindeberg condition, as in the LS proof of Chapter~\ref{ch:dogrusal}. By definition the deviance difference is $2[\ell(\hat{\bm\beta}_1)-\ell(\hat{\bm\beta}_0)]a(\phi)$, because the $\ell_{\text{sat}}$ terms cancel.
+$\hat{\bm\beta}$ is an MLE and $I(\bm\beta)$ is given in Theorem~\ref{thm:glm-skor}. For independent but not identically distributed observations, asymptotic normality\index{asymptotic normality@asymptotic normality} is obtained by checking the Lindeberg condition\index{lindeberg condition@Lindeberg condition}, as in the LS proof of Chapter~\ref{ch:dogrusal}. By definition the deviance difference is $2[\ell(\hat{\bm\beta}_1)-\ell(\hat{\bm\beta}_0)]a(\phi)$, because the $\ell_{\text{sat}}$ terms cancel.
 \end{proof}
 
 \section{Worked Examples}
 
 \begin{example}[EM for a Two-Component Normal Mixture]\label{ex:em-karisim}
-$X_i\iid(1-w)\Normal(\mu_1,\sigma_1^2)+w\Normal(\mu_2,\sigma_2^2)$. The latent variable $Z_i\in\{0,1\}$ indicates which component $X_i$ comes from. The complete-data log-likelihood
+$X_i\iid(1-w)\Normal(\mu_1,\sigma_1^2)+w\Normal(\mu_2,\sigma_2^2)$. The latent variable $Z_i\in\{0,1\}$ indicates which component $X_i$ comes from. The complete-data log-likelihood\index{log likelihood@log-likelihood}
 \[
 \ell_c=\sum_i\Big[Z_i\big(\ln w+\ln\phi(x_i;\mu_2,\sigma_2)\big)+(1-Z_i)\big(\ln(1-w)+\ln\phi(x_i;\mu_1,\sigma_1)\big)\Big]
 \]
@@ -153,11 +153,11 @@ is linear in the $Z_i$. The E-step only computes the \emph{responsibilities} $\g
 \[
 \gamma_i=\frac{w\,\phi(x_i;\mu_2,\sigma_2)}{w\,\phi(x_i;\mu_2,\sigma_2)+(1-w)\,\phi(x_i;\mu_1,\sigma_1)} .
 \]
-In the M-step, $Q$ is the complete-data log-likelihood with $\gamma_i$ in place of $Z_i$; it gives weighted normal MLEs: $w=\bar\gamma$, $\mu_2=\sum\gamma_ix_i/\sum\gamma_i$, $\sigma_2^2=\sum\gamma_i(x_i-\mu_2)^2/\sum\gamma_i$, and analogues with weights $1-\gamma_i$ for the first component. The mixture likelihood is unbounded: with $\mu_1=x_1$ and $\sigma_1\to0$, $\ell\to\infty$. Hence the ``MLE'' must be understood as a sensible local maximum; in practice a lower bound is imposed on the variances or several starting points are tried.
+In the M-step, $Q$ is the complete-data log-likelihood with $\gamma_i$ in place of $Z_i$; it gives weighted normal MLEs: $w=\bar\gamma$, $\mu_2=\sum\gamma_ix_i/\sum\gamma_i$, $\sigma_2^2=\sum\gamma_i(x_i-\mu_2)^2/\sum\gamma_i$, and analogues with weights $1-\gamma_i$ for the first component. The mixture\index{mixture distribution@mixture distribution} likelihood is unbounded: with $\mu_1=x_1$ and $\sigma_1\to0$, $\ell\to\infty$. Hence the ``MLE'' must be understood as a sensible local maximum; in practice a lower bound is imposed on the variances or several starting points are tried.
 \end{example}
 
 \begin{example}[Genetic Linkage Data \cite{dempster77}]\label{ex:baglanti}
-The counts of $197$ animals in four categories are $\mathbf y=(125,18,20,34)$, with probabilities $\big(\frac12+\frac\theta4,\frac{1-\theta}4,\frac{1-\theta}4,\frac\theta4\big)$. The observed log-likelihood is $y_1\ln(2+\theta)+(y_2+y_3)\ln(1-\theta)+y_4\ln\theta$ (up to a constant), and the likelihood equation is a quadratic equation. From the EM point of view, the first cell is the sum of two latent cells with probabilities $\frac12$ and $\frac\theta4$: $y_1=x_1+x_2$. The complete data have a binomial structure with $(x_2+y_4)$ successes and $(y_2+y_3)$ failures.
+The counts of $197$ animals in four categories are $\mathbf y=(125,18,20,34)$, with probabilities $\big(\frac12+\frac\theta4,\frac{1-\theta}4,\frac{1-\theta}4,\frac\theta4\big)$. The observed log-likelihood is $y_1\ln(2+\theta)+(y_2+y_3)\ln(1-\theta)+y_4\ln\theta$ (up to a constant), and the likelihood equation is a quadratic equation. From the EM\index{em algorithm@EM algorithm} point of view, the first cell is the sum of two latent cells with probabilities $\frac12$ and $\frac\theta4$: $y_1=x_1+x_2$. The complete data have a binomial structure with $(x_2+y_4)$ successes and $(y_2+y_3)$ failures.
 \begin{itemize}
   \item E-step: $x_2^{(t)}=y_1\frac{\theta^{(t)}/4}{1/2+\theta^{(t)}/4}$.
   \item M-step: $\theta^{(t+1)}=\frac{x_2^{(t)}+y_4}{x_2^{(t)}+y_2+y_3+y_4}$.
@@ -165,7 +165,7 @@ The counts of $197$ animals in four categories are $\mathbf y=(125,18,20,34)$, w
 \end{example}
 
 \begin{example}[Poisson Regression]\label{ex:poisson-reg}
-$Y_i\sim\text{Poisson}(\mu_i)$, $\ln\mu_i=\mathbf x_i^\top\bm\beta$ (canonical link). By Theorem~\ref{thm:glm-skor}, the score equations are $X^\top(\mathbf y-\hat{\bm\mu})=\mathbf 0$. If the model contains an intercept, the first equation is $\sum_iy_i=\sum_i\hat\mu_i$: the total of the fitted counts reproduces the observed total exactly. In IRLS $g'(\mu)=1/\mu$, so $W=\mathrm{diag}(\mu_i)$ and $z_i=\eta_i+(y_i-\mu_i)/\mu_i$. $e^{\beta_j}$ is the factor by which a one-unit increase in $x_j$ multiplies the expected count.
+$Y_i\sim\text{Poisson}(\mu_i)$, $\ln\mu_i=\mathbf x_i^\top\bm\beta$ (canonical link\index{link function@link function}). By Theorem~\ref{thm:glm-skor}, the score equations are $X^\top(\mathbf y-\hat{\bm\mu})=\mathbf 0$. If the model contains an intercept, the first equation is $\sum_iy_i=\sum_i\hat\mu_i$: the total of the fitted counts reproduces the observed total exactly. In IRLS\index{irls@IRLS} $g'(\mu)=1/\mu$, so $W=\mathrm{diag}(\mu_i)$ and $z_i=\eta_i+(y_i-\mu_i)/\mu_i$. $e^{\beta_j}$ is the factor by which a one-unit increase in $x_j$ multiplies the expected count.
 \end{example}
 
 \section{Computational Applications}
@@ -187,7 +187,7 @@ Estimates: w = 0.318 (0.35), mu = (0.083, 3.984) (0, 4), sigma = (1.473, 0.903) 
 \caption{Left: EM increases the log-likelihood at every step (Theorem~\ref{thm:em-monoton}); a rapid increase after a poor start, followed by slow progress. Right: the fitted two-component mixture density.}
 \end{figure}
 
-For the linkage data, EM reaches the root of the likelihood equation, $\hat\theta=0.626821$, within a few steps. The ratio of successive errors settles at the constant $0.1328$: linear convergence. This ratio equals the fraction of missing information $1-I_{\text{obs}}/I_{\text{com}}$ (Exercise~\ref{exr:23-4}). In the mixture example the log-likelihood decreases at no step; the smallest increase is positive. However, $121$ steps are needed, because the two components partly overlap and the fraction of missing information is high. The estimates are close to the true values. The difference in $w$ ($0.318$ vs $0.35$) is of the usual size of sampling variability at $n=400$.
+For the linkage data, EM\index{em algorithm@EM algorithm} reaches the root of the likelihood equation, $\hat\theta=0.626821$, within a few steps. The ratio of successive errors settles at the constant $0.1328$: linear convergence. This ratio equals the fraction of missing information $1-I_{\text{obs}}/I_{\text{com}}$ (Exercise~\ref{exr:23-4}). In the mixture\index{mixture distribution@mixture distribution} example the log-likelihood\index{log likelihood@log-likelihood} decreases at no step; the smallest increase is positive. However, $121$ steps are needed, because the two components partly overlap and the fraction of missing information is high. The estimates are close to the true values. The difference in $w$ ($0.318$ vs $0.35$) is of the usual size of sampling variability at $n=400$.
 
 \subsection{Logistic Regression: IRLS, Wald Intervals and Complete Separation}
 
@@ -204,25 +204,25 @@ Complete separation,  6 IRLS steps: slope =     12.80 | log-likelihood = -5.80e-
 Complete separation,  8 IRLS steps: slope =     26.20 | log-likelihood = -9.13e-02
 \end{lstlisting}
 
-IRLS reaches the same estimates as a general-purpose optimiser in six steps. Since for the canonical link it is Newton's method (Theorem~\ref{thm:irls}), convergence is quadratic. The coverage of the Wald intervals obtained from $(X^\top\hat WX)^{-1}$ is close to the nominal $95\%$ at $n=200$. Although the deviance ($208.7$) seems close to the degrees of freedom ($197$), for Bernoulli data this comparison \emph{cannot} be used as a goodness-of-fit test. With one trial per observation, the saturated model spends one parameter per observation, and the deviance does not converge to a $\chi^2$ distribution. Deviance differences (Corollary~\ref{cor:glm-asimptotik}), on the other hand, are valid.
+IRLS\index{irls@IRLS} reaches the same estimates as a general-purpose optimiser in six steps. Since for the canonical link\index{link function@link function} it is Newton's method (Theorem~\ref{thm:irls}), convergence is quadratic. The coverage of the Wald intervals\index{wald confidence interval@Wald confidence interval} obtained from $(X^\top\hat WX)^{-1}$ is close to the nominal $95\%$ at $n=200$. Although the deviance\index{deviance@deviance} ($208.7$) seems close to the degrees of freedom ($197$), for Bernoulli data this comparison \emph{cannot} be used as a goodness-of-fit\index{goodness of fit@goodness of fit} test. With one trial per observation, the saturated model spends one parameter per observation, and the deviance does not converge to a $\chi^2$ distribution. Deviance differences (Corollary~\ref{cor:glm-asimptotik}), on the other hand, are valid.
 
-The last lines show a situation in which the MLE does not exist. If all observations with $x>0$ are $1$ and those with $x<0$ are $0$ (\emph{complete separation}), the slope goes to infinity and drives the log-likelihood towards zero; the supremum is not attained at any finite $\bm\beta$. In IRLS the slope roughly doubles at each step, and the algorithm eventually breaks down numerically. Albert and Anderson \cite{albert-anderson84} showed that in logistic regression a finite MLE exists if and only if the data are not completely or quasi-completely separated. In practice penalised likelihood or Bayesian priors are used.
+The last lines show a situation in which the MLE does not exist. If all observations with $x>0$ are $1$ and those with $x<0$ are $0$ (\emph{complete separation\index{complete separation@complete separation}}), the slope goes to infinity and drives the log-likelihood towards zero; the supremum is not attained at any finite $\bm\beta$. In IRLS the slope roughly doubles at each step, and the algorithm eventually breaks down numerically. Albert and Anderson \cite{albert-anderson84} showed that in logistic regression\index{logistic regression@logistic regression} a finite MLE exists if and only if the data are not completely or quasi-completely separated. In practice penalised likelihood or Bayesian priors are used.
 
 \section{Comments and Notes}
 
 \begin{remark}[EM versus Newton]
-The advantages of EM: every step increases the likelihood, parameter constraints (probabilities staying in $[0,1]$, positivity of variances) are preserved automatically, and the M-step is often in closed form. Its disadvantages: convergence is linear and can be very slow if the fraction of missing information is high; standard errors are not obtained directly. For these, Louis's \cite{louis82} missing information principle $I_{\text{obs}}=I_{\text{com}}-I_{\text{miss}}$ can be used. Newton's method is quadratically fast in a neighbourhood of the solution but can decrease the likelihood from a distant start. In practice the two methods are often combined.
+The advantages of EM\index{em algorithm@EM algorithm}: every step increases the likelihood, parameter constraints (probabilities staying in $[0,1]$, positivity of variances) are preserved automatically, and the M-step is often in closed form. Its disadvantages: convergence is linear and can be very slow if the fraction of missing information is high; standard errors are not obtained directly. For these, Louis's \cite{louis82} missing information principle $I_{\text{obs}}=I_{\text{com}}-I_{\text{miss}}$ can be used. Newton's method is quadratically fast in a neighbourhood of the solution but can decrease the likelihood from a distant start. In practice the two methods are often combined.
 \end{remark}
 
 \begin{remark}[EM, Bayes and Gibbs Sampling]
-In the E-step of EM the missing data are ``filled in'' by their conditional expectation. The Gibbs sampling of Chapter~\ref{ch:bayes} uses the same structure in a Bayesian context: it \emph{samples} the missing data from their conditional distribution and draws the parameter from its conditional posterior (data augmentation). The posterior-mode version of EM maximises $Q+\ln\pi(\theta)$ instead of $Q$ in the M-step.
+In the E-step of EM the missing data\index{missing data@missing data} are ``filled in'' by their conditional expectation\index{conditional expectation@conditional expectation}. The Gibbs sampling of Chapter~\ref{ch:bayes} uses the same structure in a Bayesian context: it \emph{samples} the missing data from their conditional distribution and draws the parameter from its conditional posterior (data augmentation). The posterior-mode version of EM maximises $Q+\ln\pi(\theta)$ instead of $Q$ in the M-step.
 \end{remark}
 
 \begin{remark}[Quasi-Likelihood and Overdispersion]
-The score of Theorem~\ref{thm:glm-skor} depends only on $\mu_i$ and $V(\mu_i)$, not on the full distribution. This observation is the basis of the \emph{quasi-likelihood} approach: only the mean and the variance function are specified. In count data the variance is often larger than the mean (overdispersion); taking $\Var Y_i=\phi\mu_i$, the estimates stay the same and the standard errors are multiplied by $\sqrt{\hat\phi}$, where $\hat\phi=\frac1{n-p}\sum_i\frac{(y_i-\hat\mu_i)^2}{\hat\mu_i}$. Alternatively, the sandwich covariance of Chapter~\ref{ch:dogrusal} can be used.
+The score of Theorem~\ref{thm:glm-skor} depends only on $\mu_i$ and $V(\mu_i)$, not on the full distribution. This observation is the basis of the \emph{quasi-likelihood} approach: only the mean and the variance function are specified. In count data the variance is often larger than the mean (overdispersion\index{overdispersion@overdispersion}); taking $\Var Y_i=\phi\mu_i$, the estimates stay the same and the standard errors are multiplied by $\sqrt{\hat\phi}$, where $\hat\phi=\frac1{n-p}\sum_i\frac{(y_i-\hat\mu_i)^2}{\hat\mu_i}$. Alternatively, the sandwich\index{sandwich estimator@sandwich estimator} covariance of Chapter~\ref{ch:dogrusal} can be used.
 \end{remark}
 
-% --- CHAPTER SUMMARY (generated by tools/summaries.py) ---
+% --- CHAPTER SUMMARY ---
 \section{Chapter Summary}
 \begin{summary}
 \begin{itemize}
@@ -235,7 +235,7 @@ The score of Theorem~\ref{thm:glm-skor} depends only on $\mu_i$ and $V(\mu_i)$, 
 \end{summary}
 % --- END OF CHAPTER SUMMARY ---
 
-\paragraph{Further reading.} For EM, \cite{dempster77}, \cite{mclachlan08}; for GLMs, \cite{mccullagh-nelder89}, \cite[Chapter~13]{wasserman}; for asymptotic theory, \cite[Chapter~5]{vdv}.
+\paragraph{Further reading.} For EM\index{em algorithm@EM algorithm}, \cite{dempster77}, \cite{mclachlan08}; for GLMs\index{generalised linear model glm@generalised linear model (GLM)}, \cite{mccullagh-nelder89}, \cite[Chapter~13]{wasserman}; for asymptotic theory, \cite[Chapter~5]{vdv}.
 
 \section{Exercises}
 

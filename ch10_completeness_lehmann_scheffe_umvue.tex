@@ -3,7 +3,7 @@
 
 \chapter{Completeness, Lehmann--Scheffé and the UMVUE}\label{ch:tamlik}
 
-The Rao--Blackwell theorem lets us improve any unbiased estimator by conditioning on a sufficient statistic. Two questions remain open, however: (i) can different starting estimators lead to different results? (ii) is the resulting estimator really the ``best''? The notion of completeness answers both at once: if the sufficient statistic is also complete, the unbiased estimator that is a function of it is \emph{unique} and has uniformly minimum variance among all unbiased estimators. In this chapter we study this summit of point estimation theory and Basu's theorem, an unexpected by-product of completeness.
+The Rao--Blackwell\index{rao blackwell theorem@Rao--Blackwell theorem} theorem lets us improve any unbiased estimator\index{unbiased estimator@unbiased estimator} by conditioning on a sufficient statistic\index{sufficient statistic@sufficient statistic}. Two questions remain open, however: (i) can different starting estimators lead to different results? (ii) is the resulting estimator really the ``best''? The notion of completeness\index{complete statistic@complete statistic} answers both at once: if the sufficient statistic is also complete, the unbiased estimator that is a function of it is \emph{unique} and has uniformly minimum variance among all unbiased estimators. In this chapter we study this summit of point estimation theory and Basu\index{basu s theorem@Basu's theorem}'s theorem, an unexpected by-product of completeness.
 
 \section{Definitions}
 
@@ -16,34 +16,34 @@ then $T$ (or its family) is called \emph{complete}. If the condition is required
 \end{definition}
 
 \begin{remark}[Interpretation]
-Completeness says that the family of distributions of $T$ is ``rich enough'': as $\theta$ varies, the distributions of $T$ are so varied that no non-zero $g(T)$ can have mean zero for every $\theta$. In linear-algebra terms, the densities $\{f_T(\cdot;\theta)\}_\theta$ ``span'' the function space; the only function orthogonal to all of them is zero.
+Completeness\index{complete statistic@complete statistic} says that the family of distributions of $T$ is ``rich enough'': as $\theta$ varies, the distributions of $T$ are so varied that no non-zero $g(T)$ can have mean zero for every $\theta$. In linear-algebra terms, the densities $\{f_T(\cdot;\theta)\}_\theta$ ``span'' the function space; the only function orthogonal to all of them is zero.
 \end{remark}
 
-\begin{definition}[Ancillary Statistic]
+\begin{definition}[Ancillary Statistic]\index{ancillary statistic@ancillary statistic|textbf}
 A statistic $A(\X)$ whose distribution does not depend on $\theta$ is called \emph{ancillary}. An ancillary statistic by itself carries no information about $\theta$.
 \end{definition}
 
-\begin{definition}[UMVUE]\label{def:umvue}
-An estimator $W^\circ$ of $g(\theta)$ is called a \emph{uniformly minimum variance unbiased estimator} (UMVUE) if (i) it is unbiased and (ii) $\Var_\theta(W^\circ)\le\Var_\theta(W)$ for every unbiased $W$ and \emph{every} $\theta\in\Theta$.
+\begin{definition}[UMVUE]\label{def:umvue}\index{umvue@UMVUE|textbf}
+An estimator $W^\circ$ of $g(\theta)$ is called a \emph{uniformly minimum variance unbiased estimator\index{unbiased estimator@unbiased estimator}} (UMVUE) if (i) it is unbiased and (ii) $\Var_\theta(W^\circ)\le\Var_\theta(W)$ for every unbiased $W$ and \emph{every} $\theta\in\Theta$.
 \end{definition}
 
 \section{Main Theorems and Proofs}
 
-\begin{theorem}[Lehmann--Scheffé Theorem \cite{lehmann-scheffe50}]\label{thm:lehmann-scheffe}
-Let $T$ be a complete sufficient statistic. If there is a $\phi(T)$ with $\E_\theta[\phi(T)]=g(\theta)$, then $\phi(T)$ is the \emph{unique} UMVUE of $g(\theta)$.
+\begin{theorem}[Lehmann--Scheffé Theorem \cite{lehmann-scheffe50}]\label{thm:lehmann-scheffe}\index{lehmann scheffe theorem@Lehmann--Scheffé theorem}
+Let $T$ be a complete sufficient statistic\index{sufficient statistic@sufficient statistic}. If there is a $\phi(T)$ with $\E_\theta[\phi(T)]=g(\theta)$, then $\phi(T)$ is the \emph{unique} UMVUE of $g(\theta)$.
 \end{theorem}
 \begin{proof}
-\emph{Uniqueness:} if $\phi_1(T)$ and $\phi_2(T)$ are unbiased, then $\E_\theta[\phi_1(T)-\phi_2(T)]=0$ for every $\theta$; by completeness $\phi_1(T)=\phi_2(T)$ a.s. So the unbiased estimator that is a function of $T$ is unique (in the a.s.\ sense).
+\emph{Uniqueness:} if $\phi_1(T)$ and $\phi_2(T)$ are unbiased, then $\E_\theta[\phi_1(T)-\phi_2(T)]=0$ for every $\theta$; by completeness $\phi_1(T)=\phi_2(T)$ a.s. So the unbiased estimator\index{unbiased estimator@unbiased estimator} that is a function of $T$ is unique (in the a.s.\ sense).
 
-\emph{Optimality:} let $W$ be any unbiased estimator of $g(\theta)$. By Rao--Blackwell (Theorem~\ref{thm:rao-blackwell}), $W^*=\E[W\mid T]$ is an unbiased function of $T$ with $\Var_\theta W^*\le\Var_\theta W$. By uniqueness, $W^*=\phi(T)$ a.s. Hence $\Var_\theta\phi(T)\le\Var_\theta W$ for every $\theta$.
+\emph{Optimality:} let $W$ be any unbiased estimator of $g(\theta)$. By Rao--Blackwell\index{rao blackwell theorem@Rao--Blackwell theorem} (Theorem~\ref{thm:rao-blackwell}), $W^*=\E[W\mid T]$ is an unbiased function of $T$ with $\Var_\theta W^*\le\Var_\theta W$. By uniqueness, $W^*=\phi(T)$ a.s. Hence $\Var_\theta\phi(T)\le\Var_\theta W$ for every $\theta$.
 \end{proof}
 
 \begin{remark}[Two Ways to Find a UMVUE]
 The theorem gives two practical recipes: (a) guess a function of the complete sufficient $T$ whose expectation is $g(\theta)$; (b) take any simple unbiased $W$ and compute $\E[W\mid T]$ (Rao--Blackwellisation). The estimator $(1-1/n)^T$ in Example~\ref{ex:poisson-rb} was found by route (b), and we now know that it is the UMVUE.
 \end{remark}
 
-\begin{theorem}[Completeness in Exponential Families; see {\cite[Section~4.3]{lehmann-romano}}]\label{thm:ustel-tam}
-Let $X_1,\dots,X_n$ be i.i.d.\ from a $k$-parameter exponential family (Definition~\ref{def:ustel-aile}) whose natural parameter space $\{(w_1(\bm\theta),\dots,w_k(\bm\theta))\}$ contains a non-empty open set in $\R^k$. Then
+\begin{theorem}[Completeness in Exponential Families; see {\cite[Section~4.3]{lehmann-romano}}]\label{thm:ustel-tam}\index{complete statistic@complete statistic}
+Let $X_1,\dots,X_n$ be i.i.d.\ from a $k$-parameter exponential family\index{exponential family@exponential family} (Definition~\ref{def:ustel-aile}) whose natural parameter\index{natural parameter@natural parameter} space $\{(w_1(\bm\theta),\dots,w_k(\bm\theta))\}$ contains a non-empty open set in $\R^k$. Then
 \[
 \mathbf T(\X)=\Big(\sum_i t_1(X_i),\dots,\sum_i t_k(X_i)\Big)
 \]
@@ -53,14 +53,14 @@ is a complete (and sufficient) statistic.
 $\E_{\bm\eta}[g(\mathbf T)]=\int g(\mathbf t)e^{\bm\eta^\top\mathbf t}\,d\nu(\mathbf t)\cdot e^{-nA(\bm\eta)}$; this means that the Laplace transforms of $g^+$ and $g^-$ agree on an open set. By uniqueness of the Laplace transform (analytic continuation), $g^+=g^-$ $\nu$-a.e. For details on uniqueness and analytic continuation see \cite[Theorem~2.7.1 and Section~4.3]{lehmann-romano}.
 \end{proof}
 
-\begin{theorem}[Basu's Theorem \cite{basu55}]\label{thm:basu}
-If $T$ is complete and (minimal) sufficient and $A$ is ancillary, then $T$ and $A$ are independent for every $\theta$.
+\begin{theorem}[Basu's Theorem \cite{basu55}]\label{thm:basu}\index{basu s theorem@Basu's theorem}
+If $T$ is complete and (minimal) sufficient and $A$ is ancillary\index{ancillary statistic@ancillary statistic}, then $T$ and $A$ are independent for every $\theta$.
 \end{theorem}
 \begin{proof}
-Fix a set $B$. Since $A$ is ancillary, $p_B=\P_\theta(A\in B)$ does not depend on $\theta$. Since $T$ is sufficient, $\eta_B(T)=\P(A\in B\mid T)$ is also a statistic free of $\theta$. By the tower rule, $\E_\theta[\eta_B(T)-p_B]=0$ for every $\theta$; since $\eta_B-p_B$ is bounded, bounded completeness suffices and $\eta_B(T)=p_B$ a.s. That is, $\P(A\in B\mid T)=\P(A\in B)$: independence.
+Fix a set $B$. Since $A$ is ancillary, $p_B=\P_\theta(A\in B)$ does not depend on $\theta$. Since $T$ is sufficient, $\eta_B(T)=\P(A\in B\mid T)$ is also a statistic free of $\theta$. By the tower rule\index{tower property@tower property}, $\E_\theta[\eta_B(T)-p_B]=0$ for every $\theta$; since $\eta_B-p_B$ is bounded, bounded completeness suffices and $\eta_B(T)=p_B$ a.s. That is, $\P(A\in B\mid T)=\P(A\in B)$: independence.
 \end{proof}
 
-\begin{theorem}[Characterisation of the UMVUE]\label{thm:umvue-karakter}
+\begin{theorem}[Characterisation of the UMVUE]\label{thm:umvue-karakter}\index{umvue@UMVUE}
 Let $W$ be an unbiased estimator of $g(\theta)$ with finite variance. Then $W$ is the UMVUE $\iff$ $W$ is uncorrelated with every unbiased estimator of zero with finite variance: $\E_\theta U=0\ \forall\theta\implies\Cov_\theta(W,U)=0\ \forall\theta$.
 \end{theorem}
 \begin{proof}
@@ -70,7 +70,7 @@ $\Var(W+aU)=\Var W+2a\Cov(W,U)+a^2\Var U\ge\Var W$. This is possible for all $a$
 \end{proof}
 
 \begin{remark}
-Bahadur's theorem: if a minimal sufficient statistic exists, every boundedly complete sufficient statistic is minimal sufficient. The converse is false: a minimal sufficient statistic need not be complete (Example~\ref{ex:tam-degil}).
+Bahadur's theorem: if a minimal sufficient\index{minimal sufficient statistic@minimal sufficient statistic} statistic exists, every boundedly complete sufficient statistic is minimal sufficient. The converse is false: a minimal sufficient statistic need not be complete (Example~\ref{ex:tam-degil}).
 \end{remark}
 
 \section{Worked Examples}
@@ -80,7 +80,7 @@ Let $T\sim\text{Bin}(n,p)$, $p\in(0,1)$. With $r=p/(1-p)\in(0,\infty)$,
 \[
 \E_p[g(T)]=(1-p)^n\sum_{t=0}^n g(t)\binom nt r^t=0\quad\forall p\iff\sum_{t=0}^n g(t)\binom nt r^t=0\quad\forall r>0 .
 \]
-A polynomial that vanishes identically on an open interval has all coefficients zero: $g(t)=0$, $t=0,\dots,n$. Hence $T$ is complete and $\bar X=T/n$ is the UMVUE of $p$.
+A polynomial that vanishes identically on an open interval has all coefficients zero: $g(t)=0$, $t=0,\dots,n$. Hence $T$ is complete and $\bar X=T/n$ is the UMVUE\index{umvue@UMVUE} of $p$.
 \end{example}
 
 \begin{example}[Bernoulli: the UMVUE of $p(1-p)$]
@@ -88,7 +88,7 @@ Since $\E[T]=np$ and $\E[T^2]=np(1-p)+n^2p^2$, $\E[T(n-T)]=n(n-1)p(1-p)$. Hence
 \[
 \widehat{p(1-p)}=\frac{T(n-T)}{n(n-1)}
 \]
-is unbiased and, by Lehmann--Scheffé, the UMVUE. This is nothing but $S^2$ of 0/1 data: $S^2=\frac{T(n-T)}{n(n-1)}$. The plug-in estimator $\bar X(1-\bar X)$ is biased by the factor $\frac{n-1}{n}$.
+is unbiased and, by Lehmann--Scheffé\index{lehmann scheffe theorem@Lehmann--Scheffé theorem}, the UMVUE. This is nothing but $S^2$ of 0/1 data: $S^2=\frac{T(n-T)}{n(n-1)}$. The plug-in\index{plug in principle@plug-in principle} estimator $\bar X(1-\bar X)$ is biased by the factor $\frac{n-1}{n}$.
 \end{example}
 
 \begin{example}[$\text{Uniform}(0,\theta)$ and the German Tank Problem]\label{ex:alman-tanki}
@@ -104,13 +104,13 @@ differentiating with respect to $\theta$ (Lebesgue's differentiation theorem) gi
 \end{example}
 
 \begin{example}[Normal: UMVUEs and Basu]\label{ex:normal-basu}
-Let $X_i\iid\Normal(\mu,\sigma^2)$. $(\sum X_i,\sum X_i^2)$, hence $(\bar X,S^2)$, is complete sufficient (Theorem~\ref{thm:ustel-tam}). Accordingly, $\bar X$ is the UMVUE of $\mu$, $S^2$ that of $\sigma^2$, and $S/c_4(n)$ that of $\sigma$. We saw in Example~\ref{ex:normal-fisher-matris} that $S^2$ does not attain the CRLB: a UMVUE need not be efficient.
+Let $X_i\iid\Normal(\mu,\sigma^2)$. $(\sum X_i,\sum X_i^2)$, hence $(\bar X,S^2)$, is complete sufficient (Theorem~\ref{thm:ustel-tam}). Accordingly, $\bar X$ is the UMVUE of $\mu$, $S^2$ that of $\sigma^2$, and $S/c_4(n)$ that of $\sigma$. We saw in Example~\ref{ex:normal-fisher-matris} that $S^2$ does not attain the CRLB\index{cramer rao lower bound crlb@Cramér--Rao lower bound (CRLB)}: a UMVUE need not be efficient.
 
-\emph{An application of Basu:} hold $\sigma^2$ fixed. In the family indexed by $\mu$, $\bar X$ is complete sufficient and $S^2$ is ancillary (the distribution of the $X_i-\bar X$ does not depend on $\mu$). By Basu's theorem, $\bar X\indep S^2$. This is the key to the derivation of the $t$ distribution in Chapter~\ref{ch:guven}, and it requires no density computations at all.
+\emph{An application of Basu\index{basu s theorem@Basu's theorem}:} hold $\sigma^2$ fixed. In the family indexed by $\mu$, $\bar X$ is complete sufficient and $S^2$ is ancillary\index{ancillary statistic@ancillary statistic} (the distribution of the $X_i-\bar X$ does not depend on $\mu$). By Basu's theorem, $\bar X\indep S^2$. This is the key to the derivation of the $t$ distribution in Chapter~\ref{ch:guven}, and it requires no density computations at all.
 \end{example}
 
 \begin{example}[A Minimal Sufficient Statistic That Is Not Complete]\label{ex:tam-degil}
-Let $X_i\iid\text{Uniform}(\theta,\theta+1)$. $(X_{(1)},X_{(n)})$ is minimal sufficient (Chapter~\ref{ch:yeterlilik}, Exercise). However, the distribution of the range $R=X_{(n)}-X_{(1)}$ does not depend on $\theta$, and $\E R=\frac{n-1}{n+1}$. Hence $g(X_{(1)},X_{(n)})=R-\frac{n-1}{n+1}$ has mean zero for every $\theta$ without being zero: the statistic is not complete. In this model $\theta$ has \emph{no} UMVUE; different estimators attain the smallest variance at different values of $\theta$.
+Let $X_i\iid\text{Uniform}(\theta,\theta+1)$. $(X_{(1)},X_{(n)})$ is minimal sufficient\index{minimal sufficient statistic@minimal sufficient statistic} (Chapter~\ref{ch:yeterlilik}, Exercise). However, the distribution of the range $R=X_{(n)}-X_{(1)}$ does not depend on $\theta$, and $\E R=\frac{n-1}{n+1}$. Hence $g(X_{(1)},X_{(n)})=R-\frac{n-1}{n+1}$ has mean zero for every $\theta$ without being zero: the statistic is not complete. In this model $\theta$ has \emph{no} UMVUE; different estimators attain the smallest variance at different values of $\theta$.
 \end{example}
 
 \begin{example}[Poisson: the UMVUE of $\P(X=k)$]
@@ -152,7 +152,7 @@ Uniform | Corr(Xbar, S^2) = -0.0000 | Corr(|Xbar-med|, S^2) = -0.2594
 For the exponential distribution $\Cov(\bar X,S^2)=\mu_3/n>0$, hence the strong positive correlation. For the uniform the first correlation is zero (symmetry, $\mu_3=0$), but the second column reveals dependence: uncorrelatedness is not independence. The normal is the \emph{only} distribution for which $\bar X$ and $S^2$ are independent (the Geary--Lukacs characterisation).
 
 \subsection{Checking the Characterisation of the UMVUE}
-In the Bernoulli model, $U=X_1-X_2$ is an unbiased estimator of zero. By Theorem~\ref{thm:umvue-karakter}, the UMVUE $\bar X$ must be uncorrelated with $U$, whereas the non-UMVUE $W=X_1$ is not.
+In the Bernoulli model, $U=X_1-X_2$ is an unbiased estimator\index{unbiased estimator@unbiased estimator} of zero. By Theorem~\ref{thm:umvue-karakter}, the UMVUE\index{umvue@UMVUE} $\bar X$ must be uncorrelated with $U$, whereas the non-UMVUE $W=X_1$ is not.
 
 \pycode{code/ch10/c10_4_umvue_characterisation_check.py}
 \begin{lstlisting}[style=output]
@@ -165,14 +165,14 @@ Xbar(1-Xbar)    mean = 0.17497 | theory 0.17500
 \section{Comments and Notes}
 
 \begin{remark}[Limits of the UMVUE]
-The UMVUE is a strong notion of optimality, but: (i) because of the unbiasedness constraint it can be beaten in MSE (in Example~\ref{ex:en-iyi-bolen}, $S^2$ is the UMVUE but $\frac{1}{n+1}SS$ has smaller MSE); (ii) it can be absurd (Chapter~\ref{ch:nokta-tahmin}, Exercise~\ref{exr:sacma-yansiz}: $(-1)^X$ is the only unbiased function of the complete sufficient $X$, hence the UMVUE!); (iii) it may not exist (Example~\ref{ex:tam-degil}).
+The UMVUE\index{umvue@UMVUE} is a strong notion of optimality, but: (i) because of the unbiasedness constraint it can be beaten in MSE (in Example~\ref{ex:en-iyi-bolen}, $S^2$ is the UMVUE but $\frac{1}{n+1}SS$ has smaller MSE); (ii) it can be absurd (Chapter~\ref{ch:nokta-tahmin}, Exercise~\ref{exr:sacma-yansiz}: $(-1)^X$ is the only unbiased function of the complete sufficient $X$, hence the UMVUE!); (iii) it may not exist (Example~\ref{ex:tam-degil}).
 \end{remark}
 
 \begin{remark}[Completeness and Inference]
-Completeness is used not only in estimation but also in testing: in constructing similar tests and UMPU tests, one conditions on a complete sufficient statistic for the nuisance parameter (Neyman structure). Fisher's exact test is an example.
+Completeness\index{complete statistic@complete statistic} is used not only in estimation but also in testing: in constructing similar tests and UMPU\index{umpu test@UMPU test} tests, one conditions on a complete sufficient statistic\index{sufficient statistic@sufficient statistic} for the nuisance parameter\index{nuisance parameter@nuisance parameter} (Neyman structure). Fisher's exact test is an example.
 \end{remark}
 
-% --- CHAPTER SUMMARY (generated by tools/summaries.py) ---
+% --- CHAPTER SUMMARY ---
 \section{Chapter Summary}
 \begin{summary}
 \begin{itemize}

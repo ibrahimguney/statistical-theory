@@ -3,7 +3,7 @@
 
 \chapter{Probability Spaces and Kolmogorov's Axioms}\label{ch:olasilik-uzaylari}
 
-Probability theory is the mathematics of assigning numerical weights, in a consistent way, to the outcomes of experiments that involve uncertainty. The word ``consistent'' is crucial: unless we specify in advance which sets may receive a probability (the $\sigma$-algebra) and which rules the assignment must obey (Kolmogorov's axioms), arguments that look intuitively correct can lead to contradictions. In this chapter we lay the foundation on which the rest of the book is built.
+Probability theory is the mathematics of assigning numerical weights, in a consistent way, to the outcomes of experiments that involve uncertainty. The word ``consistent'' is crucial: unless we specify in advance which sets may receive a probability (the $\sigma$-algebra) and which rules the assignment must obey (Kolmogorov's axioms\index{kolmogorov axioms@Kolmogorov axioms}), arguments that look intuitively correct can lead to contradictions. In this chapter we lay the foundation on which the rest of the book is built.
 
 \section{Definitions}
 
@@ -40,18 +40,18 @@ A function $\P: \F \to [0, 1]$ defined on a measurable space $(\Omega, \F)$ is a
     \item (Normalisation) $\P(\Omega) = 1$.
     \item (Countable additivity) For every sequence $\{A_i\}_{i=1}^\infty$ of pairwise disjoint events, $\P\left(\bigcup_{i=1}^\infty A_i\right) = \sum_{i=1}^\infty \P(A_i)$.
 \end{enumerate}
-The triple $(\Omega,\F,\P)$ is called a \emph{probability space}.
+The triple $(\Omega,\F,\P)$ is called a \emph{probability space\index{probability space@probability space}}.
 \end{definition}
 
 \begin{definition}[Conditional Probability]
-For $\P(B)>0$, the conditional probability of $A$ given $B$ is defined by
+For $\P(B)>0$, the conditional probability\index{conditional probability@conditional probability} of $A$ given $B$ is defined by
 \[
 \P(A\mid B) = \frac{\P(A\cap B)}{\P(B)} .
 \]
 For fixed $B$, the map $A\mapsto \P(A\mid B)$ is a new probability measure on $(\Omega,\F)$.
 \end{definition}
 
-\begin{definition}[Independence]
+\begin{definition}[Independence]\index{independence events@independence (events)|textbf}
 Events $A,B\in\F$ are \emph{independent} if $\P(A\cap B)=\P(A)\P(B)$. A family $\{A_i\}_{i\in\mathcal{I}}$ is \emph{mutually independent} if
 \[
 \P\Big(\bigcap_{j\in J} A_j\Big) = \prod_{j\in J}\P(A_j)
@@ -71,14 +71,14 @@ $\liminf A_n$ is the event ``from some index on, all the $A_n$ occur''. Both bel
 \section{Main Theorems and Proofs}
 
 \begin{proposition}[Basic Properties of a Probability Measure]\label{prop:temel-ozellikler}
-Let $(\Omega,\F,\P)$ be a probability space and $A,B\in\F$.
+Let $(\Omega,\F,\P)$ be a probability space\index{probability space@probability space} and $A,B\in\F$.
 \begin{enumerate}
   \item $\P(\emptyset)=0$.
   \item (Finite additivity) If $A_1,\dots,A_n$ are pairwise disjoint, then $\P(\bigcup_{i=1}^n A_i)=\sum_{i=1}^n\P(A_i)$.
   \item $\P(A^c)=1-\P(A)$.
   \item (Monotonicity) $A\subseteq B \implies \P(A)\le \P(B)$ and $\P(B\setminus A)=\P(B)-\P(A)$.
-  \item (Inclusion--exclusion) $\P(A\cup B)=\P(A)+\P(B)-\P(A\cap B)$.
-  \item (Boole's inequality) For every $\{A_i\}\subseteq\F$, $\P(\bigcup_{i=1}^\infty A_i)\le\sum_{i=1}^\infty \P(A_i)$.
+  \item (Inclusion--exclusion\index{inclusion exclusion principle@inclusion--exclusion principle}) $\P(A\cup B)=\P(A)+\P(B)-\P(A\cap B)$.
+  \item (Boole's inequality\index{boole s inequality@Boole's inequality}) For every $\{A_i\}\subseteq\F$, $\P(\bigcup_{i=1}^\infty A_i)\le\sum_{i=1}^\infty \P(A_i)$.
 \end{enumerate}
 \end{proposition}
 \begin{proof}
@@ -128,14 +128,14 @@ Let $\{B_i\}_{i\ge1}$ be a countable partition of $\Omega$ (pairwise disjoint wi
 \]
 \end{theorem}
 \begin{proof}
-$A=\bigcup_i (A\cap B_i)$ is a disjoint union; by Axiom~3 and the definition of conditional probability, $\P(A)=\sum_i\P(A\cap B_i)=\sum_i\P(A\mid B_i)\P(B_i)$. Bayes' formula follows by writing the numerator and denominator of $\P(B_j\mid A)=\P(A\cap B_j)/\P(A)$ in this way.
+$A=\bigcup_i (A\cap B_i)$ is a disjoint union; by Axiom~3 and the definition of conditional probability\index{conditional probability@conditional probability}, $\P(A)=\sum_i\P(A\cap B_i)=\sum_i\P(A\mid B_i)\P(B_i)$. Bayes' formula\index{bayes formula@Bayes' formula} follows by writing the numerator and denominator of $\P(B_j\mid A)=\P(A\cap B_j)/\P(A)$ in this way.
 \end{proof}
 
-\begin{theorem}[Borel--Cantelli Lemmas; see {\cite[Section~2.3]{durrett}}]\label{thm:borel-cantelli}
+\begin{theorem}[Borel--Cantelli Lemmas; see {\cite[Section~2.3]{durrett}}]\label{thm:borel-cantelli}\index{borel cantelli lemmas@Borel--Cantelli lemmas}
 Let $\{A_n\}$ be a sequence of events.
 \begin{enumerate}
   \item If $\sum_{n=1}^\infty \P(A_n)<\infty$, then $\P(\limsup A_n)=0$.
-  \item If the $\{A_n\}$ are mutually independent and $\sum_{n=1}^\infty \P(A_n)=\infty$, then $\P(\limsup A_n)=1$.
+  \item If the $\{A_n\}$ are mutually independent\index{independence events@independence (events)} and $\sum_{n=1}^\infty \P(A_n)=\infty$, then $\P(\limsup A_n)=1$.
 \end{enumerate}
 \end{theorem}
 \begin{proof}
@@ -151,7 +151,7 @@ Corollary~\ref{cor:yukaridan} then gives $\P(\bigcap_{k\ge n}A_k^c)=0$.
 \section{Worked Examples}
 
 \begin{example}[A Finite $\sigma$-Algebra]
-For a roll of a die let $\Omega=\{1,\dots,6\}$. If we are interested only in the information ``odd or even?'', then $\F=\{\emptyset,\{1,3,5\},\{2,4,6\},\Omega\}$ is a $\sigma$-algebra. This $\F$ does not contain the event $\{1\}$, so at this level of information no probability can be assigned to the event ``a 1 was rolled''. Interpreting a $\sigma$-algebra as a body of \emph{information} is the basis of the conditional expectation in Chapter~\ref{ch:beklenen-deger}.
+For a roll of a die let $\Omega=\{1,\dots,6\}$. If we are interested only in the information ``odd or even?'', then $\F=\{\emptyset,\{1,3,5\},\{2,4,6\},\Omega\}$ is a $\sigma$-algebra. This $\F$ does not contain the event $\{1\}$, so at this level of information no probability can be assigned to the event ``a 1 was rolled''. Interpreting a $\sigma$-algebra as a body of \emph{information} is the basis of the conditional expectation\index{conditional expectation@conditional expectation} in Chapter~\ref{ch:beklenen-deger}.
 \end{example}
 
 \begin{example}[An Algebra That Is Not a $\sigma$-Algebra]
@@ -159,7 +159,7 @@ Let $\Omega=\N$ and $\mathcal{A}=\{A\subseteq\N: A \text{ is finite or } A^c \te
 \end{example}
 
 \begin{example}[The Birthday Problem]\label{ex:dogum-gunu}
-Suppose the birthdays in a group of $n$ people are independent and uniformly distributed over 365 days. By the complement rule, the probability that at least two people share a birthday is
+Suppose the birthdays in a group of $n$ people are independent\index{independence events@independence (events)} and uniformly distributed over 365 days. By the complement rule, the probability that at least two people share a birthday is
 \[
 p_n = 1-\prod_{k=0}^{n-1}\frac{365-k}{365} .
 \]
@@ -226,10 +226,10 @@ In the uniform example above, $\P(\{\omega\})=0$ for every single point $\{\omeg
 \end{remark}
 
 \begin{remark}[Monte Carlo Error]
-When a probability $p$ is estimated by the proportion in $N$ independent trials, the standard error is $\sqrt{p(1-p)/N}$. For $N=500\,000$ and $p=0.5$ this is about $0.0007$; the differences between the theoretical and simulated values in the outputs above are of this order. The proportion is guaranteed to converge by the Law of Large Numbers in Chapter~\ref{ch:esitsizlikler}.
+When a probability $p$ is estimated by the proportion in $N$ independent\index{independence events@independence (events)} trials, the standard error is $\sqrt{p(1-p)/N}$. For $N=500\,000$ and $p=0.5$ this is about $0.0007$; the differences between the theoretical and simulated values in the outputs above are of this order. The proportion is guaranteed to converge by the Law of Large Numbers in Chapter~\ref{ch:esitsizlikler}.
 \end{remark}
 
-% --- CHAPTER SUMMARY (generated by tools/summaries.py) ---
+% --- CHAPTER SUMMARY ---
 \section{Chapter Summary}
 \begin{summary}
 \begin{itemize}

@@ -3,11 +3,11 @@
 
 \chapter{Expectation, Variance and Cauchy--Schwarz}\label{ch:beklenen-deger}
 
-Knowing a whole distribution is often unnecessary or impossible; instead we work with summary numbers such as ``centre'' and ``spread''. The expectation is an integral with respect to the probability measure, and it is the common language of estimation theory (unbiasedness, MSE), limit theorems (LLN, CLT) and Bayesian decisions (posterior expected loss). In this chapter we discuss the measure-theoretic definition of expectation, the basic inequalities and the notion of conditional expectation, which will be used throughout the rest of the book.
+Knowing a whole distribution is often unnecessary or impossible; instead we work with summary numbers such as ``centre'' and ``spread''. The expectation\index{expectation@expectation} is an integral with respect to the probability measure, and it is the common language of estimation theory (unbiasedness, MSE), limit theorems (LLN, CLT\index{central limit theorem clt@central limit theorem (CLT)}) and Bayesian decisions (posterior expected loss). In this chapter we discuss the measure-theoretic definition of expectation, the basic inequalities and the notion of conditional expectation\index{conditional expectation@conditional expectation}, which will be used throughout the rest of the book.
 
 \section{Definitions}
 
-\begin{definition}[Expectation as a Lebesgue Integral]\label{def:beklenen}
+\begin{definition}[Expectation as a Lebesgue Integral]\label{def:beklenen}\index{expectation@expectation|textbf}
 The expectation is defined in three steps:
 \begin{enumerate}
   \item \emph{Simple RV:} for $X=\sum_{i=1}^k a_i\I_{A_i}$ ($A_i\in\F$ disjoint), $\E[X]=\sum_{i=1}^k a_i\P(A_i)$.
@@ -18,14 +18,14 @@ The result of these three steps is denoted by $\E[X] = \int_\Omega X \, d\P$.
 \end{definition}
 
 \begin{remark}[Computational Formulas]
-By the change-of-variables formula known as the Law of the Unconscious Statistician (LOTUS), for measurable $g$
+By the change-of-variables formula known as the Law of the Unconscious Statistician (LOTUS\index{law of the unconscious statistician lotus@law of the unconscious statistician (LOTUS)}), for measurable $g$
 \[
 \E[g(X)]=\int_\R g(x)\,d\P_X(x)=\begin{cases}\sum_x g(x)p_X(x), & X \text{ discrete}\\[2pt] \int_{-\infty}^\infty g(x)f_X(x)\,dx, & X \text{ continuous}\end{cases}
 \]
 (provided the sum/integral converges absolutely). For $X\ge0$ the tail formula $\E[X]=\int_0^\infty \P(X>t)\,dt$ also holds.
 \end{remark}
 
-\begin{definition}[Moments, Variance, Covariance, Correlation]
+\begin{definition}[Moments, Variance, Covariance, Correlation]\index{correlation@correlation|textbf}\index{covariance@covariance|textbf}\index{variance@variance|textbf}
 For $k\in\N$, $\mu_k'=\E[X^k]$ is the \emph{$k$-th raw moment} and $\mu_k=\E[(X-\E X)^k]$ the \emph{$k$-th central moment}. Furthermore,
 \begin{gather*}
 \Var(X) = \E[(X - \E X)^2] = \E[X^2] - (\E X)^2,\\
@@ -34,28 +34,28 @@ For $k\in\N$, $\mu_k'=\E[X^k]$ is the \emph{$k$-th raw moment} and $\mu_k=\E[(X-
 \[
 \Corr(X,Y)=\rho_{XY}=\frac{\Cov(X,Y)}{\sqrt{\Var(X)\Var(Y)}} .
 \]
-If $\Cov(X,Y)=0$, $X$ and $Y$ are called \emph{uncorrelated}. The skewness is $\gamma_1=\mu_3/\sigma^3$ and the excess kurtosis is $\gamma_2=\mu_4/\sigma^4-3$.
+If $\Cov(X,Y)=0$, $X$ and $Y$ are called \emph{uncorrelated}. The skewness\index{skewness@skewness} is $\gamma_1=\mu_3/\sigma^3$ and the excess kurtosis\index{kurtosis@kurtosis} is $\gamma_2=\mu_4/\sigma^4-3$.
 \end{definition}
 
 \begin{definition}[Moment Generating Function]
-If $M_X(t)=\E[e^{tX}]$ is finite in a neighbourhood of $0$, it is called the \emph{moment generating function} (MGF) of $X$. In that case $\E[X^k]=M_X^{(k)}(0)$, and the MGF determines the distribution uniquely. (Not every distribution has an MGF; this gap will be filled by the characteristic function in Chapter~\ref{ch:clt}.)
+If $M_X(t)=\E[e^{tX}]$ is finite in a neighbourhood of $0$, it is called the \emph{moment generating function\index{moment generating function mgf@moment generating function (MGF)}} (MGF) of $X$. In that case $\E[X^k]=M_X^{(k)}(0)$, and the MGF determines the distribution uniquely. (Not every distribution has an MGF; this gap will be filled by the characteristic function\index{characteristic function@characteristic function} in Chapter~\ref{ch:clt}.)
 \end{definition}
 
-\begin{definition}[Conditional Expectation --- the Elementary Case]\label{def:kosullu-beklenen}
+\begin{definition}[Conditional Expectation --- the Elementary Case]\label{def:kosullu-beklenen}\index{expectation@expectation|textbf}
 Let $(X,Y)$ be a random vector with joint density (or pmf) $f_{X,Y}$, and let $f_Y(y)>0$. The conditional density of $X$ given $Y=y$ is $f_{X\mid Y}(x\mid y)=f_{X,Y}(x,y)/f_Y(y)$, and with
 \[
 m(y)=\E[X\mid Y=y]=\int x\,f_{X\mid Y}(x\mid y)\,dx
 \]
-the \emph{random variable} $\E[X\mid Y]=m(Y)$ is called the conditional expectation of $X$ given $Y$. Similarly, $\Var(X\mid Y)=\E[(X-\E[X\mid Y])^2\mid Y]$.
+the \emph{random variable} $\E[X\mid Y]=m(Y)$ is called the conditional expectation\index{conditional expectation@conditional expectation} of $X$ given $Y$. Similarly, $\Var(X\mid Y)=\E[(X-\E[X\mid Y])^2\mid Y]$.
 \end{definition}
 
 \begin{remark}[The General Definition]
-In measure-theoretic terms, $\E[X\mid\mathcal{G}]$ is the (a.s.\ unique) RV that is measurable with respect to a sub-$\sigma$-algebra $\mathcal{G}\subseteq\F$ and satisfies $\E[X\I_G]=\E[\E[X\mid\mathcal G]\I_G]$ for every $G\in\mathcal{G}$; its existence follows from the Radon--Nikodym theorem. $\E[X\mid Y]=\E[X\mid\sigma(Y)]$. In $L^2$, $\E[X\mid\mathcal G]$ is the \emph{orthogonal projection} of $X$ onto the subspace of $\mathcal G$-measurable RVs; this geometric interpretation is the essence of the Rao--Blackwell theorem (Chapter~\ref{ch:yeterlilik}).
+In measure-theoretic terms, $\E[X\mid\mathcal{G}]$ is the (a.s.\ unique) RV that is measurable with respect to a sub-$\sigma$-algebra $\mathcal{G}\subseteq\F$ and satisfies $\E[X\I_G]=\E[\E[X\mid\mathcal G]\I_G]$ for every $G\in\mathcal{G}$; its existence follows from the Radon--Nikodym theorem. $\E[X\mid Y]=\E[X\mid\sigma(Y)]$. In $L^2$, $\E[X\mid\mathcal G]$ is the \emph{orthogonal projection} of $X$ onto the subspace of $\mathcal G$-measurable RVs; this geometric interpretation is the essence of the Rao--Blackwell\index{rao blackwell theorem@Rao--Blackwell theorem} theorem (Chapter~\ref{ch:yeterlilik}).
 \end{remark}
 
 \section{Main Theorems and Proofs}
 
-\begin{proposition}[Properties of Expectation]\label{prop:beklenen-ozellik}
+\begin{proposition}[Properties of Expectation]\label{prop:beklenen-ozellik}\index{expectation@expectation}
 Let $X,Y\in L^1$ and $a,b\in\R$.
 \begin{enumerate}
   \item (Linearity) $\E[aX+bY]=a\E X+b\E Y$.
@@ -69,7 +69,7 @@ Let $X,Y\in L^1$ and $a,b\in\R$.
 (1)--(2) follow directly for simple RVs and, in general, by passing to the limit with the Monotone Convergence Theorem. (3) First for indicators, $\E[\I_A\I_B]=\P(A\cap B)=\P(A)\P(B)$, then by linearity and a limiting argument. (4)--(5) follow by expanding the definition and using linearity. For measure-theoretic details see \cite[Sections~1.4--1.6]{durrett} or \cite[Sections~15--16 and 21]{billingsley}.
 \end{proof}
 
-\begin{theorem}[Cauchy--Schwarz Inequality]\label{thm:cauchy-schwarz}
+\begin{theorem}[Cauchy--Schwarz Inequality]\label{thm:cauchy-schwarz}\index{cauchy schwarz inequality@Cauchy--Schwarz inequality}
 For any two random variables with $\E[X^2] < \infty$ and $\E[Y^2] < \infty$,
 \[
 (\E[XY])^2 \le \E[X^2]\,\E[Y^2].
@@ -86,14 +86,14 @@ $\Delta = (2\E[XY])^2 - 4\E[X^2]\E[Y^2] \le 0 \implies (\E[XY])^2 \le \E[X^2]\E[
 In the case of equality $\Delta=0$, so there is a $t_0$ with $g(t_0)=\E[(t_0X+Y)^2]=0$, i.e.\ $t_0X+Y=0$ a.s.
 \end{proof}
 
-\begin{corollary}[Bounds on the Correlation]\label{cor:korelasyon}
+\begin{corollary}[Bounds on the Correlation]\label{cor:korelasyon}\index{correlation@correlation}
 $|\Corr(X,Y)|\le1$, with equality if and only if $Y=a+bX$ a.s.\ ($b\ne0$).
 \end{corollary}
 \begin{proof}
 Apply Theorem~\ref{thm:cauchy-schwarz} to the centred variables $X-\E X$ and $Y-\E Y$.
 \end{proof}
 
-\begin{theorem}[Jensen's Inequality]\label{thm:jensen}
+\begin{theorem}[Jensen's Inequality]\label{thm:jensen}\index{jensen s inequality@Jensen's inequality}
 If $\varphi:\R\to\R$ is convex, $X\in L^1$ and $\varphi(X)\in L^1$, then
 \[
 \varphi(\E X)\le\E[\varphi(X)].
@@ -104,7 +104,7 @@ If $\varphi$ is strictly convex, equality holds only when $X$ is a.s.\ constant.
 Let $\mu=\E X$. A convex function has a supporting line at every point: $\varphi(x)\ge\varphi(\mu)+c(x-\mu)$ for all $x$ (for some $c\in\R$). Setting $x=X$ and taking expectations gives $\E\varphi(X)\ge\varphi(\mu)+c(\E X-\mu)=\varphi(\mu)$.
 \end{proof}
 
-\begin{theorem}[Tower Rule (Law of Total Expectation)]\label{thm:kule}
+\begin{theorem}[Tower Rule (Law of Total Expectation)]\label{thm:kule}\index{expectation@expectation}
 If $X\in L^1$, then $\E\big[\E[X\mid Y]\big]=\E[X]$. Moreover, for every bounded measurable $h$, $\E[h(Y)X\mid Y]=h(Y)\E[X\mid Y]$ (``taking out what is known'').
 \end{theorem}
 \begin{proof}[Proof (density case)]
@@ -114,14 +114,14 @@ If $X\in L^1$, then $\E\big[\E[X\mid Y]\big]=\E[X]$. Moreover, for every bounded
 where the order of integration was exchanged by Fubini's theorem. The second property holds because $h(Y)=h(y)$ is constant given $Y=y$.
 \end{proof}
 
-\begin{theorem}[Law of Total Variance]\label{thm:toplam-varyans}
+\begin{theorem}[Law of Total Variance]\label{thm:toplam-varyans}\index{variance@variance}
 If $X\in L^2$, then
 \[
 \Var(X)=\E\big[\Var(X\mid Y)\big]+\Var\big(\E[X\mid Y]\big).
 \]
 \end{theorem}
 \begin{proof}
-Let $m(Y)=\E[X\mid Y]$. Write $X-\E X=(X-m(Y))+(m(Y)-\E X)$ and square. For the cross term the tower rule gives
+Let $m(Y)=\E[X\mid Y]$. Write $X-\E X=(X-m(Y))+(m(Y)-\E X)$ and square. For the cross term the tower rule\index{tower property@tower property} gives
 \[
 \E\big[(X-m(Y))(m(Y)-\E X)\big]=\E\Big[(m(Y)-\E X)\,\E[X-m(Y)\mid Y]\Big]=0,
 \]
@@ -132,7 +132,7 @@ because $\E[X-m(Y)\mid Y]=0$. The remaining terms are $\E[(X-m(Y))^2]=\E[\Var(X\
 If $X\in L^2$, then among all measurable functions $g$ of $Y$, the one minimising $\E[(X-g(Y))^2]$ is $g(Y)=\E[X\mid Y]$.
 \end{corollary}
 \begin{proof}
-The same decomposition as in the proof of the law of total variance gives $\E[(X-g(Y))^2]=\E[(X-m(Y))^2]+\E[(m(Y)-g(Y))^2]$; the second term vanishes for $g=m$.
+The same decomposition as in the proof of the law of total variance\index{law of total variance@law of total variance} gives $\E[(X-g(Y))^2]=\E[(X-m(Y))^2]+\E[(m(Y)-g(Y))^2]$; the second term vanishes for $g=m$.
 \end{proof}
 
 \section{Worked Examples}
@@ -142,7 +142,7 @@ $X\sim\text{Bin}(n,p)$ can be written as $X=\sum_{i=1}^n Y_i$ with $Y_i\iid\text
 \end{example}
 
 \begin{example}[Moments of the Exponential Distribution]
-For $X\sim\text{Exp}(\lambda)$, integration by parts gives $\E[X^k]=k!/\lambda^k$. Hence $\E X=1/\lambda$ and $\Var X=2/\lambda^2-1/\lambda^2=1/\lambda^2$. The MGF is $M_X(t)=\lambda/(\lambda-t)$, $t<\lambda$; its derivatives give the same moments.
+For $X\sim\text{Exp}(\lambda)$, integration by parts gives $\E[X^k]=k!/\lambda^k$. Hence $\E X=1/\lambda$ and $\Var X=2/\lambda^2-1/\lambda^2=1/\lambda^2$. The MGF\index{moment generating function mgf@moment generating function (MGF)} is $M_X(t)=\lambda/(\lambda-t)$, $t<\lambda$; its derivatives give the same moments.
 \end{example}
 
 \begin{example}[A Distribution Without an Expectation: Cauchy]\label{ex:cauchy-beklenen}
@@ -150,29 +150,29 @@ For the standard Cauchy density $f(x)=\frac{1}{\pi(1+x^2)}$,
 \[
 \E[X^+]=\int_0^\infty\frac{x}{\pi(1+x^2)}dx=\frac{1}{2\pi}\ln(1+x^2)\Big|_0^\infty=\infty,
 \]
-and similarly $\E[X^-]=\infty$; that is, $\E X$ is \emph{undefined}. Although the density is symmetric about zero, one cannot say ``the mean is zero''. In Chapters~\ref{ch:esitsizlikler} and~\ref{ch:clt} this distribution will show why the assumptions of the law of large numbers and the central limit theorem are needed.
+and similarly $\E[X^-]=\infty$; that is, $\E X$ is \emph{undefined}. Although the density is symmetric about zero, one cannot say ``the mean is zero''. In Chapters~\ref{ch:esitsizlikler} and~\ref{ch:clt} this distribution will show why the assumptions of the law of large numbers and the central limit theorem\index{central limit theorem clt@central limit theorem (CLT)} are needed.
 \end{example}
 
 \begin{example}[Uncorrelated but Dependent]\label{ex:iliskisiz-bagimli}
-Let $X\sim\Normal(0,1)$ and $Y=X^2$. Then $\Cov(X,Y)=\E[X^3]-\E X\,\E[X^2]=0$, yet $Y$ is a deterministic function of $X$. Correlation measures only \emph{linear} dependence. (Conversely, if $(X,Y)$ is \emph{jointly} normal, uncorrelatedness is equivalent to independence: Theorem~\ref{thm:mvn}. Normal marginals alone are not enough: Example~\ref{ex:normal-degil}.)
+Let $X\sim\Normal(0,1)$ and $Y=X^2$. Then $\Cov(X,Y)=\E[X^3]-\E X\,\E[X^2]=0$, yet $Y$ is a deterministic function of $X$. Correlation\index{correlation@correlation} measures only \emph{linear} dependence. (Conversely, if $(X,Y)$ is \emph{jointly} normal, uncorrelatedness is equivalent to independence: Theorem~\ref{thm:mvn}. Normal marginals alone are not enough: Example~\ref{ex:normal-degil}.)
 \end{example}
 
 \begin{example}[Applications of Jensen]
 \begin{itemize}
   \item $\varphi(x)=x^2$: $(\E X)^2\le\E X^2$, i.e.\ $\Var X\ge0$.
   \item $\varphi(x)=1/x$ ($x>0$): $\E[1/X]\ge1/\E X$. For instance, computing an ``average time'' from an average speed systematically underestimates the time.
-  \item $\varphi(x)=-\ln x$: $\E[\ln X]\le\ln\E X$, the probabilistic form of the arithmetic--geometric mean inequality. It will be used in Chapter~\ref{ch:mle-asimptotik} to prove the consistency of the MLE (the information inequality).
+  \item $\varphi(x)=-\ln x$: $\E[\ln X]\le\ln\E X$, the probabilistic form of the arithmetic--geometric mean inequality. It will be used in Chapter~\ref{ch:mle-asimptotik} to prove the consistency of the MLE (the information inequality\index{information inequality@information inequality}).
   \item For $S=\sqrt{S^2}$: $\E[S]=\E\sqrt{S^2}<\sqrt{\E S^2}=\sigma$, so $S$ is a (downward) biased estimator of $\sigma$ (Chapter~\ref{ch:nokta-tahmin}).
 \end{itemize}
 \end{example}
 
 \begin{example}[Total Variance: a Poisson--Gamma Mixture]\label{ex:poisson-gamma}
-Let the annual number of claims of a policyholder be $N\mid\Lambda\sim\text{Poisson}(\Lambda)$ with risk level $\Lambda\sim\text{Gamma}(\alpha,\beta)$ (shape $\alpha$, rate $\beta$). By the tower rule and the law of total variance,
+Let the annual number of claims of a policyholder be $N\mid\Lambda\sim\text{Poisson}(\Lambda)$ with risk level $\Lambda\sim\text{Gamma}(\alpha,\beta)$ (shape $\alpha$, rate $\beta$). By the tower rule\index{tower property@tower property} and the law of total variance\index{law of total variance@law of total variance}\index{variance@variance},
 \[
 \E N=\E[\Lambda]=\frac\alpha\beta,\qquad
 \Var N=\E[\Lambda]+\Var(\Lambda)=\frac\alpha\beta+\frac{\alpha}{\beta^2}.
 \]
-Since $\Var N>\E N$, the mixture produces \emph{overdispersion} relative to the Poisson. The marginal distribution of $N$ is negative binomial. This structure is the probabilistic counterpart of the Gamma--Poisson conjugacy in Chapter~\ref{ch:bayes}.
+Since $\Var N>\E N$, the mixture produces \emph{overdispersion\index{overdispersion@overdispersion}} relative to the Poisson. The marginal distribution of $N$ is negative binomial. This structure is the probabilistic counterpart of the Gamma--Poisson conjugacy\index{conjugate prior@conjugate prior} in Chapter~\ref{ch:bayes}.
 \end{example}
 
 \section{Computational Applications}
@@ -186,7 +186,7 @@ Linear relation: (E[XcYc])^2 = 63.7241 , E[Xc^2]E[Yc^2] = 63.7241
 Sample correlation (for rho=0.85): 0.8489
 \end{lstlisting}
 
-Theoretical values: $\E[XY]=\Cov+\E X\E Y=5.1-2=3.1$, hence $(\E XY)^2=9.61$; $\E X^2=4+4=8$, $\E Y^2=9+1=10$, product $80$. The inequality is rather loose because Cauchy--Schwarz was applied to \emph{raw} moments; in centred form the ratio is $\rho^2=0.7225$.
+Theoretical values: $\E[XY]=\Cov+\E X\E Y=5.1-2=3.1$, hence $(\E XY)^2=9.61$; $\E X^2=4+4=8$, $\E Y^2=9+1=10$, product $80$. The inequality is rather loose because Cauchy--Schwarz\index{cauchy schwarz inequality@Cauchy--Schwarz inequality} was applied to \emph{raw} moments; in centred form the ratio is $\rho^2=0.7225$.
 
 \subsection{Uncorrelatedness versus Independence; the Law of Total Variance}
 
@@ -215,14 +215,14 @@ The formula $\Var X=\E X^2-(\E X)^2$ is correct in theory but numerically danger
 \end{remark}
 
 \begin{remark}[Hierarchy of Moment Existence]
-For $1\le p<q$, $\E|X|^q<\infty\implies\E|X|^p<\infty$ (Lyapunov's inequality $(\E|X|^p)^{1/p}\le(\E|X|^q)^{1/q}$, a consequence of Jensen). For example, the $t_\nu$ distribution has moments only of order less than $\nu$; $t_2$ has a mean but infinite variance.
+For $1\le p<q$, $\E|X|^q<\infty\implies\E|X|^p<\infty$ (Lyapunov's inequality $(\E|X|^p)^{1/p}\le(\E|X|^q)^{1/q}$, a consequence of Jensen\index{jensen s inequality@Jensen's inequality}). For example, the $t_\nu$ distribution has moments only of order less than $\nu$; $t_2$ has a mean but infinite variance\index{variance@variance}.
 \end{remark}
 
 \begin{remark}[Links Ahead]
-The Cauchy--Schwarz inequality is the key step for the Cramér--Rao lower bound in Chapter~\ref{ch:cramer-rao}; the law of total variance for the Rao--Blackwell theorem in Chapter~\ref{ch:yeterlilik}; and Jensen's inequality for the proof of the consistency of the MLE in Chapter~\ref{ch:mle-asimptotik}.
+The Cauchy--Schwarz\index{cauchy schwarz inequality@Cauchy--Schwarz inequality} inequality is the key step for the Cramér--Rao\index{cramer rao lower bound crlb@Cramér--Rao lower bound (CRLB)} lower bound in Chapter~\ref{ch:cramer-rao}; the law of total variance\index{law of total variance@law of total variance} for the Rao--Blackwell\index{rao blackwell theorem@Rao--Blackwell theorem} theorem in Chapter~\ref{ch:yeterlilik}; and Jensen's inequality for the proof of the consistency of the MLE in Chapter~\ref{ch:mle-asimptotik}.
 \end{remark}
 
-% --- CHAPTER SUMMARY (generated by tools/summaries.py) ---
+% --- CHAPTER SUMMARY ---
 \section{Chapter Summary}
 \begin{summary}
 \begin{itemize}
@@ -236,7 +236,7 @@ The Cauchy--Schwarz inequality is the key step for the Cramér--Rao lower bound 
 \end{summary}
 % --- END OF CHAPTER SUMMARY ---
 
-\paragraph{Further reading.} \cite[Chapter~2]{casella}, \cite[Chapter~3]{wasserman}; for expectation as a Lebesgue integral see \cite[Sections~1.5--1.6]{durrett}.
+\paragraph{Further reading.} \cite[Chapter~2]{casella}, \cite[Chapter~3]{wasserman}; for expectation\index{expectation@expectation} as a Lebesgue integral see \cite[Sections~1.5--1.6]{durrett}.
 
 \section{Exercises}
 

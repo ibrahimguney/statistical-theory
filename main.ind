@@ -1,0 +1,291 @@
+\begin{theindex}
+\phantomsection\addcontentsline{toc}{chapter}{\indexname}
+\raggedright
+
+  {\bfseries\large A}\nopagebreak
+  \item adjusted $p$-value, \textbf{\hyperpage{157}}
+  \item admissibility, \textbf{\hyperpage{48}}, \hyperpage{51}, \hyperpage{52}, \hyperpage{132}, \hyperpage{139}, \hyperpage{140}, \hyperpage{141}, \hyperpage{145}
+  \item Agresti--Coull interval, \hyperpage{107}
+  \item almost sure convergence, \hyperpage{30}
+  \item ancillary statistic, \textbf{\hyperpage{66}}, \hyperpage{67}, \hyperpage{68}, \hyperpage{84}
+  \item asymptotic normality, \hyperpage{40}, \hyperpage{45}, \hyperpage{72}, \hyperpage{76}, \hyperpage{78}, \hyperpage{99}, \hyperpage{132}, \hyperpage{166}
+  \item asymptotic relative efficiency, \hyperpage{52}, \hyperpage{78}, \hyperpage{84}, \hyperpage{147}
+
+  \indexspace
+  {\bfseries\large B}\nopagebreak
+  \item bandwidth, \hyperpage{123}, \hyperpage{148}, \hyperpage{150}
+  \item Basu's theorem, \hyperpage{25}, \hyperpage{66}, \hyperpage{67}, \hyperpage{68}, \hyperpage{105}
+  \item Bayes estimator, \hyperpage{49}, \hyperpage{130}, \hyperpage{132}
+  \item Bayes factor, \hyperpage{133}
+  \item Bayes' formula, \hyperpage{4}, \hyperpage{22}, \hyperpage{130}
+  \item Bayes risk, \hyperpage{130}, \hyperpage{132}, \hyperpage{141}
+  \item Benjamini--Hochberg procedure, \hyperpage{156}, \hyperpage{157}, \hyperpage{158}, \hyperpage{159}, \hyperpage{160}, \hyperpage{161}
+  \item Benjamini--Yekutieli procedure, \hyperpage{158}
+  \item Bernstein--von Mises theorem, \hyperpage{127}, \hyperpage{130}, \hyperpage{132}, \hyperpage{136}
+  \item Berry--Esseen theorem, \hyperpage{41}, \hyperpage{44}, \hyperpage{122}
+  \item bias--variance decomposition, \hyperpage{49}
+  \item BLUE, \textbf{\hyperpage{111}}, \hyperpage{112}, \hyperpage{115}
+  \item Blyth's method, \hyperpage{139}, \hyperpage{141}
+  \item Bonferroni correction, \hyperpage{156}, \hyperpage{157}, \hyperpage{159}, \hyperpage{160}
+  \item Boole's inequality, \hyperpage{3}, \hyperpage{157}, \hyperpage{161}
+  \item bootstrap, \textbf{\hyperpage{120}}, \hyperpage{121}, \hyperpage{123}, \hyperpage{124}, \hyperpage{127}
+  \subitem BCa interval, \hyperpage{109}, \hyperpage{121}, \hyperpage{122}, \hyperpage{125}
+  \subitem parametric, \hyperpage{120}, \hyperpage{123}, \hyperpage{153}
+  \subitem percentile interval, \hyperpage{109}, \hyperpage{121}, \hyperpage{122}, \hyperpage{125}
+  \item Borel--Cantelli lemmas, \hyperpage{4}, \hyperpage{32}
+  \item Box--Muller transform, \hyperpage{25}
+
+  \indexspace
+  {\bfseries\large C}\nopagebreak
+  \item Cauchy--Schwarz inequality, \hyperpage{16}, \hyperpage{19}, \hyperpage{20}, \hyperpage{55}, \hyperpage{114}
+  \item central limit theorem (CLT), \hyperpage{15}, \hyperpage{18}, \hyperpage{29}, \hyperpage{33}, \hyperpage{34}, \hyperpage{37}, \hyperpage{40}, \hyperpage{41}, \hyperpage{43}, \hyperpage{45}, \hyperpage{79}, \hyperpage{107}, \hyperpage{120}, \hyperpage{122}
+  \item characteristic function, \hyperpage{16}, \hyperpage{24}, \hyperpage{32}, \hyperpage{37}
+  \item Chebyshev's inequality, \hyperpage{30}, \hyperpage{32}, \hyperpage{33}, \hyperpage{34}
+  \item Chernoff bound, \hyperpage{31}
+  \item chi-square distribution, \hyperpage{98}, \hyperpage{106}
+  \item Clopper--Pearson interval, \hyperpage{107}, \hyperpage{109}
+  \item complete separation, \hyperpage{169}
+  \item complete statistic, \hyperpage{66}, \hyperpage{67}, \hyperpage{70}, \hyperpage{72}
+  \item conditional expectation, \hyperpage{4}, \hyperpage{15}, \hyperpage{16}, \hyperpage{65}, \hyperpage{163}, \hyperpage{170}
+  \item conditional probability, \hyperpage{3}, \hyperpage{4}, \hyperpage{61}
+  \item confidence interval, \hyperpage{104}, \hyperpage{106}
+  \item conjugate prior, \hyperpage{18}, \hyperpage{64}, \textbf{\hyperpage{130}}, \hyperpage{131}, \hyperpage{136}
+  \item consistency, \textbf{\hyperpage{48}}, \hyperpage{49}, \hyperpage{50}, \hyperpage{79}
+  \item continuous mapping theorem, \hyperpage{45}, \hyperpage{49}, \hyperpage{80}, \hyperpage{99}
+  \item convergence in distribution, \hyperpage{30}, \hyperpage{37}, \hyperpage{42}
+  \item convergence in probability, \hyperpage{30}, \hyperpage{33}, \hyperpage{42}, \hyperpage{45}
+  \item convolution, \hyperpage{22}, \hyperpage{23}, \hyperpage{25}, \hyperpage{84}
+  \item copula, \hyperpage{28}
+  \item correlation, \textbf{\hyperpage{15}}, \hyperpage{17}, \hyperpage{18}
+  \item covariance, \textbf{\hyperpage{15}}, \textbf{\hyperpage{22}}, \hyperpage{24}
+  \item covariance matrix, \hyperpage{41}, \hyperpage{73}
+  \item coverage probability, \hyperpage{104}, \hyperpage{106}, \hyperpage{107}, \hyperpage{109}
+  \item Cramér--Rao lower bound (CRLB), \hyperpage{20}, \hyperpage{54}, \hyperpage{55}, \hyperpage{56}, \hyperpage{58}, \hyperpage{64}, \hyperpage{68}, \hyperpage{78}, \hyperpage{83}, \hyperpage{147}
+  \item Cramér--Wold device, \hyperpage{41}, \hyperpage{114}
+  \item credible interval, \hyperpage{104}, \hyperpage{130}, \hyperpage{132}, \hyperpage{135}, \hyperpage{136}
+
+  \indexspace
+  {\bfseries\large D}\nopagebreak
+  \item decision rule, \hyperpage{139}, \hyperpage{140}
+  \item delta method, \hyperpage{78}, \hyperpage{81}, \hyperpage{84}, \hyperpage{120}
+  \item deviance, \textbf{\hyperpage{164}}, \hyperpage{166}, \hyperpage{169}
+  \item distribution-free statistic, \hyperpage{13}, \hyperpage{147}, \hyperpage{148}, \hyperpage{153}
+  \item distribution function (CDF), \textbf{\hyperpage{8}}, \hyperpage{9}, \hyperpage{11}, \hyperpage{14}
+  \item DKW inequality, \hyperpage{10}, \hyperpage{12}, \hyperpage{14}
+
+  \indexspace
+  {\bfseries\large E}\nopagebreak
+  \item efficient estimator, \hyperpage{55}, \hyperpage{56}, \hyperpage{64}
+  \item EM algorithm, \textbf{\hyperpage{163}}, \hyperpage{164}, \hyperpage{166}, \hyperpage{168}, \hyperpage{169}, \hyperpage{170}
+  \item empirical distribution function, \hyperpage{9}, \hyperpage{14}, \hyperpage{147}, \hyperpage{149}, \hyperpage{162}
+  \item equaliser rule, \textbf{\hyperpage{140}}, \hyperpage{142}
+  \item estimator, \textbf{\hyperpage{48}}, \hyperpage{49}, \hyperpage{51}, \hyperpage{52}
+  \item exchangeability, \hyperpage{122}, \hyperpage{127}, \hyperpage{148}
+  \item expectation, \textbf{\hyperpage{15}}, \textbf{\hyperpage{16}}, \hyperpage{17}, \hyperpage{20}
+  \item exponential dispersion family, \hyperpage{163}
+  \item exponential family, \hyperpage{55}, \hyperpage{60}, \hyperpage{61}, \hyperpage{62}, \hyperpage{64}, \hyperpage{67}, \hyperpage{92}, \hyperpage{94}, \hyperpage{141}, \hyperpage{163}
+
+  \indexspace
+  {\bfseries\large F}\nopagebreak
+  \item factorisation theorem, \hyperpage{23}, \hyperpage{60}, \hyperpage{62}, \hyperpage{73}, \hyperpage{87}, \hyperpage{99}
+  \item false discovery rate (FDR), \hyperpage{156}, \hyperpage{157}, \hyperpage{159}, \hyperpage{160}, \hyperpage{162}
+  \item family-wise error rate (FWER), \hyperpage{156}, \hyperpage{157}, \hyperpage{159}, \hyperpage{160}
+  \item Fisher information, \hyperpage{54}, \hyperpage{78}, \hyperpage{120}, \hyperpage{132}, \hyperpage{165}
+  \item Fisher information matrix, \hyperpage{55}
+  \item Fisher scoring, \hyperpage{163}, \hyperpage{165}
+
+  \indexspace
+  {\bfseries\large G}\nopagebreak
+  \item Gauss--Markov theorem, \hyperpage{111}, \hyperpage{112}, \hyperpage{115}, \hyperpage{119}
+  \item generalised linear model (GLM), \hyperpage{64}, \hyperpage{98}, \hyperpage{119}, \hyperpage{163}, \hyperpage{164}, \hyperpage{165}, \hyperpage{166}, \hyperpage{170}
+  \item Glivenko--Cantelli theorem, \hyperpage{10}
+  \item goodness of fit, \hyperpage{11}, \hyperpage{98}, \hyperpage{169}
+
+  \indexspace
+  {\bfseries\large H}\nopagebreak
+  \item hat matrix, \hyperpage{111}
+  \item Helly selection theorem, \hyperpage{39}
+  \item heteroscedasticity, \hyperpage{115}, \hyperpage{119}
+  \item hierarchy of convergence, \hyperpage{30}
+  \item Hodges--Lehmann estimator, \hyperpage{154}
+  \item Hodges' superefficiency, \hyperpage{58}, \hyperpage{84}
+  \item Hoeffding's inequality, \hyperpage{31}
+  \item Holm procedure, \hyperpage{156}, \hyperpage{157}, \hyperpage{159}, \hyperpage{160}
+  \item HPD region, \textbf{\hyperpage{130}}, \hyperpage{134}
+  \item hypothesis test, \hyperpage{86}
+
+  \indexspace
+  {\bfseries\large I}\nopagebreak
+  \item idempotent matrix, \hyperpage{112}, \hyperpage{113}
+  \item inclusion--exclusion principle, \hyperpage{3}
+  \item independence (events), \textbf{\hyperpage{3}}, \hyperpage{4}, \hyperpage{5}, \hyperpage{7}
+  \item information identity, \hyperpage{79}, \hyperpage{165}
+  \item information inequality, \hyperpage{18}, \hyperpage{78}, \hyperpage{164}
+  \item inverse transform method, \hyperpage{8}, \hyperpage{25}
+  \item inversion formula, \hyperpage{38}, \hyperpage{43}
+  \item IRLS, \hyperpage{163}, \hyperpage{165}, \hyperpage{166}, \hyperpage{169}
+
+  \indexspace
+  {\bfseries\large J}\nopagebreak
+  \item jackknife, \hyperpage{120}, \textbf{\hyperpage{121}}, \hyperpage{122}, \hyperpage{127}
+  \item Jacobian method, \hyperpage{22}, \hyperpage{23}, \hyperpage{25}, \hyperpage{104}
+  \item James--Stein estimator, \hyperpage{51}, \hyperpage{52}, \hyperpage{58}, \hyperpage{112}, \hyperpage{132}, \hyperpage{141}, \hyperpage{145}
+  \item Jeffreys prior, \hyperpage{54}, \textbf{\hyperpage{130}}, \hyperpage{131}, \hyperpage{133}, \hyperpage{135}
+  \item Jensen's inequality, \hyperpage{17}, \hyperpage{20}, \hyperpage{62}, \hyperpage{64}, \hyperpage{78}, \hyperpage{139}, \hyperpage{164}
+  \item joint distribution, \textbf{\hyperpage{22}}, \hyperpage{23}, \hyperpage{28}
+
+  \indexspace
+  {\bfseries\large K}\nopagebreak
+  \item Karlin--Rubin theorem, \hyperpage{92}, \hyperpage{93}
+  \item kernel density estimation, \hyperpage{147}, \hyperpage{148}, \hyperpage{153}
+  \item Khinchin's theorem, \hyperpage{32}, \hyperpage{35}, \hyperpage{43}
+  \item Kolmogorov axioms, \hyperpage{2}
+  \item Kolmogorov--Smirnov test, \hyperpage{11}, \hyperpage{13}, \hyperpage{101}, \textbf{\hyperpage{147}}, \hyperpage{149}, \hyperpage{153}
+  \item Kullback--Leibler divergence, \hyperpage{58}
+  \item kurtosis, \hyperpage{16}, \hyperpage{43}, \hyperpage{106}, \hyperpage{107}
+
+  \indexspace
+  {\bfseries\large L}\nopagebreak
+  \item law of large numbers
+  \subitem strong (SLLN), \hyperpage{10}, \hyperpage{32}, \hyperpage{33}, \hyperpage{35}, \hyperpage{49}, \hyperpage{79}, \hyperpage{122}
+  \subitem weak (WLLN), \hyperpage{32}, \hyperpage{35}, \hyperpage{43}, \hyperpage{49}, \hyperpage{78}, \hyperpage{79}, \hyperpage{115}
+  \item law of the unconscious statistician (LOTUS), \hyperpage{15}
+  \item law of total variance, \hyperpage{17}, \hyperpage{18}, \hyperpage{20}, \hyperpage{61}
+  \item least favourable prior, \hyperpage{139}, \hyperpage{140}, \hyperpage{142}, \hyperpage{144}
+  \item least squares (LS), \hyperpage{111}, \hyperpage{112}, \hyperpage{114}, \hyperpage{115}
+  \item Lehmann--Scheffé theorem, \hyperpage{66}, \hyperpage{68}, \hyperpage{112}
+  \item leverage, \textbf{\hyperpage{111}}, \hyperpage{115}
+  \item Lévy continuity theorem, \hyperpage{40}
+  \item likelihood function, \hyperpage{72}
+  \item likelihood ratio, \hyperpage{86}, \hyperpage{88}, \hyperpage{92}, \hyperpage{96}
+  \item likelihood ratio test (LRT), \hyperpage{86}, \hyperpage{96}, \hyperpage{98}, \hyperpage{99}, \hyperpage{100}, \hyperpage{101}, \hyperpage{102}, \hyperpage{109}, \hyperpage{114}, \hyperpage{144}
+  \item Lilliefors problem, \hyperpage{153}
+  \item limiting Bayes method, \hyperpage{140}
+  \item Lindeberg condition, \hyperpage{40}, \hyperpage{114}, \hyperpage{166}
+  \item Lindeberg--Feller theorem, \hyperpage{40}
+  \item linear model, \hyperpage{111}, \hyperpage{114}, \hyperpage{119}
+  \item link function, \hyperpage{164}, \hyperpage{165}, \hyperpage{166}, \hyperpage{169}
+  \item log-likelihood, \hyperpage{54}, \hyperpage{58}, \hyperpage{72}, \hyperpage{75}, \hyperpage{113}, \hyperpage{163}, \hyperpage{166}, \hyperpage{168}
+  \item logistic regression, \hyperpage{81}, \hyperpage{169}
+  \item loss function, \hyperpage{48}, \hyperpage{139}
+
+  \indexspace
+  {\bfseries\large M}\nopagebreak
+  \item marginal distribution, \textbf{\hyperpage{22}}, \hyperpage{23}, \hyperpage{26}, \hyperpage{28}
+  \item Markov's inequality, \hyperpage{31}, \hyperpage{32}, \hyperpage{49}, \hyperpage{115}
+  \item maximum likelihood estimator (MLE), \textbf{\hyperpage{72}}, \hyperpage{73}, \hyperpage{76}, \hyperpage{77}, \hyperpage{78}, \hyperpage{79}, \hyperpage{81}, \hyperpage{82}
+  \item MCMC, \hyperpage{65}, \hyperpage{130}, \hyperpage{136}
+  \item mean squared error (MSE), \textbf{\hyperpage{48}}, \hyperpage{49}, \hyperpage{51}, \hyperpage{52}
+  \item method of moments, \hyperpage{48}, \hyperpage{74}
+  \item Metropolis algorithm, \hyperpage{135}, \hyperpage{136}
+  \item minimal sufficient statistic, \hyperpage{60}, \hyperpage{61}, \hyperpage{62}, \hyperpage{67}, \hyperpage{68}
+  \item minimax rule, \textbf{\hyperpage{139}}, \hyperpage{140}, \hyperpage{141}, \hyperpage{142}, \hyperpage{145}, \hyperpage{154}
+  \item MISE, \hyperpage{150}, \hyperpage{153}
+  \item missing data, \hyperpage{163}, \hyperpage{165}, \hyperpage{170}
+  \item mixture distribution, \hyperpage{163}, \hyperpage{166}, \hyperpage{168}
+  \item moment generating function (MGF), \hyperpage{16}, \hyperpage{17}, \hyperpage{31}
+  \item monotone likelihood ratio (MLR), \textbf{\hyperpage{92}}, \hyperpage{94}, \hyperpage{96}
+  \item Monte Carlo method, \hyperpage{35}
+  \item most powerful (MP) test, \hyperpage{87}, \hyperpage{88}, \hyperpage{90}, \hyperpage{94}
+  \item multinomial distribution, \hyperpage{25}
+  \item multiple testing, \hyperpage{156}, \hyperpage{159}, \hyperpage{162}
+  \item multivariate normal distribution, \hyperpage{22}, \hyperpage{23}, \hyperpage{29}, \hyperpage{111}, \hyperpage{158}
+
+  \indexspace
+  {\bfseries\large N}\nopagebreak
+  \item natural parameter, \hyperpage{60}, \hyperpage{67}, \hyperpage{73}, \hyperpage{93}
+  \item Newton--Raphson method, \hyperpage{74}, \hyperpage{75}, \hyperpage{84}, \hyperpage{165}
+  \item Neyman--Pearson lemma, \hyperpage{87}, \hyperpage{90}, \hyperpage{92}, \hyperpage{93}, \hyperpage{98}, \hyperpage{99}, \hyperpage{139}, \hyperpage{142}, \hyperpage{156}
+  \subitem generalised, \hyperpage{93}
+  \item Neyman--Scott problem, \hyperpage{76}
+  \item nonparametric methods, \hyperpage{145}, \hyperpage{147}, \hyperpage{151}, \hyperpage{152}, \hyperpage{155}
+  \item nuisance parameter, \hyperpage{56}, \hyperpage{70}, \hyperpage{96}, \hyperpage{98}, \hyperpage{100}
+  \item null hypothesis, \hyperpage{86}
+
+  \indexspace
+  {\bfseries\large O}\nopagebreak
+  \item observed information, \hyperpage{58}, \hyperpage{78}, \hyperpage{80}, \hyperpage{84}, \hyperpage{165}
+  \item order statistics, \hyperpage{22}, \hyperpage{23}, \hyperpage{50}, \hyperpage{62}, \hyperpage{148}
+  \item overdispersion, \hyperpage{18}, \hyperpage{170}
+
+  \indexspace
+  {\bfseries\large P}\nopagebreak
+  \item Pearson chi-square ($X^2$) statistic, \hyperpage{100}
+  \item permutation test, \hyperpage{120}, \hyperpage{122}, \hyperpage{127}
+  \item Pitman efficiency, \hyperpage{147}, \textbf{\hyperpage{148}}, \hyperpage{150}, \hyperpage{152}
+  \item pivot, \textbf{\hyperpage{104}}, \hyperpage{105}, \hyperpage{106}, \hyperpage{109}, \hyperpage{120}, \hyperpage{122}, \hyperpage{125}
+  \item plug-in principle, \hyperpage{63}, \hyperpage{64}, \hyperpage{68}, \hyperpage{120}, \hyperpage{121}, \hyperpage{124}
+  \item Poisson regression, \hyperpage{119}
+  \item portmanteau lemma, \hyperpage{38}, \hyperpage{42}
+  \item posterior distribution, \textbf{\hyperpage{130}}, \hyperpage{131}, \hyperpage{132}, \hyperpage{134}, \hyperpage{136}
+  \item posterior predictive distribution, \hyperpage{130}, \hyperpage{131}, \hyperpage{132}
+  \item power function, \hyperpage{93}, \hyperpage{95}
+  \item prediction interval, \hyperpage{111}, \hyperpage{113}
+  \item prior distribution, \textbf{\hyperpage{130}}, \hyperpage{131}, \hyperpage{132}, \hyperpage{135}, \hyperpage{136}
+  \item probability integral transform, \hyperpage{26}, \hyperpage{87}
+  \item probability space, \hyperpage{3}, \hyperpage{8}, \hyperpage{9}, \hyperpage{37}
+  \item profile likelihood, \hyperpage{72}, \hyperpage{84}, \hyperpage{102}
+
+  \indexspace
+  {\bfseries\large Q}\nopagebreak
+  \item quantile function, \hyperpage{8}, \hyperpage{10}, \hyperpage{11}
+
+  \indexspace
+  {\bfseries\large R}\nopagebreak
+  \item random variable, \hyperpage{8}, \hyperpage{9}, \hyperpage{14}
+  \item randomised decision rule, \hyperpage{139}, \hyperpage{143}
+  \item randomised test, \hyperpage{88}, \hyperpage{90}
+  \item Rao--Blackwell theorem, \hyperpage{16}, \hyperpage{20}, \hyperpage{60}, \hyperpage{61}, \hyperpage{63}, \hyperpage{64}, \hyperpage{65}, \hyperpage{66}, \hyperpage{67}
+  \item regularity conditions, \hyperpage{54}, \hyperpage{56}, \hyperpage{57}, \hyperpage{78}, \hyperpage{145}, \hyperpage{150}, \hyperpage{166}
+  \item ridge regression, \hyperpage{49}, \hyperpage{112}, \hyperpage{119}, \hyperpage{136}
+  \item risk function, \hyperpage{48}, \hyperpage{139}, \hyperpage{140}, \hyperpage{141}, \hyperpage{142}
+  \item risk set, \hyperpage{143}, \hyperpage{145}
+
+  \indexspace
+  {\bfseries\large S}\nopagebreak
+  \item sandwich estimator, \hyperpage{115}, \hyperpage{119}, \hyperpage{170}
+  \item score (Rao) test, \hyperpage{54}, \hyperpage{98}, \hyperpage{100}, \hyperpage{101}, \hyperpage{102}, \hyperpage{107}
+  \item shrinkage, \hyperpage{49}, \hyperpage{58}, \hyperpage{112}, \hyperpage{131}, \hyperpage{133}
+  \item Šidák correction, \hyperpage{157}
+  \item sign test, \hyperpage{151}
+  \item Silverman's rule, \hyperpage{154}
+  \item skewness, \hyperpage{16}, \hyperpage{43}, \hyperpage{83}, \hyperpage{122}, \hyperpage{125}
+  \item Sklar's theorem, \hyperpage{28}
+  \item Slutsky's theorem, \hyperpage{42}, \hyperpage{43}, \hyperpage{45}, \hyperpage{80}, \hyperpage{99}, \hyperpage{107}, \hyperpage{114}
+  \item sufficient statistic, \hyperpage{55}, \hyperpage{60}, \hyperpage{61}, \hyperpage{62}, \hyperpage{64}, \hyperpage{66}, \hyperpage{70}, \hyperpage{72}, \hyperpage{93}, \hyperpage{163}
+
+  \indexspace
+  {\bfseries\large T}\nopagebreak
+  \item $t$ distribution (Student), \textbf{\hyperpage{104}}
+  \item test--interval duality, \hyperpage{105}, \hyperpage{107}, \hyperpage{154}
+  \item tightness, \hyperpage{39}
+  \item tower property, \hyperpage{17}, \hyperpage{18}, \hyperpage{61}, \hyperpage{67}
+  \item type I and type II errors, \hyperpage{86}, \hyperpage{90}, \hyperpage{96}, \hyperpage{101}, \hyperpage{139}, \hyperpage{156}
+
+  \indexspace
+  {\bfseries\large U}\nopagebreak
+  \item UMPU test, \hyperpage{70}, \hyperpage{92}, \hyperpage{93}, \hyperpage{96}
+  \item UMVUE, \hyperpage{52}, \hyperpage{56}, \hyperpage{60}, \hyperpage{63}, \textbf{\hyperpage{66}}, \hyperpage{67}, \hyperpage{70}, \hyperpage{73}, \hyperpage{112}
+  \item unbiased estimator, \hyperpage{50}, \hyperpage{52}, \hyperpage{54}, \hyperpage{55}, \hyperpage{56}, \hyperpage{61}, \hyperpage{62}, \hyperpage{66}, \hyperpage{70}, \hyperpage{72}, \hyperpage{111}, \hyperpage{112}, \hyperpage{149}
+  \item unbiased test, \hyperpage{92}, \hyperpage{94}
+  \item uniformly most powerful (UMP) test, \hyperpage{86}, \hyperpage{88}, \textbf{\hyperpage{92}}, \hyperpage{93}, \hyperpage{94}, \hyperpage{96}, \hyperpage{98}, \hyperpage{105}, \hyperpage{147}
+
+  \indexspace
+  {\bfseries\large V}\nopagebreak
+  \item variance, \textbf{\hyperpage{15}}, \hyperpage{17}, \hyperpage{18}, \hyperpage{20}
+
+  \indexspace
+  {\bfseries\large W}\nopagebreak
+  \item Wald confidence interval, \hyperpage{73}, \hyperpage{78}, \hyperpage{83}, \hyperpage{84}, \hyperpage{104}, \hyperpage{107}, \hyperpage{109}, \hyperpage{135}, \hyperpage{166}, \hyperpage{169}
+  \item Wald test, \hyperpage{29}, \hyperpage{37}, \hyperpage{98}, \hyperpage{101}, \hyperpage{107}
+  \item Welch approximation, \hyperpage{127}
+  \item Wilcoxon--Mann--Whitney test, \textbf{\hyperpage{147}}, \hyperpage{149}
+  \item Wilcoxon signed-rank test, \hyperpage{147}, \hyperpage{151}, \hyperpage{154}
+  \item Wilks' theorem, \hyperpage{76}, \hyperpage{98}, \hyperpage{99}, \hyperpage{100}, \hyperpage{114}, \hyperpage{166}
+  \item Wilson interval, \hyperpage{73}, \hyperpage{102}, \hyperpage{107}, \hyperpage{109}
+
+  \indexspace
+  {\bfseries\large Z}\nopagebreak
+  \item Zehna's invariance principle, \hyperpage{72}, \hyperpage{75}, \hyperpage{102}
+
+\end{theindex}

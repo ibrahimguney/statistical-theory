@@ -3,7 +3,7 @@
 
 \chapter{Characteristic Functions and the Central Limit Theorem}\label{ch:clt}\chaptermark{Characteristic Functions and the CLT}
 
-The Law of Large Numbers says that $\bar X_n$ converges to $\mu$, but it does not say \emph{how}, i.e.\ what the distribution of the error $\bar X_n-\mu$ looks like. The Central Limit Theorem (CLT) states that this error, scaled by $\sqrt n$, converges to a normal distribution --- whatever the initial distribution. Almost all approximate confidence intervals, $z$- and Wald tests and the asymptotic theory of the MLE are consequences of this theorem. The main tool of the proof is the characteristic function, which exists for every distribution and turns independent sums into products.
+The Law of Large Numbers says that $\bar X_n$ converges to $\mu$, but it does not say \emph{how}, i.e.\ what the distribution of the error $\bar X_n-\mu$ looks like. The Central Limit Theorem (CLT\index{central limit theorem clt@central limit theorem (CLT)}) states that this error, scaled by $\sqrt n$, converges to a normal distribution --- whatever the initial distribution. Almost all approximate confidence intervals, $z$- and Wald tests\index{wald test@Wald test} and the asymptotic theory of the MLE are consequences of this theorem. The main tool of the proof is the characteristic function\index{characteristic function@characteristic function}, which exists for every distribution and turns independent sums into products.
 
 \section{Definitions}
 
@@ -12,11 +12,11 @@ Let $F_n$ be the CDF of $X_n$ and $F$ that of $X$. If $\lim_{n\to\infty}F_n(x)=F
 \end{definition}
 
 \begin{remark}
-The restriction to ``continuity points'' is necessary: for $X_n=1/n$ (constant) we want $X_n\to0$, but $F_n(0)=0\not\to1=F(0)$. Convergence in distribution is a statement about distributions only; the $X_n$ need not even be defined on the same probability space.
+The restriction to ``continuity points'' is necessary: for $X_n=1/n$ (constant) we want $X_n\to0$, but $F_n(0)=0\not\to1=F(0)$. Convergence in distribution\index{convergence in distribution@convergence in distribution} is a statement about distributions only; the $X_n$ need not even be defined on the same probability space\index{probability space@probability space}.
 \end{remark}
 
 \begin{definition}[Characteristic Function]
-The characteristic function (CF) of a random variable $X$, $\varphi_X:\R\to\mathbb{C}$, is defined by
+The characteristic function\index{characteristic function@characteristic function} (CF) of a random variable $X$, $\varphi_X:\R\to\mathbb{C}$, is defined by
 \[
 \varphi_X(t) = \E[e^{itX}]=\E[\cos tX]+i\,\E[\sin tX] .
 \]
@@ -38,7 +38,7 @@ Since $|e^{itX}|=1$, the CF is defined for \emph{every} distribution, whether or
 (1) $|\E e^{itX}|\le\E|e^{itX}|=1$. (2) $|\varphi(t+h)-\varphi(t)|\le\E|e^{ihX}-1|$; the right-hand side does not depend on $t$, and since $|e^{ihX}-1|\le2$ it tends to zero as $h\to0$ by dominated convergence. (3) $\E e^{it(aX+b)}=e^{itb}\E e^{i(at)X}$. (4) By independence, $\E[e^{itX}e^{itY}]=\E e^{itX}\E e^{itY}$ (the complex-valued version of Proposition~\ref{prop:beklenen-ozellik}). (5) Conjugation commutes with expectation.
 \end{proof}
 
-\begin{lemma}[Portmanteau Lemma (Basic Form)]\label{lem:portmanteau}
+\begin{lemma}[Portmanteau Lemma (Basic Form)]\label{lem:portmanteau}\index{portmanteau lemma@portmanteau lemma}
 $X_n\dto X\iff$ $\E g(X_n)\to\E g(X)$ for every bounded continuous $g:\R\to\R$.
 \end{lemma}
 \begin{proof}
@@ -64,7 +64,7 @@ F_X(b)-F_X(a)=\lim_{T\to\infty}\frac1{2\pi}\int_{-T}^{T}\frac{e^{-ita}-e^{-itb}}
 If $\int|\varphi_X(t)|dt<\infty$, then $X$ has a continuous density: $f_X(x)=\frac1{2\pi}\int e^{-itx}\varphi_X(t)\,dt$.
 \end{theorem}
 \begin{proof}
-\emph{Inversion formula.} Since $\big|\frac{e^{-ita}-e^{-itb}}{it}\big|=\big|\int_a^be^{-itu}du\big|\le b-a$, the integrand is integrable on $[-T,T]\times\Omega$, and Fubini's theorem allows us to exchange the integral and the expectation:
+\emph{Inversion formula\index{inversion formula@inversion formula}.} Since $\big|\frac{e^{-ita}-e^{-itb}}{it}\big|=\big|\int_a^be^{-itu}du\big|\le b-a$, the integrand is integrable on $[-T,T]\times\Omega$, and Fubini's theorem allows us to exchange the integral and the expectation:
 \[
 I_T:=\frac1{2\pi}\int_{-T}^{T}\frac{e^{-ita}-e^{-itb}}{it}\varphi_X(t)\,dt
 =\E\left[\frac1{2\pi}\int_{-T}^{T}\frac{e^{it(X-a)}-e^{it(X-b)}}{it}\,dt\right].
@@ -96,9 +96,9 @@ $X_n\dto X\iff$ $\varphi_{X_n}(t)\to\varphi_X(t)$ for every $t\in\R$. More stron
 \]
 Indeed, $\frac1u\int_{-u}^{u}(1-e^{itx})\,dt=2\big(1-\frac{\sin ux}{ux}\big)\ge0$, and this is $\ge1$ when $|ux|\ge2$ because then $|\sin ux/(ux)|\le\frac12$. By Fubini, the right-hand side equals $\E\big[2\big(1-\frac{\sin uX}{uX}\big)\big]\ge\P(|uX|\ge2)$.
 
-\emph{Step 2 (tightness).} Since $\psi(0)=\lim\varphi_{X_n}(0)=1$ and $\psi$ is continuous at $0$, for given $\varepsilon>0$ there is a $u>0$ with $\frac1u\int_{-u}^u|1-\psi(t)|\,dt<\varepsilon$. Since $|1-\varphi_{X_n}|\le2$, dominated convergence gives $\frac1u\int_{-u}^u(1-\varphi_{X_n})\to\frac1u\int_{-u}^u(1-\psi)$; hence $\P(|X_n|>2/u)\le2\varepsilon$ for large $n$. Choosing a larger bound for the finitely many initial terms: for every $\varepsilon>0$ there is a $K$ with $\sup_n\P(|X_n|>K)\le2\varepsilon$, i.e.\ $\{X_n\}$ is \emph{tight}.
+\emph{Step 2 (tightness\index{tightness@tightness}).} Since $\psi(0)=\lim\varphi_{X_n}(0)=1$ and $\psi$ is continuous at $0$, for given $\varepsilon>0$ there is a $u>0$ with $\frac1u\int_{-u}^u|1-\psi(t)|\,dt<\varepsilon$. Since $|1-\varphi_{X_n}|\le2$, dominated convergence gives $\frac1u\int_{-u}^u(1-\varphi_{X_n})\to\frac1u\int_{-u}^u(1-\psi)$; hence $\P(|X_n|>2/u)\le2\varepsilon$ for large $n$. Choosing a larger bound for the finitely many initial terms: for every $\varepsilon>0$ there is a $K$ with $\sup_n\P(|X_n|>K)\le2\varepsilon$, i.e.\ $\{X_n\}$ is \emph{tight}.
 
-\emph{Step 3 (identifying the limit).} By Helly's selection theorem \cite[Theorem~25.9]{billingsley}, every sequence of CDFs has a subsequence converging at continuity points to a non-decreasing, right-continuous $G$; tightness ensures $G(-\infty)=0$ and $G(\infty)=1$, i.e.\ that $G$ is a proper CDF. If $Y\sim G$, then $X_{n_k}\dto Y$; by the first direction $\varphi_{X_{n_k}}\to\varphi_Y$, hence $\varphi_Y=\psi$: $\psi$ is a CF.
+\emph{Step 3 (identifying the limit).} By Helly\index{helly selection theorem@Helly selection theorem}'s selection theorem \cite[Theorem~25.9]{billingsley}, every sequence of CDFs has a subsequence converging at continuity points to a non-decreasing, right-continuous $G$; tightness ensures $G(-\infty)=0$ and $G(\infty)=1$, i.e.\ that $G$ is a proper CDF. If $Y\sim G$, then $X_{n_k}\dto Y$; by the first direction $\varphi_{X_{n_k}}\to\varphi_Y$, hence $\varphi_Y=\psi$: $\psi$ is a CF.
 
 \emph{Step 4 (convergence of the whole sequence).} Let $X\sim G$. If $X_n\dto X$ failed, there would be a continuity point $x$, a $\delta>0$ and a subsequence with $|F_{n_k}(x)-F(x)|\ge\delta$. Applying Step~3 to this subsequence yields a further subsequence converging to a limit whose CF is again $\psi$, i.e.\ by Theorem~\ref{thm:teklik} a limit with the same distribution as $X$; a contradiction. The first statement is the special case $\psi=\varphi_X$ (continuous).
 \end{proof}
@@ -138,7 +138,7 @@ If $c_n\in\mathbb{C}$ and $c_n\to c$, then $(1+c_n/n)^n\to e^{c}$.
 For $|z|\le1/2$, $|\log(1+z)-z|\le|z|^2$ (principal branch of the complex logarithm). For large $n$, $n\log(1+c_n/n)=c_n+O(|c_n|^2/n)\to c$; continuity of the exponential gives the result.
 \end{proof}
 
-\begin{theorem}[Lindeberg--Lévy CLT]\label{thm:clt}
+\begin{theorem}[Lindeberg--Lévy CLT]\label{thm:clt}\index{central limit theorem clt@central limit theorem (CLT)}
 Let $\{X_i\}$ be i.i.d.\ with mean $\mu$ and variance $0<\sigma^2<\infty$. Then
 \[
 Z_n = \frac{\bar{X}_n - \mu}{\sigma/\sqrt{n}}=\frac{1}{\sqrt n}\sum_{i=1}^n\frac{X_i-\mu}{\sigma} \dto \Normal(0, 1).
@@ -149,15 +149,15 @@ Let $Y_i=(X_i-\mu)/\sigma$, i.i.d.\ with $\E Y_i=0$, $\E Y_i^2=1$ and common CF 
 \[
 \varphi_{Z_n}(t)=\Big[\varphi\big(t/\sqrt n\big)\Big]^n=\left(1-\frac{t^2}{2n}+o\!\left(\frac{t^2}{n}\right)\right)^n=\left(1+\frac{c_n}{n}\right)^n,
 \]
-where $c_n=-t^2/2+n\cdot o(t^2/n)\to-t^2/2$ (for fixed $t$). By Lemma~\ref{lem:karmasik-limit}, $\varphi_{Z_n}(t)\to e^{-t^2/2}$, the CF of the standard normal (Example~\ref{ex:normal-kf}). Lévy's continuity theorem (Theorem~\ref{thm:levy}) gives the result.
+where $c_n=-t^2/2+n\cdot o(t^2/n)\to-t^2/2$ (for fixed $t$). By Lemma~\ref{lem:karmasik-limit}, $\varphi_{Z_n}(t)\to e^{-t^2/2}$, the CF of the standard normal (Example~\ref{ex:normal-kf}). Lévy's continuity\index{levy continuity theorem@Lévy continuity theorem} theorem (Theorem~\ref{thm:levy}) gives the result.
 \end{proof}
 
-\begin{theorem}[Lindeberg--Feller CLT \cite{lindeberg22}]\label{thm:lindeberg}
+\begin{theorem}[Lindeberg--Feller CLT \cite{lindeberg22}]\label{thm:lindeberg}\index{lindeberg feller theorem@Lindeberg--Feller theorem}\index{central limit theorem clt@central limit theorem (CLT)}
 For each $n$, let $X_{n1},\dots,X_{nn}$ be independent (not necessarily identically distributed) with $\E X_{ni}=0$, and let $s_n^2=\sum_i\Var X_{ni}$. If for every $\varepsilon>0$
 \[
 \frac1{s_n^2}\sum_{i=1}^n\E\big[X_{ni}^2\I\{|X_{ni}|>\varepsilon s_n\}\big]\to0\qquad\text{(Lindeberg condition)},
 \]
-then $\frac{1}{s_n}\sum_{i=1}^n X_{ni}\dto\Normal(0,1)$. The Lindeberg condition says that no single term dominates the variance of the sum; this version is used for the asymptotic normality of regression coefficients.
+then $\frac{1}{s_n}\sum_{i=1}^n X_{ni}\dto\Normal(0,1)$. The Lindeberg condition\index{lindeberg condition@Lindeberg condition} says that no single term dominates the variance of the sum; this version is used for the asymptotic normality\index{asymptotic normality@asymptotic normality} of regression coefficients.
 \end{theorem}
 \begin{proof}
 Replacing $X_{ni}$ by $X_{ni}/s_n$ we may assume $s_n=1$; write $\sigma_{ni}^2=\Var X_{ni}$, so $\sum_i\sigma_{ni}^2=1$ and $L_n(\varepsilon)=\sum_i\E[X_{ni}^2\I\{|X_{ni}|>\varepsilon\}]\to0$. We use two basic inequalities:
@@ -186,7 +186,7 @@ and since $\varepsilon$ is arbitrary, this difference tends to zero.
 Combining the two steps, $\prod_i\varphi_{ni}(t)\to e^{-t^2/2}$. By independence this product is the CF of $\sum_iX_{ni}$; Theorem~\ref{thm:levy} gives the result.
 \end{proof}
 
-\begin{theorem}[Berry--Esseen \cite{berry41,esseen42}]\label{thm:berry-esseen}
+\begin{theorem}[Berry--Esseen \cite{berry41,esseen42}]\label{thm:berry-esseen}\index{berry esseen theorem@Berry--Esseen theorem}
 If, in addition to the conditions of Theorem~\ref{thm:clt}, $\rho=\E|X_1-\mu|^3<\infty$, then
 \[
 \sup_{x\in\R}\big|\P(Z_n\le x)-\Phi(x)\big|\le\frac{C\rho}{\sigma^3\sqrt n},
@@ -201,12 +201,12 @@ A full proof requires a long computation beyond the scope of this book; the main
 Take $F=F_{Z_n}$ and $G=\Phi$; the third-order remainder bound of Proposition~\ref{prop:kf-taylor} and inequality (a) in the proof of Theorem~\ref{thm:lindeberg} give $|\varphi_{Z_n}(t)-e^{-t^2/2}|\le C'\frac{\rho}{\sigma^3\sqrt n}|t|^3e^{-t^2/4}$ for $|t|\le\sigma^3\sqrt n/(4\rho)$. Choosing $T=\sigma^3\sqrt n/(4\rho)$ makes both terms of order $\rho/(\sigma^3\sqrt n)$. For details see \cite[Section~3.4]{durrett} and the original papers \cite{berry41,esseen42}.
 \end{remark}
 
-\begin{theorem}[Multivariate CLT and Cramér--Wold]\label{thm:cok-degiskenli-clt}
+\begin{theorem}[Multivariate CLT and Cramér--Wold]\label{thm:cok-degiskenli-clt}\index{cramer wold device@Cramér--Wold device}\index{central limit theorem clt@central limit theorem (CLT)}
 (Cramér--Wold) $\X_n\dto\X$ (in $\R^k$) $\iff$ $\mathbf a^\top\X_n\dto\mathbf a^\top\X$ for every $\mathbf a\in\R^k$.
-Consequently, if $\X_i\in\R^k$ are i.i.d.\ with mean $\bm\mu$ and covariance matrix $\Sigma$, then $\sqrt n(\bar\X_n-\bm\mu)\dto\Normal_k(\mathbf 0,\Sigma)$.
+Consequently, if $\X_i\in\R^k$ are i.i.d.\ with mean $\bm\mu$ and covariance matrix\index{covariance matrix@covariance matrix} $\Sigma$, then $\sqrt n(\bar\X_n-\bm\mu)\dto\Normal_k(\mathbf 0,\Sigma)$.
 \end{theorem}
 \begin{proof}
-In $\R^k$, convergence in distribution means convergence of the joint CDFs at their continuity points. Lemma~\ref{lem:portmanteau}, Theorem~\ref{thm:teklik} and Theorem~\ref{thm:levy} are proved in this setting by the same ideas \cite[Section~29]{billingsley}; in particular, $\X_n\dto\X\iff\varphi_{\X_n}(\mathbf t)\to\varphi_{\X}(\mathbf t)$ for every $\mathbf t\in\R^k$.
+In $\R^k$, convergence in distribution\index{convergence in distribution@convergence in distribution} means convergence of the joint CDFs at their continuity points. Lemma~\ref{lem:portmanteau}, Theorem~\ref{thm:teklik} and Theorem~\ref{thm:levy} are proved in this setting by the same ideas \cite[Section~29]{billingsley}; in particular, $\X_n\dto\X\iff\varphi_{\X_n}(\mathbf t)\to\varphi_{\X}(\mathbf t)$ for every $\mathbf t\in\R^k$.
 
 \emph{Cramér--Wold.} For $s\in\R$, $\varphi_{\mathbf a^\top\X_n}(s)=\E e^{is\mathbf a^\top\X_n}=\varphi_{\X_n}(s\mathbf a)$. ($\Rightarrow$) $\varphi_{\X_n}(s\mathbf a)\to\varphi_{\X}(s\mathbf a)=\varphi_{\mathbf a^\top\X}(s)$. ($\Leftarrow$) Taking $s=1$, for every $\mathbf a$, $\varphi_{\X_n}(\mathbf a)=\varphi_{\mathbf a^\top\X_n}(1)\to\varphi_{\mathbf a^\top\X}(1)=\varphi_{\X}(\mathbf a)$; the multivariate Lévy theorem gives the result.
 
@@ -223,7 +223,7 @@ In $\R^k$, convergence in distribution means convergence of the joint CDFs at th
 (2) $\P(|X_n-c|>\varepsilon)\le F_n(c-\varepsilon)+1-F_n(c+\varepsilon/2)\to0+1-1=0$, because $c\pm\varepsilon$ are continuity points of the CDF of the constant.
 \end{proof}
 
-\begin{theorem}[Slutsky's Theorem]\label{thm:slutsky}
+\begin{theorem}[Slutsky's Theorem]\label{thm:slutsky}\index{slutsky s theorem@Slutsky's theorem}
 If $X_n\dto X$ and $Y_n\pto c$ (a constant), then
 \[
 X_n+Y_n\dto X+c,\qquad X_nY_n\dto cX,\qquad X_n/Y_n\dto X/c\ (c\neq0).
@@ -253,7 +253,7 @@ If $X_n\dto X$ and $g$ is measurable with $\P(X\in D_g)=0$ ($D_g$: the set of di
 \[
 \P\big(|g(X_n)-g(X)|\ge\varepsilon\big)\le\P(|X|>K)+\P(|X_n-X|\ge\delta)\to\text{ at most }\eta .
 \]
-\emph{General $g$.} The case of convergence in distribution under $\P(X\in D_g)=0$ is proved with the form of the portmanteau lemma ``$\P(X_n\in A)\to\P(X\in A)$ for every $A$ whose boundary has probability zero''; see \cite[Theorem~2.3]{vdv}. The case of convergence in probability then follows from the principle ``every subsequence has a further subsequence converging a.s.''.
+\emph{General $g$.} The case of convergence in distribution\index{convergence in distribution@convergence in distribution} under $\P(X\in D_g)=0$ is proved with the form of the portmanteau\index{portmanteau lemma@portmanteau lemma} lemma ``$\P(X_n\in A)\to\P(X\in A)$ for every $A$ whose boundary has probability zero''; see \cite[Theorem~2.3]{vdv}. The case of convergence in probability\index{convergence in probability@convergence in probability} then follows from the principle ``every subsequence has a further subsequence converging a.s.''.
 \end{proof}
 
 \section{Worked Examples}
@@ -271,7 +271,7 @@ i.e.\ $Z_\lambda\dto\Normal(0,1)$ as $\lambda\to\infty$.
 \end{example}
 
 \begin{example}[Cauchy: Where the CLT Fails]\label{ex:cauchy-kf}
-The CF of the standard Cauchy distribution is $\varphi(t)=e^{-|t|}$ (this can be verified with the inversion formula of Theorem~\ref{thm:teklik}). If the $X_i$ are i.i.d.\ Cauchy,
+The CF of the standard Cauchy distribution is $\varphi(t)=e^{-|t|}$ (this can be verified with the inversion formula\index{inversion formula@inversion formula} of Theorem~\ref{thm:teklik}). If the $X_i$ are i.i.d.\ Cauchy,
 \[
 \varphi_{\bar X_n}(t)=\big[\varphi(t/n)\big]^n=e^{-n|t|/n}=e^{-|t|},
 \]
@@ -283,11 +283,11 @@ Let the $X_i$ be i.i.d.\ with $\E|X_1|<\infty$. By Proposition~\ref{prop:kf-tayl
 \[
 \varphi_{\bar X_n}(t)=\big(1+i\mu t/n+o(1/n)\big)^n\to e^{i\mu t},
 \]
-the CF of the constant $\mu$. By Lévy's theorem $\bar X_n\dto\mu$, and by Proposition~\ref{prop:p-d}(2) $\bar X_n\pto\mu$. This is a proof of Khinchin's WLLN (Theorem~\ref{thm:khinchin}) that requires no variance.
+the CF of the constant $\mu$. By Lévy's theorem $\bar X_n\dto\mu$, and by Proposition~\ref{prop:p-d}(2) $\bar X_n\pto\mu$. This is a proof of Khinchin\index{khinchin s theorem@Khinchin's theorem}'s WLLN\index{law of large numbers@law of large numbers!weak wlln@weak (WLLN)} (Theorem~\ref{thm:khinchin}) that requires no variance.
 \end{example}
 
 \begin{example}[An Application of Slutsky: the Studentised Mean]\label{ex:studentlestirme}
-Let the $X_i$ be i.i.d.\ with $\sigma^2<\infty$ (not necessarily normal). By the CLT, $\sqrt n(\bar X_n-\mu)/\sigma\dto\Normal(0,1)$; by the WLLN and continuous mapping, $S_n\pto\sigma$. By Slutsky,
+Let the $X_i$ be i.i.d.\ with $\sigma^2<\infty$ (not necessarily normal). By the CLT\index{central limit theorem clt@central limit theorem (CLT)}, $\sqrt n(\bar X_n-\mu)/\sigma\dto\Normal(0,1)$; by the WLLN and continuous mapping, $S_n\pto\sigma$. By Slutsky\index{slutsky s theorem@Slutsky's theorem},
 \[
 T_n=\frac{\sqrt n(\bar X_n-\mu)}{S_n}=\frac{\sigma}{S_n}\cdot\frac{\sqrt n(\bar X_n-\mu)}{\sigma}\dto\Normal(0,1).
 \]
@@ -301,7 +301,7 @@ Let $X\sim\text{Bin}(100,0.3)$, $\E X=30$, $\sigma=\sqrt{21}\approx4.583$. For $
 \section{Computational Applications}
 
 \subsection{Convergence to the CLT: Skewness and Kurtosis}
-For $X_i\iid\text{Exp}(\lambda=0.5)$, $\mu=\sigma=2$. A cumulant calculation shows that the skewness of $Z_n$ is $2/\sqrt n$ and its excess kurtosis $6/n$; the simulated values are compared with these theoretical values.
+For $X_i\iid\text{Exp}(\lambda=0.5)$, $\mu=\sigma=2$. A cumulant calculation shows that the skewness\index{skewness@skewness} of $Z_n$ is $2/\sqrt n$ and its excess kurtosis\index{kurtosis@kurtosis} $6/n$; the simulated values are compared with these theoretical values.
 
 \pycode{code/ch06/c06_1_clt_skewness_kurtosis.py}
 \begin{lstlisting}[style=output]
@@ -325,7 +325,7 @@ n=  100 | sup|F_n - Phi| = 0.01330 | Berry-Esseen bound = 0.11464 | sqrt(n)*sup 
 n= 1000 | sup|F_n - Phi| = 0.00421 | Berry-Esseen bound = 0.03625 | sqrt(n)*sup = 0.1330
 \end{lstlisting}
 
-That $\sqrt n\cdot\sup|F_n-\Phi|$ converges to a constant shows that the $O(n^{-1/2})$ rate is sharp. The Berry--Esseen bound gets the rate right, but its constant is conservative.
+That $\sqrt n\cdot\sup|F_n-\Phi|$ converges to a constant shows that the $O(n^{-1/2})$ rate is sharp. The Berry--Esseen\index{berry esseen theorem@Berry--Esseen theorem} bound gets the rate right, but its constant is conservative.
 
 \subsection{Visualising the CLT and the Continuity Correction}
 
@@ -345,7 +345,7 @@ Normal approx. (with correction)  = 0.1631
 \section{Comments and Notes}
 
 \begin{remark}[What the CLT Does Not Say]
-The CLT says that the \emph{distribution} of $Z_n$ converges to the normal; it does not say that $Z_n$ itself converges anywhere (in fact $Z_n$ does not converge in probability). Moreover, the convergence is pointwise: for tail probabilities (such as $\P(Z_n>5)$) the relative error may be large; such questions are the subject of large deviations theory.
+The CLT\index{central limit theorem clt@central limit theorem (CLT)} says that the \emph{distribution} of $Z_n$ converges to the normal; it does not say that $Z_n$ itself converges anywhere (in fact $Z_n$ does not converge in probability\index{convergence in probability@convergence in probability}). Moreover, the convergence is pointwise: for tail probabilities (such as $\P(Z_n>5)$) the relative error may be large; such questions are the subject of large deviations theory.
 \end{remark}
 
 \begin{remark}[How Critical the Assumptions Are]
@@ -353,10 +353,10 @@ If the finite-variance condition is dropped, the limit may be a \emph{stable} di
 \end{remark}
 
 \begin{remark}[Link with Chapter~\ref{ch:mle-asimptotik}]
-The asymptotic normality of the MLE comes from the fact that the score is an i.i.d.\ sum to which the CLT applies; the Slutsky and continuous mapping theorems justify replacing the Hessian by a consistent estimate.
+The asymptotic normality\index{asymptotic normality@asymptotic normality} of the MLE comes from the fact that the score is an i.i.d.\ sum to which the CLT applies; the Slutsky\index{slutsky s theorem@Slutsky's theorem} and continuous mapping theorems\index{continuous mapping theorem@continuous mapping theorem} justify replacing the Hessian by a consistent estimate.
 \end{remark}
 
-% --- CHAPTER SUMMARY (generated by tools/summaries.py) ---
+% --- CHAPTER SUMMARY ---
 \section{Chapter Summary}
 \begin{summary}
 \begin{itemize}

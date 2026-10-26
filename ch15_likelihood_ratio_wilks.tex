@@ -3,7 +3,7 @@
 
 \chapter{The Likelihood Ratio Test and Wilks' Theorem}\label{ch:lrt}\chaptermark{The Likelihood Ratio Test}
 
-UMP tests are elegant but rare. For most hypotheses met in practice --- composite null hypotheses, nuisance parameters, multidimensional constraints --- a general method is needed. The generalised likelihood ratio test (LRT) extends the Neyman--Pearson ratio naturally to composite hypotheses: it compares the best fits of the restricted and unrestricted models. Wilks' theorem says that, under $H_0$, this test statistic converges to a chi-square distribution independently of the model. Together with the Wald and score tests, the LRT forms the ``holy trinity'' of asymptotic tests; almost all tests in regression, GLMs and goodness of fit are special cases of this trinity.
+UMP\index{uniformly most powerful ump test@uniformly most powerful (UMP) test} tests are elegant but rare. For most hypotheses met in practice --- composite null hypotheses, nuisance parameters\index{nuisance parameter@nuisance parameter}, multidimensional constraints --- a general method is needed. The generalised likelihood ratio test\index{likelihood ratio test lrt@likelihood ratio test (LRT)} (LRT) extends the Neyman--Pearson\index{neyman pearson lemma@Neyman--Pearson lemma} ratio naturally to composite hypotheses: it compares the best fits of the restricted and unrestricted models. Wilks\index{wilks theorem@Wilks' theorem}' theorem says that, under $H_0$, this test statistic converges to a chi-square distribution\index{chi square distribution@chi-square distribution} independently of the model. Together with the Wald and score tests\index{score rao test@score (Rao) test}, the LRT forms the ``holy trinity'' of asymptotic tests; almost all tests in regression, GLMs\index{generalised linear model glm@generalised linear model (GLM)} and goodness of fit\index{goodness of fit@goodness of fit} are special cases of this trinity.
 
 \section{Definitions}
 
@@ -12,7 +12,7 @@ For $H_0:\bm\theta\in\Theta_0$, $H_1:\bm\theta\in\Theta\setminus\Theta_0$,
 \[
 \Lambda(\x)=\frac{\sup_{\bm\theta\in\Theta_0}L(\bm\theta;\x)}{\sup_{\bm\theta\in\Theta}L(\bm\theta;\x)}=\frac{L(\hat{\bm\theta}_0;\x)}{L(\hat{\bm\theta};\x)}\in[0,1]
 \]
-is the \emph{generalised likelihood ratio} ($\hat{\bm\theta}_0$: restricted MLE, $\hat{\bm\theta}$: unrestricted MLE). The \emph{likelihood ratio test} (LRT) rejects $H_0$ when $\Lambda(\x)\le k$. Equivalently, it rejects when
+is the \emph{generalised likelihood ratio} ($\hat{\bm\theta}_0$: restricted MLE, $\hat{\bm\theta}$: unrestricted MLE). The \emph{likelihood ratio test\index{likelihood ratio test lrt@likelihood ratio test (LRT)}} (LRT) rejects $H_0$ when $\Lambda(\x)\le k$. Equivalently, it rejects when
 \[
 G^2=-2\ln\Lambda=2\big[\ell(\hat{\bm\theta})-\ell(\hat{\bm\theta}_0)\big]\ge0
 \]
@@ -25,24 +25,24 @@ For the simple $H_0:\theta=\theta_0$ (one parameter),
 W=\big(\hat\theta-\theta_0\big)^2\,I_n(\hat\theta)\qquad\text{(Wald)},\qquad
 S=\frac{\big[\ell'(\theta_0)\big]^2}{I_n(\theta_0)}\qquad\text{(score / Lagrange multiplier)}.
 \]
-In the multidimensional case $W=(\hat{\bm\theta}-\bm\theta_0)^\top I_n(\hat{\bm\theta})(\hat{\bm\theta}-\bm\theta_0)$ and $S=\nabla\ell(\bm\theta_0)^\top I_n(\bm\theta_0)^{-1}\nabla\ell(\bm\theta_0)$. The Wald test requires fitting only the unrestricted model, the score test only the restricted one; the LRT requires both.
+In the multidimensional case $W=(\hat{\bm\theta}-\bm\theta_0)^\top I_n(\hat{\bm\theta})(\hat{\bm\theta}-\bm\theta_0)$ and $S=\nabla\ell(\bm\theta_0)^\top I_n(\bm\theta_0)^{-1}\nabla\ell(\bm\theta_0)$. The Wald test\index{wald test@Wald test} requires fitting only the unrestricted model, the score test\index{score rao test@score (Rao) test} only the restricted one; the LRT requires both.
 \end{definition}
 
 \section{Main Theorems and Proofs}
 
-\begin{proposition}[The LRT Is Based on a Sufficient Statistic]
+\begin{proposition}[The LRT Is Based on a Sufficient Statistic]\index{likelihood ratio test lrt@likelihood ratio test (LRT)}
 If $T$ is sufficient, then $\Lambda(\x)$ is a function of $T(\x)$ alone.
 \end{proposition}
 \begin{proof}
-By factorisation $L(\bm\theta;\x)=g(T(\x),\bm\theta)h(\x)$; $h(\x)$ cancels between numerator and denominator.
+By factorisation\index{factorisation theorem@factorisation theorem} $L(\bm\theta;\x)=g(T(\x),\bm\theta)h(\x)$; $h(\x)$ cancels between numerator and denominator.
 \end{proof}
 
-\begin{proposition}[For Simple Hypotheses, LRT = NP Test]
+\begin{proposition}[For Simple Hypotheses, LRT = NP Test]\index{likelihood ratio test lrt@likelihood ratio test (LRT)}
 If $\Theta=\{\theta_0,\theta_1\}$, then
 \[
 \Lambda=\min\Big\{1,\,\frac{L(\theta_0)}{L(\theta_1)}\Big\},
 \]
-and $\Lambda\le k<1$ and $L(\theta_1)/L(\theta_0)\ge1/k$ give the same rejection region. The LRT is the natural generalisation of the Neyman--Pearson test.
+and $\Lambda\le k<1$ and $L(\theta_1)/L(\theta_0)\ge1/k$ give the same rejection region. The LRT is the natural generalisation of the Neyman--Pearson\index{neyman pearson lemma@Neyman--Pearson lemma} test.
 \end{proposition}
 \begin{proof}
 Since $\Theta_0=\{\theta_0\}$ and $\Theta=\{\theta_0,\theta_1\}$,
@@ -52,8 +52,8 @@ Since $\Theta_0=\{\theta_0\}$ and $\Theta=\{\theta_0,\theta_1\}$,
  For $k<1$, $\Lambda\le k$ can occur only when the minimum comes from the second term, which means $L(\theta_0)/L(\theta_1)\le k$, i.e.\ $L(\theta_1)/L(\theta_0)\ge1/k$.
 \end{proof}
 
-\begin{theorem}[Wilks' Theorem \cite{wilks38}]\label{thm:wilks}
-Let $X_i\iid f(\cdot;\bm\theta)$ with $\Theta\subseteq\R^k$ open, and suppose the conditions for asymptotic normality of the MLE of Chapter~\ref{ch:mle-asimptotik} hold. Let $\Theta_0$ be a smooth $(k-r)$-dimensional submanifold of $\Theta$ (e.g.\ a subspace in which $r$ components are fixed), and let the true $\bm\theta_0$ be an interior point of $\Theta_0$. Then under $H_0$
+\begin{theorem}[Wilks' Theorem \cite{wilks38}]\label{thm:wilks}\index{wilks theorem@Wilks' theorem}
+Let $X_i\iid f(\cdot;\bm\theta)$ with $\Theta\subseteq\R^k$ open, and suppose the conditions for asymptotic normality\index{asymptotic normality@asymptotic normality} of the MLE of Chapter~\ref{ch:mle-asimptotik} hold. Let $\Theta_0$ be a smooth $(k-r)$-dimensional submanifold of $\Theta$ (e.g.\ a subspace in which $r$ components are fixed), and let the true $\bm\theta_0$ be an interior point of $\Theta_0$. Then under $H_0$
 \[
 G_n^2 = -2 \ln \Lambda_n(\X) \dto \chi^2_r,\qquad r = \dim(\Theta) - \dim(\Theta_0).
 \]
@@ -67,12 +67,12 @@ Hence
 \[
 G^2=2[\ell(\hat\theta)-\ell(\theta_0)]=\Big[\sqrt n(\hat\theta-\theta_0)\Big]^2\cdot\Big(-\frac1n\ell''(\theta^*)\Big).
 \]
-By Theorem~\ref{thm:mle-an}, $\sqrt n(\hat\theta-\theta_0)\sqrt{I_1(\theta_0)}\dto\Normal(0,1)$; since the MLE is consistent, $\theta^*\pto\theta_0$ and (by the third-derivative condition) $-\frac1n\ell''(\theta^*)\pto I_1(\theta_0)$. By Slutsky and the continuous mapping theorem, $G^2=\big[\sqrt{nI_1}(\hat\theta-\theta_0)\big]^2\cdot\frac{-\ell''(\theta^*)/n}{I_1}\dto Z^2\cdot1=\chi^2_1$.
+By Theorem~\ref{thm:mle-an}, $\sqrt n(\hat\theta-\theta_0)\sqrt{I_1(\theta_0)}\dto\Normal(0,1)$; since the MLE is consistent, $\theta^*\pto\theta_0$ and (by the third-derivative condition) $-\frac1n\ell''(\theta^*)\pto I_1(\theta_0)$. By Slutsky\index{slutsky s theorem@Slutsky's theorem} and the continuous mapping theorem\index{continuous mapping theorem@continuous mapping theorem}, $G^2=\big[\sqrt{nI_1}(\hat\theta-\theta_0)\big]^2\cdot\frac{-\ell''(\theta^*)/n}{I_1}\dto Z^2\cdot1=\chi^2_1$.
 
 In the general case the same expansion gives $G^2\approx\sqrt n(\hat{\bm\theta}-\hat{\bm\theta}_0)^\top I_1\sqrt n(\hat{\bm\theta}-\hat{\bm\theta}_0)$; this is the squared norm of the $r$-dimensional component of an $\Normal_k(\mathbf 0,I_1^{-1})$ vector orthogonal (in the Fisher metric) to the tangent space of $\Theta_0$, and it has a $\chi^2_r$ distribution.
 \end{proof}
 
-\begin{theorem}[Asymptotic Equivalence: LRT, Wald, Score]\label{thm:uclu}
+\begin{theorem}[Asymptotic Equivalence: LRT, Wald, Score]\label{thm:uclu}\index{likelihood ratio test lrt@likelihood ratio test (LRT)}
 Under the conditions of Wilks' theorem and when $H_0$ is true, $W_n-G_n^2\pto0$ and $S_n-G_n^2\pto0$; hence all three statistics have the limit distribution $\chi^2_r$. Moreover, under $\sqrt n$-local alternatives $\bm\theta_n=\bm\theta_0+\mathbf h/\sqrt n$ all three converge to the same non-central $\chi^2_r(\delta)$ distribution; that is, their asymptotic powers are equal.
 \end{theorem}
 \begin{proof}[Idea of proof ($r=k=1$)]
@@ -95,15 +95,15 @@ $X_i\iid\text{Poisson}(\lambda)$, $H_0:\lambda=\lambda_0$. Since $\hat\lambda=\b
 G^2=2n\Big[\bar x\ln\frac{\bar x}{\lambda_0}-(\bar x-\lambda_0)\Big],\qquad
 W=\frac{n(\bar x-\lambda_0)^2}{\bar x},\qquad S=\frac{n(\bar x-\lambda_0)^2}{\lambda_0}.
 \]
-(If $\bar x=0$, the convention $0\ln0=0$ gives $G^2=2n\lambda_0$; the Wald statistic is then undefined.) By Wilks, $G^2\dto\chi^2_1$. The score statistic is the counterpart of the one-cell Pearson chi-square statistic.
+(If $\bar x=0$, the convention $0\ln0=0$ gives $G^2=2n\lambda_0$; the Wald statistic is then undefined.) By Wilks\index{wilks theorem@Wilks' theorem}, $G^2\dto\chi^2_1$. The score statistic is the counterpart of the one-cell Pearson chi-square\index{pearson chi square x 2 statistic@Pearson chi-square ($X^2$) statistic} statistic.
 \end{example}
 
 \begin{example}[Normal with Unknown Variance: LRT $=$ $t$-Test]\label{ex:lrt-t}
-$X_i\iid\Normal(\mu,\sigma^2)$, $H_0:\mu=\mu_0$, with $\sigma^2$ a nuisance parameter. The unrestricted MLE is $(\bar x,\hat\sigma^2)$, the restricted MLE $(\mu_0,\hat\sigma_0^2)$ with $\hat\sigma_0^2=\frac1n\sum(x_i-\mu_0)^2=\hat\sigma^2+(\bar x-\mu_0)^2$. Since the exponential term at the maximum of both likelihoods is $e^{-n/2}$,
+$X_i\iid\Normal(\mu,\sigma^2)$, $H_0:\mu=\mu_0$, with $\sigma^2$ a nuisance parameter\index{nuisance parameter@nuisance parameter}. The unrestricted MLE is $(\bar x,\hat\sigma^2)$, the restricted MLE $(\mu_0,\hat\sigma_0^2)$ with $\hat\sigma_0^2=\frac1n\sum(x_i-\mu_0)^2=\hat\sigma^2+(\bar x-\mu_0)^2$. Since the exponential term at the maximum of both likelihoods is $e^{-n/2}$,
 \[
 \Lambda=\Big(\frac{\hat\sigma^2}{\hat\sigma_0^2}\Big)^{n/2}=\Big(1+\frac{(\bar x-\mu_0)^2}{\hat\sigma^2}\Big)^{-n/2}=\Big(1+\frac{t^2}{n-1}\Big)^{-n/2},\qquad t=\frac{\sqrt n(\bar x-\mu_0)}{S}.
 \]
-Since $\Lambda$ is a decreasing function of $|t|$, the LRT is the two-sided $t$-test, and its distribution under $H_0$ is known \emph{exactly} ($t_{n-1}$; Chapter~\ref{ch:guven}). As $n\to\infty$, $G^2=n\ln(1+t^2/(n-1))\approx t^2\dto\chi^2_1$, consistent with Wilks.
+Since $\Lambda$ is a decreasing function of $|t|$, the LRT\index{likelihood ratio test lrt@likelihood ratio test (LRT)} is the two-sided $t$-test, and its distribution under $H_0$ is known \emph{exactly} ($t_{n-1}$; Chapter~\ref{ch:guven}). As $n\to\infty$, $G^2=n\ln(1+t^2/(n-1))\approx t^2\dto\chi^2_1$, consistent with Wilks.
 \end{example}
 
 \begin{example}[Multinomial Goodness of Fit: $G^2$ and Pearson's $X^2$ \cite{pearson1900}]\label{ex:multinom}
@@ -112,7 +112,7 @@ Let the cell counts $(N_1,\dots,N_k)$ have a $\text{Multinom}(n;p_1,\dots,p_k)$ 
 G^2=2\sum_{j=1}^kN_j\ln\frac{N_j}{np_{j0}}\dto\chi^2_{k-1},\qquad
 X^2=\sum_{j=1}^k\frac{(N_j-np_{j0})^2}{np_{j0}}\dto\chi^2_{k-1}.
 \]
-$X^2$ is the score test for this problem; using the expansion $\ln(1+u)\approx u-u^2/2$ one can show that $G^2=X^2+o_P(1)$. If $H_0$ involves estimating $s$ parameters, the degrees of freedom become $k-1-s$.
+$X^2$ is the score test\index{score rao test@score (Rao) test} for this problem; using the expansion $\ln(1+u)\approx u-u^2/2$ one can show that $G^2=X^2+o_P(1)$. If $H_0$ involves estimating $s$ parameters, the degrees of freedom become $k-1-s$.
 \end{example}
 
 \begin{example}[Equality of Two Poisson Means]
@@ -132,7 +132,7 @@ E[G^2]: 0.9998 (theory: 1.0) | type I error: 0.0517
 Var[G^2]: 2.0141 (theory: 2.0) | KS p-value (against chi2_1): 0.000
 \end{lstlisting}
 
-The very small $p$-value of the KS test arises because, in an enormous simulation with $150\,000$ replications, it detects even the small deviations caused by the discreteness of $G^2$ (a Poisson sum is an integer); the mean, the variance and the type I error agree with $\chi^2_1$. This is a nice example of the difference between ``statistical significance'' and ``practical importance'' in large-sample simulations.
+The very small $p$-value of the KS\index{kolmogorov smirnov test@Kolmogorov--Smirnov test} test arises because, in an enormous simulation with $150\,000$ replications, it detects even the small deviations caused by the discreteness of $G^2$ (a Poisson sum is an integer); the mean, the variance and the type I\index{type i and type ii errors@type I and type II errors} error agree with $\chi^2_1$. This is a nice example of the difference between ``statistical significance'' and ``practical importance'' in large-sample simulations.
 
 \subsection{The Holy Trinity: Exact Sizes in Small Samples}
 Since the Poisson sum $T=n\bar X\sim\text{Poisson}(n\lambda_0)$, the true sizes of the three tests under $H_0$ can be computed exactly, without simulation.
@@ -147,7 +147,7 @@ Since the Poisson sum $T=n\bar X\sim\text{Poisson}(n\lambda_0)$, the true sizes 
  200    1.0   | 0.0476 0.0537 0.0517
 \end{lstlisting}
 
-For small values of $n\lambda_0$ the Wald test badly exceeds the size ($20\%$ instead of $5\%$ for $n\lambda_0=3$!): the probability of $\bar x=0$ is high, and in that case $W=\infty$. The LRT also exceeds the nominal level, but much more mildly; the score test is slightly conservative in this example. The practical lesson: in small samples the Wald test should be avoided and the score test or the LRT preferred. As $n$ grows, all three approach the nominal level (Theorem~\ref{thm:uclu}). Because of the discreteness, the sizes do not vary monotonically with $n$ but fluctuate in a saw-tooth pattern.
+For small values of $n\lambda_0$ the Wald test\index{wald test@Wald test} badly exceeds the size ($20\%$ instead of $5\%$ for $n\lambda_0=3$!): the probability of $\bar x=0$ is high, and in that case $W=\infty$. The LRT\index{likelihood ratio test lrt@likelihood ratio test (LRT)} also exceeds the nominal level, but much more mildly; the score test\index{score rao test@score (Rao) test} is slightly conservative in this example. The practical lesson: in small samples the Wald test should be avoided and the score test or the LRT preferred. As $n$ grows, all three approach the nominal level (Theorem~\ref{thm:uclu}). Because of the discreteness, the sizes do not vary monotonically with $n$ but fluctuate in a saw-tooth pattern.
 
 \subsection{Multinomial Goodness of Fit}
 
@@ -165,17 +165,17 @@ With $n=40$ and a smallest expected cell frequency of $4$, the size of Pearson's
 
 \begin{remark}[Which Test?]
 \begin{itemize}
-  \item The \textbf{LRT} is invariant under reparametrisation (Zehna invariance) and usually gives the best chi-square approximation in small samples; with the Bartlett correction its error can be reduced to $O(n^{-2})$.
+  \item The \textbf{LRT\index{likelihood ratio test lrt@likelihood ratio test (LRT)}} is invariant under reparametrisation (Zehna\index{zehna s invariance principle@Zehna's invariance principle} invariance) and usually gives the best chi-square approximation in small samples; with the Bartlett correction its error can be reduced to $O(n^{-2})$.
   \item The \textbf{Wald} test requires only the unrestricted model and is readily available in standard output (coefficient/SE); however, it is sensitive to the parametrisation (e.g.\ the result changes if $\ln\theta$ is tested instead of $\theta$) and behaves badly near the boundary (the Hauck--Donner effect).
-  \item The \textbf{score} test requires only the model under $H_0$; this makes it ideal for model-extension tests (e.g.\ should an extra variable be added?) and diagnostic tests. Pearson's $X^2$, the log-rank test and the Cochran--Armitage trend test are score tests.
+  \item The \textbf{score} test requires only the model under $H_0$; this makes it ideal for model-extension tests (e.g.\ should an extra variable be added?) and diagnostic tests. Pearson's $X^2$, the log-rank test and the Cochran--Armitage trend test are score tests\index{score rao test@score (Rao) test}.
 \end{itemize}
 \end{remark}
 
 \begin{remark}[Connection with Confidence Regions]
-All three tests can be inverted into confidence regions (Chapter~\ref{ch:guven}, Theorem~\ref{thm:dualite}): inverting the LRT gives the \emph{profile likelihood interval} $\{\theta:2[\ell(\hat\theta)-\ell(\theta)]\le\chi^2_{1,\alpha}\}$, inverting Wald gives the symmetric interval $\hat\theta\pm z_{\alpha/2}\mathrm{SE}$, and inverting the score test gives (for the binomial) the Wilson interval.
+All three tests can be inverted into confidence regions (Chapter~\ref{ch:guven}, Theorem~\ref{thm:dualite}): inverting the LRT gives the \emph{profile likelihood\index{profile likelihood@profile likelihood} interval} $\{\theta:2[\ell(\hat\theta)-\ell(\theta)]\le\chi^2_{1,\alpha}\}$, inverting Wald gives the symmetric interval $\hat\theta\pm z_{\alpha/2}\mathrm{SE}$, and inverting the score test gives (for the binomial) the Wilson\index{wilson interval@Wilson interval} interval.
 \end{remark}
 
-% --- CHAPTER SUMMARY (generated by tools/summaries.py) ---
+% --- CHAPTER SUMMARY ---
 \section{Chapter Summary}
 \begin{summary}
 \begin{itemize}

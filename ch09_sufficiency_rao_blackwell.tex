@@ -3,7 +3,7 @@
 
 \chapter{Sufficiency and the Rao--Blackwell Theorem}\label{ch:yeterlilik}
 
-A sample of $n$ observations contains many details that carry no information about $\theta$ (the order of the observations, a particular rearrangement, and so on). A sufficient statistic is a summary that compresses the sample while retaining \emph{all} the information about $\theta$: once it is known, the rest of the raw data says nothing about $\theta$. The Rao--Blackwell theorem links this idea to estimation theory: any estimator can be improved, \emph{never made worse}, by conditioning on a sufficient statistic. This chapter is the first half of the UMVUE theory of Chapter~\ref{ch:tamlik}.
+A sample of $n$ observations contains many details that carry no information about $\theta$ (the order of the observations, a particular rearrangement, and so on). A sufficient statistic\index{sufficient statistic@sufficient statistic} is a summary that compresses the sample while retaining \emph{all} the information about $\theta$: once it is known, the rest of the raw data says nothing about $\theta$. The Rao--Blackwell\index{rao blackwell theorem@Rao--Blackwell theorem} theorem links this idea to estimation theory: any estimator can be improved, \emph{never made worse}, by conditioning on a sufficient statistic. This chapter is the first half of the UMVUE\index{umvue@UMVUE} theory of Chapter~\ref{ch:tamlik}.
 
 \section{Definitions}
 
@@ -16,20 +16,20 @@ If $T$ is sufficient, a statistician who knows $T=t$ can, without knowing $\thet
 \end{remark}
 
 \begin{definition}[Minimal Sufficient Statistic]
-$T$ is called \emph{minimal sufficient} if it is sufficient and, for every other sufficient statistic $U$, there is a function $h$ with $T=h(U)$. A minimal sufficient statistic is the greatest data compression achievable without loss of information.
+$T$ is called \emph{minimal sufficient\index{minimal sufficient statistic@minimal sufficient statistic}} if it is sufficient and, for every other sufficient statistic\index{sufficient statistic@sufficient statistic} $U$, there is a function $h$ with $T=h(U)$. A minimal sufficient statistic is the greatest data compression achievable without loss of information.
 \end{definition}
 
 \begin{definition}[Exponential Family]\label{def:ustel-aile}
-A family of densities (or pmfs) is called a \emph{$k$-parameter exponential family} if it can be written as
+A family of densities (or pmfs) is called a \emph{$k$-parameter exponential family\index{exponential family@exponential family}} if it can be written as
 \[
 f(x;\bm\theta)=h(x)\,c(\bm\theta)\exp\Big\{\sum_{j=1}^k w_j(\bm\theta)\,t_j(x)\Big\}.
 \]
-The form $f(x;\bm\eta)=h(x)\exp\{\sum\eta_jt_j(x)-A(\bm\eta)\}$ obtained through $\eta_j=w_j(\bm\theta)$ is called the \emph{natural (canonical) form}; $\bm\eta$ is the natural parameter and $A$ the log-partition function.
+The form $f(x;\bm\eta)=h(x)\exp\{\sum\eta_jt_j(x)-A(\bm\eta)\}$ obtained through $\eta_j=w_j(\bm\theta)$ is called the \emph{natural (canonical) form}; $\bm\eta$ is the natural parameter\index{natural parameter@natural parameter} and $A$ the log-partition function.
 \end{definition}
 
 \section{Main Theorems and Proofs}
 
-\begin{theorem}[Neyman--Fisher Factorisation \cite{halmos49}]\label{thm:faktorizasyon}
+\begin{theorem}[Neyman--Fisher Factorisation \cite{halmos49}]\label{thm:faktorizasyon}\index{factorisation theorem@factorisation theorem}
 $T(\X)$ is sufficient for $\theta$ $\iff$ there exist non-negative functions $g$ and $h$ such that for every $\x$ and $\theta$
 \[
 L_n(\theta; \x) = g(T(\x), \theta)\, h(\x).
@@ -42,7 +42,7 @@ L_n(\theta; \x) = g(T(\x), \theta)\, h(\x).
 \[
 \P_\theta(\X=\x\mid T=t)=\frac{\P_\theta(\X=\x)}{\P_\theta(T=t)}=\frac{g(t,\theta)h(\x)}{\sum_{\mathbf y:T(\mathbf y)=t}g(t,\theta)h(\mathbf y)}=\frac{h(\x)}{\sum_{\mathbf y:T(\mathbf y)=t}h(\mathbf y)},
 \]
-which is free of $\theta$. (If $T(\x)\neq t$, the conditional probability is zero anyway.) In the continuous case the proof requires measure-theoretic tools (Halmos--Savage).
+which is free of $\theta$. (If $T(\x)\neq t$, the conditional probability\index{conditional probability@conditional probability} is zero anyway.) In the continuous case the proof requires measure-theoretic tools (Halmos--Savage).
 \end{proof}
 
 \begin{theorem}[Criterion for Minimal Sufficiency \cite{lehmann-scheffe50}]\label{thm:minimal}
@@ -50,15 +50,15 @@ If for every pair of sample points $\x,\mathbf y$
 \[
 \text{the ratio }\frac{L(\theta;\x)}{L(\theta;\mathbf y)}\ \text{is free of }\theta\iff T(\x)=T(\mathbf y),
 \]
-then $T$ is minimal sufficient.
+then $T$ is minimal sufficient\index{minimal sufficient statistic@minimal sufficient statistic}.
 \end{theorem}
 \begin{proof}[Proof sketch]
 \emph{Sufficiency:} For each value $t$ choose a representative $\x_t$ with $T(\x_t)=t$. Since $T(\x)=T(\x_{T(\x)})$, the ratio $h(\x)=L(\theta;\x)/L(\theta;\x_{T(\x)})$ is free of $\theta$; with $g(t,\theta)=L(\theta;\x_t)$ we obtain a factorisation.
-\emph{Minimality:} Let $U$ be another sufficient statistic with $U(\x)=U(\mathbf y)$. By factorisation, $L(\theta;\x)/L(\theta;\mathbf y)=h_U(\x)/h_U(\mathbf y)$ is free of $\theta$; by assumption $T(\x)=T(\mathbf y)$. So $T$ is a function of $U$. (This proof is given for discrete or density models, ignoring ``almost sure'' details; see \cite[Theorem~6.2.13]{casella}, and for the general case \cite[Section~1.6]{lehmann-casella}.)
+\emph{Minimality:} Let $U$ be another sufficient statistic\index{sufficient statistic@sufficient statistic} with $U(\x)=U(\mathbf y)$. By factorisation, $L(\theta;\x)/L(\theta;\mathbf y)=h_U(\x)/h_U(\mathbf y)$ is free of $\theta$; by assumption $T(\x)=T(\mathbf y)$. So $T$ is a function of $U$. (This proof is given for discrete or density models, ignoring ``almost sure'' details; see \cite[Theorem~6.2.13]{casella}, and for the general case \cite[Section~1.6]{lehmann-casella}.)
 \end{proof}
 
 \begin{theorem}[Sufficiency in Exponential Families]\label{thm:ustel-yeterli}
-If $X_1,\dots,X_n$ are i.i.d.\ from the $k$-parameter exponential family of Definition~\ref{def:ustel-aile}, then
+If $X_1,\dots,X_n$ are i.i.d.\ from the $k$-parameter exponential family\index{exponential family@exponential family} of Definition~\ref{def:ustel-aile}, then
 \[
 \mathbf T(\X)=\Big(\sum_{i=1}^n t_1(X_i),\dots,\sum_{i=1}^n t_k(X_i)\Big)
 \]
@@ -68,8 +68,8 @@ is sufficient. If the set $\{(w_1(\bm\theta),\dots,w_k(\bm\theta)):\bm\theta\in\
 $L=\prod h(x_i)\cdot c(\bm\theta)^n\exp\{\sum_j w_j(\bm\theta)\sum_i t_j(x_i)\}$; the factorisation can be read off directly. For minimality use Theorem~\ref{thm:minimal}: $L(\x)/L(\mathbf y)=\frac{\prod h(x_i)}{\prod h(y_i)}\exp\{\sum_jw_j(\bm\theta)[T_j(\x)-T_j(\mathbf y)]\}$; under the open-set condition this is free of $\theta$ if and only if $\mathbf T(\x)=\mathbf T(\mathbf y)$.
 \end{proof}
 
-\begin{theorem}[Rao--Blackwell Theorem \cite{rao45,blackwell47}]\label{thm:rao-blackwell}
-Let $W$ be an unbiased estimator of $g(\theta)$ ($\E_\theta[W] = g(\theta)$, $\Var_\theta W<\infty$) and $T$ a sufficient statistic. Define $W^* = \E[W \mid T]$. Then for every $\theta$:
+\begin{theorem}[Rao--Blackwell Theorem \cite{rao45,blackwell47}]\label{thm:rao-blackwell}\index{rao blackwell theorem@Rao--Blackwell theorem}
+Let $W$ be an unbiased estimator\index{unbiased estimator@unbiased estimator} of $g(\theta)$ ($\E_\theta[W] = g(\theta)$, $\Var_\theta W<\infty$) and $T$ a sufficient statistic. Define $W^* = \E[W \mid T]$. Then for every $\theta$:
 \begin{enumerate}
   \item $W^*$ is a statistic (i.e.\ it does not depend on $\theta$);
   \item $\E_\theta[W^*] = g(\theta)$;
@@ -78,8 +78,8 @@ Let $W$ be an unbiased estimator of $g(\theta)$ ($\E_\theta[W] = g(\theta)$, $\V
 \end{theorem}
 \begin{proof}
 (1) Since $T$ is sufficient, the conditional distribution of $\X\mid T$, and hence of $W(\X)\mid T$, does not depend on $\theta$; so $\E[W\mid T]$ is a known function of $T$ alone. \emph{This is where sufficiency is crucial}: conditioning on a non-sufficient $T$ produces an ``estimator'' that depends on $\theta$ and cannot be used.
-(2) Tower rule (Theorem~\ref{thm:kule}): $\E_\theta[W^*]=\E_\theta[\E(W\mid T)]=\E_\theta W=g(\theta)$.
-(3) Law of total variance (Theorem~\ref{thm:toplam-varyans}):
+(2) Tower rule\index{tower property@tower property} (Theorem~\ref{thm:kule}): $\E_\theta[W^*]=\E_\theta[\E(W\mid T)]=\E_\theta W=g(\theta)$.
+(3) Law of total variance\index{law of total variance@law of total variance} (Theorem~\ref{thm:toplam-varyans}):
 \[
 \Var(W) = \Var(\E[W \mid T]) + \E[\Var(W \mid T)] = \Var(W^*) + \E[\Var(W \mid T)] \ge \Var(W^*).
 \]
@@ -87,7 +87,7 @@ Equality holds when $\E[\Var(W\mid T)]=0$, i.e.\ $W=\E[W\mid T]$ a.s.
 \end{proof}
 
 \begin{remark}[Generalisation]
-Even without unbiasedness, the conditional Jensen inequality gives $R(\theta,W^*)\le R(\theta,W)$ for every convex loss $L(\theta,\cdot)$. So under convex loss it always suffices to restrict attention to estimators that are functions of the sufficient statistic.
+Even without unbiasedness, the conditional Jensen\index{jensen s inequality@Jensen's inequality} inequality gives $R(\theta,W^*)\le R(\theta,W)$ for every convex loss $L(\theta,\cdot)$. So under convex loss it always suffices to restrict attention to estimators that are functions of the sufficient statistic.
 \end{remark}
 
 \section{Worked Examples}
@@ -105,7 +105,7 @@ For $X_i\iid\Normal(\mu,\sigma^2)$, the identity $\sum(x_i-\mu)^2=\sum(x_i-\bar 
 \[
 L(\mu,\sigma^2;\x)=(2\pi\sigma^2)^{-n/2}\exp\Big\{-\frac{(n-1)s^2+n(\bar x-\mu)^2}{2\sigma^2}\Big\}.
 \]
-With $h(\x)=1$, factorisation shows that $(\bar X,S^2)$ is sufficient; since this is a two-parameter exponential family, it is minimal sufficient. If $\sigma^2$ is known, $\bar X$ alone is sufficient.
+With $h(\x)=1$, factorisation\index{factorisation theorem@factorisation theorem} shows that $(\bar X,S^2)$ is sufficient; since this is a two-parameter exponential family\index{exponential family@exponential family}, it is minimal sufficient\index{minimal sufficient statistic@minimal sufficient statistic}. If $\sigma^2$ is known, $\bar X$ alone is sufficient.
 \end{example}
 
 \begin{example}[$\text{Uniform}(0,\theta)$: the Importance of the Indicator]\label{ex:uniform-yeterli}
@@ -130,11 +130,11 @@ $\text{Beta}(a,b)$ & $(a-1,\,b-1)$ & $(\ln x,\ln(1-x))$ & $(\sum\ln X_i,\sum\ln(
 \bottomrule
 \end{tabular}
 \end{center}
-Distributions whose support depends on the parameter ($\text{Uniform}(0,\theta)$, the shifted exponential) and location families such as the Cauchy, $t$ and logistic are not exponential families. For example, in the Cauchy location family the minimal sufficient statistic is the full set of order statistics $(X_{(1)},\dots,X_{(n)})$: no dimension reduction is possible.
+Distributions whose support depends on the parameter ($\text{Uniform}(0,\theta)$, the shifted exponential) and location families such as the Cauchy, $t$ and logistic are not exponential families. For example, in the Cauchy location family the minimal sufficient statistic\index{sufficient statistic@sufficient statistic} is the full set of order statistics\index{order statistics@order statistics} $(X_{(1)},\dots,X_{(n)})$: no dimension reduction is possible.
 \end{example}
 
 \begin{example}[Rao--Blackwell: Estimating $e^{-\lambda}$ for the Poisson]\label{ex:poisson-rb}
-Let $X_i\iid\text{Poisson}(\lambda)$ and $g(\lambda)=\P(X=0)=e^{-\lambda}$ (for example, the probability that no customer arrives in an hour). A crude unbiased estimator is $W=\I\{X_1=0\}$. $T=\sum X_i$ is sufficient, and $X_1\mid T=t\sim\text{Bin}(t,1/n)$ (the conditional distribution of independent Poissons). Hence
+Let $X_i\iid\text{Poisson}(\lambda)$ and $g(\lambda)=\P(X=0)=e^{-\lambda}$ (for example, the probability that no customer arrives in an hour). A crude unbiased estimator\index{unbiased estimator@unbiased estimator} is $W=\I\{X_1=0\}$. $T=\sum X_i$ is sufficient, and $X_1\mid T=t\sim\text{Bin}(t,1/n)$ (the conditional distribution of independent Poissons). Hence
 \[
 W^*=\E[W\mid T]=\P(X_1=0\mid T)=\Big(1-\frac1n\Big)^{T}.
 \]
@@ -142,7 +142,7 @@ Using the probability generating function of $T\sim\text{Poisson}(n\lambda)$, $\
 \[
 \Var(W^*)=e^{-2\lambda}\big(e^{\lambda/n}-1\big)\quad\ll\quad\Var(W)=e^{-\lambda}(1-e^{-\lambda}).
 \]
-The intuitive ``plug-in'' estimator $e^{-\bar X}$ is biased, whereas $W^*$ is unbiased and will be shown to be the UMVUE in Chapter~\ref{ch:tamlik}.
+The intuitive ``plug-in\index{plug in principle@plug-in principle}'' estimator $e^{-\bar X}$ is biased, whereas $W^*$ is unbiased and will be shown to be the UMVUE\index{umvue@UMVUE} in Chapter~\ref{ch:tamlik}.
 \end{example}
 
 \begin{example}[Rao--Blackwell: $\text{Uniform}(0,\theta)$]
@@ -150,7 +150,7 @@ $W=2X_1$ is unbiased. Given $X_{(n)}=m$, $X_1$ equals $m$ with probability $1/n$
 \[
 \E[2X_1\mid X_{(n)}=m]=2\Big[\frac mn+\frac{n-1}{n}\cdot\frac m2\Big]=\frac{n+1}{n}m .
 \]
-The Rao--Blackwell procedure mechanically produces the ``intuitive'' estimator $\frac{n+1}{n}X_{(n)}$ of Chapter~\ref{ch:nokta-tahmin}.
+The Rao--Blackwell\index{rao blackwell theorem@Rao--Blackwell theorem} procedure mechanically produces the ``intuitive'' estimator $\frac{n+1}{n}X_{(n)}$ of Chapter~\ref{ch:nokta-tahmin}.
 \end{example}
 
 \section{Computational Applications}
@@ -176,7 +176,7 @@ exp(-Xbar) (plug-in) | mean=0.14914 | bias=+0.01380 | Var=4.399e-03 | MSE=4.590e
 Theory Var(W*) = 4.055e-03
 \end{lstlisting}
 
-The Rao--Blackwell estimator reduces the variance by a factor of about $29$. Its variance is slightly above the CRLB: since $e^{-\lambda}$ is not a linear function of $\E T$, no efficient estimator exists (Corollary~\ref{cor:crlb-esitlik}). The intuitive plug-in estimator $e^{-\bar X}$ is biased upwards by Jensen's inequality ($e^{-x}$ is convex), and in this example both its variance and its MSE exceed those of $W^*$: here the Rao--Blackwell procedure beats intuition not only in unbiasedness but also in MSE. (This need not always be so; in Example~\ref{ex:en-iyi-bolen} the biased estimator was better.)
+The Rao--Blackwell\index{rao blackwell theorem@Rao--Blackwell theorem} estimator reduces the variance by a factor of about $29$. Its variance is slightly above the CRLB\index{cramer rao lower bound crlb@Cramér--Rao lower bound (CRLB)}: since $e^{-\lambda}$ is not a linear function of $\E T$, no efficient estimator\index{efficient estimator@efficient estimator} exists (Corollary~\ref{cor:crlb-esitlik}). The intuitive plug-in\index{plug in principle@plug-in principle} estimator $e^{-\bar X}$ is biased upwards by Jensen\index{jensen s inequality@Jensen's inequality}'s inequality ($e^{-x}$ is convex), and in this example both its variance and its MSE exceed those of $W^*$: here the Rao--Blackwell procedure beats intuition not only in unbiasedness but also in MSE. (This need not always be so; in Example~\ref{ex:en-iyi-bolen} the biased estimator was better.)
 
 \subsection{$\text{Uniform}(0,\theta)$: Rao--Blackwell by Simulation}
 
@@ -197,14 +197,14 @@ $\bar X$ is sufficient for $\mu$ in the normal model ($\sigma^2$ known), but not
 \end{remark}
 
 \begin{remark}[The Pitman--Koopman--Darmois Theorem]
-Among regular families whose support does not depend on the parameter, only exponential families admit a sufficient statistic whose dimension does not grow with $n$. That is, ``lossless compression of the data into a fixed-dimensional summary'' is essentially a property of exponential families. This explains their central place in statistics (GLMs, conjugate priors).
+Among regular families whose support does not depend on the parameter, only exponential families\index{exponential family@exponential family} admit a sufficient statistic\index{sufficient statistic@sufficient statistic} whose dimension does not grow with $n$. That is, ``lossless compression of the data into a fixed-dimensional summary'' is essentially a property of exponential families. This explains their central place in statistics (GLMs\index{generalised linear model glm@generalised linear model (GLM)}, conjugate\index{conjugate prior@conjugate prior} priors).
 \end{remark}
 
 \begin{remark}[Rao--Blackwell in Practice]
-The Rao--Blackwell principle is also used in Monte Carlo: when estimating an expectation by simulation, integrating out analytically the part whose conditional expectation can be computed reduces the variance (``Rao--Blackwellised'' MCMC estimators, conditional Monte Carlo).
+The Rao--Blackwell\index{rao blackwell theorem@Rao--Blackwell theorem} principle is also used in Monte Carlo: when estimating an expectation by simulation, integrating out analytically the part whose conditional expectation\index{conditional expectation@conditional expectation} can be computed reduces the variance (``Rao--Blackwellised'' MCMC\index{mcmc@MCMC} estimators, conditional Monte Carlo).
 \end{remark}
 
-% --- CHAPTER SUMMARY (generated by tools/summaries.py) ---
+% --- CHAPTER SUMMARY ---
 \section{Chapter Summary}
 \begin{summary}
 \begin{itemize}

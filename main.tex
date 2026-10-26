@@ -16,7 +16,7 @@
 \usepackage[hidelinks]{hyperref}
 \usepackage{subfiles}
 \usepackage{makeidx}
-\makeindex                       % index: main.ind is produced by tools/make_index.py build
+\makeindex                       % index: main.ind is produced by tools/make_index.py compile
 \usepackage[most]{tcolorbox}
 % Chapter summary box (filled by tools/summaries.py)
 \newtcolorbox{summary}{breakable,enhanced,colback=blue!4!white,colframe=blue!50!black,
@@ -168,5 +168,6 @@
 
 \backmatter
 \subfile{bibliography}
+\printindex
 
 \end{document}
