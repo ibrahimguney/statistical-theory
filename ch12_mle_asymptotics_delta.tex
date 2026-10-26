@@ -1,0 +1,276 @@
+\documentclass[main.tex]{subfiles}
+\begin{document}
+
+\chapter{Asymptotic Theory of the MLE and the Delta Method}\label{ch:mle-asimptotik}\chaptermark{MLE Asymptotics and the Delta Method}
+
+The finite-sample properties of the MLE vary from model to model: sometimes it is biased, sometimes it has no closed form at all. In large samples, however, under regularity conditions, the MLE shows universal and very strong behaviour: it is consistent, asymptotically normal, and its asymptotic variance attains the Cramér--Rao bound. This chapter covers these three results, the information inequality that makes them possible, and the delta method, which gives the asymptotic distribution of transformations of an estimator. These results are the theoretical basis of almost all standard errors and Wald confidence intervals reported in applied statistics.
+
+\section{Definitions}
+
+\begin{definition}[Asymptotic Normality and Asymptotic Variance]
+If $\sqrt n(T_n-\theta)\dto\Normal(0,v(\theta))$, then $T_n$ is called \emph{asymptotically normal} (AN) and $v(\theta)$ its \emph{asymptotic variance}; we write $T_n\approx\Normal(\theta,v(\theta)/n)$. The asymptotic variance need not equal $\lim n\Var(T_n)$ (the latter may not exist).
+\end{definition}
+
+\begin{definition}[Asymptotic Efficiency and Asymptotic Relative Efficiency]
+In a regular model, $T_n$ is called \emph{asymptotically efficient} if $v(\theta)=1/I_1(\theta)$. For two AN estimators $T_n^{(1)},T_n^{(2)}$,
+\[
+\mathrm{ARE}(T^{(1)},T^{(2)})=\frac{v_2(\theta)}{v_1(\theta)}
+\]
+is the \emph{asymptotic relative efficiency}. Interpretation: $T^{(2)}$ needs roughly $n/\mathrm{ARE}$ observations to reach the precision that $T^{(1)}$ achieves with $n$.
+\end{definition}
+
+\begin{definition}[Observed Information]
+The random quantity $J_n(\theta)=-\ell''(\theta;\X)=-\sum_{i=1}^n\partial^2_\theta\ln f(X_i;\theta)$ is called the \emph{observed Fisher information}. $\E_\theta J_n(\theta)=I_n(\theta)$ and, by the WLLN, $J_n(\theta)/n\pto I_1(\theta)$.
+\end{definition}
+
+\section{Consistency}
+
+\begin{lemma}[The Information Inequality]\label{lem:bilgi-esitsizligi}
+If $\theta\neq\theta_0$ and $\P_\theta\neq\P_{\theta_0}$ (identifiability), then
+\[
+\E_{\theta_0}\big[\ln f(X;\theta)\big]<\E_{\theta_0}\big[\ln f(X;\theta_0)\big].
+\]
+\end{lemma}
+\begin{proof}
+Since $\ln$ is strictly concave, Jensen's inequality (Theorem~\ref{thm:jensen}) gives
+\[
+\E_{\theta_0}\ln\frac{f(X;\theta)}{f(X;\theta_0)}<\ln\E_{\theta_0}\frac{f(X;\theta)}{f(X;\theta_0)}=\ln\int f(x;\theta)\,dx=\ln1=0 .
+\]
+The strict inequality comes from the ratio not being a.s.\ constant (identifiability). The left-hand side is $-\mathrm{KL}(f_{\theta_0}\|f_\theta)$.
+\end{proof}
+
+\begin{theorem}[Consistency of the MLE \cite{wald49}]\label{thm:mle-tutarli}
+Let $X_i\iid f(\cdot;\theta_0)$ with an identifiable model. Suppose moreover that (i) $\Theta$ is compact, (ii) $\theta\mapsto\ln f(x;\theta)$ is continuous for every $x$, and (iii) $\E_{\theta_0}\sup_{\theta\in\Theta}|\ln f(X;\theta)|<\infty$. Then $\hat\theta_n\asto\theta_0$.
+\end{theorem}
+\begin{proof}
+Let $M_n(\theta)=\frac1n\ell(\theta)$ and $M(\theta)=\E_{\theta_0}\ln f(X;\theta)$; by (iii), $M$ is finite everywhere. By Lemma~\ref{lem:bilgi-esitsizligi}, $M(\theta)<M(\theta_0)$ for $\theta\ne\theta_0$.
+
+Fix $\varepsilon>0$ and let $K=\{\theta\in\Theta:|\theta-\theta_0|\ge\varepsilon\}$; $K$ is compact. For $\theta\in K$ and $r>0$ let $B(\theta,r)=\{\theta'\in\Theta:|\theta'-\theta|<r\}$ and
+\[
+m_r(x;\theta)=\sup_{\theta'\in B(\theta,r)}\ln f(x;\theta').
+\]
+By (ii), $m_r(x;\theta)\to\ln f(x;\theta)$ as $r\downarrow0$, and by (iii) $|m_r|\le\sup_{\Theta}|\ln f(x;\cdot)|$ is integrable. By dominated convergence, $\E_{\theta_0}m_r(X;\theta)\to M(\theta)<M(\theta_0)$; hence there is an $r_\theta>0$ with $\E_{\theta_0}m_{r_\theta}(X;\theta)<M(\theta_0)$. Let $B_1,\dots,B_m$ (centres $\theta^{(1)},\dots,\theta^{(m)}$) be a finite subcover of the open cover $\{B(\theta,r_\theta):\theta\in K\}$.
+
+By the strong law of large numbers, for each of the finitely many $j$ and for $\theta_0$, almost surely
+\[
+\frac1n\sum_{i=1}^n m_{r_j}(X_i;\theta^{(j)})\to\E_{\theta_0}m_{r_j}(X;\theta^{(j)})<M(\theta_0),\qquad M_n(\theta_0)\to M(\theta_0).
+\]
+On this event, for all sufficiently large $n$,
+\[
+\sup_{\theta\in K}M_n(\theta)\le\max_{j\le m}\frac1n\sum_{i=1}^nm_{r_j}(X_i;\theta^{(j)})<M_n(\theta_0)\le M_n(\hat\theta_n),
+\]
+i.e.\ $\hat\theta_n\notin K$: $|\hat\theta_n-\theta_0|<\varepsilon$. Intersecting over $\varepsilon=1/k$, $k\in\N$, gives $\hat\theta_n\asto\theta_0$. (For relaxing compactness and for the multidimensional case see \cite[Theorems~5.7 and 5.14]{vdv} and \cite[Chapter~17]{ferguson}.)
+\end{proof}
+
+\section{Asymptotic Normality}
+
+\begin{theorem}[Asymptotic Normality of the MLE \cite{cramer46}]\label{thm:mle-an}
+In addition to conditions (R1)--(R4) of Chapter~\ref{ch:cramer-rao}, let $\theta_0$ be an interior point, let $\hat\theta_n$ be a consistent root of the likelihood equation, and suppose $|\partial^3_\theta\ln f(x;\theta)|\le M(x)$ in a neighbourhood of $\theta_0$ with $\E_{\theta_0}M(X)<\infty$. Then
+\[
+\sqrt{n}(\hat{\theta}_{n} - \theta_0) \dto \Normal\left(0, \frac{1}{I_1(\theta_0)}\right).
+\]
+\end{theorem}
+\begin{proof}
+Expand the equation $\ell'(\hat\theta_n)=0$ around $\theta_0$: for some $\theta_n^*$ between $\hat\theta_n$ and $\theta_0$,
+\[
+0=\ell'(\theta_0)+(\hat\theta_n-\theta_0)\ell''(\theta_0)+\tfrac12(\hat\theta_n-\theta_0)^2\ell'''(\theta_n^*).
+\]
+Rearranging,
+\[
+\sqrt n(\hat\theta_n-\theta_0)=\frac{\frac{1}{\sqrt n}\ell'(\theta_0)}{-\frac1n\ell''(\theta_0)-\frac1{2n}(\hat\theta_n-\theta_0)\ell'''(\theta_n^*)} .
+\]
+\begin{itemize}
+  \item \emph{Numerator:} $\ell'(\theta_0)=\sum s(\theta_0;X_i)$ is a sum of i.i.d.\ terms with mean $0$ and variance $I_1(\theta_0)$ (Lemma~\ref{lem:skor}). By the CLT, $\frac{1}{\sqrt n}\ell'(\theta_0)\dto\Normal(0,I_1(\theta_0))$.
+  \item \emph{Denominator, first term:} by the WLLN, $-\frac1n\ell''(\theta_0)\pto I_1(\theta_0)$ (information identity).
+  \item \emph{Denominator, second term:} $|\frac1n\ell'''(\theta^*_n)|\le\frac1n\sum M(X_i)\pto\E M(X)<\infty$ and $\hat\theta_n-\theta_0\pto0$; the product $\pto0$.
+\end{itemize}
+By Slutsky's theorem (Theorem~\ref{thm:slutsky}), $\sqrt n(\hat\theta_n-\theta_0)\dto\Normal(0,I_1)/I_1=\Normal(0,1/I_1(\theta_0))$.
+\end{proof}
+
+\begin{corollary}[The Wald Confidence Interval]\label{cor:wald}
+If $I_1$ is continuous, then $I_1(\hat\theta_n)\pto I_1(\theta_0)$, and by Slutsky $\sqrt{nI_1(\hat\theta_n)}(\hat\theta_n-\theta_0)\dto\Normal(0,1)$. Hence
+\[
+\hat\theta_n\pm z_{\alpha/2}\big/\sqrt{nI_1(\hat\theta_n)}\qquad\text{or}\qquad\hat\theta_n\pm z_{\alpha/2}\big/\sqrt{J_n(\hat\theta_n)}
+\]
+are asymptotic $1-\alpha$ confidence intervals. In the multiparameter case, $\sqrt n(\hat{\bm\theta}_n-\bm\theta_0)\dto\Normal_k(\mathbf 0,I_1(\bm\theta_0)^{-1})$.
+\end{corollary}
+\begin{proof}
+Since $\hat\theta_n\pto\theta_0$ and $I_1$ is continuous, Theorem~\ref{thm:cmt-p} gives $I_1(\hat\theta_n)\pto I_1(\theta_0)>0$. Since $Z_n=\sqrt{nI_1(\hat\theta_n)}(\hat\theta_n-\theta_0)=\sqrt{I_1(\hat\theta_n)}\cdot\sqrt n(\hat\theta_n-\theta_0)$, Slutsky gives $Z_n\dto\sqrt{I_1}\,\Normal(0,1/I_1)=\Normal(0,1)$, and
+\[
+\P_{\theta_0}\Big(\theta_0\in\hat\theta_n\pm z_{\alpha/2}/\sqrt{nI_1(\hat\theta_n)}\Big)=\P(|Z_n|\le z_{\alpha/2})\to1-\alpha
+\]
+(because $\pm z_{\alpha/2}$ are continuity points of $\Phi$). For the observed information write $\frac1nJ_n(\hat\theta_n)=-\frac1n\ell''(\hat\theta_n)$; as in the proof of Theorem~\ref{thm:mle-an}, $|\frac1n\ell''(\hat\theta_n)-\frac1n\ell''(\theta_0)|\le|\hat\theta_n-\theta_0|\frac1n\sum M(X_i)\pto0$ and $-\frac1n\ell''(\theta_0)\pto I_1(\theta_0)$; the same argument applies. The multiparameter statement is the vector form of the proof of Theorem~\ref{thm:mle-an} (multivariate CLT for the score vector, Theorem~\ref{thm:cok-degiskenli-clt}).
+\end{proof}
+
+\section{The Delta Method}
+
+\begin{theorem}[The Delta Method]\label{thm:delta}
+Let $\sqrt{n}(T_n - \theta) \dto \Normal(0, \sigma^2)$ and let $g$ be differentiable at $\theta$ with $g'(\theta)\neq0$. Then
+\[
+\sqrt{n}\big(g(T_n) - g(\theta)\big) \dto \Normal\big(0, [g'(\theta)]^2 \sigma^2\big).
+\]
+\end{theorem}
+\begin{proof}
+Since $\sqrt n(T_n-\theta)=O_P(1)$, $T_n\pto\theta$. By the definition of the derivative, $g(t)-g(\theta)=[g'(\theta)+r(t)](t-\theta)$, where $r(t)\to0$ as $t\to\theta$ and $r(\theta)=0$. Hence
+\[
+\sqrt n\big(g(T_n)-g(\theta)\big)=\big[g'(\theta)+r(T_n)\big]\cdot\sqrt n(T_n-\theta).
+\]
+By the continuous mapping theorem $r(T_n)\pto0$; by Slutsky the limit is $g'(\theta)\cdot\Normal(0,\sigma^2)$.
+\end{proof}
+
+\begin{theorem}[Second-Order Delta Method]\label{thm:delta2}
+Under the conditions of Theorem~\ref{thm:delta}, if $g'(\theta)=0$ and $g''(\theta)\neq0$, then
+\[
+n\big(g(T_n)-g(\theta)\big)\dto\frac{\sigma^2g''(\theta)}{2}\,\chi^2_1 .
+\]
+\end{theorem}
+\begin{proof}
+Second-order Taylor: $n(g(T_n)-g(\theta))=\frac{g''(\theta)}{2}\big[\sqrt n(T_n-\theta)\big]^2+o_P(1)$; and $[\sqrt n(T_n-\theta)/\sigma]^2\dto\chi^2_1$ (continuous mapping).
+\end{proof}
+
+\begin{theorem}[Multivariate Delta Method]\label{thm:delta-cok}
+If $\sqrt n(\mathbf T_n-\bm\theta)\dto\Normal_k(\mathbf 0,\Sigma)$ and $g:\R^k\to\R$ is differentiable at $\bm\theta$, then
+$\sqrt n(g(\mathbf T_n)-g(\bm\theta))\dto\Normal\big(0,\nabla g(\bm\theta)^\top\Sigma\,\nabla g(\bm\theta)\big)$.
+\end{theorem}
+\begin{proof}
+By the definition of differentiability, $g(\mathbf t)-g(\bm\theta)=\nabla g(\bm\theta)^\top(\mathbf t-\bm\theta)+\|\mathbf t-\bm\theta\|\,r(\mathbf t)$, where $r(\bm\theta)=0$ and $r$ is continuous at $\bm\theta$. Hence
+\[
+\sqrt n\big(g(\mathbf T_n)-g(\bm\theta)\big)=\nabla g(\bm\theta)^\top\sqrt n(\mathbf T_n-\bm\theta)+\big\|\sqrt n(\mathbf T_n-\bm\theta)\big\|\,r(\mathbf T_n).
+\]
+By the continuous mapping theorem (Theorem~\ref{thm:cmt}, linear $g$), the first term converges to $\nabla g^\top\mathbf Z$ with $\mathbf Z\sim\Normal_k(\mathbf 0,\Sigma)$, which is $\Normal(0,\nabla g^\top\Sigma\nabla g)$. In the second term, $\|\sqrt n(\mathbf T_n-\bm\theta)\|\dto\|\mathbf Z\|$, and hence $\mathbf T_n-\bm\theta=n^{-1/2}\cdot\sqrt n(\mathbf T_n-\bm\theta)\pto\mathbf 0$ (Slutsky); by continuity of $r$, $r(\mathbf T_n)\pto0$, and by Slutsky the product $\pto0$. Apply Slutsky once more.
+\end{proof}
+
+\begin{definition}[Variance-Stabilising Transformation]
+If $\sqrt n(T_n-\theta)\dto\Normal(0,\sigma^2(\theta))$, then for the transformation $g(\theta)=\int\frac{c}{\sigma(\theta)}d\theta$, which satisfies $g'(\theta)=c/\sigma(\theta)$, we have $\sqrt n(g(T_n)-g(\theta))\dto\Normal(0,c^2)$: the asymptotic variance no longer depends on $\theta$.
+\end{definition}
+
+\section{Worked Examples}
+
+\begin{example}[The Odds]\label{ex:odds}
+$\hat p=\bar X$, $\sqrt n(\hat p-p)\dto\Normal(0,p(1-p))$. For the odds $\tau=g(p)=\frac{p}{1-p}$, $g'(p)=\frac{1}{(1-p)^2}$. By the delta method,
+\[
+\sqrt n(\hat\tau-\tau)\dto\Normal\Big(0,\frac{p(1-p)}{(1-p)^4}\Big)=\Normal\Big(0,\frac{p}{(1-p)^3}\Big).
+\]
+For the log-odds $\eta=\ln\frac p{1-p}$, $g'(p)=\frac{1}{p(1-p)}$ and the asymptotic variance is $\frac{1}{p(1-p)}$; this is the source of standard errors in logistic regression.
+\end{example}
+
+\begin{example}[Variance-Stabilising Transformations]\label{ex:varyans-dengeleme}
+\begin{itemize}
+  \item \textbf{Poisson:} $\sigma^2(\lambda)=\lambda$; with $g(\lambda)=2\sqrt\lambda$, $\sqrt n(2\sqrt{\bar X}-2\sqrt\lambda)\dto\Normal(0,1)$.
+  \item \textbf{Binomial:} $\sigma^2(p)=p(1-p)$; with $g(p)=\arcsin\sqrt p$ the asymptotic variance is $1/4$.
+  \item \textbf{Correlation coefficient (Fisher's $z$):} for the bivariate normal, $\sqrt n(r-\rho)\dto\Normal(0,(1-\rho^2)^2)$; with $z=\tanh^{-1}r=\frac12\ln\frac{1+r}{1-r}$ the asymptotic variance is $1$.
+\end{itemize}
+These transformations both improve the coverage of confidence intervals and speed up the normal approximation.
+\end{example}
+
+\begin{example}[Asymptotic Relative Efficiency: Mean or Median?]\label{ex:are}
+In a location family with symmetric density $f$, the asymptotic variance of the sample median is $\frac{1}{4f(\theta)^2}$ and that of the mean is $\sigma^2$.
+\begin{center}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+Distribution & $v(\bar X)$ & $v(\text{median})$ & $\mathrm{ARE}(\text{median},\bar X)$ \\
+\midrule
+$\Normal(\theta,1)$ & $1$ & $\pi/2$ & $2/\pi\approx0.637$ \\
+Laplace$(\theta,1)$ & $2$ & $1$ & $2$ \\
+Cauchy$(\theta,1)$ & $\infty$ & $\pi^2/4$ & $\infty$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+For normal data the median needs about $57\%$ more observations to match the efficiency of the mean; for the Laplace the median is twice as efficient (and is the MLE). For the Cauchy, the efficiency of the median relative to the MLE is $8/\pi^2\approx0.81$.
+\end{example}
+
+\begin{example}[Second-Order Delta: $p(1-p)$ at $p=1/2$]
+$g(p)=p(1-p)$, $g'(1/2)=0$, $g''=-2$. Since $\sigma^2=1/4$ at $p=1/2$,
+$n\big(\bar X(1-\bar X)-\tfrac14\big)\dto-\tfrac14\chi^2_1$. That is, at this point the estimator $\bar X(1-\bar X)$ converges at rate $n$ rather than $\sqrt n$, and its limit distribution is not normal but a (negatively scaled) chi-square.
+\end{example}
+
+\section{Computational Applications}
+
+\subsection{The Delta Method for the Odds}
+
+\pycode{code/ch12/c12_1_delta_method_odds.py}
+\begin{lstlisting}[style=output]
+Delta theoretical variance: 0.001749 | Empirical: 0.001764
+Log-odds delta variance: 0.009524 | Empirical: 0.009570
+\end{lstlisting}
+
+\subsection{Asymptotic Normality of the MLE and Coverage of the Wald Interval}
+For the Gamma shape parameter $\alpha$ (rate known, $\beta=1$), $I_1(\alpha)=\psi'(\alpha)$ (trigamma). The MLE solves $\psi(\hat\alpha)=\overline{\ln X}$.
+
+\pycode{code/ch12/c12_2_mle_asymptotic_normality_wald.py}
+\begin{lstlisting}[style=output]
+n=  10 | bias=+0.0471 | n*Var=1.6058 (1/I=1.5505) | skewness(z)=+0.486 | Wald 95% coverage=0.9476
+n=  50 | bias=+0.0113 | n*Var=1.5671 (1/I=1.5505) | skewness(z)=+0.219 | Wald 95% coverage=0.9501
+n= 400 | bias=+0.0012 | n*Var=1.5378 (1/I=1.5505) | skewness(z)=+0.075 | Wald 95% coverage=0.9522
+\end{lstlisting}
+
+For small $n$ the positive bias and right skewness are clear, and $n\Var(\hat\alpha)$ is above its asymptotic value; as $n$ grows, the bias vanishes at rate $O(1/n)$ and the skewness at rate $O(1/\sqrt n)$. In this model the \emph{total} coverage of the Wald interval is close to the target even at $n=10$, but this is because the errors in the two tails offset each other: because of the skewness, the interval misses too often on one side and too rarely on the other (Exercise: compute the two tail errors separately).
+
+\subsection{ARE, Variance Stabilisation and the Second-Order Delta Method}
+
+\pycode{code/ch12/c12_3_are_variance_stabilisation.py}
+\begin{lstlisting}[style=output]
+Normal  | n*Var(mean)=0.999 | n*Var(median)=1.561 | ARE(median, mean)=0.640
+Laplace | n*Var(mean)=2.003 | n*Var(median)=1.156 | ARE(median, mean)=1.733
+t_3     | n*Var(mean)=2.980 | n*Var(median)=1.862 | ARE(median, mean)=1.601
+Poisson: Var(2*sqrt(Xbar)) * n  (target 1, independent of lambda)
+  lambda=  1 | n*Var(Xbar)=  1.004 | n*Var(2 sqrt(Xbar))=1.006
+  lambda=  5 | n*Var(Xbar)=  5.022 | n*Var(2 sqrt(Xbar))=1.005
+  lambda= 50 | n*Var(Xbar)= 50.119 | n*Var(2 sqrt(Xbar))=1.002
+Second-order delta: E[W]=-0.2487 (theory -0.25), Var[W]=0.1237 (theory 2/16=0.1250)
+\end{lstlisting}
+
+The normal and $t_3$ rows are very close to the theoretical ARE values ($0.637$ and $3\cdot4f(0)^2\approx1.62$): for the $t_3$ distribution (finite variance $=3$, but heavy-tailed) the median is more efficient than the mean. For the Laplace the empirical ARE ($\approx1.73$) is below the theoretical value $2$; since the Laplace density has a sharp (non-differentiable) peak, $n\Var(\text{median})$ approaches its asymptotic value $1$ only slowly, at rate $O(n^{-1/2})$. How well asymptotic results hold in finite samples should always be checked by simulation. The superiority of robust estimators for heavy-tailed data is a consequence of this table.
+
+\section{Comments and Notes}
+
+\begin{remark}[Hodges' Superefficient Estimator]
+The estimator $T_n=\bar X\,\I\{|\bar X|\ge n^{-1/4}\}$ behaves like $\bar X$ in the $\Normal(\theta,1)$ model for $\theta\ne0$, while at $\theta=0$ its asymptotic variance is $0$: it seemingly ``beats'' the CRLB. However, its risk deteriorates in a neighbourhood of $\theta=0$; Le Cam's theorem \cite{lecam53} shows that superefficiency is possible only on a set of measure zero. This is why asymptotic efficiency is defined together with local uniformity (regularity) (the Hájek--Le Cam convolution theorem).
+\end{remark}
+
+\begin{remark}[Expected or Observed Information?]
+Either $I_n(\hat\theta)$ or $J_n(\hat\theta)$ may be used in the Wald interval; both are asymptotically valid. The observed information is usually more accurate from the point of view of conditional inference, because it reflects ancillary information in the data, and it comes for free as a by-product of the Newton--Raphson algorithm.
+\end{remark}
+
+\begin{remark}[Limits of the Delta Method]
+The delta method is a local linearisation; if $g$ changes rapidly or the variance of $T_n$ is large, the approximation deteriorates. For example, $\hat\tau=\hat p/(1-\hat p)$ has infinite mean in finite samples because $\hat p=1$ has positive probability; yet its asymptotic distribution is well defined. In such cases the bootstrap (Chapter~\ref{ch:bootstrap}) or profile likelihood intervals are preferred.
+\end{remark}
+
+% --- CHAPTER SUMMARY (generated by tools/summaries.py) ---
+\section{Chapter Summary}
+\begin{summary}
+\begin{itemize}
+  \item By the information inequality (Lemma~\ref{lem:bilgi-esitsizligi}), the expected log-likelihood has its unique maximum at the true parameter. Consistency of the MLE (Theorem~\ref{thm:mle-tutarli}) follows from this.
+  \item In regular models, $\sqrt n(\hat\theta_n-\theta_0)\dto\Normal(0,1/I_1(\theta_0))$ (Theorem~\ref{thm:mle-an}): the MLE attains the CRLB asymptotically.
+  \item The Wald interval is built from the expected or the observed information (Corollary~\ref{cor:wald}). In small samples its coverage is sensitive to the parametrisation.
+  \item The delta method (Theorem~\ref{thm:delta}) carries asymptotic normality over to differentiable transformations. When $g'(\theta)=0$ the second-order version (Theorem~\ref{thm:delta2}) is used, and in several dimensions the gradient version (Theorem~\ref{thm:delta-cok}). A variance-stabilising transformation makes the asymptotic variance constant.
+  \item Hodges' superefficient estimator shows that asymptotic efficiency must be defined together with a local uniformity condition.
+\end{itemize}
+\end{summary}
+% --- END OF CHAPTER SUMMARY ---
+
+\paragraph{Further reading.} \cite[Chapter~10]{casella}, \cite[Chapters~3, 5 and 8]{vdv}, \cite[Chapters~17--18]{ferguson}.
+
+\section{Exercises}
+
+\begin{exercise}\label{exr:12-1}
+Let $X_i\iid\text{Exp}(\lambda)$. Find the asymptotic distribution of $\hat\lambda=1/\bar X$ both by Theorem~\ref{thm:mle-an} and by the delta method. Show that the asymptotic variance of $\ln\hat\lambda$ does not depend on $\lambda$.
+\hfill\hyperref[coz:12-1]{\footnotesize$\rightarrow$\,Solution}
+\end{exercise}
+
+\begin{exercise}\label{exr:12-2}
+Let $(X_i,Y_i)$ be i.i.d.\ with $\E X=\mu_X\ne0$. Find the asymptotic variance of $\bar Y/\bar X$, the estimator of the ratio $\mu_Y/\mu_X$, by the multivariate delta method.
+\hfill\hyperref[coz:12-2]{\footnotesize$\rightarrow$\,Solution}
+\end{exercise}
+
+\begin{exercise}\label{exr:12-3}
+In the Cauchy location model, show (by simulation) that the one-step Newton--Raphson estimator starting from the median, $\tilde\theta=\hat m+\ell'(\hat m)/(n I_1)$ ($I_1=1/2$), is asymptotically efficient. Look up the general theory of such ``one-step'' estimators.
+\hfill\hyperref[coz:12-3]{\footnotesize$\rightarrow$\,Solution}
+\end{exercise}
+
+\begin{exercise}\label{exr:12-4}
+Using Fisher's $z$ transformation, construct an approximate $95\%$ confidence interval for $\rho$ from bivariate normal data. For $\rho=0.8$, $n=20$, compare its coverage by simulation with that of the direct interval $r\pm1.96(1-r^2)/\sqrt n$.
+\hfill\hyperref[coz:12-4]{\footnotesize$\rightarrow$\,Solution}
+\end{exercise}
+
+\end{document}

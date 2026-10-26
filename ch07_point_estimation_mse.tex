@@ -77,7 +77,7 @@ Let $X_1,\dots,X_n$ be i.i.d.\ with $\E X=\mu$ and $\Var X=\sigma^2<\infty$. For
 \end{proof}
 
 \begin{theorem}[Consistency of the Method of Moments]\label{thm:mm-tutarli}
-If the map $\mu'(\theta)=(\mu_1'(\theta),\dots,\mu_k'(\theta))$ is one-to-one with continuous inverse $h=\mu'^{-1}$ and $\E|X|^k<\infty$, then the MM estimator $\tilde\theta_n=h(m_1',\dots,m_k')$ is consistent.
+If the map $\theta\mapsto\mu'(\theta)=(\mu_1'(\theta),\dots,\mu_k'(\theta))$ is one-to-one with continuous inverse $h=\mu'^{-1}$ and $\E|X|^k<\infty$, then the MM estimator $\tilde\theta_n=h(m_1',\dots,m_k')$ is consistent.
 \end{theorem}
 \begin{proof}
 By the WLLN, $m_j'\pto\mu_j'(\theta)$ for every $j\le k$; by the continuous mapping theorem (the vector version of Theorem~\ref{thm:cmt-p}), $\tilde\theta_n\pto h(\mu'(\theta))=\theta$.
