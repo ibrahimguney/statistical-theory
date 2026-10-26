@@ -44,3 +44,47 @@ plt.semilogx(pi, ppv); plt.axhline(0.5, ls=":"); plt.axvline(0.05/1.04, ls=":")
 plt.xlabel("prevalence"); plt.ylabel("P(D | +)"); plt.show()
 \end{lstlisting}
 \end{solution}
+
+\section{Random Variables and Distribution Functions}
+\noindent{\small Chapter~\ref{ch:rastgele-degiskenler}.}
+
+\begin{solution}{02-1}
+$g(x)=-2\ln x$ is strictly decreasing on $(0,1)$; its inverse is $x=e^{-y/2}$ with $|dx/dy|=\frac12e^{-y/2}$. By Theorem~\ref{thm:donusum}, $f_Y(y)=1\cdot\frac12e^{-y/2}$, $y>0$: this is $\text{Exp}(\tfrac12)=\text{Gamma}(1,\tfrac12)=\chi^2_2$.
+\emph{Fisher's method:} the continuous $p$-values of $m$ independent tests are $\text{Uniform}(0,1)$ under $H_0$ (Theorem~\ref{thm:p-uniform}); hence $-2\sum_{i=1}^m\ln p_i\sim\chi^2_{2m}$, and large values of this statistic are evidence that ``at least one null hypothesis is false''.
+\end{solution}
+
+\begin{solution}{02-2}
+$u=F(x)=1-e^{-x^k}\iff x=F^{-1}(u)=\big(-\ln(1-u)\big)^{1/k}$. Mean: $\E X=\int_0^\infty kx^ke^{-x^k}dx$; with $t=x^k$ this is $\int_0^\infty t^{1/k}e^{-t}dt=\Gamma(1+1/k)$. Simulation with $4\times10^5$ draws: $1.994$ for $k=0.5$ (theory $2$), $0.9031$ for $k=1.5$ ($0.9027$), $0.8934$ for $k=3$ ($0.8930$).
+\end{solution}
+
+\begin{solution}{02-3}
+$\{\max(X,Y)\le z\}=\{X\le z\}\cap\{Y\le z\}$, so by independence $F_{\max}(z)=F(z)G(z)$. $\{\min(X,Y)>z\}=\{X>z\}\cap\{Y>z\}$, hence $F_{\min}(z)=1-[1-F(z)][1-G(z)]$. By induction, $\P(X_{(n)}\le x)=\prod_i\P(X_i\le x)=F(x)^n$.
+\end{solution}
+
+\begin{solution}{02-4}
+$2e^{-2n(0.02)^2}\le0.05\iff n\ge\frac{\ln40}{2\cdot0.0004}\approx4611.1$; the smallest $n$ is $4612$. In general, with $\varepsilon_n=\sqrt{\ln(2/\alpha)/(2n)}$, the band
+\[
+L(x)=\max\{\hat F_n(x)-\varepsilon_n,0\},\qquad U(x)=\min\{\hat F_n(x)+\varepsilon_n,1\}
+\]
+satisfies $\P\big(L(x)\le F(x)\le U(x)\ \forall x\big)\ge1-\alpha$. This is a simultaneous, distribution-free confidence band valid for \emph{all} $x$.
+\end{solution}
+
+\section{Expectation and Variance}
+\noindent{\small Chapter~\ref{ch:beklenen-deger}.}
+
+\begin{solution}{03-1}
+$X(\omega)=\int_0^\infty\I\{X(\omega)>t\}dt$. Since the integrand is non-negative, Fubini--Tonelli gives $\E X=\int_0^\infty\E\,\I\{X>t\}\,dt=\int_0^\infty\P(X>t)\,dt$. For the geometric distribution $\P(X>t)=(1-p)^{\lfloor t\rfloor}$ is a step function, and the integral is $\sum_{k=0}^\infty(1-p)^k=1/p$.
+\end{solution}
+
+\begin{solution}{03-2}
+$\E[Y\mid X]=X/2$ and $\Var(Y\mid X)=X^2/12$. Tower rule: $\E Y=\E[X/2]=\frac14$. Total variance: $\Var Y=\E[X^2/12]+\Var(X/2)=\frac{1}{36}+\frac{1}{48}=\frac{7}{144}\approx0.04861$. Monte Carlo with $10^6$ draws: $\E Y\approx0.2499$, $\Var Y\approx0.04860$.
+\end{solution}
+
+\begin{solution}{03-3}
+$\E(X-c)^2=\Var X+(\E X-c)^2$ is minimised at $c=\E X$, with minimum $\Var X$. $g(c)=\E|X-c|$ is convex with right derivative $g'_+(c)=\P(X\le c)-\P(X>c)=2F(c)-1$, which is $\le0$ for $c<m$ and $\ge0$ for $c\ge m$; hence $g$ is minimised at the median.
+\emph{Bayes connection:} applying the same computations to the posterior distribution, the Bayes estimator is the posterior mean under squared loss and the posterior median under absolute loss (Theorem~\ref{thm:bayes-tahmin}).
+\end{solution}
+
+\begin{solution}{03-4}
+$\Var Y=\rho^2+(1-\rho^2)=1$ and $\Cov(X,Y)=\rho\Var Z_1=\rho$, so $\Corr=\rho$. Since $(X,Y)$ is a linear transformation of $(Z_1,Z_2)$, it is jointly normal. $Y-\rho X=\sqrt{1-\rho^2}Z_2$ is independent of $X=Z_1$; therefore $\E[Y\mid X]=\rho X+\E[\sqrt{1-\rho^2}Z_2]=\rho X$ and $\Var(Y\mid X)=1-\rho^2$. (A special case of Theorem~\ref{thm:mvn}(4); this construction is also the standard way of generating a bivariate normal.)
+\end{solution}
