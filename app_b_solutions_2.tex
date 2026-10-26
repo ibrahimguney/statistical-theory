@@ -54,3 +54,164 @@ The one-step estimator reduces the asymptotic variance of the median, $\approx2.
 $z=\tanh^{-1}r$ is approximately $\Normal(\tanh^{-1}\rho,\,1/(n-3))$; the interval is $\tanh\big(z\pm1.96/\sqrt{n-3}\big)$. (Using $\sqrt{n-3}$ instead of $\sqrt n$ is a small-sample correction.) For $\rho=0.8$, $n=20$, $2\times10^4$ replications: the Fisher $z$ coverage is $0.951$, that of the direct interval $r\pm1.96(1-r^2)/\sqrt n$ is $0.893$. The direct interval ignores the skewed distribution of $r$ near the boundary of $[-1,1]$.
 \end{solution}
 
+\section{The Neyman--Pearson Lemma}
+\noindent{\small Chapter~\ref{ch:neyman-pearson}.}
+
+\begin{solution}{13-1}
+$f_0=\I\{0<x<1\}$, $f_1=\frac12\I\{0<x<2\}$. The ratio is $1/2$ on $(0,1)$ and $\infty$ on $[1,2)$. For $\alpha\in(0,1)$ the MP tests are: always reject on $[1,2)$ (probability $0$ under $H_0$), and use \emph{any} $\phi$ on $(0,1)$ with $\int_0^1\phi=\alpha$. The power is $\frac12+\frac\alpha2$ in every case. For example, ``reject if $x>1-\alpha$'' and ``reject if $x<\alpha$'' are both MP: on a set (of positive probability) where the likelihood ratio is constant the Neyman--Pearson test is not unique (Theorem~\ref{thm:neyman-pearson}(3) guarantees uniqueness only on the set $f_1\ne kf_0$).
+\end{solution}
+
+\begin{solution}{13-2}
+$T=\sum X_i\sim\text{Bin}(20,p)$, and the ratio is increasing in $T$. $\P_{0.5}(T\ge15)=0.0207<0.05<\P_{0.5}(T\ge14)=0.0577$. MP test: reject if $T\ge15$; if $T=14$ reject with probability $\gamma=\frac{0.05-0.0207}{\P(T=14)}=0.793$. Power: $\P_{0.7}(T\ge15)+\gamma\P_{0.7}(T=14)=0.568$.
+\end{solution}
+
+\begin{solution}{13-3}
+\[
+\frac{f_1(x)}{f_0(x)}=\sqrt{\frac2\pi}\,h(x^2),\qquad h(u)=\frac{e^{u/2}}{1+u},\qquad h'(u)=\frac{e^{u/2}(u-1)}{2(1+u)^2}.
+\]
+The ratio is \emph{not} a monotone function of $x^2$: it decreases on $u\in[0,1]$ and increases for $u>1$. The set $\{h(x^2)>k\}$ has the form $\{|x|>c\}$ if $k\ge h(0)=1$, which means $c\ge c^*$, where $u^*=2.513$ is the positive root of $e^{u/2}=1+u$ and $c^*=\sqrt{u^*}=1.585$. Hence the rejection region has the form $\{|x|>c\}$ only if $\alpha\le2(1-\Phi(1.585))=0.113$; for larger $\alpha$ the MP region also contains an interval around $0$ ($\{|x|<c_1\}\cup\{|x|>c_2\}$). For $\alpha=0.05$, $c=1.96$ and the power is $\P_{\text{Cauchy}}(|X|>1.96)=1-\frac2\pi\arctan1.96=0.300$.
+\end{solution}
+
+\begin{solution}{13-4}
+Let $I_0$ be the set of true null hypotheses. By Theorem~\ref{thm:p-uniform}, $\P(p_i\le u)\le u$ for $i\in I_0$. By Boole's inequality,
+\[
+\P\Big(\bigcup_{i\in I_0}\{p_i\le\alpha/m\}\Big)\le\sum_{i\in I_0}\frac\alpha m=\frac{|I_0|}{m}\alpha\le\alpha .
+\]
+Independence is not required. The price is a loss of power; Holm's step-down method gives the same guarantee more powerfully.
+\end{solution}
+
+\section{Karlin--Rubin and UMP Tests}
+\noindent{\small Chapter~\ref{ch:karlin-rubin}.}
+
+\begin{solution}{14-1}
+For the Poisson, $w(\lambda)=\ln\lambda$ is increasing and the MLR is in $T=\sum X_i$. At $\lambda=1$, $T\sim\text{Poisson}(20)$: the UMP test rejects if $T\ge29$, and if $T=28$ rejects with probability $\gamma=0.863$. The power function is $\beta(\lambda)=\P_{20\lambda}(T>28)+\gamma\P_{20\lambda}(T=28)$:
+$\beta(0.5)\approx0$, $\beta(1)=0.050$, $\beta(1.25)=0.291$, $\beta(1.5)=0.658$, $\beta(2)=0.979$. For the plot, this formula is evaluated on a grid with \texttt{scipy.stats.poisson}; the curve is monotone increasing (Theorem~\ref{thm:karlin-rubin}).
+\end{solution}
+
+\begin{solution}{14-2}
+$f\propto\sigma^{-n}\exp\{-\frac{1}{2\sigma^2}\sum x_i^2\}$, $w(\sigma)=-1/(2\sigma^2)$ is increasing; the MLR is in $\sum X_i^2$. UMP test: $\sum X_i^2>\sigma_0^2\chi^2_{n,\alpha}$. For the two-sided equal-tailed test ($n=10$, $\alpha=0.05$) the power is $\beta(\sigma)=\P(\chi^2_n<a\sigma_0^2/\sigma^2)+\P(\chi^2_n>b\sigma_0^2/\sigma^2)$; numerically its smallest value is $0.0476<\alpha$, at $\sigma/\sigma_0\approx0.967$. For example $\beta(0.97\sigma_0)=0.0476$, $\beta(0.99\sigma_0)=0.0487$, $\beta(1.01\sigma_0)=0.0517$. The test is biased: it rejects alternatives slightly below $\sigma_0$ less often than $H_0$ itself. The UMPU test chooses the tails by the two conditions of Theorem~\ref{thm:umpu}.
+\end{solution}
+
+\begin{solution}{14-3}
+For $\theta_2>\theta_1$, $\ln\frac{f(x;\theta_2)}{f(x;\theta_1)}=(\theta_2-\theta_1)+2\ln\frac{1+e^{-(x-\theta_1)}}{1+e^{-(x-\theta_2)}}$, and its derivative with respect to $x$ is $2\big[q(x-\theta_2)-q(x-\theta_1)\big]$, where $q(y)=\frac{e^{-y}}{1+e^{-y}}$ is decreasing; since $x-\theta_2<x-\theta_1$, the derivative is $\ge0$: the MLR is in $x$. For $n>1$ the ratio has the form $\prod_ir(x_i)$, and since $r$ is not linear it is not a function of a single statistic $T(\x)$; the logistic family is not an exponential family and the minimal sufficient statistic is the full set of order statistics. Karlin--Rubin does not apply; in practice the locally most powerful (score) test is based on the statistic $\sum_i\tanh\big((x_i-\theta_0)/2\big)$.
+\end{solution}
+
+\begin{solution}{14-4}
+The tests ``reject if $T\ge t$'' form a nested family; the smallest level at which the observed $t_0=T(\x)$ leads to rejection is the size of the test $\{T\ge t_0\}$: $p(\x)=\sup_{\theta\le\theta_0}\P_\theta(T\ge t_0)$. $\phi=\I\{T\ge t_0\}$ has the Neyman--Pearson form; by Step~2 its power function is non-decreasing in $\theta$, so the supremum is attained at $\theta_0$: $p(\x)=\P_{\theta_0}(T\ge T(\x))$.
+\end{solution}
+
+\section{The Likelihood Ratio Test}
+\noindent{\small Chapter~\ref{ch:lrt}.}
+
+\begin{solution}{15-1}
+The unrestricted MLE is $\hat\sigma^2=\frac{n-1}{n}S^2$; with $w=\hat\sigma^2/\sigma_0^2$,
+\[
+G^2=n\big(w-1-\ln w\big),
+\]
+an asymmetric function with its minimum at $w=1$. The acceptance region $\{a\le w\le b\}$ is determined by the condition $a-\ln a=b-\ln b$; it is not equal-tailed. For $n=10$, the LRT with exact size $0.05$ accepts when $q=(n-1)S^2/\sigma_0^2\in[3.187,\,22.912]$: the left-tail probability is $0.0436$ and the right-tail probability $0.0064$ (equal-tailed region: $[2.700,\,19.023]$). Moreover, the exact critical value is $4.62$, whereas the Wilks approximation gives $3.84$: at $n=10$ the $\chi^2_1$ approximation exceeds the nominal level.
+\end{solution}
+
+\begin{solution}{15-2}
+With counts $N_{ij}$, row totals $N_{i\cdot}$, column totals $N_{\cdot j}$ and $E_{ij}=N_{i\cdot}N_{\cdot j}/n$:
+\[
+G^2=2\sum_{i,j}N_{ij}\ln\frac{N_{ij}}{E_{ij}},\qquad X^2=\sum_{i,j}\frac{(N_{ij}-E_{ij})^2}{E_{ij}}.
+\]
+In the unrestricted model the four cell probabilities sum to $1$: $\dim\Theta=3$. Under independence $p_{ij}=r_ic_j$ with $r_1,c_1$ free: $\dim\Theta_0=2$. The degrees of freedom are $3-2=1=(2-1)(2-1)$. For a general $I\times J$ table, $(IJ-1)-(I-1)-(J-1)=(I-1)(J-1)$.
+\end{solution}
+
+\begin{solution}{15-3}
+Let $\hat\lambda=1/\bar X$, $I_n(\lambda)=n/\lambda^2$ and $y=\lambda_0\bar X$.
+(a) $W_\lambda=(\hat\lambda-\lambda_0)^2n/\hat\lambda^2=n(1-y)^2$;
+(b) on the $\ln\lambda$ scale the asymptotic variance is $1/n$ (Exercise~\ref{exr:12-1}): $W_{\ln}=n(\ln y)^2$;
+LRT: $G^2=2n(y-1-\ln y)$.
+Using $2\lambda_0\sum X_i=2ny\sim\chi^2_{2n}$, with $n=10$ and the critical value $\chi^2_{1;0.05}=3.84$, the exact sizes are: $W_\lambda$: $0.045$; $W_{\ln}$: $0.059$; LRT: $0.052$. The size of the Wald test changes with the parametrisation, that of the LRT does not, and the LRT is closest to the nominal level. (In this example the $\lambda$ scale did better; which scale will be better is not clear in advance. This is another reason to prefer the LRT.)
+\end{solution}
+
+\begin{solution}{15-4}
+On $\Theta=[0,\infty)$ the restricted MLE is $\hat\mu=\max(\bar X,0)$. If $\bar X>0$, $G^2=n\bar X^2$, otherwise $G^2=0$. Under $H_0$, $\sqrt n\bar X=Z\sim\Normal(0,1)$: $\P(G^2=0)=\frac12$ and for $x>0$, $\P(G^2\le x)=\frac12+\frac12\P(Z^2\le x)$; i.e.\ the mixture $\frac12\chi^2_0+\frac12\chi^2_1$. If $\chi^2_{1;0.05}=3.84$ is used, the true size is $\P(Z>1.96)=0.025$. The correct critical value is $\chi^2_{1;0.10}=2.71$ (equivalent to the one-sided $z$-test).
+\end{solution}
+
+\section{Confidence Intervals}
+\noindent{\small Chapter~\ref{ch:guven}.}
+
+\begin{solution}{16-1}
+$\bar X-\bar Y\sim\Normal\big(\mu_1-\mu_2,\sigma^2(\frac1m+\frac1n)\big)$ and $(m+n-2)S_p^2/\sigma^2\sim\chi^2_{m+n-2}$ are independent, where $S_p^2=\frac{(m-1)S_1^2+(n-1)S_2^2}{m+n-2}$. The pivot is $\frac{(\bar X-\bar Y)-(\mu_1-\mu_2)}{S_p\sqrt{1/m+1/n}}\sim t_{m+n-2}$, and the interval is
+$\bar X-\bar Y\pm t_{m+n-2,\alpha/2}S_p\sqrt{\frac1m+\frac1n}$.
+Welch: $\mathrm{SE}=\sqrt{S_1^2/m+S_2^2/n}$, with the degrees of freedom from the Satterthwaite approximation. Simulation ($m=10$, $\sigma_1=3$; $n=30$, $\sigma_2=1$): the coverage of the pooled interval is $0.787$, that of Welch's $0.949$. When the smaller group has the larger variance, the pooled estimate understates the variance; in practice Welch should be the default.
+\end{solution}
+
+\begin{solution}{16-2}
+The length is proportional to $(n-1)S^2(1/a-1/b)$; minimise $1/a-1/b$ subject to $F(b)-F(a)=0.95$. The Lagrangian is $\mathcal L=\frac1a-\frac1b-\lambda\big(F(b)-F(a)-0.95\big)$; from $\partial_a\mathcal L=-\frac{1}{a^2}+\lambda f(a)=0$ and $\partial_b\mathcal L=\frac{1}{b^2}-\lambda f(b)=0$ we get $\lambda=\frac{1}{a^2f(a)}=\frac{1}{b^2f(b)}$, i.e.\ the condition is $a^2f(a)=b^2f(b)$ (not the density equality of Theorem~\ref{thm:en-kisa}, because the length is not linear in the pivot). For $n=10$ ($\chi^2_9$): the shortest interval has $a=3.284$, $b=26.077$ ($1/a-1/b=0.2662$); the equal-tailed one $a=2.700$, $b=19.023$ ($0.3177$). The shortest interval is about $16\%$ shorter, but its right endpoint moves noticeably outwards.
+\end{solution}
+
+\begin{solution}{16-3}
+$x=\sum X_i$, $\hat\lambda=x/n$, $z=1.96$. Wald: $\hat\lambda\pm z\sqrt{\hat\lambda/n}$; score: the solution of $|\hat\lambda-\lambda|\le z\sqrt{\lambda/n}$, namely $\hat\lambda+\frac{z^2}{2n}\pm z\sqrt{\frac{\hat\lambda}{n}+\frac{z^2}{4n^2}}$; Garwood: $\big[\frac{\chi^2_{2x,0.975}}{2n},\frac{\chi^2_{2x+2,0.025}}{2n}\big]$ (in the book's upper-quantile notation; see Notation). For $n=5$, $\lambda\in(0,5]$, the exact coverage is:
+Wald mean $0.899$, minimum $0.095$; score mean $0.952$, minimum $0.905$; Garwood mean $0.968$, minimum $0.951$. The picture is the same as for the binomial in Example~\ref{ex:binom-ci}: Wald collapses for small $\lambda$, the score interval is balanced, and the exact interval is conservative.
+\end{solution}
+
+\begin{solution}{16-4}
+$n=10$, $2\times10^5$ replications: the individual coverages are $0.950$ and $0.950$, and the joint coverage is $0.907$ ($>0.9025$). The two events are positively associated: the coverage of the $t$ interval is the event $|\bar X-\mu|\le tS/\sqrt n$, which depends on $S$; although $\bar X\indep S^2$, both coverage events depend on $S$. Bonferroni: constructing each interval at level $97.5\%$ makes the joint coverage $\ge0.95$ by Boole's inequality; in the simulation it is $0.953$.
+\end{solution}
+
+\section{The Linear Model}
+\noindent{\small Chapter~\ref{ch:dogrusal}.}
+
+\begin{solution}{17-1}
+$\hat\beta_0=\bar Y-\hat\beta_1\bar x$; $\hat\beta_1=\sum c_iY_i$ with $c_i=(x_i-\bar x)/S_{xx}$, and since $\sum c_i=0$, $\Cov(\bar Y,\hat\beta_1)=\frac{\sigma^2}{n}\sum c_i=0$. Thus $\Cov(\hat\beta_0,\hat\beta_1)=-\bar x\Var\hat\beta_1=-\sigma^2\bar x/S_{xx}$. For them to be uncorrelated we need $\bar x=0$: centring the $x$'s makes $(X^\top X)$ diagonal.
+\end{solution}
+
+\begin{solution}{17-2}
+$\sum h_{ii}=\operatorname{tr}H=p$ (Theorem~\ref{thm:ekk}). $H$ is symmetric and idempotent: $h_{ii}=(H^2)_{ii}=\sum_jh_{ij}^2\ge h_{ii}^2$, hence $0\le h_{ii}\le1$. With $\mathbf e=(I-H)\bm\varepsilon$, $\Cov(\mathbf e)=\sigma^2(I-H)$, so $\Var(e_i)=\sigma^2(1-h_{ii})$: the residuals of high-leverage observations are systematically small (the line is ``pulled'' towards them). For a comparable scale the studentised residuals $r_i=e_i/(s\sqrt{1-h_{ii}})$ are used.
+\begin{lstlisting}[language=Python]
+import numpy as np
+def high_leverage(X):
+    h = np.einsum("ij,jk,ik->i", X, np.linalg.inv(X.T @ X), X)   # diag(H)
+    n, p = X.shape
+    return np.where(h > 2*p/n)[0], h
+\end{lstlisting}
+\end{solution}
+
+\begin{solution}{17-3}
+Let $A_\lambda=(X^\top X+\lambda I)^{-1}$. $\E\hat{\bm\beta}_\lambda=A_\lambda X^\top X\bm\beta=\bm\beta-\lambda A_\lambda\bm\beta$ (bias $-\lambda A_\lambda\bm\beta$), $\Cov=\sigma^2A_\lambda X^\top XA_\lambda$. With $X^\top X=QDQ^\top$ and $\bm\gamma=Q^\top\bm\beta$,
+\[
+\MSE(\lambda)=\sigma^2\sum_j\frac{d_j}{(d_j+\lambda)^2}+\lambda^2\sum_j\frac{\gamma_j^2}{(d_j+\lambda)^2},\qquad
+\MSE'(0)=-2\sigma^2\sum_j\frac{1}{d_j^2}<0 .
+\]
+Since the derivative at zero is negative, $\MSE(\lambda)<\MSE(0)=\MSE(\hat{\bm\beta})$ for some small $\lambda>0$. This does not contradict Gauss--Markov: ridge is \emph{biased}, while Gauss--Markov compares only linear \emph{unbiased} estimators. The gain is largest in the directions of small eigenvalues (multicollinearity).
+\end{solution}
+
+\begin{solution}{17-4}
+For a hypothesis with a single constraint ($q=1$), $F=\frac{\hat\beta_2^2}{s^2[(X^\top X)^{-1}]_{33}}=t^2$ is an algebraic identity; in code \texttt{F} and \texttt{t**2} give the same number. For $21$ equally spaced points in $x\in[10,11]$, $\Corr(x,x^2)=0.99992$ and $\mathrm{VIF}\approx6056$: the standard errors of $\hat\beta_1$ and $\hat\beta_2$ are inflated by a factor of $\approx78$. With centring ($x-\bar x$), for a symmetric design $\Corr(x-\bar x,(x-\bar x)^2)=0$ and $\mathrm{VIF}=1$. The fitted curve and the $F$ statistic for $H_0:\beta_2=0$ do not change; only the interpretation of the coefficients and the numerical stability change.
+\end{solution}
+
+\section{The Bootstrap}
+\noindent{\small Chapter~\ref{ch:bootstrap}.}
+
+\begin{solution}{18-1}
+$600$ data sets, $B=800$, $n=20$, nominal $95\%$:
+\begin{center}\small
+\begin{tabular}{@{}lccc@{}}\toprule
+Data & Percentile & BCa & Fisher $z$\\\midrule
+Normal, $\rho=0.8$ & $0.925$ & $0.932$ & $0.952$\\
+Lognormal, $\rho=0.713$ & $0.888$ & $0.847$ & $0.778$\\\bottomrule
+\end{tabular}
+\end{center}
+For normal data Fisher's $z$ (based on normal theory) is best, and the bootstrap intervals are slightly too narrow. For lognormal data (heavy right tail; $\rho$ computed via the marginal exponential transformation), the assumption behind Fisher's $z$ breaks down and it gives the worst coverage; the bootstrap is more robust, but at $n=20$ none reaches the nominal level. The correlation coefficient is a statistic that is very sensitive to outliers.
+\end{solution}
+
+\begin{solution}{18-2}
+\emph{Pairs} bootstrap: the pairs $(x_i,y_i)$ are resampled with replacement. \emph{Residual} bootstrap: $\hat{\mathbf Y}+\mathbf e^*$, with $\mathbf e^*$ drawn with replacement from the residuals; since it redistributes the residuals independently of $x$, it \emph{assumes} constant variance. Simulation ($n=40$, error sd $0.2+0.3x$, $500$ replications, $B=400$): the true SE of the slope is $0.113$; the mean estimates are classical $0.105$, residual bootstrap $0.102$, pairs bootstrap $0.109$, sandwich (HC0) $0.106$. The residual bootstrap reproduces exactly the error of the classical formula; the pairs bootstrap and the sandwich are robust to heteroscedasticity.
+\end{solution}
+
+\begin{solution}{18-3}
+For Cauchy samples with $n=30$, the bootstrap SE of the mean ranged between $0.27$ and $7.57$ over eight data sets: each time it is determined by the largest $|x_i|$ and does not converge to a stable value, because the quantity it tries to estimate (the standard deviation of $\bar X$) is infinite (Chapter~\ref{ch:esitsizlikler}). The bootstrap SE of the median, by contrast, lies in the range $0.18$--$0.42$, around the asymptotic value $\pi/(2\sqrt n)=0.287$. The bootstrap is meaningful only when the target quantity is well defined.
+\end{solution}
+
+\begin{solution}{18-4}
+$\E\bar X^2=\mu^2+\sigma^2/n$: in Theorem~\ref{thm:jackknife}, $a=\sigma^2$, $b=0$, so the jackknife estimator is exactly unbiased. Direct computation: with $\bar X_{(i)}=\frac{n\bar X-X_i}{n-1}$ and $\sum X_i^2=(n-1)S^2+n\bar X^2$,
+\[
+\hat\theta_{\text{jack}}=n\bar X^2-\frac{n-1}{n}\sum_i\bar X_{(i)}^2=n\bar X^2-\frac{n(n-1)^2\bar X^2+(n-1)S^2}{n(n-1)}=\bar X^2-\frac{S^2}{n}.
+\]
+That is, the jackknife correction automatically produces the UMVUE of $\mu^2$ (in the normal model). Numerical check ($n=12$): the two expressions agree exactly, $5.369554$.
+\end{solution}
+
