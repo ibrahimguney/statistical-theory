@@ -1,0 +1,112 @@
+\documentclass[main.tex]{subfiles}
+\begin{document}
+
+\chapter{Common Probability Distributions}\label{ek:dagilimlar}
+
+This appendix collects, as reference tables, the distributions used in the book and a few closely related ones. All parametrisations follow the general convention of the book: the Gamma and exponential distributions are written with a \emph{rate} parameter (for the Weibull, following tradition, $\lambda$ is a \emph{scale} parameter; this is noted separately in the table). All the mean, variance, MGF and density formulas in the tables have been verified with \texttt{scipy.stats} and by numerical integration.
+
+\paragraph{Notation.} $B(a,b)=\Gamma(a)\Gamma(b)/\Gamma(a+b)$ is the Beta function and $\binom{n}{x}$ the binomial coefficient. The MGF column gives $M_X(t)=\E e^{tX}$ and the range of $t$ on which it is valid; ``none'' indicates that the MGF is not finite in any neighbourhood of $0$. When the MGF exists, the characteristic function is obtained as $\varphi_X(t)=M_X(it)$.
+
+\section{Discrete Distributions}
+
+{\footnotesize
+\setlength{\tabcolsep}{2.5pt}
+\renewcommand{\arraystretch}{2.0}
+\begin{longtable}{@{}>{\raggedright}m{23mm}>{\raggedright}m{45mm}>{\centering}m{16mm}>{\centering}m{29mm}>{\raggedright\arraybackslash}m{34mm}@{}}
+\toprule
+\textbf{Distribution} & \textbf{pmf $p(x)$ and support} & \textbf{Mean} & \textbf{Variance} & \textbf{MGF $M(t)$} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+$\text{Bernoulli}(p)$ & $p^x(1-p)^{1-x}$, \quad $x\in\{0,1\}$ & $p$ & $p(1-p)$ & $1-p+pe^t$ \\
+$\text{Bin}(n,p)$ & $\binom nx p^x(1-p)^{n-x}$, \quad $x=0,\dots,n$ & $np$ & $np(1-p)$ & $(1-p+pe^t)^n$ \\
+$\text{Geometric}(p)$ & $p(1-p)^{x-1}$, \quad $x=1,2,\dots$ \newline {\footnotesize (number of trials up to the first success)} & $\dfrac1p$ & $\dfrac{1-p}{p^2}$ & $\dfrac{pe^t}{1-(1-p)e^t}$, \newline $t<-\ln(1-p)$ \\
+Negative binomial \newline $(r,p)$ & $\binom{x+r-1}{x}p^r(1-p)^x$, \quad $x=0,1,\dots$ \newline {\footnotesize (number of failures before the $r$-th success)} & $\dfrac{r(1-p)}{p}$ & $\dfrac{r(1-p)}{p^2}$ & $\Big(\dfrac{p}{1-(1-p)e^t}\Big)^r$, \newline $t<-\ln(1-p)$ \\
+$\text{Poisson}(\lambda)$ & $\dfrac{e^{-\lambda}\lambda^x}{x!}$, \quad $x=0,1,\dots$ & $\lambda$ & $\lambda$ & $\exp\{\lambda(e^t-1)\}$ \\
+Hypergeometric \newline $(N,K,n)$ & $\dfrac{\binom Kx\binom{N-K}{n-x}}{\binom Nn}$, \newline $\max(0,n-N+K)\le x\le\min(n,K)$ & $\dfrac{nK}{N}$ & $\dfrac{nK(N-K)(N-n)}{N^2(N-1)}$ & no simple closed form \\
+Discrete uniform \newline $\{1,\dots,N\}$ & $\dfrac1N$, \quad $x=1,\dots,N$ & $\dfrac{N+1}{2}$ & $\dfrac{N^2-1}{12}$ & $\dfrac{e^t(e^{Nt}-1)}{N(e^t-1)}$ \\
+\end{longtable}
+}
+
+\section{Continuous Distributions}
+
+{\footnotesize
+\setlength{\tabcolsep}{2.5pt}
+\renewcommand{\arraystretch}{2.1}
+\begin{longtable}{@{}>{\raggedright}m{23mm}>{\raggedright}m{45mm}>{\centering}m{16mm}>{\centering}m{29mm}>{\raggedright\arraybackslash}m{34mm}@{}}
+\toprule
+\textbf{Distribution} & \textbf{pdf $f(x)$ and support} & \textbf{Mean} & \textbf{Variance} & \textbf{MGF $M(t)$} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+$\text{Uniform}(a,b)$ & $\dfrac{1}{b-a}$, \quad $a<x<b$ & $\dfrac{a+b}{2}$ & $\dfrac{(b-a)^2}{12}$ & $\dfrac{e^{tb}-e^{ta}}{t(b-a)}$, $t\ne0$ \\
+$\Normal(\mu,\sigma^2)$ & $\dfrac{1}{\sqrt{2\pi}\sigma}e^{-(x-\mu)^2/(2\sigma^2)}$, \quad $x\in\R$ & $\mu$ & $\sigma^2$ & $e^{\mu t+\sigma^2t^2/2}$ \\
+$\text{Exp}(\lambda)$ \newline {\footnotesize rate $\lambda$} & $\lambda e^{-\lambda x}$, \quad $x>0$ & $\dfrac1\lambda$ & $\dfrac1{\lambda^2}$ & $\dfrac{\lambda}{\lambda-t}$, \quad $t<\lambda$ \\
+$\text{Gamma}(\alpha,\beta)$ \newline {\footnotesize shape $\alpha$, rate $\beta$} & $\dfrac{\beta^\alpha}{\Gamma(\alpha)}x^{\alpha-1}e^{-\beta x}$, \quad $x>0$ & $\dfrac\alpha\beta$ & $\dfrac{\alpha}{\beta^2}$ & $\Big(\dfrac{\beta}{\beta-t}\Big)^\alpha$, \quad $t<\beta$ \\
+$\chi^2_k$ & $\dfrac{x^{k/2-1}e^{-x/2}}{2^{k/2}\Gamma(k/2)}$, \quad $x>0$ & $k$ & $2k$ & $(1-2t)^{-k/2}$, \quad $t<\tfrac12$ \\
+$\text{Beta}(a,b)$ & $\dfrac{x^{a-1}(1-x)^{b-1}}{B(a,b)}$, \quad $0<x<1$ & $\dfrac{a}{a+b}$ & $\dfrac{ab}{(a+b)^2(a+b+1)}$ & no simple closed form \\
+Student $t_\nu$ & $\dfrac{\Gamma(\frac{\nu+1}2)}{\sqrt{\nu\pi}\,\Gamma(\frac\nu2)}\Big(1+\dfrac{x^2}\nu\Big)^{-\frac{\nu+1}2}$ & $0$ \newline {\footnotesize ($\nu>1$)} & $\dfrac{\nu}{\nu-2}$ \newline {\footnotesize ($\nu>2$)} & none \\
+$F_{d_1,d_2}$ & $\dfrac{1}{x\,B(\frac{d_1}2,\frac{d_2}2)}\sqrt{\dfrac{(d_1x)^{d_1}d_2^{d_2}}{(d_1x+d_2)^{d_1+d_2}}}$, \quad $x>0$ & $\dfrac{d_2}{d_2-2}$ \newline {\footnotesize ($d_2>2$)} & $\dfrac{2d_2^2(d_1+d_2-2)}{d_1(d_2-2)^2(d_2-4)}$ \newline {\footnotesize ($d_2>4$)} & none \\
+$\text{Cauchy}(\theta,\gamma)$ & $\dfrac{1}{\pi\gamma\big[1+((x-\theta)/\gamma)^2\big]}$, \quad $x\in\R$ & none & none & none; \newline CF: $e^{i\theta t-\gamma|t|}$ \\
+$\text{Laplace}(\mu,b)$ & $\dfrac{1}{2b}e^{-|x-\mu|/b}$, \quad $x\in\R$ & $\mu$ & $2b^2$ & $\dfrac{e^{\mu t}}{1-b^2t^2}$, \quad $|t|<\tfrac1b$ \\
+$\text{Logistic}(\mu,s)$ & $\dfrac{e^{-(x-\mu)/s}}{s\big(1+e^{-(x-\mu)/s}\big)^2}$, \quad $x\in\R$ & $\mu$ & $\dfrac{\pi^2s^2}{3}$ & $e^{\mu t}B(1-st,1+st)$, \newline $|t|<\tfrac1s$ \\
+Lognormal \newline $(\mu,\sigma^2)$ & $\dfrac{1}{x\sigma\sqrt{2\pi}}e^{-(\ln x-\mu)^2/(2\sigma^2)}$, \quad $x>0$ & $e^{\mu+\sigma^2/2}$ & $(e^{\sigma^2}-1)e^{2\mu+\sigma^2}$ & none \newline {\footnotesize (all moments exist)} \\
+$\text{Weibull}(k,\lambda)$ \newline {\footnotesize shape $k$, \emph{scale} $\lambda$} & $\dfrac k\lambda\Big(\dfrac x\lambda\Big)^{k-1}e^{-(x/\lambda)^k}$, \quad $x>0$ & $\lambda\Gamma(1+\tfrac1k)$ & $\lambda^2\big[\Gamma(1+\tfrac2k)-\Gamma^2(1+\tfrac1k)\big]$ & exists for $k\ge1$; no simple form \\
+$\text{Pareto}(x_m,\alpha)$ & $\dfrac{\alpha x_m^\alpha}{x^{\alpha+1}}$, \quad $x\ge x_m$ & $\dfrac{\alpha x_m}{\alpha-1}$ \newline {\footnotesize ($\alpha>1$)} & $\dfrac{x_m^2\alpha}{(\alpha-1)^2(\alpha-2)}$ \newline {\footnotesize ($\alpha>2$)} & none \\
+\end{longtable}
+}
+
+\section{Multivariate Distributions}
+
+\begin{itemize}
+  \item \textbf{Multinomial} $\text{Multinom}(n;p_1,\dots,p_k)$: $\P(\mathbf N=\mathbf x)=\dfrac{n!}{x_1!\cdots x_k!}\prod_jp_j^{x_j}$, $\sum x_j=n$. \newline $\E N_j=np_j$, $\Var N_j=np_j(1-p_j)$, $\Cov(N_i,N_j)=-np_ip_j$ ($i\ne j$).
+  \item \textbf{Multivariate normal} $\Normal_k(\bm\mu,\Sigma)$: Definition~\ref{def:mvn}. $\E\X=\bm\mu$, $\Cov\X=\Sigma$, $M(\mathbf t)=\exp\{\mathbf t^\top\bm\mu+\frac12\mathbf t^\top\Sigma\mathbf t\}$; properties in Theorem~\ref{thm:mvn}.
+  \item \textbf{Dirichlet} $\text{Dir}(\alpha_1,\dots,\alpha_k)$, $\alpha_0=\sum\alpha_j$: density $\dfrac{\Gamma(\alpha_0)}{\prod\Gamma(\alpha_j)}\prod x_j^{\alpha_j-1}$ (on the unit simplex). \newline $\E X_j=\dfrac{\alpha_j}{\alpha_0}$, $\Var X_j=\dfrac{\alpha_j(\alpha_0-\alpha_j)}{\alpha_0^2(\alpha_0+1)}$, $\Cov(X_i,X_j)=-\dfrac{\alpha_i\alpha_j}{\alpha_0^2(\alpha_0+1)}$. The case $k=2$ is the Beta distribution.
+\end{itemize}
+
+\section{Relations between Distributions}
+
+\begin{itemize}
+  \item $\text{Exp}(\lambda)=\text{Gamma}(1,\lambda)$; for independent $X_1,\dots,X_n\sim\text{Exp}(\lambda)$, $\sum X_i\sim\text{Gamma}(n,\lambda)$ and $2\lambda\sum X_i\sim\chi^2_{2n}$ (Example~\ref{ex:ustel-gamma}).
+  \item $\chi^2_k=\text{Gamma}(k/2,\tfrac12)$; if $Z\sim\Normal(0,1)$ then $Z^2\sim\chi^2_1$ (Example~\ref{ex:ki-kare-1}); for a sum of independent chi-squares the degrees of freedom add.
+  \item Independent Gammas with the same rate: if $X\sim\text{Gamma}(\alpha,1)$ and $Y\sim\text{Gamma}(\beta,1)$, then $X/(X+Y)\sim\text{Beta}(\alpha,\beta)$, independent of $X+Y$ (Example~\ref{ex:beta-gamma}).
+  \item $\text{Beta}(1,1)=\text{Uniform}(0,1)$; uniform order statistics satisfy $U_{(k)}\sim\text{Beta}(k,n-k+1)$ (Example~\ref{ex:uniform-sira}).
+  \item If $Z\sim\Normal(0,1)\indep V\sim\chi^2_\nu$, then $Z/\sqrt{V/\nu}\sim t_\nu$; $t_\nu\dto\Normal(0,1)$ ($\nu\to\infty$); $t_1=\text{Cauchy}(0,1)$; the ratio of two independent standard normals is Cauchy (Example~\ref{ex:oran-cauchy}).
+  \item If $T\sim t_\nu$, then $T^2\sim F_{1,\nu}$; if $X\sim F_{d_1,d_2}$, then $1/X\sim F_{d_2,d_1}$.
+  \item $X\sim\text{Lognormal}(\mu,\sigma^2)\iff\ln X\sim\Normal(\mu,\sigma^2)$.
+  \item $\text{Weibull}(1,\lambda)=\text{Exp}(1/\lambda)$ (the Weibull scale is the reciprocal of the exponential rate).
+  \item The difference of two independent $\text{Exp}(1/b)$ variables is $\text{Laplace}(0,b)$.
+  \item If $U\sim\text{Uniform}(0,1)$, then $-\ln U/\lambda\sim\text{Exp}(\lambda)$ (inverse transform, Theorem~\ref{thm:ters-donusum}); Box--Muller produces two independent normals from two uniforms (Example~\ref{ex:box-muller}).
+  \item The sum of independent $\text{Bernoulli}(p)$ variables is $\text{Bin}(n,p)$; the sum of independent Poissons is Poisson (the means add).
+  \item $\text{Bin}(n,\lambda/n)\dto\text{Poisson}(\lambda)$ ($n\to\infty$); as $N\to\infty$, $K/N\to p$, $\text{Hypergeom}(N,K,n)\to\text{Bin}(n,p)$.
+  \item Poisson--Gamma mixture: if $N\mid\Lambda\sim\text{Poisson}(\Lambda)$ and $\Lambda\sim\text{Gamma}(\alpha,\beta)$, then $N\sim\text{NegBin}\big(\alpha,\frac{\beta}{1+\beta}\big)$ (Example~\ref{ex:poisson-gamma}).
+  \item $\text{Geometric}(p)$ (on $\{1,2,\dots\}$ in the table) $=1+\text{NegBin}(1,p)$.
+\end{itemize}
+
+\section{Conjugate Priors}
+
+A summary of the results of Chapter~\ref{ch:bayes}. In all rows $x_1,\dots,x_n$ are i.i.d.\ observations.
+
+{\small
+\renewcommand{\arraystretch}{1.6}
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Likelihood} & \textbf{Prior} & \textbf{Posterior} \\
+\midrule
+$\text{Bernoulli}(\theta)$ & $\text{Beta}(\alpha,\beta)$ & $\text{Beta}\big(\alpha+\sum x_i,\ \beta+n-\sum x_i\big)$ \\
+$\text{Geometric}(\theta)$ & $\text{Beta}(\alpha,\beta)$ & $\text{Beta}\big(\alpha+n,\ \beta+\sum x_i-n\big)$ \\
+$\text{Poisson}(\lambda)$ & $\text{Gamma}(\alpha,\beta)$ & $\text{Gamma}\big(\alpha+\sum x_i,\ \beta+n\big)$ \\
+$\text{Exp}(\lambda)$ & $\text{Gamma}(\alpha,\beta)$ & $\text{Gamma}\big(\alpha+n,\ \beta+\sum x_i\big)$ \\
+$\Normal(\theta,\sigma^2)$, $\sigma^2$ known & $\Normal(\mu_0,\tau^2)$ & $\Normal(\mu_n,\tau_n^2)$, \ \ $\tau_n^{-2}=\tau^{-2}+n\sigma^{-2}$ (Theorem~\ref{thm:normal-normal}) \\
+$\Normal(\mu,\sigma^2)$, $\mu$ known & $\sigma^2\sim\text{Inv-Gamma}(\alpha,\beta)$ & $\text{Inv-Gamma}\big(\alpha+\frac n2,\ \beta+\frac12\sum(x_i-\mu)^2\big)$ \\
+$\text{Multinom}(\mathbf p)$, counts $\mathbf N$ & $\text{Dir}(\bm\alpha)$ & $\text{Dir}(\bm\alpha+\mathbf N)$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+}
+\noindent ($\sigma^2\sim\text{Inv-Gamma}(\alpha,\beta)$ means $1/\sigma^2\sim\text{Gamma}(\alpha,\beta)$.)
+
+\end{document}
