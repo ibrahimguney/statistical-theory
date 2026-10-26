@@ -1,0 +1,120 @@
+% Appendix B, part three (Chapters 20-23). Included by app_b_solutions.tex via \input.
+
+\section{Decision Theory}
+\noindent{\small Chapter~\ref{ch:karar}.}
+
+\begin{solution}{20-1}
+Since $T=n\bar X\sim\text{Poisson}(n\lambda)$, $R(\lambda,\bar X)=\frac{\Var\bar X}{\lambda}=\frac{\lambda/n}{\lambda}=\frac1n$: $\bar X$ is an equaliser. The posterior expected loss $\E[(a-\lambda)^2/\lambda\mid\x]=a^2\E[\lambda^{-1}\mid\x]-2a+\E[\lambda\mid\x]$ is smallest at $a=1/\E[\lambda^{-1}\mid\x]$. With the $\text{Gamma}(1,b)$ prior the posterior is $\text{Gamma}(1+T,b+n)$, and for $T\ge1$, $\E[\lambda^{-1}\mid\x]=\frac{b+n}{T}$; for $T=0$ this expectation is infinite and the Bayes rule is $0$. In both cases $\delta_b=\frac{T}{b+n}=cT$. Its risk is
+\[
+R(\lambda,cT)=\frac{c^2n\lambda+(cn-1)^2\lambda^2}{\lambda}=c^2n+(cn-1)^2\lambda,
+\]
+and with $\E_\pi\lambda=1/b$, $cn-1=-\frac{b}{b+n}$, the Bayes risk is
+\[
+r(\pi_b)=\frac{n}{(b+n)^2}+\frac{b^2}{(b+n)^2}\cdot\frac1b=\frac1{b+n}\ \xrightarrow{b\to0}\ \frac1n=\sup_\lambda R(\lambda,\bar X).
+\]
+By Theorem~\ref{thm:limit-bayes}, $\bar X$ is minimax.
+\end{solution}
+
+\begin{solution}{20-2}
+For $n=100$ the minimax risk is $\frac1{4\cdot11^2}=0.002066$. The risk of the MLE, $p(1-p)/100$, exceeds this if and only if $|p-\frac12|<\frac12\sqrt{1-100/121}=0.2083$, i.e.\ $p\in(0.2917,\ 0.7083)$. Bayes risks under the uniform prior: for the MLE $\int_0^1\frac{p(1-p)}{n}dp=\frac1{6n}=0.001667$, for the minimax rule the constant $0.002066$. On the average criterion the MLE is better. The ratio of the maximum risks is $\frac{1/(4n)}{1/(4(1+\sqrt n)^2)}=\frac{(1+\sqrt n)^2}{n}\to1$: in large samples the minimax gain disappears, while the region where the MLE is better spreads over almost all of $[0,1]$.
+\end{solution}
+
+\begin{solution}{20-3}
+Assume $\E\theta^2<\infty$ and $\E[\delta^\pi(\X)^2]<\infty$; let $\delta=\delta^\pi=\E[\theta\mid\X]$. Compute $\E[\theta\delta]$ under the joint distribution in two ways:
+\begin{itemize}
+  \item Conditioning on $\X$: $\E[\theta\delta]=\E\big[\delta\,\E(\theta\mid\X)\big]=\E[\delta^2]$.
+  \item Conditioning on $\theta$ and using unbiasedness ($\E[\delta\mid\theta]=\theta$): $\E[\theta\delta]=\E\big[\theta\,\E(\delta\mid\theta)\big]=\E[\theta^2]$.
+\end{itemize}
+Hence $r(\pi,\delta)=\E(\delta-\theta)^2=\E\delta^2-2\E[\theta\delta]+\E\theta^2=0$. A Bayes risk of zero is possible only in degenerate cases where $\theta$ is determined from the data without error. In the normal model $\bar X$ is unbiased and $r(\pi,\bar X)=\sigma^2/n>0$; hence it cannot be Bayes with respect to any proper prior. It is, however, a ``generalised Bayes'' rule with respect to the flat (improper) prior, and its minimaxity is obtained by a limiting argument (Example~\ref{ex:xbar-minimaks}).
+\end{solution}
+
+\begin{solution}{20-4}
+For $\pi=(\frac12,\frac12)$ the Bayes rule chooses $\theta_1$ when the likelihood ratio exceeds $1$. The ratio is $0.746$ at $x=2$ and $2.61$ at $x=3$; the rule is ``$\theta_1$ if $X\ge3$''. $R(\theta_0)=\P_{0.3}(X\ge3)=0.1631$, $R(\theta_1)=\P_{0.6}(X\le2)=0.3174$, and the Bayes risk is $0.2403$. The rule is not minimax: its maximum risk is $0.3174>0.2515$. $\pi=\frac12$ is not the least favourable prior ($r(\frac12)=0.2403<\max_\pi r(\pi)=0.2515$, $\pi^*=0.427$). The condition of Theorem~\ref{thm:bayes-minimaks} ($\max R\le r(\pi)$) does not hold for this prior.
+\end{solution}
+
+\section{Nonparametric Methods}
+\noindent{\small Chapter~\ref{ch:parametrik-olmayan}.}
+
+\begin{solution}{21-1}
+For $V_n=F(X_{(k)})\sim\text{Beta}(k,n-k+1)$, $\E V_n=\frac k{n+1}$ and $\Var V_n=\frac{k(n-k+1)}{(n+1)^2(n+2)}\le\frac1{4(n+2)}$. Since $np\le k<np+1$, $\E V_n\to p$; by Chebyshev, $V_n\pto p$. If $F$ is continuous and $f(\xi_p)>0$, then $F$ is strictly increasing near $\xi_p$ and $F^{-1}$ is continuous at $p$. Since the probability of falling in flat regions of $F$ is zero, a.s.\ $X_{(k)}=F^{-1}(V_n)$. By Theorem~\ref{thm:cmt-p}, $X_{(k)}\pto F^{-1}(p)=\xi_p$.
+\end{solution}
+
+\begin{solution}{21-2}
+$B\sim\text{Bin}(25,\frac12)$. The coverage of $[X_{(r)},X_{(26-r)}]$ is $\P(r\le B\le25-r)$: $0.9854$ for $r=7$, $0.9567$ for $r=8$, $0.8922$ for $r=9$. The narrowest admissible interval is $[X_{(8)},X_{(18)}]$, with coverage $0.9567$. Normal approximation: if $B\approx\Normal(n/2,n/4)$ and $\P(r\le B\le n-r)\approx1-\alpha$, then $\frac{n/2-r}{\sqrt n/2}\approx z_{\alpha/2}$, i.e.\ $r\approx\frac n2-z_{\alpha/2}\frac{\sqrt n}2$. For $n=25$, $12.5-1.96\cdot2.5=7.6$; rounding gives $r=8$.
+\end{solution}
+
+\begin{solution}{21-3}
+Sums of the $20$ three-element subsets of $\{1,\dots,6\}$: $W$ takes the values $6,7,\dots,15$ for $1,1,2,3,3,3,3,2,1,1$ subsets respectively (each $/20$). $\E W=\frac{210}{20}=10.5=\frac{3\cdot7}2$; $\E W^2=\frac{2310}{20}=115.5$, $\Var W=115.5-110.25=5.25=\frac{3\cdot3\cdot7}{12}$. Both agree with Theorem~\ref{thm:mann-whitney}. $\E U=\sum_{i,j}\P(X_i<Y_j)=mn\,\P(X<Y)$, so $U/(mn)$ is unbiased.
+\end{solution}
+
+\begin{solution}{21-4}
+$R(K)=\frac1{2\sqrt\pi}$, $\mu_2=1$, $R(f'')=\frac3{8\sqrt\pi\sigma^5}$:
+\[
+h^*=\Big[\frac{1/(2\sqrt\pi)}{3n/(8\sqrt\pi\sigma^5)}\Big]^{1/5}=\Big(\frac{8\sigma^5}{6n}\Big)^{1/5}=\Big(\frac43\Big)^{1/5}\sigma n^{-1/5}\approx1.059\,\sigma n^{-1/5}.
+\]
+In practice $\sigma$ is estimated by $S$ or by $\min(S,\mathrm{IQR}/1.34)$, which is more robust for multimodal or skewed data. The application in Chapter~\ref{ch:parametrik-olmayan} showed that the rule oversmooths a bimodal density.
+\end{solution}
+
+\section{Multiple Testing}
+\noindent{\small Chapter~\ref{ch:coklu-test}.}
+
+\begin{solution}{22-1}
+Adjusted values for the ordered $p$-values:
+\begin{center}
+\footnotesize
+\begin{tabular}{lcccccccccc}
+\toprule
+$k$ & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10\\
+\midrule
+Bonferroni & 0.010 & 0.080 & 0.390 & 0.410 & 0.420 & 0.600 & 0.740 & 1 & 1 & 1\\
+Holm & 0.010 & 0.072 & 0.312 & 0.312 & 0.312 & 0.312 & 0.312 & 0.615 & 0.615 & 0.615\\
+BH & 0.010 & 0.040 & 0.084 & 0.084 & 0.084 & 0.100 & 0.106 & 0.216 & 0.216 & 0.216\\
+\bottomrule
+\end{tabular}
+\end{center}
+At $\alpha=0.05$, Bonferroni and Holm reject only $H_{(1)}$, and BH rejects $H_{(1)},H_{(2)}$; the same as in Example~\ref{ex:on-p}. The Holm values use a ``cumulative maximum'' (step-down structure), the BH values a ``cumulative minimum from the end'' (step-up structure). At $\alpha=0.10$, BH rejects the first six hypotheses: $p_{(6)}=0.060\le0.10\cdot6/10$, but $p_{(7)}=0.074>0.07$ and the later ones also exceed their thresholds.
+\end{solution}
+
+\begin{solution}{22-2}
+By independence $\P(V=0)=(1-\alpha)^m$, so FWER $=1-(1-\alpha)^m$: $0.05;\ 0.226;\ 0.642;\ 0.994$ for $m=1,5,20,100$. For Šidák, $m\alpha_m=m\big(1-e^{\ln(1-\alpha)/m}\big)\to-\ln(1-\alpha)$ ($e^x=1+x+o(x)$). At $\alpha=0.05$ this is $0.0513$; the Bonferroni counterpart is $m\cdot\alpha/m=0.05$. The gain from independence is this small. This is why Bonferroni is a nearly optimal single-step procedure even under independence.
+\end{solution}
+
+\begin{solution}{22-3}
+The procedure: if $\min_ip_i\le\alpha/m$ (the global test rejects), reject every $H_i$ with $p_i\le\alpha$; otherwise reject none. When all nulls are true, a rejection requires the global test to reject, which has probability $\le\alpha$; so there is weak control. Now let $H_1$ be false with a very powerful test ($p_1\approx0$), and the other $m-1$ hypotheses true and independent. The global test rejects almost always, and each true null is rejected with probability $\alpha$: $\mathrm{FWER}\approx1-(1-\alpha)^{m-1}$, about $0.62$ for $m=20$. There is no strong control. This shows why the closed testing principle requires all intersection hypotheses to be tested.
+\end{solution}
+
+\begin{solution}{22-4}
+$p_{\text{false}}=0$, $p_{\text{true}}=U\sim\text{Uniform}(0,1)$. In BH, $p_{(1)}=0\le\alpha/2$ always holds. If $p_{(2)}=U\le2\alpha/2=\alpha$, then $k^*=2$ ($R=2$, $V=1$); otherwise $k^*=1$ ($R=1$, $V=0$). $\mathrm{FDR}=\P(U\le\alpha)\cdot\frac12=\frac\alpha2=\frac{m_0}m\alpha$, in full agreement with Theorem~\ref{thm:bh}.
+\end{solution}
+
+\section{EM and GLMs}
+\noindent{\small Chapter~\ref{ch:em-glm}.}
+
+\begin{solution}{23-1}
+The complete-data log-likelihood $n\ln\lambda-\lambda\sum_iT_i$ is linear in $\sum T_i$. For the censored units the E-step gives $\E[T_j\mid T_j>c_j]=c_j+1/\lambda^{(t)}$ (memorylessness). M-step:
+\[
+\lambda^{(t+1)}=\frac{n}{S+(n-d)/\lambda^{(t)}},\qquad S=\sum_{\text{observed}}t_i+\sum_{\text{censored}}c_j .
+\]
+At the fixed point $\lambda S+(n-d)=n$, i.e.\ $\hat\lambda=d/S$: ``number of events / total time at risk''. This is the MLE of the censored likelihood $\lambda^de^{-\lambda S}$ directly. For the map $M(\lambda)=n/(S+(n-d)/\lambda)$, $M'(\lambda)=\frac{n(n-d)/\lambda^2}{(S+(n-d)/\lambda)^2}$. Since $S+(n-d)/\hat\lambda=n/\hat\lambda$ at the fixed point, $M'(\hat\lambda)=\frac{n-d}{n}$: the rate of convergence is exactly the censoring (missing data) fraction.
+\end{solution}
+
+\begin{solution}{23-2}
+Normal--identity: $g'(\mu)=1$, $V=1$, so $W=I$ and $z_i=\eta_i+(y_i-\eta_i)=y_i$. The IRLS step is $(X^\top X)^{-1}X^\top\mathbf y$ regardless of the starting point, and reaches LS in a single step. Bernoulli--logit: $\mu_i=e^{\eta_i}/(1+e^{\eta_i})$, $g'(\mu)=\frac1{\mu(1-\mu)}$, $V=\mu(1-\mu)$. Hence $W_{ii}=\mu_i(1-\mu_i)$ and $z_i=\eta_i+\frac{y_i-\mu_i}{\mu_i(1-\mu_i)}$. These two formulas are used in the code.
+\end{solution}
+
+\begin{solution}{23-3}
+If $\mu=\Phi(\eta)$, then $g'(\mu)=1/\phi(\eta)$ and $V=\Phi(1-\Phi)$; by Theorem~\ref{thm:glm-skor}, $W_{ii}=\frac{\phi(\eta_i)^2}{\Phi(\eta_i)(1-\Phi(\eta_i))}$. For the log-likelihood of an observation, $\ell_i=y\ln\Phi(\eta)+(1-y)\ln(1-\Phi(\eta))$, we have $\frac{\partial\ell_i}{\partial\eta}=(y-\Phi)\,h(\eta)$ with $h=\frac{\phi}{\Phi(1-\Phi)}$. The second derivative is
+\[
+\frac{\partial^2\ell_i}{\partial\eta^2}=-\phi\,h+(y-\Phi)\,h'(\eta) .
+\]
+The second term depends on $y$ and is non-zero; its expectation vanishes since $\E y=\Phi$, leaving $-\E\,\partial^2\ell_i=\phi h=W_{ii}$. Hence the observed information generally differs from the expected information, and Newton and Fisher scoring take different steps (with the same limit).
+\end{solution}
+
+\begin{solution}{23-4}
+At $\hat\theta=0.626821$ the expected latent count is $x_2=125\hat\theta/(2+\hat\theta)=29.83$.
+\[
+I_{\text{com}}=\frac{x_2+y_4}{\hat\theta^2}+\frac{y_2+y_3}{(1-\hat\theta)^2}=435.32,\qquad
+I_{\text{obs}}=\frac{y_1}{(2+\hat\theta)^2}+\frac{y_2+y_3}{(1-\hat\theta)^2}+\frac{y_4}{\hat\theta^2}=377.52 .
+\]
+The fraction of missing information is $1-377.52/435.32=0.1328$; the same as the successive error ratio in the application. The standard error is $1/\sqrt{377.52}=0.0515$; had the complete data been observed it would be $1/\sqrt{435.32}=0.0479$.
+\end{solution}
