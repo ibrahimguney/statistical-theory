@@ -144,6 +144,10 @@ Using $2\lambda_0\sum X_i=2ny\sim\chi^2_{2n}$, with $n=10$ and the critical valu
 On $\Theta=[0,\infty)$ the restricted MLE is $\hat\mu=\max(\bar X,0)$. If $\bar X>0$, $G^2=n\bar X^2$, otherwise $G^2=0$. Under $H_0$, $\sqrt n\bar X=Z\sim\Normal(0,1)$: $\P(G^2=0)=\frac12$ and for $x>0$, $\P(G^2\le x)=\frac12+\frac12\P(Z^2\le x)$; i.e.\ the mixture $\frac12\chi^2_0+\frac12\chi^2_1$. If $\chi^2_{1;0.05}=3.84$ is used, the true size is $\P(Z>1.96)=0.025$. The correct critical value is $\chi^2_{1;0.10}=2.71$ (equivalent to the one-sided $z$-test).
 \end{solution}
 
+\begin{solution}{15-5}
+For the 14 corps $\bar T=14$; $X^2=\sum_c(T_c-14)^2/14=27.29$ and $G^2=26.14$ (df $=13$), with $p$-values $0.011$ and $0.016$. The Pearson $X^2$ is the score-test counterpart of the LRT (Chapter~\ref{ch:lrt}, the ``Which Test?'' remark), and the two are close. With XI and XIV removed ($K=12$, $\bar T=11.5$), $X^2=10.14$ and $G^2=10.53$ (df $=11$), $p\approx0.5$: the remaining corps look homogeneous. But this second analysis was carried out after the two most extreme corps were chosen and removed \emph{by looking at the data}; forming and testing a hypothesis with the same data systematically inflates the $p$-value (biases it in favour of homogeneity). A valid route is to base the removal on a reason independent of the data (such as Fisher's argument about organisation), or to use a multiple-comparison correction that accounts for choosing the most extreme corps (Chapter~\ref{ch:coklu-test}).
+\end{solution}
+
 \section{Confidence Intervals}
 \noindent{\small Chapter~\ref{ch:guven}.}
 
@@ -228,6 +232,10 @@ $\E\bar X^2=\mu^2+\sigma^2/n$: in Theorem~\ref{thm:jackknife}, $a=\sigma^2$, $b=
 That is, the jackknife correction automatically produces the UMVUE of $\mu^2$ (in the normal model). Numerical check ($n=12$): the two expressions agree exactly, $5.369554$.
 \end{solution}
 
+\begin{solution}{18-5}
+With $r_{(i)}$ the correlation computed with the $i$th school removed and $r_{(\cdot)}$ their mean, $\widehat{\mathrm{se}}_{\text{jack}}=\sqrt{\frac{n-1}{n}\sum_i(r_{(i)}-r_{(\cdot)})^2}=0.143$. The three values: jackknife $0.143$, bootstrap $0.135$, true SD $0.119$. The jackknife rests on a linear approximation of the statistic and gives results close to the bootstrap for smooth statistics such as the correlation (here somewhat larger). For non-smooth statistics, for example the median or another quantile, it is inconsistent: when one observation is removed, the median only jumps between two neighbouring values, and the jackknife variance does not converge to the correct value \cite{efron-tib}.
+\end{solution}
+
 \section{Bayesian Inference}
 \noindent{\small Chapter~\ref{ch:bayes}.}
 
@@ -273,4 +281,8 @@ m(x)=\int_0^\infty\frac{e^{-\theta}\theta^x}{x!}\,\frac{\beta^\alpha\theta^{\alp
 \]
 the negative binomial with success probability $\beta/(1+\beta)$. Hence $(x+1)\frac{m(x+1)}{m(x)}=(x+1)\cdot\frac{\alpha+x}{x+1}\cdot\frac1{1+\beta}=\frac{\alpha+x}{1+\beta}$, which is the posterior mean of Theorem~\ref{thm:gamma-poisson} for $n=1$.
 The true Bayes rule is nondecreasing: the posterior densities satisfy $\pi(\theta\mid x+1)\propto\theta\,\pi(\theta\mid x)$. Hence $\E[\theta\mid x+1]=\E[\theta^2\mid x]/\E[\theta\mid x]\ge\E[\theta\mid x]$, because $\E[\theta^2\mid x]\ge(\E[\theta\mid x])^2$. A larger count is stronger evidence that the unit has a larger $\theta$; a decreasing estimate contradicts this intuition and the true rule. In practical Robbins estimates (see the table in the chapter: $2.76$ at $x=3$, $2.66$ at $x=4$) this is sampling noise from small values of $N(x)$, and it shows that the ratios should be smoothed.
+\end{solution}
+
+\begin{solution}{19-7}
+For $g(y)=\sqrt{45}\arcsin(2y-1)$, $g'(y)=\sqrt{45}/\sqrt{y(1-y)}$; by the delta method $\Var g(y_i)\approx45\cdot\frac{1}{y(1-y)}\cdot\frac{\theta(1-\theta)}{45}=1$, so the variance does not depend on $\theta_i$. With $\bar x$ and $S_x=\sum(x_i-\bar x)^2$, $\hat B=(k-3)/S_x=0.791$ (very close to $0.788$ on the binomial scale). The shrunken values $\hat x_i=\bar x+(1-\hat B)(x_i-\bar x)$ are transformed back by $\hat\theta_i=\big(\sin(\hat x_i/\sqrt{45})+1\big)/2$. The total squared error is $0.0215$ ($0.0213$ with the normal approximation); 15 of the 18 players are predicted better than by the MLE. Variance stabilisation makes little difference here, because with averages between $0.16$ and $0.40$ the quantity $\theta(1-\theta)$ varies little.
 \end{solution}

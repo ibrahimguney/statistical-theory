@@ -186,6 +186,29 @@ Pearson X^2 = 3.5208, p = 0.3181 | G^2 = 3.2795, p = 0.3505
 
 With $n=40$ and a smallest expected cell frequency of $4$, the size of Pearson's $X^2$ is closer to the nominal level than that of $G^2$; for small expected frequencies the chi-square approximation for $G^2$ improves more slowly. The rule of thumb ``expected frequency $\ge5$ in every cell'' is based on this observation.
 
+\subsection{Real Data: Deaths by Horse Kick in the Prussian Army}\label{sec:at-tekmesi}
+The data that Bortkiewicz compiled to illustrate his ``law of small numbers'' \cite{bortkiewicz98} are the most famous application of the Poisson distribution: the number of soldiers killed by horse kicks each year in 14 Prussian army corps, 1875--1894. Fisher left out four corps that were organised differently and used the 200 corps-years of the remaining 10. The code asks two questions. (i) Do the counts follow a Poisson distribution? Since $\lambda$ is estimated by the MLE, the degrees of freedom of the Pearson $X^2$ and $G^2$ statistics are the number of cells minus one, minus the number of estimated parameters: $4-1-1=2$. (Because $\lambda$ is estimated from the ungrouped data, the null distribution is not exactly $\chi^2_2$ but lies between $\chi^2_2$ and $\chi^2_3$ \cite{chernoff-lehmann54}; here the difference is negligible.) (ii) Do all corps produce deaths at the same rate? The 20-year total of corps $c$ is $T_c\sim\text{Poisson}(20\lambda_c)$. The LRT of the model with a separate rate for each corps against the common-rate model,
+\[
+G^2=2\sum_cT_c\ln\frac{T_c}{20\hat\lambda},
+\]
+is approximately $\chi^2_{K-1}$ by Wilks\index{wilks theorem@Wilks' theorem}' theorem (Theorem~\ref{thm:wilks}), where $K$ is the number of corps.
+
+\pycode{code/ch15/c15_4_horse_kicks_real_data.py}
+\begin{lstlisting}[style=output]
+Fisher's 10 corps: 200 corps-years, 122 deaths, lambda^ = 0.610
+  observed (0, 1, 2, 3+) = [109  65  22   4] | expected = [108.67  66.29  20.22   4.82]
+  fit: X^2 = 0.324, G^2 = 0.328, df = 2, p = 0.849
+  corps totals = [12 12  8 11 12  7 13 15 24  8]
+  homogeneity LRT: G^2 = 15.58, df = 9, p = 0.0762
+All 14 corps: 280 corps-years, 196 deaths, lambda^ = 0.700
+  observed (0, 1, 2, 3+) = [144  91  32  13] | expected = [139.04  97.33  34.07   9.56]
+  fit: X^2 = 1.952, G^2 = 1.835, df = 2, p = 0.399
+  corps totals = [16 16 12 12  8 11 17 12  7 13 15 25 24  8]
+  homogeneity LRT: G^2 = 26.14, df = 13, p = 0.0163
+\end{lstlisting}
+
+For Fisher's 10 corps the Poisson fit is strikingly good: observed and expected frequencies are almost identical ($p=0.85$). This table is why the data have been the textbook example of the Poisson distribution for a century. With all 14 corps the marginal goodness-of-fit\index{goodness of fit@goodness of fit} test still sees no problem ($p=0.40$). The homogeneity LRT, however, finds a significant difference between the corps ($p=0.016$): corps XI and XIV produced 25 and 24 deaths in 20 years, while some corps produced 7--8. The lesson: a goodness-of-fit test that ignores which corps each count came from has little power against heterogeneity of the rates. A mixture of Poissons with different rates also produces a histogram very close to a Poisson one (here the variance-to-mean ratio is only $1.09$). The LRT, which uses the structure of the data and tests the model against a specific alternative, detects the difference. Estimating the corps rates jointly is a natural application of the empirical Bayes\index{empirical bayes@empirical Bayes} approach of Chapter~\ref{ch:bayes}.
+
 \section{Comments and Notes}
 
 \begin{remark}[Which Test?]
@@ -235,6 +258,11 @@ For the exponential distribution and $H_0:\lambda=\lambda_0$, construct the Wald
 \begin{exercise}\label{exr:15-4}
 A boundary parameter: $X_i\iid\Normal(\mu,1)$, $\Theta=[0,\infty)$, $H_0:\mu=0$. Show that $G^2=n\bar X^2\I\{\bar X>0\}$ and that under $H_0$, $G^2\dto\frac12\chi^2_0+\frac12\chi^2_1$. What is the true size of the test that uses the $\chi^2_1$ critical value?
 \hfill\hyperref[coz:15-4]{\footnotesize$\rightarrow$\,Solution}
+\end{exercise}
+
+\begin{exercise}\label{exr:15-5}
+For the horse-kick data (Section~\ref{sec:at-tekmesi}), compute the Pearson statistic $X^2=\sum_c(T_c-\bar T)^2/\bar T$ (the dispersion index test) for homogeneity across the 14 corps and compare it with $G^2$. How does the result change when corps XI and XIV are removed? Why is the $p$-value of this second analysis biased upwards?
+\hfill\hyperref[coz:15-5]{\footnotesize$\rightarrow$\,Solution}
 \end{exercise}
 
 \chapterlinks{15}

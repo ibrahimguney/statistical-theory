@@ -69,9 +69,22 @@ Labels (`thm:...`, `ex:...`, `ch:...`) are the same as in the Turkish edition, s
 edition can be located in the other by its label.
 
 ## Code
-All Python code is in the `code/chXX/*.py` files (69 files) and is shown in the book by the
+All Python code is in the `code/chXX/*.py` files (76 files) and is shown in the book by the
 `\pycode{...}` command. See `code/README.md` for setup, running and file naming. The "Output"
 boxes under the code blocks were produced by actually running the code.
+
+### Real data sets
+Five applications use classic, publicly available data sets. The data are small, so they are written
+into the code files; the Colab notebooks therefore need no extra files. The values were taken from the
+copies in R packages and checked against published results.
+
+| Chapter | Data | Original source | Taken from |
+|---|---|---|---|
+| 15 | Deaths by horse kick in the Prussian army | Bortkiewicz (1898) | R `vcd::VonBort` |
+| 18 | 15 and 82 law schools (LSAT, GPA) | Efron and Tibshirani (1993) | R `bootstrap::law`, `law82` |
+| 19 | 18 baseball players, 1970 | Efron and Morris (1975) | R `pscl::EfronMorris` |
+| 21 | Sleep drug data | Cushny and Peebles (1905), Student (1908) | R `datasets::sleep` |
+| 23 | O-ring damage before Challenger | Dalal, Fowlkes and Hoadley (1989) | R `vcd::SpaceShuttle` |
 
 ## Tools (`tools/`)
 - `run_blocks.py` — runs the `\pycode{...}` files of a chapter and refreshes its "Output" boxes:

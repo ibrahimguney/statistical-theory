@@ -282,6 +282,21 @@ n=200: Silverman h = 0.592 | AMISE-optimal h = 0.245
 
 The log--log slope of the MISE is about $-0.76$, close to the theoretical $-4/5$. For small $n$ the slope is somewhat flatter because of the terms neglected by AMISE. This rate is slower than the $1/n$ of parametric models: estimating a density locally at every point is harder than estimating finitely many parameters. The rate $n^{-4/5}$ is the minimax\index{minimax rule@minimax rule} rate over the class of twice-differentiable densities (Chapter~\ref{ch:karar}). That Silverman\index{silverman s rule@Silverman's rule}'s rule gives $0.59$, far from the optimal $0.25$, is a reminder that the ``rule'' rests on a normality assumption.
 
+\subsection{Real Data: Student's Sleep Data}\label{sec:uyku}
+The data in which Cushny and Peebles measured the effect of two sleeping drugs on 10 patients \cite{cushny-peebles05} are the example Student\index{t distribution student@$t$ distribution (Student)} used in the paper that introduced the $t$ distribution \cite{student08}. Every patient took both drugs; the measurement is the extra sleep produced by the drug (hours). Since patients differ a lot, the analysis must use the differences $d_i=\text{drug}_2-\text{drug}_1$. The data have two small features: one difference is zero and two differences are equal. So in the sign and Wilcoxon tests the zero difference is dropped, the equal differences get midranks, and the null distribution is computed exactly (conditionally) by enumerating the $2^9$ sign assignments. The code compares the paired $t$ test (Chapter~\ref{ch:guven}), the sign test, the Wilcoxon signed-rank test and the sign-flip permutation test\index{permutation test@permutation test}; it then shows the wrong analysis that ignores the pairing.
+
+\pycode{code/ch21/c21_4_sleep_data_real_data.py}
+\begin{lstlisting}[style=output]
+differences d = [1.2 2.4 1.3 1.3 0.  1.  1.8 0.8 4.6 1.4] | mean = 1.58, s = 1.230, median = 1.30
+paired t: t = 4.062, p = 0.0028, 95% CI = [0.70, 2.46]
+sign test: 9/9 positive, p = 0.0039
+Wilcoxon: W+ = 45.0 (largest possible value 45), exact p = 0.0039
+permutation: 2^10 = 1024 sign assignments, p = 0.0039
+two-sample t (wrong): t = 1.861, p = 0.0792 | Corr(drug1, drug2) = 0.795
+\end{lstlisting}
+
+The four valid analyses reach the same conclusion: the second drug increases extra sleep by $1.58$ hours on average ($95\%$ CI $[0.70,\,2.46]$). All nine nonzero differences are positive. So the three distribution-free tests give the smallest $p$-value attainable at this sample size: $2/2^9\approx0.0039$. Distribution-free tests have a floor for the $p$-value at small $n$; a smaller value can only be obtained with an extra assumption such as normality ($0.0028$ for the $t$ test). The two-sample $t$ test that ignores the pairing misses the effect ($p=0.079$). The reason is that the two measurements on the same patient are strongly correlated ($r=0.80$): some patients sleep a lot with both drugs, others little. Since the variance of the differences is $s_1^2+s_2^2-2rs_1s_2$, pairing removes this between-patient variability (Exercise~\ref{exr:21-5}). This is the value of pairing in experimental design.
+
 \section{Comments and Notes}
 
 \begin{remark}[Ties]
@@ -332,6 +347,11 @@ For $m=n=3$, derive the exact null distribution of $W$, compute $\E W$ and $\Var
 \begin{exercise}\label{exr:21-4}
 For the Gaussian kernel and the true density $\Normal(\mu,\sigma^2)$, compute the $h^*$ of Theorem~\ref{thm:kde} and show that $h^*=(4/3)^{1/5}\sigma n^{-1/5}\approx1.06\,\sigma n^{-1/5}$ (Silverman's rule). ($R(K)=\frac1{2\sqrt\pi}$, $\mu_2=1$ and $\int(\phi_\sigma'')^2=\frac{3}{8\sqrt\pi\sigma^5}$.)
 \hfill\hyperref[coz:21-4]{\footnotesize$\rightarrow$\,Solution}
+\end{exercise}
+
+\begin{exercise}\label{exr:21-5}
+In the sleep data the sample standard deviations of the two drugs are $s_1=1.789$ and $s_2=2.002$, and their correlation is $r=0.795$. Show that the standard deviation of the differences is $s_d=\sqrt{s_1^2+s_2^2-2rs_1s_2}$ and compute it. Compare the standard error of $\bar d$ in the paired analysis with $\sqrt{(s_1^2+s_2^2)/n}$ used in the two-sample analysis. When does pairing bring no gain?
+\hfill\hyperref[coz:21-5]{\footnotesize$\rightarrow$\,Solution}
 \end{exercise}
 
 \chapterlinks{21}

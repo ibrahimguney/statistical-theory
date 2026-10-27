@@ -280,6 +280,37 @@ Mean squared error over the 1954 units with x<=7: MLE=1.628 | Robbins=0.959 | tr
 
 The simulation confirms the theoretical Bayes risks to within $0.01$. When $\mu=0$, James--Stein shrinking towards zero is slightly better than EM, which spends one degree of freedom on estimating the mean. When $\mu=3$, however, shrinking towards zero gains almost nothing ($9.41$), while EM approaches the oracle. This is why learning the shrinkage\index{shrinkage@shrinkage} target from the data matters. The Robbins estimate, without knowing the prior at all, gives results close to the true Bayes rule and reduces the error of the MLE by about $40\%$. For large values of $x$ with few observations, however, the ratio $N(x+1)/N(x)$ is erratic. In practice the ratio is either smoothed or a parametric form is assumed for $G$.
 
+\subsection{Real Data: The Efron--Morris Baseball Data}\label{sec:beyzbol}
+The famous example Efron and Morris used to introduce empirical Bayes\index{empirical bayes@empirical Bayes} \cite{efron-morris75}: the batting average of 18 players over the rest of the 1970 season is predicted from their average $y_i$ over the first 45 at-bats. The rest of the season contains between $70$ and $586$ further at-bats per player and is a much better measure of the true hitting probability; it serves as the ``right answer'' for testing the estimators. Model: $45y_i\sim\text{Binom}(45,\theta_i)$; approximately $y_i\sim\Normal(\theta_i,\sigma^2)$ with common variance $\sigma^2=\bar y(1-\bar y)/45$, and $\theta_i\iid\Normal(\mu,\tau^2)$. On this scale the Efron--Morris estimator of Exercise~\ref{exr:19-5} is $\hat\theta_i=\bar y+(1-\hat B)(y_i-\bar y)$ with $\hat B=(k-3)\sigma^2/S$.
+
+\pycode{code/ch19/c19_6_efron_morris_baseball.py}
+\begin{lstlisting}[style=output]
+ybar = 0.2654 | B^ = 0.788 | shrinkage factor 1 - B^ = 0.212
+player             first 45  Efron-Morris  rest of season
+Roberto Clemente   0.400      0.294          0.346
+Frank Robinson     0.378      0.289          0.298
+Frank Howard       0.356      0.285          0.276
+Jay Johnstone      0.333      0.280          0.222
+Ken Berry          0.311      0.275          0.273
+Jim Spencer        0.311      0.275          0.270
+Don Kessinger      0.289      0.270          0.263
+Luis Alvarado      0.267      0.266          0.210
+Ron Santo          0.244      0.261          0.269
+Ron Swoboda        0.244      0.261          0.230
+Del Unser          0.222      0.256          0.264
+Billy Williams     0.222      0.256          0.256
+George Scott       0.222      0.256          0.303
+Rico Petrocelli    0.222      0.256          0.264
+Ellie Rodriguez    0.222      0.256          0.226
+Bert Campaneris    0.200      0.252          0.285
+Thurman Munson     0.178      0.247          0.316
+Max Alvis          0.156      0.242          0.200
+total squared error: MLE = 0.0753 | Efron-Morris = 0.0213 | ybar for everyone = 0.0243
+players predicted better by Efron-Morris: 16 / 18
+\end{lstlisting}
+
+The estimated shrinkage factor is $0.212$: each player's distance from the mean is cut to about one fifth. For Clemente, who started the season at $0.400$, the prediction is $0.294$ (actual $0.346$); for Alvis, who started at $0.156$, it is $0.242$ (actual $0.200$). The total squared error falls from $0.0753$ to $0.0213$, a factor of $3.5$, and 16 of the 18 players are predicted better. Only for Swoboda and Rodriguez does shrinkage increase the error. Giving everyone the common mean (complete pooling) also does well ($0.0243$), but the Efron--Morris estimator does even better by choosing the degree of pooling from the data. Two caveats: the rest-of-season average is itself noisy (especially for Alvis, with few at-bats), and Efron and Morris used the angular (arcsine) transformation to equalise the variances (Exercise~\ref{exr:19-7}). The conclusion is not sensitive to these choices.
+
 \section{Comments and Notes}
 
 \begin{remark}[Choosing the Prior]
@@ -344,6 +375,11 @@ Let $\theta_i\iid\Normal(\mu,\tau^2)$ and $X_i\mid\theta_i\sim\Normal(\theta_i,1
 \begin{exercise}\label{exr:19-6}
 In Proposition~\ref{prop:robbins} take $G=\text{Gamma}(\alpha,\beta)$ (shape, rate). Show that $m$ is a negative binomial probability function and that Robbins' formula gives the posterior mean of Theorem~\ref{thm:gamma-poisson} ($n=1$). Why is it undesirable that the Robbins estimate $\hat\theta(x)=(x+1)N(x+1)/N(x)$ can be decreasing in $x$? Show that the true Bayes rule is nondecreasing in $x$.
 \hfill\hyperref[coz:19-6]{\footnotesize$\rightarrow$\,Solution}
+\end{exercise}
+
+\begin{exercise}\label{exr:19-7}
+Reanalyse the baseball data (Section~\ref{sec:beyzbol}) with Efron and Morris's angular transformation: $x_i=\sqrt{45}\,\arcsin(2y_i-1)$ is approximately $\Normal(\sqrt{45}\arcsin(2\theta_i-1),\,1)$ (delta method, Example~\ref{ex:varyans-dengeleme}). Apply Efron--Morris shrinkage to the $x_i$ with $\sigma^2=1$, transform back, and compute the total squared error.
+\hfill\hyperref[coz:19-7]{\footnotesize$\rightarrow$\,Solution}
 \end{exercise}
 
 \chapterlinks{19}

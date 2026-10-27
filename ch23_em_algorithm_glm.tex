@@ -226,6 +226,22 @@ IRLS\index{irls@IRLS} reaches the same estimates as a general-purpose optimiser 
 
 The last lines show a situation in which the MLE does not exist. If all observations with $x>0$ are $1$ and those with $x<0$ are $0$ (\emph{complete separation\index{complete separation@complete separation}}), the slope goes to infinity and drives the log-likelihood towards zero; the supremum is not attained at any finite $\bm\beta$. In IRLS the slope roughly doubles at each step, and the algorithm eventually breaks down numerically. Albert and Anderson \cite{albert-anderson84} showed that in logistic regression\index{logistic regression@logistic regression} a finite MLE exists if and only if the data are not completely or quasi-completely separated. In practice penalised likelihood or Bayesian priors are used.
 
+\subsection{Real Data: O-Ring Damage Before Challenger}\label{sec:challenger}
+On 28 January 1986 the space shuttle Challenger broke apart 73 seconds after launch. The cause was that the O-rings in the joints of the solid rocket boosters lost their elasticity in the cold. On the night before the launch, engineers discussed the effect of temperature. It is reported that the discussion mostly looked only at the flights on which O-ring damage had been seen. Once the undamaged flights are taken into account, however, the picture changes: all 16 undamaged flights were launched at $66^\circ$F or above, while four of the 7 damaged flights were launched at $63^\circ$F or below. Dalal and colleagues \cite{dalal89} analysed all 23 previous flights with logistic regression. The code fits the model $\operatorname{logit}\P(\text{damage})=\beta_0+\beta_1T$ by the IRLS of Chapter~\ref{ch:em-glm}; it gives the Wald and LRT\index{likelihood ratio test lrt@likelihood ratio test (LRT)} tests of $\beta_1=0$, the odds multiplier for a $10^\circ$F drop, and the damage probability at several temperatures. The temperature forecast for the morning of the launch, and used in the analysis of Dalal and colleagues, is $31^\circ$F (about $-0.6^\circ$C). The probability intervals are built on the logit scale by the delta method\index{delta method@delta method} and transformed back.
+
+\pycode{code/ch23/c23_3_challenger_real_data.py}
+\begin{lstlisting}[style=output]
+23 flights, 7 with damage | beta^ = (15.043, -0.2322), SE = (7.379, 0.1082)
+H0: beta1 = 0 | Wald z = -2.145, p = 0.0320 | LRT G^2 = 7.952, p = 0.0048
+odds multiplier for a 10 F drop = 10.19, 95% CI = [1.22, 85.04]
+T = 75 F: P(damage) = 0.0855, 95% CI = [0.0146, 0.3713]
+T = 65 F: P(damage) = 0.4881, 95% CI = [0.2136, 0.7700]
+T = 53 F: P(damage) = 0.9392, 95% CI = [0.3499, 0.9978]
+T = 31 F: P(damage) = 0.9996, 95% CI = [0.4816, 1.0000]
+\end{lstlisting}
+
+The temperature coefficient is $\hat\beta_1=-0.232$: each $10^\circ$F drop in temperature multiplies the odds of damage by about $10$ ($95\%$ CI $1.2$--$85$). With only 23 observations the Wald and LRT $p$-values differ markedly ($0.032$ and $0.005$). In line with the advice of Chapter~\ref{ch:lrt}, the LRT should be trusted. The predicted damage probability at $31^\circ$F is $0.9996$. But this temperature is $22^\circ$F below the coldest observed launch ($53^\circ$F). The form of the model cannot be checked against data in this region, and the interval is very wide: $[0.48,\,1.00]$. Even the lower end of the interval says that damage is as likely as a coin toss. There are two lessons. First, observations without an event (the undamaged flights) carry as much information as those with an event, and selecting the data can mislead an analysis completely. Second, when extrapolating, the uncertainty must be reported explicitly. The binomial model that uses the number of damaged O-rings is in Exercise~\ref{exr:23-5}.
+
 \section{Comments and Notes}
 
 \begin{remark}[EM versus Newton]
@@ -275,6 +291,12 @@ In the probit model ($\mu=\Phi(\eta)$, a non-canonical link), find the weights o
 \begin{exercise}\label{exr:23-4}
 In Example~\ref{ex:baglanti}, compute $I_{\text{obs}}=-\ell''(\hat\theta)$ and $I_{\text{com}}=\E_{\hat\theta}[-\ell_c''(\hat\theta)\mid\mathbf y]$ at $\hat\theta$. Verify that the fraction of missing information equals the successive error ratio $0.1328$ of the Computational Applications section. What is the standard error of $\hat\theta$?
 \hfill\hyperref[coz:23-4]{\footnotesize$\rightarrow$\,Solution}
+\end{exercise}
+
+\begin{exercise}\label{exr:23-5}
+In the Challenger data each flight has 6 O-rings, and the numbers of damaged rings, in flight order, are
+$0,1,0,0,0,0,0,0,1,1,1,0,0,2,0,0,0,0,0,0,2,1,0$ (the flight order of Section~\ref{sec:challenger}). The model of Dalal and colleagues is $Y_i\sim\text{Binom}(6,p_i)$, $\operatorname{logit}p_i=\alpha+\beta T_i$. Find the MLE, the LRT of $\beta=0$, and the probability that a ring is damaged at $31^\circ$F together with its Wald interval. Why is the assumption that the 6 rings on a flight are independent doubtful, and how does it affect the standard errors?
+\hfill\hyperref[coz:23-5]{\footnotesize$\rightarrow$\,Solution}
 \end{exercise}
 
 \chapterlinks{23}

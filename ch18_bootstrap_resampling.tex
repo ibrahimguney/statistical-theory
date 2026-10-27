@@ -36,7 +36,7 @@ Let $\hat\theta^*_{(\alpha)}$ be the $\alpha$ quantile of the bootstrap distribu
 \end{enumerate}
 \end{definition}
 
-\begin{definition}[Jackknife]\index{jackknife@jackknife|textbf}
+\begin{definition}[Jackknife]\label{def:jackknife-tanim}\index{jackknife@jackknife|textbf}
 Let $\hat\theta_{(i)}$ be the estimate computed with the $i$-th observation deleted, and $\hat\theta_{(\cdot)}=\frac1n\sum_i\hat\theta_{(i)}$. The jackknife bias and standard error estimates are
 \[
 \widehat{\Bias}_{\text{jack}}=(n-1)\big(\hat\theta_{(\cdot)}-\hat\theta\big),\qquad
@@ -220,6 +220,19 @@ rejection rate under H0 (target 0.05): permutation = 0.057 | Welch t = 0.026
 
 Three observations: (i) The jackknife\index{jackknife@jackknife} correction turns $\hat\sigma^2$ exactly into $S^2$ (Theorem~\ref{thm:jackknife}, $b=0$). (ii) When a single observation is deleted, the median takes only a few distinct values; the jackknife SE is therefore inconsistent for non-smooth statistics such as the median (the bootstrap is consistent). (iii) Under $H_0$, in small and skewed samples, the permutation test\index{permutation test@permutation test} keeps its exact level (Theorem~\ref{thm:permutasyon}) while the Welch\index{welch approximation@Welch approximation} $t$-test is overly conservative; this is why the permutation test can be more powerful on the same data.
 
+\subsection{Real Data: Law Schools and the Bootstrap of a Correlation}\label{sec:hukuk}
+The data Efron and Tibshirani used to introduce the bootstrap \cite{efron-tib}: the average LSAT score and undergraduate GPA of 82 US law schools, and a random sample of 15 schools from this population. These data offer a rare situation: since the population is known, the \emph{true} sampling distribution that the bootstrap tries to approximate can also be computed. The code computes the bootstrap standard error of the sample correlation $r$ and four $95\%$ intervals: percentile, basic, BCa, and the Fisher $z$ interval based on bivariate normality (Example~\ref{ex:varyans-dengeleme}). It then draws 15 schools from the population without replacement to find the true standard deviation of $r$.
+
+\pycode{code/ch18/c18_5_law_schools_real_data.py}
+\begin{lstlisting}[style=output]
+sample r = 0.7764 | bootstrap SE = 0.1354, bias = -0.0058
+95% intervals: percentile [0.456, 0.962] | basic [0.591, 1.097] | BCa [0.317, 0.943] | Fisher z [0.439, 0.922]
+BCa constants: z0 = -0.105, acceleration a = -0.076
+population rho = 0.7600 | true SD(r) = 0.1185 | E(r) = 0.7486
+\end{lstlisting}
+
+The bootstrap standard error ($0.135$) is somewhat above the true value ($0.119$). Part of the difference is that the bootstrap draws from 15 observations \emph{with} replacement, whereas the actual sample was drawn from 82 schools \emph{without} replacement. Multiplied by the finite-population correction $\sqrt{(82-15)/(82-1)}\approx0.91$, the bootstrap SE is $\approx0.123$, closer to the true value. The behaviour of the intervals is instructive. The bootstrap distribution of $r$ is skewed to the left. The \emph{basic} interval reflects this skewness in the wrong direction, so its upper end is $1.097$, outside the possible values of a correlation. The percentile and BCa intervals respect transformations and stay inside $[-1,1]$. The BCa interval extends further to the left because of its skewness ($a<0$) and bias ($z_0<0$) corrections. The normal-theory Fisher $z$ interval is close to the percentile interval. The population correlation $\rho=0.760$ lies inside all four intervals.
+
 \section{Comments and Notes}
 
 \begin{remark}[When Does the Bootstrap Work?]
@@ -273,6 +286,11 @@ For $X_i\iid\text{Cauchy}(\theta,1)$ data, compute the bootstrap SE of the sampl
 \begin{exercise}\label{exr:18-4}
 Using Theorem~\ref{thm:jackknife}, show that the jackknife-corrected version of $\hat\theta=\bar X^2$ (an estimate of $\mu^2$) is exactly unbiased, and compare the result with $\bar X^2-S^2/n$.
 \hfill\hyperref[coz:18-4]{\footnotesize$\rightarrow$\,Solution}
+\end{exercise}
+
+\begin{exercise}\label{exr:18-5}
+For the law-school sample (Section~\ref{sec:hukuk}), compute the jackknife standard error of $r$ (Definition~\ref{def:jackknife-tanim}) and compare it with the bootstrap SE and with the true SD found from the population. For what kind of statistics is the jackknife unreliable?
+\hfill\hyperref[coz:18-5]{\footnotesize$\rightarrow$\,Solution}
 \end{exercise}
 
 \chapterlinks{18}

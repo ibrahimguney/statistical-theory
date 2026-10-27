@@ -55,6 +55,10 @@ h^*=\Big[\frac{1/(2\sqrt\pi)}{3n/(8\sqrt\pi\sigma^5)}\Big]^{1/5}=\Big(\frac{8\si
 In practice $\sigma$ is estimated by $S$ or by $\min(S,\mathrm{IQR}/1.34)$, which is more robust for multimodal or skewed data. The application in Chapter~\ref{ch:parametrik-olmayan} showed that the rule oversmooths a bimodal density.
 \end{solution}
 
+\begin{solution}{21-5}
+For $d_i=b_i-a_i$ a linear identity gives the sample variance $s_d^2=s_b^2+s_a^2-2\,\widehat{\Cov}(a,b)=s_1^2+s_2^2-2rs_1s_2$ (the sample counterpart of Proposition~\ref{prop:kovaryans}). Numerically $s_d=\sqrt{3.201+4.009-2(0.795)(1.789)(2.002)}=1.230$. In the paired analysis $\mathrm{SE}(\bar d)=1.230/\sqrt{10}=0.389$; in the two-sample analysis $\sqrt{(s_1^2+s_2^2)/10}=0.849$. The standard error falls by more than half and the $t$ statistic rises from $1.86$ to $4.06$. Pairing pays off when $r>0$. If $r\le0$, then $s_d^2\ge s_1^2+s_2^2$; moreover the paired analysis uses $n-1$ degrees of freedom and the two-sample analysis $2n-2$. So for uncorrelated measurements pairing is a slight loss.
+\end{solution}
+
 \section{Multiple Testing}
 \noindent{\small Chapter~\ref{ch:coklu-test}.}
 
@@ -117,4 +121,8 @@ I_{\text{com}}=\frac{x_2+y_4}{\hat\theta^2}+\frac{y_2+y_3}{(1-\hat\theta)^2}=435
 I_{\text{obs}}=\frac{y_1}{(2+\hat\theta)^2}+\frac{y_2+y_3}{(1-\hat\theta)^2}+\frac{y_4}{\hat\theta^2}=377.52 .
 \]
 The fraction of missing information is $1-377.52/435.32=0.1328$; the same as the successive error ratio in the application. The standard error is $1/\sqrt{377.52}=0.0515$; had the complete data been observed it would be $1/\sqrt{435.32}=0.0479$.
+\end{solution}
+
+\begin{solution}{23-5}
+IRLS gives $\hat\alpha=5.085$ and $\hat\beta=-0.1156$, with standard errors $3.052$ and $0.0470$ (the values of Dalal and colleagues). The LRT of $\beta=0$ gives $G^2=6.14$, $p=0.013$; Wald $z=-2.46$, $p=0.014$. At $31^\circ$F, $\hat p=0.818$ and the $95\%$ Wald interval built on the logit scale is $[0.160,\,0.991]$; the expected number of damaged rings is $6\times0.818\approx4.9$. The rings on the same flight are exposed to the same temperature, the same assembly and the same combustion conditions, so their damage is positively correlated. This creates a variance larger than the binomial assumption predicts (overdispersion). The standard errors of the binomial model are then too small. Sandwich standard errors (Proposition~\ref{prop:sandvic-genel}), or the model that uses the flight-level binary outcome (the application in the chapter), are more reliable.
 \end{solution}
