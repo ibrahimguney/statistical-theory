@@ -31,6 +31,47 @@ Let $X_1,\dots,X_m\iid F$ and $Y_1,\dots,Y_n\iid G$ be independent, $N=m+n$. The
 One sample: $D_n=\sup_x|\hat F_n(x)-F_0(x)|$, for $H_0:F=F_0$. Two samples: $D_{m,n}=\sup_x|\hat F_m(x)-\hat G_n(x)|$, for $H_0:F=G$.
 \end{definition}
 
+% <<fig:ks-mesafe>>
+The one-sample statistic is shown in Figure~\ref{fig:ks-mesafe}.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[x=1.7cm,y=4.2cm,font=\small]
+\draw[->] (-2.7,0) -- (2.8,0) node[below] {$x$}; \draw[->] (-2.6,0) -- (-2.6,1.12);
+\draw (-2.62,1) -- (-2.58,1) node[left] {1}; \draw (-2.62,0.5) -- (-2.58,0.5) node[left] {0.5};
+\draw[thick,red!60!black] (-2.600,0.005) -- (-2.542,0.006) -- (-2.483,0.007) -- (-2.425,0.008) -- (-2.366,0.009) -- (-2.308,0.011) -- (-2.249,0.012) -- (-2.191,0.014) -- (-2.133,0.016) -- (-2.074,0.019) -- (-2.016,0.022) -- (-1.957,0.025) -- (-1.899,0.029) -- (-1.840,0.033) -- (-1.782,0.037) -- (-1.724,0.042) -- (-1.665,0.048) -- (-1.607,0.054) -- (-1.548,0.061) -- (-1.490,0.068) -- (-1.431,0.076) -- (-1.373,0.085) -- (-1.315,0.094) -- (-1.256,0.105) -- (-1.198,0.116) -- (-1.139,0.127) -- (-1.081,0.140) -- (-1.022,0.153) -- (-0.964,0.168) -- (-0.906,0.183) -- (-0.847,0.198) -- (-0.789,0.215) -- (-0.730,0.233) -- (-0.672,0.251) -- (-0.613,0.270) -- (-0.555,0.289) -- (-0.497,0.310) -- (-0.438,0.331) -- (-0.380,0.352) -- (-0.321,0.374) -- (-0.263,0.396) -- (-0.204,0.419) -- (-0.146,0.442) -- (-0.088,0.465) -- (-0.029,0.488) -- (0.029,0.512) -- (0.088,0.535) -- (0.146,0.558) -- (0.204,0.581) -- (0.263,0.604) -- (0.321,0.626) -- (0.380,0.648) -- (0.438,0.669) -- (0.497,0.690) -- (0.555,0.711) -- (0.613,0.730) -- (0.672,0.749) -- (0.730,0.767) -- (0.789,0.785) -- (0.847,0.802) -- (0.906,0.817) -- (0.964,0.832) -- (1.022,0.847) -- (1.081,0.860) -- (1.139,0.873) -- (1.198,0.884) -- (1.256,0.895) -- (1.315,0.906) -- (1.373,0.915) -- (1.431,0.924) -- (1.490,0.932) -- (1.548,0.939) -- (1.607,0.946) -- (1.665,0.952) -- (1.724,0.958) -- (1.782,0.963) -- (1.840,0.967) -- (1.899,0.971) -- (1.957,0.975) -- (2.016,0.978) -- (2.074,0.981) -- (2.133,0.984) -- (2.191,0.986) -- (2.249,0.988) -- (2.308,0.989) -- (2.366,0.991) -- (2.425,0.992) -- (2.483,0.993) -- (2.542,0.994) -- (2.600,0.995) node[above left] {$F_0=\Phi$};
+\draw[very thick,blue!60!black] (-2.600,0.0000) -- (-1.786,0.0000);
+\fill[blue!60!black] (-1.786,0.0833) circle (1.3pt);
+\draw[very thick,blue!60!black] (-1.786,0.0833) -- (-1.083,0.0833);
+\fill[blue!60!black] (-1.083,0.1667) circle (1.3pt);
+\draw[very thick,blue!60!black] (-1.083,0.1667) -- (-0.803,0.1667);
+\fill[blue!60!black] (-0.803,0.2500) circle (1.3pt);
+\draw[very thick,blue!60!black] (-0.803,0.2500) -- (-0.800,0.2500);
+\fill[blue!60!black] (-0.800,0.3333) circle (1.3pt);
+\draw[very thick,blue!60!black] (-0.800,0.3333) -- (-0.224,0.3333);
+\fill[blue!60!black] (-0.224,0.4167) circle (1.3pt);
+\draw[very thick,blue!60!black] (-0.224,0.4167) -- (-0.047,0.4167);
+\fill[blue!60!black] (-0.047,0.5000) circle (1.3pt);
+\draw[very thick,blue!60!black] (-0.047,0.5000) -- (0.359,0.5000);
+\fill[blue!60!black] (0.359,0.5833) circle (1.3pt);
+\draw[very thick,blue!60!black] (0.359,0.5833) -- (0.584,0.5833);
+\fill[blue!60!black] (0.584,0.6667) circle (1.3pt);
+\draw[very thick,blue!60!black] (0.584,0.6667) -- (0.638,0.6667);
+\fill[blue!60!black] (0.638,0.7500) circle (1.3pt);
+\draw[very thick,blue!60!black] (0.638,0.7500) -- (0.834,0.7500);
+\fill[blue!60!black] (0.834,0.8333) circle (1.3pt);
+\draw[very thick,blue!60!black] (0.834,0.8333) -- (1.511,0.8333);
+\fill[blue!60!black] (1.511,0.9167) circle (1.3pt);
+\draw[very thick,blue!60!black] (1.511,0.9167) -- (1.687,0.9167);
+\fill[blue!60!black] (1.687,1.0000) circle (1.3pt);
+\draw[very thick,blue!60!black] (1.687,1) -- (2.6,1);
+\draw[{Latex}-{Latex},orange!80!black,thick] (0.359,0.5000) -- (0.359,0.6401) node[midway,left,font=\footnotesize,fill=white,inner sep=1pt,xshift=-3pt] {$D_n$};
+\node[blue!60!black,anchor=west] at (0.9,0.62) {$\hat F_n$};
+\end{tikzpicture}
+\caption{The Kolmogorov--Smirnov statistic. The empirical CDF $\hat F_n$ (step function) of $n=12$ observations from $\Normal(0,1)$ and the null CDF $F_0=\Phi$. $D_n$ is the largest vertical distance between the two curves; the largest distance always occurs just before or just after a step.}\label{fig:ks-mesafe}
+\end{figure}
+% <</fig:ks-mesafe>>
+
 \begin{definition}[Kernel Density Estimator]\label{def:kde}
 Let $K\ge0$ be a symmetric \emph{kernel} with $\int K=1$, $\int uK(u)du=0$, $\mu_2(K)=\int u^2K(u)du<\infty$ and $R(K)=\int K^2<\infty$, and let $h>0$ be the \emph{bandwidth\index{bandwidth@bandwidth}}. The kernel density estimator\index{kernel density estimation@kernel density estimation} \cite{rosenblatt56,parzen62} is defined as
 \[

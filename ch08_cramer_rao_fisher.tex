@@ -62,6 +62,26 @@ Differentiate the identity $\int f(x;\theta)dx=1$ with respect to $\theta$ (R3):
 Differentiating once more: $0=\int\partial_\theta\big(s\,f\big)dx=\int(\partial_\theta s)f\,dx+\int s\,\partial_\theta f\,dx=\E[\partial_\theta s]+\E[s^2]$, because $\partial_\theta f=s f$. Hence $\E[s^2]=-\E[\partial^2_\theta\ln f]$, and since $\E s=0$, $\Var(s)=\E s^2$.
 \end{proof}
 
+% <<fig:fisher-egrilik>>
+The geometric meaning of Fisher information\index{fisher information@Fisher information} can be seen in Figure~\ref{fig:fisher-egrilik}.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[x=1.55cm,y=1.2cm,font=\small]
+\draw[->] (0,-2.6) -- (5.2,-2.6) node[below] {$\theta$}; \draw[->] (0,-2.7) -- (0,0.5) node[left] {$\ell(\theta)-\ell(\hat\theta)$};
+\draw[dashed,gray] (0,-0.5) node[left,black] {$-\frac12$} -- (5,-0.5);
+\draw[dashed,gray] (2.5,-2.6) node[below,black] {$\hat\theta$} -- (2.5,0);
+\draw[very thick,red!60!black] (1.400,-2.420) -- (1.437,-2.259) -- (1.475,-2.103) -- (1.512,-1.953) -- (1.549,-1.808) -- (1.586,-1.669) -- (1.624,-1.536) -- (1.661,-1.408) -- (1.698,-1.285) -- (1.736,-1.169) -- (1.773,-1.057) -- (1.810,-0.952) -- (1.847,-0.852) -- (1.885,-0.757) -- (1.922,-0.668) -- (1.959,-0.585) -- (1.997,-0.507) -- (2.034,-0.435) -- (2.071,-0.368) -- (2.108,-0.307) -- (2.146,-0.251) -- (2.183,-0.201) -- (2.220,-0.156) -- (2.258,-0.117) -- (2.295,-0.084) -- (2.332,-0.056) -- (2.369,-0.034) -- (2.407,-0.017) -- (2.444,-0.006) -- (2.481,-0.001) -- (2.519,-0.001) -- (2.556,-0.006) -- (2.593,-0.017) -- (2.631,-0.034) -- (2.668,-0.056) -- (2.705,-0.084) -- (2.742,-0.117) -- (2.780,-0.156) -- (2.817,-0.201) -- (2.854,-0.251) -- (2.892,-0.307) -- (2.929,-0.368) -- (2.966,-0.435) -- (3.003,-0.507) -- (3.041,-0.585) -- (3.078,-0.668) -- (3.115,-0.757) -- (3.153,-0.852) -- (3.190,-0.952) -- (3.227,-1.057) -- (3.264,-1.169) -- (3.302,-1.285) -- (3.339,-1.408) -- (3.376,-1.536) -- (3.414,-1.669) -- (3.451,-1.808) -- (3.488,-1.953) -- (3.525,-2.103) -- (3.563,-2.259) -- (3.600,-2.420);
+\node[red!60!black,font=\footnotesize,anchor=east] at (1.45,-1.75) {large $I(\theta)$};
+\draw[very thick,blue!60!black] (0.200,-1.322) -- (0.281,-1.232) -- (0.361,-1.144) -- (0.442,-1.059) -- (0.522,-0.978) -- (0.603,-0.900) -- (0.683,-0.825) -- (0.764,-0.754) -- (0.844,-0.686) -- (0.925,-0.620) -- (1.005,-0.559) -- (1.086,-0.500) -- (1.166,-0.445) -- (1.247,-0.393) -- (1.327,-0.344) -- (1.408,-0.298) -- (1.488,-0.256) -- (1.569,-0.217) -- (1.649,-0.181) -- (1.730,-0.148) -- (1.810,-0.119) -- (1.891,-0.093) -- (1.971,-0.070) -- (2.052,-0.050) -- (2.132,-0.034) -- (2.213,-0.021) -- (2.293,-0.011) -- (2.374,-0.004) -- (2.454,-0.001) -- (2.535,-0.000) -- (2.615,-0.003) -- (2.696,-0.010) -- (2.776,-0.019) -- (2.857,-0.032) -- (2.937,-0.048) -- (3.018,-0.067) -- (3.098,-0.089) -- (3.179,-0.115) -- (3.259,-0.144) -- (3.340,-0.176) -- (3.420,-0.212) -- (3.501,-0.250) -- (3.581,-0.292) -- (3.662,-0.337) -- (3.742,-0.386) -- (3.823,-0.438) -- (3.903,-0.492) -- (3.984,-0.550) -- (4.064,-0.612) -- (4.145,-0.676) -- (4.225,-0.744) -- (4.306,-0.815) -- (4.386,-0.890) -- (4.467,-0.967) -- (4.547,-1.048) -- (4.628,-1.132) -- (4.708,-1.219) -- (4.789,-1.310) -- (4.869,-1.404) -- (4.950,-1.501);
+\node[blue!60!black,font=\footnotesize,anchor=west] at (4.15,-0.2) {small $I(\theta)$};
+\draw[{Latex}-{Latex},blue!60!black] (1.086,-0.5) -- (3.914,-0.5);
+\draw[{Latex}-{Latex},red!60!black,thick] (2.000,-0.5) -- (3.000,-0.5);
+\end{tikzpicture}
+\caption{Fisher information is the average curvature of the log-likelihood (Lemma~\ref{lem:skor}: $I(\theta)=-\E\,\ell''(\theta)$). Both log-likelihood curves peak at the same point: the sharp one (large information) confines $\theta$ to a narrow interval, the flat one (small information) leaves values over a wide interval almost equally plausible. The dashed line is half a unit below the maximum; the width of the interval it cuts out is about $2/\sqrt{I}$. The Cramér--Rao bound $1/I$ is the precise form of this intuition.}\label{fig:fisher-egrilik}
+\end{figure}
+% <</fig:fisher-egrilik>>
+
 \begin{theorem}[Cramér--Rao Lower Bound --- CRLB \cite{rao45,cramer46}]\label{thm:crlb}\index{cramer rao lower bound crlb@Cramér--Rao lower bound (CRLB)}
 Assume (R1)--(R4), and let $T=T(\X)$ be a statistic with $\E_\theta[T] = g(\theta)$, $\Var_\theta T<\infty$ and $\frac{d}{d\theta}\int T(\x)L(\theta;\x)d\x=\int T(\x)\partial_\theta L(\theta;\x)d\x$. Then
 \[
