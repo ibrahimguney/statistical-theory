@@ -1,6 +1,6 @@
 # Theory of Statistics
 
-[![Book check](https://github.com/ibrahimguney/statistical-theory/actions/workflows/check.yml/badge.svg)](https://github.com/ibrahimguney/statistical-theory/actions/workflows/check.yml)
+[![Book check](https://github.com/izupress/statistical-theory/actions/workflows/check.yml/badge.svg)](https://github.com/izupress/statistical-theory/actions/workflows/check.yml)
 
 <img src="cover.png" alt="Front cover: a Galton board" width="240" align="right">
 
@@ -13,35 +13,35 @@ two editions.
 
 - **PDF:** [`main.pdf`](main.pdf). The version recompiled on every push can be downloaded as
   `statistical-theory-pdf` from the "Artifacts" section of the corresponding
-  [Actions](https://github.com/ibrahimguney/statistical-theory/actions) run.
+  [Actions](https://github.com/izupress/statistical-theory/actions) run.
 - **Notebooks:** [`notebooks/`](notebooks/) — the computational applications of each chapter,
   with executed outputs. They can be opened in Colab with the links below.
 
 | Chapter | Notebook | Colab |
 |---|---|---|
-| 1. Probability Spaces and Kolmogorov's Axioms | [ch_01.ipynb](notebooks/ch_01.ipynb) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ibrahimguney/statistical-theory/blob/main/notebooks/ch_01.ipynb) |
-| 2. Random Variables and Distribution Functions | [ch_02.ipynb](notebooks/ch_02.ipynb) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ibrahimguney/statistical-theory/blob/main/notebooks/ch_02.ipynb) |
-| 3. Expectation, Variance and Cauchy–Schwarz | [ch_03.ipynb](notebooks/ch_03.ipynb) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ibrahimguney/statistical-theory/blob/main/notebooks/ch_03.ipynb) |
-| 4. Joint Distributions and Transformations | [ch_04.ipynb](notebooks/ch_04.ipynb) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ibrahimguney/statistical-theory/blob/main/notebooks/ch_04.ipynb) |
-| 5. Basic Inequalities and the Law of Large Numbers | [ch_05.ipynb](notebooks/ch_05.ipynb) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ibrahimguney/statistical-theory/blob/main/notebooks/ch_05.ipynb) |
-| 6. Characteristic Functions and the Central Limit Theorem | [ch_06.ipynb](notebooks/ch_06.ipynb) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ibrahimguney/statistical-theory/blob/main/notebooks/ch_06.ipynb) |
-| 7. Unbiasedness, Consistency and the MSE Decomposition | [ch_07.ipynb](notebooks/ch_07.ipynb) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ibrahimguney/statistical-theory/blob/main/notebooks/ch_07.ipynb) |
-| 8. The Cramér–Rao Lower Bound and Fisher Information | [ch_08.ipynb](notebooks/ch_08.ipynb) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ibrahimguney/statistical-theory/blob/main/notebooks/ch_08.ipynb) |
-| 9. Sufficiency and the Rao–Blackwell Theorem | [ch_09.ipynb](notebooks/ch_09.ipynb) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ibrahimguney/statistical-theory/blob/main/notebooks/ch_09.ipynb) |
-| 10. Completeness, Lehmann–Scheffé and the UMVUE | [ch_10.ipynb](notebooks/ch_10.ipynb) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ibrahimguney/statistical-theory/blob/main/notebooks/ch_10.ipynb) |
-| 11. Maximum Likelihood and the Invariance Principle | [ch_11.ipynb](notebooks/ch_11.ipynb) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ibrahimguney/statistical-theory/blob/main/notebooks/ch_11.ipynb) |
-| 12. Asymptotic Theory of the MLE and the Delta Method | [ch_12.ipynb](notebooks/ch_12.ipynb) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ibrahimguney/statistical-theory/blob/main/notebooks/ch_12.ipynb) |
-| 13. The Neyman–Pearson Lemma and Most Powerful Tests | [ch_13.ipynb](notebooks/ch_13.ipynb) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ibrahimguney/statistical-theory/blob/main/notebooks/ch_13.ipynb) |
-| 14. The Karlin–Rubin Theorem and UMP Tests | [ch_14.ipynb](notebooks/ch_14.ipynb) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ibrahimguney/statistical-theory/blob/main/notebooks/ch_14.ipynb) |
-| 15. The Likelihood Ratio Test and Wilks' Theorem | [ch_15.ipynb](notebooks/ch_15.ipynb) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ibrahimguney/statistical-theory/blob/main/notebooks/ch_15.ipynb) |
-| 16. Confidence Intervals and the Pivotal Quantity Method | [ch_16.ipynb](notebooks/ch_16.ipynb) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ibrahimguney/statistical-theory/blob/main/notebooks/ch_16.ipynb) |
-| 17. The Linear Model | [ch_17.ipynb](notebooks/ch_17.ipynb) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ibrahimguney/statistical-theory/blob/main/notebooks/ch_17.ipynb) |
-| 18. The Bootstrap and Resampling Methods | [ch_18.ipynb](notebooks/ch_18.ipynb) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ibrahimguney/statistical-theory/blob/main/notebooks/ch_18.ipynb) |
-| 19. Bayesian Inference and Conjugate Priors | [ch_19.ipynb](notebooks/ch_19.ipynb) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ibrahimguney/statistical-theory/blob/main/notebooks/ch_19.ipynb) |
-| 20. Statistical Decision Theory: Minimaxity and Admissibility | [ch_20.ipynb](notebooks/ch_20.ipynb) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ibrahimguney/statistical-theory/blob/main/notebooks/ch_20.ipynb) |
-| 21. Nonparametric Methods | [ch_21.ipynb](notebooks/ch_21.ipynb) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ibrahimguney/statistical-theory/blob/main/notebooks/ch_21.ipynb) |
-| 22. Multiple Testing: Family-Wise Error Rate and False Discovery Rate | [ch_22.ipynb](notebooks/ch_22.ipynb) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ibrahimguney/statistical-theory/blob/main/notebooks/ch_22.ipynb) |
-| 23. The EM Algorithm and Generalised Linear Models | [ch_23.ipynb](notebooks/ch_23.ipynb) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ibrahimguney/statistical-theory/blob/main/notebooks/ch_23.ipynb) |
+| 1. Probability Spaces and Kolmogorov's Axioms | [ch_01.ipynb](notebooks/ch_01.ipynb) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/izupress/statistical-theory/blob/main/notebooks/ch_01.ipynb) |
+| 2. Random Variables and Distribution Functions | [ch_02.ipynb](notebooks/ch_02.ipynb) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/izupress/statistical-theory/blob/main/notebooks/ch_02.ipynb) |
+| 3. Expectation, Variance and Cauchy–Schwarz | [ch_03.ipynb](notebooks/ch_03.ipynb) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/izupress/statistical-theory/blob/main/notebooks/ch_03.ipynb) |
+| 4. Joint Distributions and Transformations | [ch_04.ipynb](notebooks/ch_04.ipynb) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/izupress/statistical-theory/blob/main/notebooks/ch_04.ipynb) |
+| 5. Basic Inequalities and the Law of Large Numbers | [ch_05.ipynb](notebooks/ch_05.ipynb) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/izupress/statistical-theory/blob/main/notebooks/ch_05.ipynb) |
+| 6. Characteristic Functions and the Central Limit Theorem | [ch_06.ipynb](notebooks/ch_06.ipynb) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/izupress/statistical-theory/blob/main/notebooks/ch_06.ipynb) |
+| 7. Unbiasedness, Consistency and the MSE Decomposition | [ch_07.ipynb](notebooks/ch_07.ipynb) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/izupress/statistical-theory/blob/main/notebooks/ch_07.ipynb) |
+| 8. The Cramér–Rao Lower Bound and Fisher Information | [ch_08.ipynb](notebooks/ch_08.ipynb) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/izupress/statistical-theory/blob/main/notebooks/ch_08.ipynb) |
+| 9. Sufficiency and the Rao–Blackwell Theorem | [ch_09.ipynb](notebooks/ch_09.ipynb) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/izupress/statistical-theory/blob/main/notebooks/ch_09.ipynb) |
+| 10. Completeness, Lehmann–Scheffé and the UMVUE | [ch_10.ipynb](notebooks/ch_10.ipynb) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/izupress/statistical-theory/blob/main/notebooks/ch_10.ipynb) |
+| 11. Maximum Likelihood and the Invariance Principle | [ch_11.ipynb](notebooks/ch_11.ipynb) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/izupress/statistical-theory/blob/main/notebooks/ch_11.ipynb) |
+| 12. Asymptotic Theory of the MLE and the Delta Method | [ch_12.ipynb](notebooks/ch_12.ipynb) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/izupress/statistical-theory/blob/main/notebooks/ch_12.ipynb) |
+| 13. The Neyman–Pearson Lemma and Most Powerful Tests | [ch_13.ipynb](notebooks/ch_13.ipynb) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/izupress/statistical-theory/blob/main/notebooks/ch_13.ipynb) |
+| 14. The Karlin–Rubin Theorem and UMP Tests | [ch_14.ipynb](notebooks/ch_14.ipynb) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/izupress/statistical-theory/blob/main/notebooks/ch_14.ipynb) |
+| 15. The Likelihood Ratio Test and Wilks' Theorem | [ch_15.ipynb](notebooks/ch_15.ipynb) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/izupress/statistical-theory/blob/main/notebooks/ch_15.ipynb) |
+| 16. Confidence Intervals and the Pivotal Quantity Method | [ch_16.ipynb](notebooks/ch_16.ipynb) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/izupress/statistical-theory/blob/main/notebooks/ch_16.ipynb) |
+| 17. The Linear Model | [ch_17.ipynb](notebooks/ch_17.ipynb) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/izupress/statistical-theory/blob/main/notebooks/ch_17.ipynb) |
+| 18. The Bootstrap and Resampling Methods | [ch_18.ipynb](notebooks/ch_18.ipynb) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/izupress/statistical-theory/blob/main/notebooks/ch_18.ipynb) |
+| 19. Bayesian Inference and Conjugate Priors | [ch_19.ipynb](notebooks/ch_19.ipynb) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/izupress/statistical-theory/blob/main/notebooks/ch_19.ipynb) |
+| 20. Statistical Decision Theory: Minimaxity and Admissibility | [ch_20.ipynb](notebooks/ch_20.ipynb) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/izupress/statistical-theory/blob/main/notebooks/ch_20.ipynb) |
+| 21. Nonparametric Methods | [ch_21.ipynb](notebooks/ch_21.ipynb) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/izupress/statistical-theory/blob/main/notebooks/ch_21.ipynb) |
+| 22. Multiple Testing: Family-Wise Error Rate and False Discovery Rate | [ch_22.ipynb](notebooks/ch_22.ipynb) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/izupress/statistical-theory/blob/main/notebooks/ch_22.ipynb) |
+| 23. The EM Algorithm and Generalised Linear Models | [ch_23.ipynb](notebooks/ch_23.ipynb) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/izupress/statistical-theory/blob/main/notebooks/ch_23.ipynb) |
 
 ## Building
     pdflatex main.tex
