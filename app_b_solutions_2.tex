@@ -54,6 +54,19 @@ The one-step estimator reduces the asymptotic variance of the median, $\approx2.
 $z=\tanh^{-1}r$ is approximately $\Normal(\tanh^{-1}\rho,\,1/(n-3))$; the interval is $\tanh\big(z\pm1.96/\sqrt{n-3}\big)$. (Using $\sqrt{n-3}$ instead of $\sqrt n$ is a small-sample correction.) For $\rho=0.8$, $n=20$, $2\times10^4$ replications: the Fisher $z$ coverage is $0.951$, that of the direct interval $r\pm1.96(1-r^2)/\sqrt n$ is $0.893$. The direct interval ignores the skewed distribution of $r$ near the boundary of $[-1,1]$.
 \end{solution}
 
+\begin{solution}{12-5}
+$\ln f=-\frac12\ln\sigma^2-\frac{(x-\mu)^2}{2\sigma^2}+\text{const}$; writing $\tau=\sigma^2$, the score components are $\psi_1=(x-\mu)/\tau$ and $\psi_2=-\frac1{2\tau}+\frac{(x-\mu)^2}{2\tau^2}$. The equations $\E_G\psi=\mathbf 0$ give $\mu^*=\E_GX$ and $\tau^*=\Var_GX$. At $\theta^*$,
+\[
+A=-\E_G\nabla\psi^\top=\begin{pmatrix}1/\sigma^2&0\\0&1/(2\sigma^4)\end{pmatrix},\qquad
+B_{22}=\Var_G\psi_2=\frac{\Var_G(X-\mu)^2}{4\sigma^8}=\frac{\mu_4-\sigma^4}{4\sigma^8}
+\]
+($A$ is diagonal because the cross term $\E_G[(X-\mu)/\tau^2]=0$). Since $A$ is diagonal, the $(2,2)$ element of the sandwich matrix is $B_{22}/A_{22}^2=(\mu_4-\sigma^4)/(4\sigma^8)\cdot4\sigma^8=\mu_4-\sigma^4$. If the model is correct, $\mu_4=3\sigma^4$ and this equals $2\sigma^4=1/I$. By Theorem~\ref{thm:s2-yansiz}(3), $n\Var(S^2)=\mu_4-\frac{n-3}{n-1}\sigma^4\to\mu_4-\sigma^4$; the sandwich formula is the limit of this exact result. For the Laplace, $\mu_4=6\sigma^4$ and the sandwich variance is $5\sigma^4$; the model-based interval understates the variance by the factor $2/5$, and its coverage converges to $2\Phi\big(1.96\sqrt{2/5}\big)-1\approx0.785$.
+\end{solution}
+
+\begin{solution}{12-6}
+The score is $s(\lambda;x)=x/\lambda-1$, $\partial_\lambda s=-x/\lambda^2$. The equation $\E_Gs(\lambda^*;X)=0$ gives $\lambda^*=\E_GX=\lambda$; the MLE is $\bar X$. $A=\E_GX/\lambda^2=1/\lambda$ and $B=\Var_G(X)/\lambda^2=\phi/\lambda$; the sandwich variance is $B/A^2=\phi\lambda$ and the model-based variance is $1/I_1(\lambda)=\lambda$. The ratio is $\phi$. The quasi-likelihood approach of Chapter~\ref{ch:em-glm} multiplies the standard errors by $\sqrt{\hat\phi}$; when the structure $\Var X=\phi\lambda$ is correct this gives the same result as the sandwich correction. The sandwich estimator, however, needs no assumption about the variance structure.
+\end{solution}
+
 \section{The Neyman--Pearson Lemma}
 \noindent{\small Chapter~\ref{ch:neyman-pearson}.}
 
@@ -247,4 +260,17 @@ $5$ & $0.087$ & $0.885$ & $\approx2600$\\\bottomrule
 \end{tabular}
 \end{center}
 Very small steps are almost always accepted, but the chain moves slowly; very large steps are mostly rejected and the chain stays put. Both extremes produce high autocorrelation and a low effective sample size. For one-dimensional, roughly normal targets an acceptance rate of about $0.44$ is recommended \cite{roberts01}; $s=0.6$ is close to this. (The effective sample size was computed by summing the $\rho_k$ until they first fall below $0.05$.)
+\end{solution}
+
+\begin{solution}{19-5}
+Since $X_i=\theta_i+\varepsilon_i$, marginally $X_i\iid\Normal(\mu,1+\tau^2)$. Hence $\E\bar X=\mu$ and $S/(1+\tau^2)\sim\chi^2_{k-1}$ (Theorem~\ref{thm:normal-orneklem}). With $\E[1/\chi^2_{k-1}]=1/(k-3)$ ($k\ge4$; the computation in the proof of Theorem~\ref{thm:james-stein}), $\E[(k-3)/S]=1/(1+\tau^2)=B$. If $\mu$ and $B$ were known, Theorem~\ref{thm:normal-normal} ($n=1$, $\mu_0=\mu$) would give the Bayes rule $\E[\theta_i\mid X_i]=\mu+(1-B)(X_i-\mu)$. Substituting $\bar X$ for $\mu$ and $(k-3)/S$ for $B$ gives $\hat\theta_i=\bar X+\big(1-\frac{k-3}{S}\big)(X_i-\bar X)$, the estimator of Exercise~\ref{exr:07-6}. By that exercise the frequentist risk is $k-(k-3)^2\E_{\bm\theta}[1/S]$. Averaging over the prior, the inner expectation becomes $\E[1/S]=B/(k-3)$ under the marginal distribution, so the Bayes risk is $k-(k-3)B$. Since the oracle's risk is $k(1-B)$, the price of the unknown $\mu$ is $3B$ instead of the $2B$ of Theorem~\ref{thm:js-ampirik-bayes}.
+\end{solution}
+
+\begin{solution}{19-6}
+With the gamma density,
+\[
+m(x)=\int_0^\infty\frac{e^{-\theta}\theta^x}{x!}\,\frac{\beta^\alpha\theta^{\alpha-1}e^{-\beta\theta}}{\Gamma(\alpha)}\,d\theta=\frac{\Gamma(\alpha+x)}{x!\,\Gamma(\alpha)}\Big(\frac{\beta}{1+\beta}\Big)^\alpha\Big(\frac{1}{1+\beta}\Big)^x,
+\]
+the negative binomial with success probability $\beta/(1+\beta)$. Hence $(x+1)\frac{m(x+1)}{m(x)}=(x+1)\cdot\frac{\alpha+x}{x+1}\cdot\frac1{1+\beta}=\frac{\alpha+x}{1+\beta}$, which is the posterior mean of Theorem~\ref{thm:gamma-poisson} for $n=1$.
+The true Bayes rule is nondecreasing: the posterior densities satisfy $\pi(\theta\mid x+1)\propto\theta\,\pi(\theta\mid x)$. Hence $\E[\theta\mid x+1]=\E[\theta^2\mid x]/\E[\theta\mid x]\ge\E[\theta\mid x]$, because $\E[\theta^2\mid x]\ge(\E[\theta\mid x])^2$. A larger count is stronger evidence that the unit has a larger $\theta$; a decreasing estimate contradicts this intuition and the true rule. In practical Robbins estimates (see the table in the chapter: $2.76$ at $x=3$, $2.66$ at $x=4$) this is sampling noise from small values of $N(x)$, and it shows that the ratios should be smoothed.
 \end{solution}

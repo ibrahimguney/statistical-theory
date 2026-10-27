@@ -187,7 +187,7 @@ Theorem~\ref{thm:bh} shows that BH\index{benjamini hochberg procedure@Benjamini-
 \end{remark}
 
 \begin{remark}[Bayesian Interpretation]
-In the two-group mixture model ($p_i$ comes from $\text{Uniform}(0,1)$ with probability $\pi_0$ and from an alternative distribution $F_1$ with probability $1-\pi_0$), $\P(H_i\text{ true}\mid p_i\le t)=\pi_0t/F(t)$, where $F=\pi_0t+(1-\pi_0)F_1$. BH can be interpreted as estimating $F(t)$ by the empirical CDF\index{empirical distribution function@empirical distribution function} and choosing the largest threshold that keeps this \emph{tail-area false discovery\index{false discovery rate fdr@false discovery rate (FDR)} rate} below $\alpha$. This is the application of the posterior-probability reasoning of Chapter~\ref{ch:bayes} to many parallel problems (empirical Bayes).
+In the two-group mixture model ($p_i$ comes from $\text{Uniform}(0,1)$ with probability $\pi_0$ and from an alternative distribution $F_1$ with probability $1-\pi_0$), $\P(H_i\text{ true}\mid p_i\le t)=\pi_0t/F(t)$, where $F=\pi_0t+(1-\pi_0)F_1$. BH can be interpreted as estimating $F(t)$ by the empirical CDF\index{empirical distribution function@empirical distribution function} and choosing the largest threshold that keeps this \emph{tail-area false discovery\index{false discovery rate fdr@false discovery rate (FDR)} rate} below $\alpha$. This is the application of the posterior-probability reasoning of Chapter~\ref{ch:bayes} to many parallel problems (empirical Bayes\index{empirical bayes@empirical Bayes}).
 \end{remark}
 
 \begin{remark}[Selective Inference]

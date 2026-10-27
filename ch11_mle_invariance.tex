@@ -192,7 +192,7 @@ start=-3.12 -> theta_hat=-3.1171, logL=-12.2092
 
 \begin{remark}[Likelihood and the KL Divergence]
 $\frac1n\ell(\theta)=\frac1n\sum\ln f(X_i;\theta)\asto\E_{\theta_0}\ln f(X;\theta)$ and
-$\E_{\theta_0}\ln f(X;\theta_0)-\E_{\theta_0}\ln f(X;\theta)=\mathrm{KL}(f_{\theta_0}\|f_\theta)\ge0$. That is, the MLE minimises the KL divergence between the empirical distribution and the model. If the model is misspecified, the MLE converges to the member of the model closest in KL to the true distribution (the quasi-likelihood / QMLE interpretation).
+$\E_{\theta_0}\ln f(X;\theta_0)-\E_{\theta_0}\ln f(X;\theta)=\mathrm{KL}(f_{\theta_0}\|f_\theta)\ge0$. That is, the MLE minimises the KL divergence between the empirical distribution and the model. If the model is misspecified\index{misspecified model@misspecified model}, the MLE converges to the member of the model closest in KL to the true distribution (the quasi-likelihood / QMLE interpretation).
 \end{remark}
 
 % --- CHAPTER SUMMARY ---

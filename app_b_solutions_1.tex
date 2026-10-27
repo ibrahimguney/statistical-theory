@@ -185,6 +185,25 @@ $\tilde\alpha=\bar X\Big(\frac{\bar X(1-\bar X)}{\hat\sigma^2}-1\Big)$, $\tilde\
 With $\alpha=2$, $\beta=5$, $n=50$ and $10^5$ replications: for $\tilde\alpha$, bias $+0.117$ and MSE $0.215$; for $\tilde\beta$, bias $+0.315$ and MSE $1.515$. The positive bias comes from $\hat\sigma^2$ being in the denominator (Jensen).
 \end{solution}
 
+\begin{solution}{07-5}
+$g(z)=z^{2m-1}$ is absolutely continuous and $\E|g'(Z)|=(2m-1)\E|Z|^{2m-2}<\infty$. By Lemma~\ref{lem:stein}(a) ($\theta=0$, $\sigma=1$), $\E Z^{2m}=\E[Z\cdot Z^{2m-1}]=(2m-1)\E Z^{2m-2}$. Starting from $\E Z^0=1$, induction gives $\E Z^{2m}=1\cdot3\cdots(2m-1)$; for example $\E Z^4=3$ and $\E Z^6=15$.
+For $X\sim\Normal(\theta,1)$ and $g(x)=e^x$ the lemma gives $\E[(X-\theta)e^X]=\E e^X$. From the normal MGF, $\E e^X=e^{\theta+1/2}$; hence $\E[Xe^X]=(1+\theta)\,e^{\theta+1/2}$. (Direct check: $\E[Xe^{tX}]$ is the derivative of the MGF with respect to $t$; at $t=1$ it equals $(\theta+1)e^{\theta+1/2}$.)
+\end{solution}
+
+\begin{solution}{07-6}
+Write $\bm\delta=\X+\mathbf g(\X)$ with $\mathbf g(\x)=-(k-3)\,P\x/S(\x)$ and $S(\x)=\x^\top P\x$. Since $P$ is symmetric and idempotent, $\partial S/\partial x_i=2(P\x)_i$ and $\partial(P\x)_i/\partial x_i=P_{ii}=1-\frac1k$. Hence
+\[
+\partial_ig_i=-(k-3)\Big[\frac{P_{ii}}{S}-\frac{2(P\x)_i^2}{S^2}\Big],\qquad
+\nabla\cdot\mathbf g=-(k-3)\Big[\frac{k-1}{S}-\frac{2S}{S^2}\Big]=-\frac{(k-3)^2}{S}.
+\]
+Also $\|\mathbf g\|^2=(k-3)^2/S$. By the expansion in the proof of Theorem~\ref{thm:james-stein} and Lemma~\ref{lem:stein}(b),
+\[
+R(\bm\theta,\bm\delta)=k+2\E\,\nabla\cdot\mathbf g(\X)+\E\|\mathbf g(\X)\|^2=k-2(k-3)^2\E[1/S]+(k-3)^2\E[1/S],
+\]
+that is, $R(\bm\theta,\bm\delta)=k-(k-3)^2\E_{\bm\theta}[1/S]$.
+Since $P\X\sim\Normal_k(P\bm\theta,P)$ and $P$ has rank $k-1$, $S$ is a (noncentral) chi-square with $k-1$ degrees of freedom. Because $k-1\ge3$, the finiteness argument in the proof of the theorem, applied in dimension $k-1$, gives $\E[1/S]<\infty$. The bound $|\partial_ig_i|\le3(k-3)/S$ is integrable as well. Hence the risk is strictly smaller than $k$ for every $\bm\theta$. In particular, when $\bm\theta=a\mathbf 1$ (all means equal), $S\sim\chi^2_{k-1}$, $\E[1/S]=1/(k-3)$ and the risk is $3$.
+\end{solution}
+
 \section{Cramér--Rao and Fisher Information}
 \noindent{\small Chapter~\ref{ch:cramer-rao}.}
 

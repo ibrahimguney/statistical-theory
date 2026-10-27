@@ -3,7 +3,7 @@
 
 \chapter{Bayesian Inference and Conjugate Priors}\label{ch:bayes}\chaptermark{Bayesian Inference}
 
-In the chapters of the book so far, the parameter $\theta$ was an unknown but fixed number; probability described only the randomness of the data. The Bayesian approach expresses the uncertainty about the parameter by probability as well: before the data, our knowledge about $\theta$ is summarised by a \emph{prior\index{prior distribution@prior distribution}} distribution; after the data are observed, Bayes' formula\index{bayes formula@Bayes' formula} (Theorem~\ref{thm:bayes}) updates this knowledge to a \emph{posterior\index{posterior distribution@posterior distribution}} distribution. In this chapter we discuss the basic objects of Bayesian inference, the closed-form solutions given by conjugate\index{conjugate prior@conjugate prior} priors, the decision-theoretic foundation, and why Bayesian and frequentist results merge in large samples (Bernstein--von Mises\index{bernstein von mises theorem@Bernstein--von Mises theorem}). For non-conjugate models we also implement the simplest example of Markov chain Monte Carlo (MCMC\index{mcmc@MCMC}).
+In the chapters of the book so far, the parameter $\theta$ was an unknown but fixed number; probability described only the randomness of the data. The Bayesian approach expresses the uncertainty about the parameter by probability as well: before the data, our knowledge about $\theta$ is summarised by a \emph{prior\index{prior distribution@prior distribution}} distribution; after the data are observed, Bayes' formula\index{bayes formula@Bayes' formula} (Theorem~\ref{thm:bayes}) updates this knowledge to a \emph{posterior\index{posterior distribution@posterior distribution}} distribution. In this chapter we discuss the basic objects of Bayesian inference, the closed-form solutions given by conjugate\index{conjugate prior@conjugate prior} priors, the decision-theoretic foundation, and why Bayesian and frequentist results merge in large samples (Bernstein--von Mises\index{bernstein von mises theorem@Bernstein--von Mises theorem}). For non-conjugate models we also implement the simplest example of Markov chain Monte Carlo (MCMC\index{mcmc@MCMC}). Finally, we discuss the empirical Bayes\index{empirical bayes@empirical Bayes} approach, in which the prior is estimated from the data in many parallel problems, and show how the James--Stein\index{james stein estimator@James--Stein estimator} estimator is derived from it.
 
 \section{Definitions}
 
@@ -33,6 +33,10 @@ A set $C\subseteq\Theta$ with $\int_C\pi(\theta\mid\x)d\theta=1-\alpha$ is calle
 
 \begin{definition}[Jeffreys Prior]\index{jeffreys prior@Jeffreys prior|textbf}\index{prior distribution@prior distribution|textbf}
 $\pi_J(\theta)\propto\sqrt{I_1(\theta)}$ (in the multidimensional case $\sqrt{\det I_1(\bm\theta)}$). Its total integral may be infinite (an \emph{improper} prior); it can be used for inference as long as the posterior is proper.
+\end{definition}
+
+\begin{definition}[Hierarchical Model and Empirical Bayes]\label{def:ampirik-bayes}\index{hierarchical model@hierarchical model|textbf}\index{empirical bayes@empirical Bayes|textbf}
+Let $\theta_1,\dots,\theta_k\iid\pi(\cdot\mid\eta)$ and, given $\bm\theta$, let $X_i\sim f(\cdot\mid\theta_i)$ be independent; $\eta$ is called the \emph{hyperparameter\index{hyperparameter@hyperparameter}}. If $\eta$ were known, the Bayes estimate of $\theta_i$ would be $\delta^{\eta}(X_i)=\E[\theta_i\mid X_i;\eta]$. Marginally the $X_i$ are i.i.d.\ from $m(x\mid\eta)=\int f(x\mid\theta)\pi(\theta\mid\eta)\,d\theta$; therefore $\eta$ can be estimated from \emph{all} the $X_i$. Plugging an estimate $\hat\eta$ into the Bayes rule to obtain $\hat\theta_i=\delta^{\hat\eta}(X_i)$ is called \emph{parametric empirical Bayes}. If $m$ itself is estimated without specifying the form of the prior, we speak of \emph{nonparametric\index{nonparametric methods@nonparametric methods} empirical Bayes} \cite{robbins56}.
 \end{definition}
 
 \section{Main Theorems and Proofs}
@@ -81,7 +85,7 @@ The terms depending on $\theta$: $\ln\pi(\theta\mid\x)=-\frac{(\theta-\mu_0)^2}{
 \end{proof}
 
 \begin{remark}
-Precisions (inverse variances) add: $\text{posterior precision}=\text{prior precision}+\text{data precision}$. The posterior mean is the precision-weighted average. This structure is the essence of the Kalman filter and of hierarchical (multilevel) models.
+Precisions (inverse variances) add: $\text{posterior precision}=\text{prior precision}+\text{data precision}$. The posterior mean is the precision-weighted average. This structure is the essence of the Kalman filter and of hierarchical\index{hierarchical model@hierarchical model} (multilevel) models.
 \end{remark}
 
 \begin{theorem}[Gamma--Poisson Conjugacy]\label{thm:gamma-poisson}\index{conjugate prior@conjugate prior}
@@ -114,8 +118,40 @@ The posterior density of $h$ is proportional to $\pi(\theta_0+h/\sqrt n)\exp\{\e
 \end{remark}
 
 \begin{remark}[Admissibility]
-Every Bayes estimator\index{bayes estimator@Bayes estimator} that is unique and has finite Bayes risk\index{bayes risk@Bayes risk} with respect to a proper prior is admissible\index{admissibility@admissibility} (Definition~\ref{def:risk}): if there were a better estimator, its Bayes risk would also be smaller. Conversely (Wald's complete class theorem), every admissible estimator is a limit of Bayes estimators. This is the deep connection between frequentist optimality and Bayesian methods; the James--Stein\index{james stein estimator@James--Stein estimator} estimator (Chapter~\ref{ch:nokta-tahmin}) also has an empirical Bayes interpretation.
+Every Bayes estimator\index{bayes estimator@Bayes estimator} that is unique and has finite Bayes risk\index{bayes risk@Bayes risk} with respect to a proper prior is admissible\index{admissibility@admissibility} (Definition~\ref{def:risk}): if there were a better estimator, its Bayes risk would also be smaller. Conversely (Wald's complete class theorem), every admissible estimator is a limit of Bayes estimators. This is the deep connection between frequentist optimality and Bayesian methods; the James--Stein estimator (Chapter~\ref{ch:nokta-tahmin}) is also an empirical Bayes rule (Theorem~\ref{thm:js-ampirik-bayes}).
 \end{remark}
+
+\begin{theorem}[The Empirical Bayes Derivation of James--Stein \cite{efron-morris73}]\label{thm:js-ampirik-bayes}\index{empirical bayes@empirical Bayes}\index{james stein estimator@James--Stein estimator}
+Let $\theta_1,\dots,\theta_k\iid\Normal(0,\tau^2)$, $X_i\mid\theta_i\sim\Normal(\theta_i,1)$ independent, $k\ge3$, and $B=1/(1+\tau^2)$. The loss is $\|\mathbf a-\bm\theta\|^2$.
+\begin{enumerate}
+  \item The Bayes rule is $\bm\delta^\pi(\X)=(1-B)\X$, with Bayes risk $r(\pi,\bm\delta^\pi)=k(1-B)$.
+  \item Marginally $X_i\iid\Normal(0,1+\tau^2)$ and $\E\big[(k-2)/\|\X\|^2\big]=B$. Substituting this unbiased estimate for $B$ in the Bayes rule gives exactly the James--Stein estimator (Theorem~\ref{thm:james-stein}).
+  \item $r(\pi,\hat{\bm\theta}_{JS})=k-(k-2)B$; hence $r(\pi,\hat{\bm\theta}_{JS})-r(\pi,\bm\delta^\pi)=2B\le2$. For comparison, $r(\pi,\X)=k$.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+(1) Applying Theorem~\ref{thm:normal-normal} with $n=1$, $\sigma^2=1$, $\mu_0=0$ gives $\theta_i\mid X_i\sim\Normal\big((1-B)X_i,\,1-B\big)$, because $\tau_n^2=(1/\tau^2+1)^{-1}=\tau^2/(1+\tau^2)=1-B$. Since the pairs $(\theta_i,X_i)$ are independent, the posterior factorises over the coordinates and $\E[\theta_i\mid\X]=\E[\theta_i\mid X_i]$. By Theorem~\ref{thm:bayes-tahmin}(1) the Bayes rule is the posterior mean. The Bayes risk is the expected sum of the posterior variances, $k(1-B)$.
+
+(2) $X_i=\theta_i+\varepsilon_i$ is a sum of independent $\Normal(0,\tau^2)$ and $\Normal(0,1)$ variables; hence $X_i\iid\Normal(0,1+\tau^2)$ and $\|\X\|^2/(1+\tau^2)\sim\chi^2_k$. With the computation $\E[1/\chi^2_k]=1/(k-2)$ from the proof of Theorem~\ref{thm:james-stein}, $\E\big[(k-2)/\|\X\|^2\big]=1/(1+\tau^2)=B$. With $\hat B=(k-2)/\|\X\|^2$, the expression $(1-\hat B)\X$ is $\hat{\bm\theta}_{JS}$.
+
+(3) By Theorem~\ref{thm:james-stein}, $R(\bm\theta,\hat{\bm\theta}_{JS})=k-(k-2)^2\E_{\bm\theta}\|\X\|^{-2}$. Averaging over the prior (tower rule\index{tower property@tower property}), the inner expectation becomes $\E\|\X\|^{-2}=B/(k-2)$ under the marginal distribution. Thus $r(\pi,\hat{\bm\theta}_{JS})=k-(k-2)B$, and the difference is $k-(k-2)B-k(1-B)=2B$.
+\end{proof}
+
+\begin{remark}[Why Empirical Bayes Is Valuable]
+Theorem~\ref{thm:js-ampirik-bayes} is the Bayesian explanation of Stein's paradox\index{stein s paradox@Stein's paradox} (Chapter~\ref{ch:nokta-tahmin}). The oracle Bayes rule that knows $\tau^2$ attains the smallest Bayes risk, but cannot be used when $\tau^2$ is unknown. The James--Stein estimator learns $\tau^2$ from the data and comes within $2B$ of the oracle's risk. Moreover, unlike the Bayes rule, it is better than $\X$ for every $\bm\theta$: nothing is lost even if the prior is wrong. This is why solving many parallel problems together (many hospitals, schools, genes or players) is the natural domain of empirical Bayes. If the mean is unknown as well ($\theta_i\iid\Normal(\mu,\tau^2)$), the same reasoning gives the Efron--Morris estimator, which shrinks towards the data's own mean (Exercise~\ref{exr:19-5}).
+\end{remark}
+
+\begin{proposition}[Robbins' Formula \cite{robbins56}]\label{prop:robbins}
+Let $\theta$ have an arbitrary distribution $G$ on $(0,\infty)$ and let $X\mid\theta\sim\text{Poisson}(\theta)$. With the marginal probability function $m(x)=\int e^{-\theta}\theta^x/x!\,dG(\theta)$, for every $x$ with $m(x)>0$,
+\[
+\E[\theta\mid X=x]=(x+1)\,\frac{m(x+1)}{m(x)}.
+\]
+\end{proposition}
+\begin{proof}
+$\E[\theta\mid X=x]=\frac{1}{m(x)}\int\theta\,\frac{e^{-\theta}\theta^x}{x!}\,dG(\theta)=\frac{x+1}{m(x)}\int\frac{e^{-\theta}\theta^{x+1}}{(x+1)!}\,dG(\theta)=(x+1)\,\frac{m(x+1)}{m(x)}.$
+\end{proof}
+
+The importance of Robbins' formula\index{robbins formula@Robbins' formula} is that the Bayes rule depends on $G$ only through the marginal distribution $m$. When many units are observed, $m(x)$ is estimated by the proportion $N(x)/N$ of units taking the value $x$, giving $\hat\theta_i=(X_i+1)\,N(X_i+1)/N(X_i)$. No assumption about the form of the prior is needed.
 
 \section{Worked Examples}
 
@@ -145,6 +181,18 @@ In an examination, school means are distributed as $\theta\sim\Normal(500,50^2)$
 \mu_n=344.8\Big(\frac{500}{2500}+\frac{560}{400}\Big)\approx551.7 .
 \]
 The observed mean ``shrinks'' by $\approx8$ points towards the overall mean. This shrinkage\index{shrinkage@shrinkage}, which keeps schools with small samples from looking extremely good or bad, is standard practice in rankings in education and health (e.g.\ hospital mortality rates).
+\end{example}
+
+\begin{example}[Empirical Bayes: Eight Centres]\label{ex:sekiz-merkez}
+Suppose the effect of a treatment has been measured separately in eight centres. Each centre's standardised effect estimate is $X_i\sim\Normal(\theta_i,1)$, and the observed values are
+\[
+\X=(2.6,\ 0.4,\ -0.8,\ 1.5,\ 3.1,\ -0.3,\ 0.9,\ 1.8).
+\]
+Assume the centre effects are distributed as $\theta_i\iid\Normal(\mu,\tau^2)$ with $\mu$ and $\tau^2$ unknown. Marginally $X_i\iid\Normal(\mu,1+\tau^2)$; $\hat\mu=\bar X=1.15$ and $S=\sum(X_i-\bar X)^2=12.98$. By Exercise~\ref{exr:19-5}, $\hat B=(k-3)/S=5/12.98\approx0.385$ is an unbiased estimate of $B=1/(1+\tau^2)$ ($\hat\tau^2=1/\hat B-1\approx1.60$). The empirical Bayes\index{empirical bayes@empirical Bayes} estimates are $\hat\theta_i=\bar X+(1-\hat B)(X_i-\bar X)=1.15+0.615\,(X_i-1.15)$:
+\[
+\hat{\bm\theta}=(2.04,\ 0.69,\ -0.05,\ 1.37,\ 2.35,\ 0.26,\ 1.00,\ 1.55).
+\]
+The highest observation $3.1$ is pulled to $2.35$, the lowest $-0.8$ to $-0.05$. The centres that look most extreme on their own are shrunk the most, because they look extreme partly by chance. This is the empirical Bayes correction against the ``winner's curse'' (the exaggeration of whoever looks best).
 \end{example}
 
 \begin{example}[Lindley's Paradox \cite{lindley57}]
@@ -209,10 +257,33 @@ Comparison: Beta(2,18) conjugate posterior mean = 0.1714 | MLE = 0.2000
 
 The MCMC\index{mcmc@MCMC} estimate agrees to three digits with the exact value found by numerical integration. That the posterior mean now comes out \emph{above} the MLE is a consequence of the prior: the prior $\eta\sim\Normal(0,\,1.5^2)$ is centred at $\theta=0.5$ and pulls the posterior upwards, whereas the $\text{Beta}(2,18)$ prior, centred at $0.1$, pulled it downwards. This difference, obtained with the same data and different priors, shows why prior sensitivity analysis matters in small samples.
 
+\subsection{Empirical Bayes: James--Stein and Robbins' Formula}
+The first part compares the average loss, that is, the Bayes risk\index{bayes risk@Bayes risk}, of four estimators in the hierarchical\index{hierarchical model@hierarchical model} normal model ($k=10$): $\X$; James--Stein\index{james stein estimator@James--Stein estimator} shrinking towards zero; Efron--Morris (EM) shrinking towards the data's mean; and the oracle Bayes rule that knows $\mu$ and $\tau^2$. The theoretical values are taken from Theorem~\ref{thm:js-ampirik-bayes} and Exercise~\ref{exr:19-5}. The second part compares, in $N=2000$ units with $\theta_i\sim\text{Gamma}(2,1)$ and $X_i\mid\theta_i\sim\text{Poisson}(\theta_i)$, the Robbins estimate (Proposition~\ref{prop:robbins}) with the true posterior mean $(2+x)/2$ known from Gamma--Poisson conjugacy\index{conjugate prior@conjugate prior}.
+
+\pycode{code/ch19/c19_5_empirical_bayes_james_stein_robbins.py}
+\begin{lstlisting}[style=output]
+mu=0, tau^2=0.5 | X= 9.985 | JS= 4.663 (theory  4.667) | EM= 5.339 (theory  5.333) | oracle= 3.332 (theory  3.333)
+mu=0, tau^2=2.0 | X=10.003 | JS= 7.330 (theory  7.333) | EM= 7.667 (theory  7.667) | oracle= 6.661 (theory  6.667)
+mu=0, tau^2=8.0 | X=10.008 | JS= 9.116 (theory  9.111) | EM= 9.227 (theory  9.222) | oracle= 8.888 (theory  8.889)
+mu=3, tau^2=2.0 | X= 9.994 | JS= 9.413 (theory    -  ) | EM= 7.661 (theory  7.667) | oracle= 6.662 (theory  6.667)
+ x | count | Robbins (x+1)N(x+1)/N(x) | true Bayes | MLE
+ 0 |   499 |                    0.988 |      1.000 |   0
+ 1 |   493 |                    1.639 |      1.500 |   1
+ 2 |   404 |                    1.723 |      2.000 |   2
+ 3 |   232 |                    2.759 |      2.500 |   3
+ 4 |   160 |                    2.656 |      3.000 |   4
+ 5 |    85 |                    3.671 |      3.500 |   5
+ 6 |    52 |                    3.904 |      4.000 |   6
+ 7 |    29 |                    4.966 |      4.500 |   7
+Mean squared error over the 1954 units with x<=7: MLE=1.628 | Robbins=0.959 | true Bayes=0.920
+\end{lstlisting}
+
+The simulation confirms the theoretical Bayes risks to within $0.01$. When $\mu=0$, James--Stein shrinking towards zero is slightly better than EM, which spends one degree of freedom on estimating the mean. When $\mu=3$, however, shrinking towards zero gains almost nothing ($9.41$), while EM approaches the oracle. This is why learning the shrinkage\index{shrinkage@shrinkage} target from the data matters. The Robbins estimate, without knowing the prior at all, gives results close to the true Bayes rule and reduces the error of the MLE by about $40\%$. For large values of $x$ with few observations, however, the ratio $N(x+1)/N(x)$ is erratic. In practice the ratio is either smoothed or a parametric form is assumed for $G$.
+
 \section{Comments and Notes}
 
 \begin{remark}[Choosing the Prior]
-Most criticism is directed at the subjectivity of the prior\index{prior distribution@prior distribution}. Practical answers: (i) \emph{Sensitivity analysis}: does the result change across reasonable priors? (ii) \emph{Weakly informative priors}: priors that keep the parameter on a plausible scale without dominating the data. (iii) \emph{Hierarchical models}: learning the prior parameters from the data as well (empirical or full Bayes). The Bernstein--von Mises\index{bernstein von mises theorem@Bernstein--von Mises theorem} theorem guarantees that in large samples (in regular models) the influence of the prior disappears; in small samples the prior acts as a \emph{regulariser} (ridge\index{ridge regression@ridge regression} regression is the MAP estimate under a normal prior).
+Most criticism is directed at the subjectivity of the prior\index{prior distribution@prior distribution}. Practical answers: (i) \emph{Sensitivity analysis}: does the result change across reasonable priors? (ii) \emph{Weakly informative priors}: priors that keep the parameter on a plausible scale without dominating the data. (iii) \emph{Hierarchical\index{hierarchical model@hierarchical model} models}: learning the prior parameters from the data as well (empirical or full Bayes). The Bernstein--von Mises\index{bernstein von mises theorem@Bernstein--von Mises theorem} theorem guarantees that in large samples (in regular models) the influence of the prior disappears; in small samples the prior acts as a \emph{regulariser} (ridge\index{ridge regression@ridge regression} regression is the MAP estimate under a normal prior).
 \end{remark}
 
 \begin{remark}[Credibility and Confidence]
@@ -232,11 +303,12 @@ Conjugate\index{conjugate prior@conjugate prior} priors provide closed forms, bu
   \item The Bayes estimator depends on the loss function (Theorem~\ref{thm:bayes-tahmin}): the posterior mean for squared loss, the posterior median for absolute loss, and the posterior mode for $0$--$1$ loss.
   \item The Jeffreys prior is invariant under reparametrisation (Theorem~\ref{thm:jeffreys}). By the Bernstein--von Mises theorem (Theorem~\ref{thm:bvm}), in large samples the posterior approaches $\Normal(\hat\theta_n,I_n^{-1})$ and the influence of the prior disappears.
   \item For point null hypotheses the $p$-value and the posterior probability can diverge sharply (Lindley's paradox). When there is no closed form, the posterior is sampled by MCMC methods such as Metropolis.
+  \item In a hierarchical model the hyperparameter is estimated from the marginal distribution of all units (Definition~\ref{def:ampirik-bayes}). The James--Stein estimator is an empirical Bayes rule that estimates the prior variance unbiasedly, and its Bayes risk exceeds the oracle's by at most $2B$ (Theorem~\ref{thm:js-ampirik-bayes}). In the Poisson model, Robbins' formula (Proposition~\ref{prop:robbins}) builds the Bayes rule from the marginal frequencies without knowing the prior.
 \end{itemize}
 \end{summary}
 % --- END OF CHAPTER SUMMARY ---
 
-\paragraph{Further reading.} \cite{gelman}, \cite[Chapter~11]{wasserman}, \cite[Chapter~4]{lehmann-casella}; for asymptotic Bayesian theory, \cite[Chapter~10]{vdv}.
+\paragraph{Further reading.} \cite{gelman}, \cite[Chapter~11]{wasserman}, \cite[Chapter~4]{lehmann-casella}; for asymptotic Bayesian theory, \cite[Chapter~10]{vdv}; for empirical Bayes\index{empirical bayes@empirical Bayes}, \cite{robbins56,efron-morris73}.
 
 \section{Exercises}
 
@@ -262,6 +334,16 @@ In the Normal--Normal model, compute the frequentist MSE of the posterior mean $
 \begin{exercise}\label{exr:19-4}
 In the Metropolis code, compare the acceptance rates and the autocorrelation of the chain for proposal scales $s\in\{0.05,\,0.6,\,5\}$. Estimate the effective sample size with the formula $N/(1+2\sum_k\rho_k)$.
 \hfill\hyperref[coz:19-4]{\footnotesize$\rightarrow$\,Solution}
+\end{exercise}
+
+\begin{exercise}\label{exr:19-5}
+Let $\theta_i\iid\Normal(\mu,\tau^2)$ and $X_i\mid\theta_i\sim\Normal(\theta_i,1)$ independent, $i=1,\dots,k$, $k\ge4$, with $\mu$ and $\tau^2$ unknown. Show that $\bar X$ is unbiased for $\mu$ and that $(k-3)/S$, with $S=\sum(X_i-\bar X)^2$, is unbiased for $B=1/(1+\tau^2)$. Substitute these estimates into the Bayes rule to obtain the Efron--Morris estimator (Exercise~\ref{exr:07-6}), and show that its Bayes risk is $k-(k-3)B$.
+\hfill\hyperref[coz:19-5]{\footnotesize$\rightarrow$\,Solution}
+\end{exercise}
+
+\begin{exercise}\label{exr:19-6}
+In Proposition~\ref{prop:robbins} take $G=\text{Gamma}(\alpha,\beta)$ (shape, rate). Show that $m$ is a negative binomial probability function and that Robbins' formula gives the posterior mean of Theorem~\ref{thm:gamma-poisson} ($n=1$). Why is it undesirable that the Robbins estimate $\hat\theta(x)=(x+1)N(x+1)/N(x)$ can be decreasing in $x$? Show that the true Bayes rule is nondecreasing in $x$.
+\hfill\hyperref[coz:19-6]{\footnotesize$\rightarrow$\,Solution}
 \end{exercise}
 
 \chapterlinks{19}

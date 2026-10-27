@@ -3,7 +3,7 @@
 
 \chapter{Asymptotic Theory of the MLE and the Delta Method}\label{ch:mle-asimptotik}\chaptermark{MLE Asymptotics and the Delta Method}
 
-The finite-sample properties of the MLE\index{maximum likelihood estimator mle@maximum likelihood estimator (MLE)} vary from model to model: sometimes it is biased, sometimes it has no closed form at all. In large samples, however, under regularity conditions\index{regularity conditions@regularity conditions}, the MLE shows universal and very strong behaviour: it is consistent, asymptotically normal\index{asymptotic normality@asymptotic normality}, and its asymptotic variance attains the Cramér--Rao\index{cramer rao lower bound crlb@Cramér--Rao lower bound (CRLB)} bound. This chapter covers these three results, the information inequality\index{information inequality@information inequality} that makes them possible, and the delta method\index{delta method@delta method}, which gives the asymptotic distribution of transformations of an estimator. These results are the theoretical basis of almost all standard errors and Wald confidence intervals\index{wald confidence interval@Wald confidence interval} reported in applied statistics.
+The finite-sample properties of the MLE\index{maximum likelihood estimator mle@maximum likelihood estimator (MLE)} vary from model to model: sometimes it is biased, sometimes it has no closed form at all. In large samples, however, under regularity conditions\index{regularity conditions@regularity conditions}, the MLE shows universal and very strong behaviour: it is consistent, asymptotically normal\index{asymptotic normality@asymptotic normality}, and its asymptotic variance attains the Cramér--Rao\index{cramer rao lower bound crlb@Cramér--Rao lower bound (CRLB)} bound. This chapter covers these three results, the information inequality\index{information inequality@information inequality} that makes them possible, and the delta method\index{delta method@delta method}, which gives the asymptotic distribution of transformations of an estimator. These results are the theoretical basis of almost all standard errors and Wald confidence intervals\index{wald confidence interval@Wald confidence interval} reported in applied statistics. Finally, we study what the MLE estimates when the model is misspecified\index{misspecified model@misspecified model} and how its standard error is corrected by the sandwich\index{sandwich estimator@sandwich estimator} formula.
 
 \section{Definitions}
 
@@ -165,6 +165,70 @@ By the continuous mapping theorem (Theorem~\ref{thm:cmt}, linear $g$), the first
 If $\sqrt n(T_n-\theta)\dto\Normal(0,\sigma^2(\theta))$, then for the transformation $g(\theta)=\int\frac{c}{\sigma(\theta)}d\theta$, which satisfies $g'(\theta)=c/\sigma(\theta)$, we have $\sqrt n(g(T_n)-g(\theta))\dto\Normal(0,c^2)$: the asymptotic variance no longer depends on $\theta$.
 \end{definition}
 
+\section{Misspecified Models and M-Estimators}
+
+The results so far assumed that the data really come from the model. In practice a model is an approximation: waiting times assumed exponential may be more variable, counts assumed Poisson may be overdispersed. The proof of Theorem~\ref{thm:mle-an} in fact used only two things: the score has expectation zero, and the expectation of its derivative is nonzero. This observation shows what the MLE estimates when the model is wrong and how its standard error should be corrected. The same framework also covers least squares, the median and robust estimators.
+
+\begin{definition}[M- and Z-Estimator]\label{def:z-tahmin}
+Let $\theta\in\Theta\subseteq\R^k$ and let $\psi(x;\theta)\in\R^k$ be an \emph{estimating function}. A solution $\hat\theta_n$ of $\sum_{i=1}^n\psi(X_i;\hat\theta_n)=\mathbf 0$ is called a \emph{Z-estimator\index{m estimator@M-estimator}}. A maximiser $\hat\theta_n$ of $\sum_{i=1}^nm(X_i;\theta)$ is called an \emph{M-estimator}; if $m$ is differentiable it is a Z-estimator with $\psi=\nabla_\theta m$. Examples: the MLE ($m=\ln f$, $\psi$ the score function\index{score function@score function}), least squares ($\psi(\mathbf x,y;\bm\beta)=\mathbf x(y-\mathbf x^\top\bm\beta)$), the sample mean ($\psi=x-\theta$), the median ($\psi=\operatorname{sign}(x-\theta)$) and the method of moments\index{method of moments@method of moments} (Definition~\ref{def:momentler}).
+\end{definition}
+
+\begin{definition}[Pseudo-True Parameter]\label{def:sozde-gercek}
+Let $X_1,\dots,X_n$ be i.i.d.\ from a distribution $G$ that need not belong to the model. A $\theta^*$ with $\E_G\psi(X;\theta^*)=\mathbf 0$ is called the \emph{pseudo-true\index{pseudo true parameter@pseudo-true parameter} parameter}; it is the target of the Z-estimator. For the MLE, $\theta^*$ is the member of the model that maximises $\E_G\ln f(X;\theta)$, that is, minimises the divergence $\mathrm{KL}(g\|f_\theta)=\E_G\ln g(X)-\E_G\ln f(X;\theta)$: the $f_{\theta^*}$ closest to $G$ in the Kullback--Leibler\index{kullback leibler divergence@Kullback--Leibler divergence} sense. If the model is correct ($G=F_{\theta_0}$), then $\theta^*=\theta_0$ by Lemma~\ref{lem:bilgi-esitsizligi}.
+\end{definition}
+
+\begin{theorem}[Asymptotic Normality of Z-Estimators \cite{huber67}]\label{thm:z-an}
+Let $X_i\iid G$ and let $\theta^*$ be an interior point of $\Theta\subseteq\R$; suppose $\E_G\psi(X;\theta^*)=0$, $\hat\theta_n\pto\theta^*$ and $\sum_i\psi(X_i;\hat\theta_n)=0$. Suppose that in a neighbourhood of $\theta^*$ the map $\theta\mapsto\psi(x;\theta)$ is twice differentiable with $|\partial_\theta^2\psi(x;\theta)|\le M(x)$, $\E_GM(X)<\infty$. Suppose further that
+\[
+A=-\E_G\big[\partial_\theta\psi(X;\theta^*)\big]\neq0,\qquad B=\E_G\big[\psi(X;\theta^*)^2\big]<\infty
+\]
+($A$ finite). Then
+\[
+\sqrt n(\hat\theta_n-\theta^*)\dto\Normal\Big(0,\ \frac{B}{A^2}\Big).
+\]
+In the multidimensional case, with $A=-\E_G\nabla_\theta\psi(X;\theta^*)^\top$ an invertible matrix and $B=\E_G\psi\psi^\top$, the limit distribution is $\Normal_k(\mathbf 0,\,A^{-1}BA^{-\top})$. This is the \emph{sandwich} variance: $B$ sits between two copies of $A^{-1}$.
+\end{theorem}
+\begin{proof}
+Let $\Psi_n(\theta)=\frac1n\sum_i\psi(X_i;\theta)$. By consistency\index{consistency@consistency}, $\hat\theta_n$ lies in the neighbourhood on an event whose probability tends to $1$; on this event a Taylor expansion gives, for some $\tilde\theta_n$ between $\hat\theta_n$ and $\theta^*$,
+\[
+0=\Psi_n(\hat\theta_n)=\Psi_n(\theta^*)+(\hat\theta_n-\theta^*)\Psi_n'(\theta^*)+\tfrac12(\hat\theta_n-\theta^*)^2\Psi_n''(\tilde\theta_n),
+\]
+\[
+\sqrt n(\hat\theta_n-\theta^*)=\frac{\sqrt n\,\Psi_n(\theta^*)}{-\Psi_n'(\theta^*)-\frac12(\hat\theta_n-\theta^*)\Psi_n''(\tilde\theta_n)} .
+\]
+The numerator is a scaled mean of i.i.d.\ terms with mean $0$ (by the definition of the pseudo-true parameter) and variance $B$; by the CLT\index{central limit theorem clt@central limit theorem (CLT)} it is $\dto\Normal(0,B)$. The first term of the denominator is $\pto A$ by the WLLN\index{law of large numbers@law of large numbers!weak wlln@weak (WLLN)}. For the second term, $|\Psi_n''(\tilde\theta_n)|\le\frac1n\sum_iM(X_i)\pto\E_GM(X)$ and $\hat\theta_n-\theta^*\pto0$; the product is $\pto0$. By Slutsky\index{slutsky s theorem@Slutsky's theorem}'s theorem the limit is $\Normal(0,B)/A=\Normal(0,B/A^2)$. In the multidimensional case the same expansion is made for each component and the multivariate CLT (Theorem~\ref{thm:cok-degiskenli-clt}) is used for the numerator. The proof is the same as the proof of Theorem~\ref{thm:mle-an}; the only difference is that the variance $B$ of the numerator and the limit $A$ of the denominator no longer have to be equal.
+\end{proof}
+
+\begin{corollary}[The MLE in a Misspecified Model \cite{white82}]\label{cor:mle-yanlis}\index{misspecified model@misspecified model}\index{maximum likelihood estimator mle@maximum likelihood estimator (MLE)}
+Let $X_i\iid G$ and let $\theta^*$ be the unique maximiser of $\E_G\ln f(X;\theta)$. If the conditions of Theorem~\ref{thm:mle-tutarli} hold with $\E_G$ in place of $\E_{\theta_0}$, then $\hat\theta_n\asto\theta^*$. If, moreover, the conditions of Theorem~\ref{thm:z-an} hold for $\psi=s(\theta;x)=\partial_\theta\ln f(x;\theta)$, then
+\[
+\sqrt n(\hat\theta_n-\theta^*)\dto\Normal\Big(0,\ \frac{B}{A^2}\Big),\qquad A=-\E_G\,\partial^2_\theta\ln f(X;\theta^*),\quad B=\E_G\,s(\theta^*;X)^2 .
+\]
+If the model is correct, the information identity\index{information identity@information identity} (Lemma~\ref{lem:skor}) gives $A=B=I_1(\theta_0)$ and the sandwich variance reduces to $1/I_1(\theta_0)$ (Theorem~\ref{thm:mle-an}). If the model is wrong, in general $A\ne B$. Then standard errors computed from $1/I_1(\hat\theta_n)$ or $n/J_n(\hat\theta_n)$ are inconsistent and the coverage of the Wald interval\index{wald confidence interval@Wald confidence interval} does not converge to $1-\alpha$.
+\end{corollary}
+\begin{proof}
+The proof of Theorem~\ref{thm:mle-tutarli} uses only the inequality $M(\theta)<M(\theta_0)$ for $\theta\neq\theta_0$ and integrability. With the unique maximiser $\theta^*$ in place of $\theta_0$ and $\E_G$ in place of $\E_{\theta_0}$, the proof goes through unchanged. Since the root of the likelihood equation satisfies $\sum_is(\hat\theta_n;X_i)=0$, the MLE is a Z-estimator, and since $\theta^*$ is an interior point, $\E_Gs(\theta^*;X)=0$; Theorem~\ref{thm:z-an} applies. For the last claim see Lemma~\ref{lem:skor}.
+\end{proof}
+
+\begin{proposition}[The Sandwich Estimator]\label{prop:sandvic-genel}\index{sandwich estimator@sandwich estimator}
+In addition to the conditions of Theorem~\ref{thm:z-an}, suppose $|\partial_\theta\psi(x;\theta)|\le M_1(x)$ in a neighbourhood of $\theta^*$, with $\E_GM_1(X)^2<\infty$. With
+\[
+\hat A_n=-\frac1n\sum_{i=1}^n\partial_\theta\psi(X_i;\hat\theta_n),\qquad\hat B_n=\frac1n\sum_{i=1}^n\psi(X_i;\hat\theta_n)^2
+\]
+we have $\hat B_n/\hat A_n^2\pto B/A^2$. Hence $\hat\theta_n\pm z_{\alpha/2}\sqrt{\hat B_n/(n\hat A_n^2)}$ is an asymptotic $1-\alpha$ confidence interval whether or not the model is correct.
+\end{proposition}
+\begin{proof}
+By the mean value theorem $|\partial_\theta\psi(x;\hat\theta_n)-\partial_\theta\psi(x;\theta^*)|\le M(x)|\hat\theta_n-\theta^*|$; hence $|\hat A_n-(-\Psi_n'(\theta^*))|\le|\hat\theta_n-\theta^*|\frac1n\sum M(X_i)\pto0$, and $\hat A_n\pto A$ by the WLLN. Similarly $|\psi(x;\hat\theta_n)-\psi(x;\theta^*)|\le M_1(x)|\hat\theta_n-\theta^*|$, and with $a^2-b^2=(a-b)(a+b)$,
+\[
+\Big|\hat B_n-\frac1n\sum_i\psi(X_i;\theta^*)^2\Big|\le|\hat\theta_n-\theta^*|\,\frac1n\sum_iM_1(X_i)\big(2|\psi(X_i;\theta^*)|+M_1(X_i)|\hat\theta_n-\theta^*|\big)\pto0,
+\]
+because $\E_GM_1|\psi|<\infty$ by Cauchy--Schwarz\index{cauchy schwarz inequality@Cauchy--Schwarz inequality}. By the WLLN, $\hat B_n\pto B$. The continuous mapping theorem\index{continuous mapping theorem@continuous mapping theorem} and Slutsky give the interval claim as in Corollary~\ref{cor:wald}.
+\end{proof}
+
+\begin{remark}[Familiar Special Cases]
+(i) For least squares, $\psi=\mathbf x(y-\mathbf x^\top\bm\beta)$, $A=\E[\mathbf x\mathbf x^\top]$ and $B=\E[\varepsilon^2\mathbf x\mathbf x^\top]$. Their sample versions are $\hat A=X^\top X/n$ and $\hat B=\sum_ie_i^2\mathbf x_i\mathbf x_i^\top/n$, so $\hat A^{-1}\hat B\hat A^{-1}/n$ is White's sandwich estimator of Chapter~\ref{ch:dogrusal} (Proposition~\ref{prop:sandvic}). (ii) The quasi-likelihood approach of Chapter~\ref{ch:em-glm} rests on the GLM\index{generalised linear model glm@generalised linear model (GLM)} score equation being a Z-estimating equation: as long as the mean is correctly specified, $\theta^*$ is the true parameter, and if the variance is misspecified the sandwich standard error is used. (iii) For the median, $\psi=\operatorname{sign}(x-\theta)$ is not differentiable. However, $\E_G\psi(X;\theta)=1-2G(\theta)$ is differentiable; taking $A=2g(\theta^*)$ and $B=1$ gives $B/A^2=1/(4g(\theta^*)^2)$. This is the asymptotic variance used in Example~\ref{ex:are} (for a proof via order statistics\index{order statistics@order statistics} see \cite[Chapter~21]{vdv}). In general, if $\psi$ is Lipschitz in the parameter and $\theta\mapsto\E_G\psi(X;\theta)$ is differentiable, the theorem remains valid with $A$ taken as minus this derivative \cite[Theorem~5.21]{vdv}.
+\end{remark}
+
 \section{Worked Examples}
 
 \begin{example}[The Odds]\label{ex:odds}
@@ -205,6 +269,22 @@ $g(p)=p(1-p)$, $g'(1/2)=0$, $g''=-2$. Since $\sigma^2=1/4$ at $p=1/2$,
 $n\big(\bar X(1-\bar X)-\tfrac14\big)\dto-\tfrac14\chi^2_1$. That is, at this point the estimator $\bar X(1-\bar X)$ converges at rate $n$ rather than $\sqrt n$, and its limit distribution is not normal but a (negatively scaled) chi-square.
 \end{example}
 
+\begin{example}[A Misspecified Exponential Model]\label{ex:ustel-yanlis}
+Suppose the model $f(x;\lambda)=\lambda e^{-\lambda x}$ is fitted to waiting times, but the data come from some positive distribution $G$ with mean $\mu$ and variance $\sigma^2$. The score is $s(\lambda;x)=1/\lambda-x$, so the equation $\E_Gs(\lambda^*;X)=0$ gives $\lambda^*=1/\mu$; the MLE $\hat\lambda=1/\bar X$ estimates this pseudo-true\index{pseudo true parameter@pseudo-true parameter} value. Since $\partial_\lambda s=-1/\lambda^2$,
+\[
+A=\frac1{\lambda^{*2}}=\mu^2,\qquad B=\Var_G(X)=\sigma^2,\qquad\frac{B}{A^2}=\frac{\sigma^2}{\mu^4}.
+\]
+The model-based asymptotic variance, on the other hand, is $1/I_1(\lambda^*)=\lambda^{*2}=1/\mu^2$. Their ratio $\sigma^2/\mu^2$ is the squared coefficient of variation of $G$. For the exponential distribution this ratio is $1$. If $G=\text{Gamma}(a,\cdot)$ the ratio is $1/a$; for example, with $a=1/2$ the model understates the variance by half, and the coverage of the model-based $95\%$ Wald interval\index{wald confidence interval@Wald confidence interval} converges to $2\Phi(1.96/\sqrt2)-1\approx0.834$. The sandwich\index{sandwich estimator@sandwich estimator} variance coincides with $\sigma^2/\mu^4$, which the delta method gives for $1/\bar X$: the correct standard error comes not from the model but from the variability of the data themselves.
+\end{example}
+
+\begin{example}[The Huber Location Estimator \cite{huber64}]\label{ex:huber}
+For $c>0$ take $\psi_c(x;\theta)=\max\{-c,\min\{c,\,x-\theta\}\}$: it behaves like the mean for observations near the centre and like the median for distant ones. If $G$ is symmetric about $\theta_0$ and continuous, symmetry gives $\E_G\psi_c(X;\theta_0)=0$; since $\theta\mapsto\E_G\psi_c(X;\theta)$ is decreasing, $\theta^*=\theta_0$. $\psi_c$ is $1$-Lipschitz in the parameter and
+\[
+A=\P_G(|X-\theta_0|\le c),\qquad B=\E_G\,\psi_c(X;\theta_0)^2,\qquad\sqrt n(\hat\theta_n-\theta_0)\dto\Normal(0,B/A^2).
+\]
+For $c=1.345$, $B/A^2\approx1.053$ under the standard normal; that is, on normal data the Huber estimator\index{huber estimator@Huber estimator} has $95\%$ of the efficiency of the mean. For the heavy-tailed $t_3$ distribution, $B/A^2\approx1.56$, smaller than the asymptotic variance $3$ of the mean and $\approx1.85$ of the median. A small loss of efficiency buys a large insurance against heavy tails.
+\end{example}
+
 \section{Computational Applications}
 
 \subsection{The Delta Method for the Odds}
@@ -243,6 +323,21 @@ Second-order delta: E[W]=-0.2487 (theory -0.25), Var[W]=0.1237 (theory 2/16=0.12
 
 The normal and $t_3$ rows are very close to the theoretical ARE values ($0.637$ and $3\cdot4f(0)^2\approx1.62$): for the $t_3$ distribution (finite variance $=3$, but heavy-tailed) the median is more efficient than the mean. For the Laplace the empirical ARE ($\approx1.73$) is below the theoretical value $2$; since the Laplace density has a sharp (non-differentiable) peak, $n\Var(\text{median})$ approaches its asymptotic value $1$ only slowly, at rate $O(n^{-1/2})$. How well asymptotic results hold in finite samples should always be checked by simulation. The superiority of robust estimators for heavy-tailed data is a consequence of this table.
 
+\subsection{Misspecified Model: Sandwich Variance and the Huber Estimator}
+The first part simulates the situation of Example~\ref{ex:ustel-yanlis}: the exponential model is fitted to $\text{Gamma}(1/2,\text{scale }2)$ data with mean $1$ and variance $2$ ($\lambda^*=1$, sandwich\index{sandwich estimator@sandwich estimator} variance $2$, model variance $1$). The $95\%$ Wald intervals built with model-based and with sandwich (Proposition~\ref{prop:sandvic-genel}) standard errors are compared. The second part gives the $n\Var$ values of the mean, the median and the Huber estimator\index{huber estimator@Huber estimator} (Example~\ref{ex:huber}) on $t_3$ data, together with the theoretical $B/A^2$ for Huber.
+
+\pycode{code/ch12/c12_4_misspecified_model_sandwich.py}
+\begin{lstlisting}[style=output]
+Exponential model, n= 50 | n*Var(lam)=2.350 | model n*SE^2=1.133 | sandwich n*SE^2=2.116 | coverage: model=0.841, sandwich=0.932
+Exponential model, n=400 | n*Var(lam)=2.024 | model n*SE^2=1.015 | sandwich n*SE^2=2.016 | coverage: model=0.837, sandwich=0.950
+t_3, n=200 | mean     | n*Var=2.953
+t_3, n=200 | median   | n*Var=1.860
+t_3, n=200 | Huber    | n*Var=1.575
+Huber theoretical B/A^2 = 1.556 | mean theoretical = 3.000 | median theoretical = 1.851
+\end{lstlisting}
+
+The model-based interval does not improve as $n$ grows; its coverage stays around $0.834$, because what is wrong is the variance itself. The sandwich interval undercovers slightly at $n=50$ ($\hat B_n$ underestimates the variance because of the heavy right tail) and reaches the target at $n=400$. On the $t_3$ data the simulated $n\Var$ values are close to the theoretical ones ($3$; $1.85$; $1.56$), and the Huber estimator is the best of the three.
+
 \section{Comments and Notes}
 
 \begin{remark}[Hodges' Superefficient Estimator]
@@ -265,12 +360,13 @@ The delta method\index{delta method@delta method} is a local linearisation; if $
   \item In regular models, $\sqrt n(\hat\theta_n-\theta_0)\dto\Normal(0,1/I_1(\theta_0))$ (Theorem~\ref{thm:mle-an}): the MLE attains the CRLB asymptotically.
   \item The Wald interval is built from the expected or the observed information (Corollary~\ref{cor:wald}). In small samples its coverage is sensitive to the parametrisation.
   \item The delta method (Theorem~\ref{thm:delta}) carries asymptotic normality over to differentiable transformations. When $g'(\theta)=0$ the second-order version (Theorem~\ref{thm:delta2}) is used, and in several dimensions the gradient version (Theorem~\ref{thm:delta-cok}). A variance-stabilising transformation makes the asymptotic variance constant.
+  \item If the model is misspecified, the MLE estimates the member of the model closest to the true distribution in the Kullback--Leibler sense (Definition~\ref{def:sozde-gercek}). The asymptotic variance of M- and Z-estimators has the sandwich form $A^{-1}BA^{-\top}$ (Theorem~\ref{thm:z-an}). If the model is correct, the information identity gives $A=B=I_1$. If the model is wrong, sandwich standard errors (Proposition~\ref{prop:sandvic-genel}) should be used.
   \item Hodges' superefficient estimator shows that asymptotic efficiency must be defined together with a local uniformity condition.
 \end{itemize}
 \end{summary}
 % --- END OF CHAPTER SUMMARY ---
 
-\paragraph{Further reading.} \cite[Chapter~10]{casella}, \cite[Chapters~3, 5 and 8]{vdv}, \cite[Chapters~17--18]{ferguson}.
+\paragraph{Further reading.} \cite[Chapter~10]{casella}, \cite[Chapters~3, 5 and 8]{vdv}, \cite[Chapters~17--18]{ferguson}; for misspecified\index{misspecified model@misspecified model} models and M-estimators\index{m estimator@M-estimator} \cite{huber67,white82} and \cite[Chapter~5]{vdv}.
 
 \section{Exercises}
 
@@ -292,6 +388,16 @@ In the Cauchy location model, show (by simulation) that the one-step Newton--Rap
 \begin{exercise}\label{exr:12-4}
 Using Fisher's $z$ transformation, construct an approximate $95\%$ confidence interval for $\rho$ from bivariate normal data. For $\rho=0.8$, $n=20$, compare its coverage by simulation with that of the direct interval $r\pm1.96(1-r^2)/\sqrt n$.
 \hfill\hyperref[coz:12-4]{\footnotesize$\rightarrow$\,Solution}
+\end{exercise}
+
+\begin{exercise}\label{exr:12-5}
+The $\Normal(\mu,\sigma^2)$ model is fitted to data from an arbitrary distribution $G$ with mean $\mu$, variance $\sigma^2$ and fourth central moment $\mu_4<\infty$. Show that the pseudo-true parameter is $(\mu,\sigma^2)$, and that the sandwich asymptotic variance of $\hat\sigma^2=\frac1n\sum(X_i-\bar X)^2$ is $\mu_4-\sigma^4$ while the model-based asymptotic variance is $2\sigma^4$. Compare the result with Theorem~\ref{thm:s2-yansiz}(3). If $G$ is the Laplace distribution, what does the coverage of the model-based $95\%$ Wald interval converge to?
+\hfill\hyperref[coz:12-5]{\footnotesize$\rightarrow$\,Solution}
+\end{exercise}
+
+\begin{exercise}\label{exr:12-6}
+The Poisson model is fitted to count data with mean $\lambda$ and variance $\phi\lambda$ ($\phi>1$, overdispersion). Show that $\lambda^*=\lambda$, and that the model-based asymptotic variance of the MLE $\bar X$ is $\lambda$ while its sandwich asymptotic variance is $\phi\lambda$. Relate this to the quasi-likelihood correction of Chapter~\ref{ch:em-glm}.
+\hfill\hyperref[coz:12-6]{\footnotesize$\rightarrow$\,Solution}
 \end{exercise}
 
 \chapterlinks{12}
