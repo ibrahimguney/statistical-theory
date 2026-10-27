@@ -55,6 +55,91 @@ i.e.\ the cross term vanishes: $2\E[(\hat{\theta}-\E[\hat{\theta}])(\E[\hat{\the
 This decomposition is the formula behind the \emph{bias--variance\index{bias variance decomposition@bias--variance decomposition} trade-off} of statistics and machine learning: if accepting some bias reduces the variance by more, the MSE goes down. Shrinkage\index{shrinkage@shrinkage}, regularisation (ridge\index{ridge regression@ridge regression}, lasso) and Bayes estimators\index{bayes estimator@Bayes estimator}\index{estimator@estimator} rest on this principle.
 \end{remark}
 
+Figure~\ref{fig:yan-varyans} shows the two components of the decomposition on a target.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[lab/.style={font=\small}]
+  \foreach \r/\c in {1.35/gray!8,1.0/gray!16,0.65/gray!26,0.3/gray!40} \fill[\c] (0,0) circle (\r);
+  \foreach \r in {1.35,1.0,0.65,0.3} \draw[gray!70] (0,0) circle (\r);
+  \fill[red!70!black] (0,0) circle (2pt);
+  \fill[blue!60!black] (0.000,0.054) circle (1.3pt);
+  \fill[blue!60!black] (-0.049,-0.160) circle (1.3pt);
+  \fill[blue!60!black] (-0.082,-0.178) circle (1.3pt);
+  \fill[blue!60!black] (0.011,0.241) circle (1.3pt);
+  \fill[blue!60!black] (-0.089,-0.112) circle (1.3pt);
+  \fill[blue!60!black] (0.088,0.064) circle (1.3pt);
+  \fill[blue!60!black] (0.019,-0.167) circle (1.3pt);
+  \fill[blue!60!black] (-0.005,0.125) circle (1.3pt);
+  \fill[blue!60!black] (-0.242,-0.082) circle (1.3pt);
+  \fill[blue!60!black] (-0.342,-0.232) circle (1.3pt);
+  \fill[blue!60!black] (-0.332,-0.042) circle (1.3pt);
+  \fill[blue!60!black] (-0.228,0.049) circle (1.3pt);
+  \fill[blue!60!black] (0.028,-0.034) circle (1.3pt);
+  \fill[blue!60!black] (-0.453,-0.097) circle (1.3pt);
+  \draw[orange!80!black,thick] (-0.240,-0.041) -- (0.000,-0.041) (-0.120,-0.161) -- (-0.120,0.079);
+  \foreach \r/\c in {1.35/gray!8,1.0/gray!16,0.65/gray!26,0.3/gray!40} \fill[\c] (3.6,0) circle (\r);
+  \foreach \r in {1.35,1.0,0.65,0.3} \draw[gray!70] (3.6,0) circle (\r);
+  \fill[red!70!black] (3.6,0) circle (2pt);
+  \fill[blue!60!black] (4.141,0.350) circle (1.3pt);
+  \fill[blue!60!black] (3.875,0.244) circle (1.3pt);
+  \fill[blue!60!black] (3.974,0.184) circle (1.3pt);
+  \fill[blue!60!black] (4.341,0.185) circle (1.3pt);
+  \fill[blue!60!black] (4.144,0.489) circle (1.3pt);
+  \fill[blue!60!black] (4.045,0.310) circle (1.3pt);
+  \fill[blue!60!black] (4.170,0.341) circle (1.3pt);
+  \fill[blue!60!black] (3.929,0.344) circle (1.3pt);
+  \fill[blue!60!black] (4.395,0.052) circle (1.3pt);
+  \fill[blue!60!black] (4.305,0.351) circle (1.3pt);
+  \fill[blue!60!black] (4.035,0.690) circle (1.3pt);
+  \fill[blue!60!black] (4.287,0.114) circle (1.3pt);
+  \fill[blue!60!black] (4.163,0.434) circle (1.3pt);
+  \fill[blue!60!black] (4.116,0.453) circle (1.3pt);
+  \draw[orange!80!black,thick] (4.017,0.324) -- (4.257,0.324) (4.137,0.204) -- (4.137,0.444);
+  \foreach \r/\c in {1.35/gray!8,1.0/gray!16,0.65/gray!26,0.3/gray!40} \fill[\c] (0,-3.6) circle (\r);
+  \foreach \r in {1.35,1.0,0.65,0.3} \draw[gray!70] (0,-3.6) circle (\r);
+  \fill[red!70!black] (0,-3.6) circle (2pt);
+  \fill[blue!60!black] (-0.030,-3.300) circle (1.3pt);
+  \fill[blue!60!black] (0.647,-3.904) circle (1.3pt);
+  \fill[blue!60!black] (0.091,-3.808) circle (1.3pt);
+  \fill[blue!60!black] (0.057,-4.134) circle (1.3pt);
+  \fill[blue!60!black] (-0.261,-3.688) circle (1.3pt);
+  \fill[blue!60!black] (0.404,-3.085) circle (1.3pt);
+  \fill[blue!60!black] (-0.596,-3.958) circle (1.3pt);
+  \fill[blue!60!black] (0.291,-4.497) circle (1.3pt);
+  \fill[blue!60!black] (-0.208,-3.644) circle (1.3pt);
+  \fill[blue!60!black] (0.566,-3.290) circle (1.3pt);
+  \fill[blue!60!black] (-0.147,-3.766) circle (1.3pt);
+  \fill[blue!60!black] (-0.113,-2.914) circle (1.3pt);
+  \fill[blue!60!black] (-0.193,-3.737) circle (1.3pt);
+  \fill[blue!60!black] (0.159,-3.654) circle (1.3pt);
+  \draw[orange!80!black,thick] (-0.072,-3.670) -- (0.168,-3.670) (0.048,-3.790) -- (0.048,-3.550);
+  \foreach \r/\c in {1.35/gray!8,1.0/gray!16,0.65/gray!26,0.3/gray!40} \fill[\c] (3.6,-3.6) circle (\r);
+  \foreach \r in {1.35,1.0,0.65,0.3} \draw[gray!70] (3.6,-3.6) circle (\r);
+  \fill[red!70!black] (3.6,-3.6) circle (2pt);
+  \fill[blue!60!black] (4.061,-3.771) circle (1.3pt);
+  \fill[blue!60!black] (4.145,-3.470) circle (1.3pt);
+  \fill[blue!60!black] (4.675,-2.976) circle (1.3pt);
+  \fill[blue!60!black] (4.139,-2.969) circle (1.3pt);
+  \fill[blue!60!black] (3.997,-2.797) circle (1.3pt);
+  \fill[blue!60!black] (4.148,-3.007) circle (1.3pt);
+  \fill[blue!60!black] (3.569,-3.114) circle (1.3pt);
+  \fill[blue!60!black] (3.390,-4.186) circle (1.3pt);
+  \fill[blue!60!black] (4.013,-3.675) circle (1.3pt);
+  \fill[blue!60!black] (4.224,-2.260) circle (1.3pt);
+  \fill[blue!60!black] (3.776,-3.551) circle (1.3pt);
+  \fill[blue!60!black] (4.242,-3.048) circle (1.3pt);
+  \fill[blue!60!black] (4.071,-3.363) circle (1.3pt);
+  \fill[blue!60!black] (4.466,-3.036) circle (1.3pt);
+  \draw[orange!80!black,thick] (3.945,-3.230) -- (4.185,-3.230) (4.065,-3.350) -- (4.065,-3.110);
+  \node[lab] at (0,1.75) {low bias};
+  \node[lab] at (3.6,1.75) {high bias};
+  \node[lab,rotate=90] at (-1.75,0) {low variance};
+  \node[lab,rotate=90] at (-1.75,-3.6) {high variance};
+\end{tikzpicture}
+\caption{Bias and variance on a target. Each dot is an estimate computed from a different sample; the red centre is the true $\theta$ and the orange cross is the mean of the estimates, $\E\hat\theta$. The bias is the distance from the centre to the mean; the variance is the spread of the dots around their mean. By Theorem~\ref{thm:mse-ayrisim} the MSE is the sum of the two: the estimator at top right can have a smaller MSE than the unbiased one at bottom left, although it is biased (Example~\ref{ex:en-iyi-bolen}).}\label{fig:yan-varyans}
+\end{figure}
+
 \begin{theorem}[MSE-Consistency Implies Consistency]\label{thm:mse-tutarlilik}\index{consistency@consistency}\index{mean squared error mse@mean squared error (MSE)}
 If $\MSE_\theta(\hat\theta_n)\to0$, then $\hat\theta_n\pto\theta$. Equivalently, $\Bias_\theta(\hat\theta_n)\to0$ and $\Var_\theta(\hat\theta_n)\to0$ together form a \emph{sufficient} (but not necessary) condition for consistency.
 \end{theorem}

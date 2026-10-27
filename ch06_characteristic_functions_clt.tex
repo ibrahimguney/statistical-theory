@@ -223,6 +223,29 @@ In $\R^k$, convergence in distribution\index{convergence in distribution@converg
 (2) $\P(|X_n-c|>\varepsilon)\le F_n(c-\varepsilon)+1-F_n(c+\varepsilon/2)\to0+1-1=0$, because $c\pm\varepsilon$ are continuity points of the CDF of the constant.
 \end{proof}
 
+This completes the relations between the four modes of convergence\index{hierarchy of convergence@hierarchy of convergence}; Figure~\ref{fig:yakinsama-tam} shows them together with the partial converses that hold under extra conditions.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[mode/.style={draw,rounded corners=3pt,fill=blue!5,minimum width=3.3cm,minimum height=10mm,align=center,font=\small},
+  imp/.style={-{Latex[length=2.6mm]},thick},
+  fail/.style={-{Latex[length=2.4mm]},dashed,red!70!black},
+  part/.style={-{Latex[length=2.4mm]},dashed,green!40!black},
+  lab/.style={font=\footnotesize,align=center}]
+\node[mode] (as) at (0,0) {almost surely\\$\asto$};
+\node[mode] (p) at (5.7,0) {in probability\\$\pto$};
+\node[mode] (d) at (11.4,0) {in distribution\\$\dto$};
+\node[mode] (lp) at (5.7,3.4) {in $p$-th mean\\$\Lto{p}$};
+\draw[imp] ([yshift=-2.2mm]as.east) -- node[lab,below] {} ([yshift=-2.2mm]p.west);
+\draw[part] ([yshift=2.2mm]p.west) -- node[lab,above,yshift=2pt,text width=2.3cm] {along a subsequence} ([yshift=2.2mm]as.east);
+\draw[imp] ([yshift=-2.2mm]p.east) -- node[lab,below] {} ([yshift=-2.2mm]d.west);
+\draw[part] ([yshift=2.2mm]d.west) -- node[lab,above,yshift=2pt,text width=2.3cm] {if the limit is constant} ([yshift=2.2mm]p.east);
+\draw[imp] ([xshift=-2.2mm]lp.south) -- node[lab,right] {} ([xshift=-2.2mm]p.north);
+\draw[part] ([xshift=2.2mm]p.north) -- node[lab,right,xshift=2pt] {if uniformly integrable} ([xshift=2.2mm]lp.south);
+\end{tikzpicture}
+\caption{The complete diagram of the four modes of convergence. Solid arrows are the implications of Theorem~\ref{thm:hiyerarsi} and Proposition~\ref{prop:p-d}(1). Dashed arrows are partial converses that hold under an extra condition: Proposition~\ref{prop:p-d}(2) for a constant limit; for the subsequence and uniform integrability results see \cite[Sections~20 and 25]{billingsley}.}\label{fig:yakinsama-tam}
+\end{figure}
+
 \begin{theorem}[Slutsky's Theorem]\label{thm:slutsky}\index{slutsky s theorem@Slutsky's theorem}
 If $X_n\dto X$ and $Y_n\pto c$ (a constant), then
 \[

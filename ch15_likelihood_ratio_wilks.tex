@@ -79,6 +79,31 @@ Under the conditions of Wilks' theorem and when $H_0$ is true, $W_n-G_n^2\pto0$ 
 From the proof of Wilks' theorem, $G^2=n(\hat\theta-\theta_0)^2I_1+o_P(1)$. Since $W=n(\hat\theta-\theta_0)^2I_1(\hat\theta)$ and $I_1(\hat\theta)\pto I_1(\theta_0)$, $W-G^2\pto0$. For the score, $\ell'(\theta_0)=-\ell''(\theta^{**})(\hat\theta-\theta_0)\approx nI_1(\hat\theta-\theta_0)$, so $S=\ell'(\theta_0)^2/(nI_1)\approx n I_1(\hat\theta-\theta_0)^2$.
 \end{proof}
 
+Why the three statistics share the same limit can also be seen intuitively from the geometric interpretation in Figure~\ref{fig:uc-test}.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[x=2.1cm,y=1.25cm,lab/.style={font=\footnotesize}]
+\draw[-{Latex}] (0.2,-0.4) -- (4.5,-0.4) node[below left] {$\theta$};
+\draw[-{Latex}] (0.3,-0.5) -- (0.3,3.6) node[left] {$\ell(\theta)$};
+\draw[very thick,blue!60!black,domain=0.45:4.25,samples=80] plot (\x,{3-1.1*(\x-2.4)^2});
+\draw[dashed,gray] (1.1,-0.4) node[below] {$\theta_0$} -- (1.1,1.141);
+\draw[dashed,gray] (2.4,-0.4) node[below] {$\hat\theta$} -- (2.4,3);
+\fill (1.1,1.141) circle (1.6pt) (2.4,3) circle (1.6pt);
+% LRT: vertical
+\draw[dashed,gray] (1.1,1.141) -- (3.75,1.141);
+\draw[dashed,gray] (2.4,3) -- (3.75,3);
+\draw[{Latex}-{Latex},red!70!black,thick] (3.65,1.141) -- node[lab,right,align=left] {LRT: $\ell(\hat\theta)-\ell(\theta_0)$} (3.65,3);
+% Wald: horizontal
+\draw[{Latex}-{Latex},orange!80!black,thick] (1.1,-0.1) -- node[lab,above] {Wald: $\hat\theta-\theta_0$} (2.4,-0.1);
+% Score: tangent at theta0
+\draw[green!40!black,thick] (0.55,-0.432) -- (1.6,2.571);
+\node[lab,anchor=west,green!40!black] (sc) at (0.38,3.35) {Score: slope $\ell'(\theta_0)$};
+\draw[green!40!black,thin] (sc.south) -- (1.4000000000000001,1.999);
+\end{tikzpicture}
+\caption{Geometric interpretation of the holy trinity on the log-likelihood curve (Theorem~\ref{thm:uclu}). The LRT measures the \emph{vertical} difference between $\ell(\hat\theta)$ at the top and $\ell(\theta_0)$; the Wald test measures the \emph{horizontal} distance between $\hat\theta$ and $\theta_0$, scaled by the curvature at the top; the score test uses only the \emph{slope} at $\theta_0$. If the log-likelihood is quadratic, the three measures give exactly the same result; since the curve approaches this form in large samples, the three tests are asymptotically equivalent.}\label{fig:uc-test}
+\end{figure}
+
 \begin{remark}[The Assumptions of Wilks' Theorem]
 \begin{itemize}
   \item \textbf{Interior point:} if $\bm\theta_0$ lies on the boundary of $\Theta$ (e.g.\ $H_0:\sigma^2_{\text{random effect}}=0$), the limit is the mixture $\frac12\chi^2_0+\frac12\chi^2_1$; using $\chi^2_1$ gives a conservative test.

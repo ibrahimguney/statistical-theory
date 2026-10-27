@@ -147,13 +147,35 @@ The converses are false in general.
 (3) From Lyapunov's inequality $(\E|Y|^r)^{1/r}\le(\E|Y|^p)^{1/p}$.
 \end{proof}
 
-\begin{example}[Convergence in Probability Without A.S.\ Convergence: the ``Typewriter'' Sequence]
+\begin{example}[Convergence in Probability Without A.S.\ Convergence: the ``Typewriter'' Sequence]\label{ex:daktilo}
 Let $\Omega=[0,1]$ with Lebesgue measure. For $n=2^k+j$ ($0\le j<2^k$) let $X_n=\I_{[j/2^k,\,(j+1)/2^k]}$. Then $\P(X_n\neq0)=2^{-k}\to0$, so $X_n\pto0$ (even in $L^p$). But for every $\omega$, $X_n(\omega)$ takes the value $1$ at least once in each block $k$, so $\limsup X_n(\omega)=1$: the sequence converges at \emph{no} point.
 \end{example}
 
-\begin{example}[A.S.\ Convergence Without $L^1$ Convergence]
+\begin{example}[A.S.\ Convergence Without $L^1$ Convergence]\label{ex:hhk-l1}
 Let $U\sim\text{Uniform}(0,1)$ and $X_n=n\,\I\{U<1/n\}$. For every $\omega$ (since $U(\omega)>0$), $X_n(\omega)=0$ for all large $n$; so $X_n\asto0$. However $\E X_n=1$ for every $n$, so $\E|X_n-0|\not\to0$. This example shows that convergence in probability\index{convergence in probability@convergence in probability} does not guarantee convergence of moments: an estimator may be consistent while its MSE does not tend to zero (Chapter~\ref{ch:nokta-tahmin}).
 \end{example}
+
+Figure~\ref{fig:yakinsama-iliskileri} summarises these relations and the counterexamples to the converses.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[mode/.style={draw,rounded corners=3pt,fill=blue!5,minimum width=3.3cm,minimum height=10mm,align=center,font=\small},
+  imp/.style={-{Latex[length=2.6mm]},thick},
+  fail/.style={-{Latex[length=2.4mm]},dashed,red!70!black},
+  part/.style={-{Latex[length=2.4mm]},dashed,green!40!black},
+  lab/.style={font=\footnotesize,align=center}]
+\node[mode] (as) at (0,0) {almost surely\\$X_n\asto X$};
+\node[mode] (p) at (7.4,0) {in probability\\$X_n\pto X$};
+\node[mode] (lp) at (0,-3.2) {in $p$-th mean\\$X_n\Lto{p} X$};
+\node[mode] (lr) at (0,-6.0) {in $r$-th mean ($r<p$)\\$X_n\Lto{r} X$};
+\draw[imp] ([yshift=-2.2mm]as.east) -- node[lab,below] {(1)} ([yshift=-2.2mm]p.west);
+\draw[fail] ([yshift=2.2mm]p.west) -- node[red!70!black,fill=white,inner sep=0.5pt] {$\times$} node[lab,above,yshift=2pt,text width=2.3cm] {typewriter sequence (Example~\ref{ex:daktilo})} ([yshift=2.2mm]as.east);
+\draw[imp] (lp.east) -- node[lab,below right] {(2)} (p.south west);
+\draw[fail] (as.south) -- node[red!70!black,fill=white,inner sep=0.5pt] {$\times$} node[lab,left,xshift=-4pt] {$n\,\I\{U<1/n\}$\\(Example~\ref{ex:hhk-l1})} (lp.north);
+\draw[imp] (lp) -- node[lab,right] {(3)} (lr);
+\end{tikzpicture}
+\caption{Relations between the modes of convergence treated in Chapter~\ref{ch:esitsizlikler} (Theorem~\ref{thm:hiyerarsi}). Solid arrows show implications that always hold; crossed dashed arrows show converses that fail in general, each labelled with its counterexample.}\label{fig:yakinsama-iliskileri}
+\end{figure}
 
 \begin{theorem}[Continuous Mapping Theorem --- in Probability]\label{thm:cmt-p}
 If $X_n\pto c$ (a constant) and $g$ is continuous at $c$, then $g(X_n)\pto g(c)$.
