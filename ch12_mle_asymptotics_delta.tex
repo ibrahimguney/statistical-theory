@@ -3,7 +3,7 @@
 
 \chapter{Asymptotic Theory of the MLE and the Delta Method}\label{ch:mle-asimptotik}\chaptermark{MLE Asymptotics and the Delta Method}
 
-The finite-sample properties of the MLE\index{maximum likelihood estimator mle@maximum likelihood estimator (MLE)} vary from model to model: sometimes it is biased, sometimes it has no closed form at all. In large samples, however, under regularity conditions\index{regularity conditions@regularity conditions}, the MLE shows universal and very strong behaviour: it is consistent, asymptotically normal\index{asymptotic normality@asymptotic normality}, and its asymptotic variance attains the Cramér--Rao\index{cramer rao lower bound crlb@Cramér--Rao lower bound (CRLB)} bound. This chapter covers these three results, the information inequality\index{information inequality@information inequality} that makes them possible, and the delta method\index{delta method@delta method}, which gives the asymptotic distribution of transformations of an estimator. These results are the theoretical basis of almost all standard errors and Wald confidence intervals\index{wald confidence interval@Wald confidence interval} reported in applied statistics. Finally, we study what the MLE estimates when the model is misspecified\index{misspecified model@misspecified model} and how its standard error is corrected by the sandwich\index{sandwich estimator@sandwich estimator} formula.
+The finite-sample properties of the MLE\index{maximum likelihood estimator mle@maximum likelihood estimator (MLE)} vary from model to model: sometimes it is biased, sometimes it has no closed form at all. In large samples, however, under regularity conditions\index{regularity conditions@regularity conditions}, the MLE shows universal and very strong behaviour: it is consistent, asymptotically normal\index{asymptotic normality@asymptotic normality}, and its asymptotic variance attains the Cramér--Rao\index{cramer rao lower bound crlb@Cramér--Rao lower bound (CRLB)} bound. This chapter covers these three results, the information inequality\index{information inequality@information inequality} that makes them possible, and the delta method\index{delta method@delta method}, which gives the asymptotic distribution of transformations of an estimator. These results are the theoretical basis of almost all standard errors and Wald confidence intervals\index{wald confidence interval@Wald confidence interval} reported in applied statistics. Finally, we study what the MLE estimates when the model is misspecified\index{misspecified model@misspecified model} and how its standard error is corrected by the sandwich\index{sandwich estimator@sandwich estimator} formula, and how the same framework yields the Akaike information\index{akaike information criterion aic@Akaike information criterion (AIC)} criterion for model selection\index{model selection@model selection}.
 
 \section{Definitions}
 
@@ -229,6 +229,57 @@ because $\E_GM_1|\psi|<\infty$ by Cauchy--Schwarz\index{cauchy schwarz inequalit
 (i) For least squares, $\psi=\mathbf x(y-\mathbf x^\top\bm\beta)$, $A=\E[\mathbf x\mathbf x^\top]$ and $B=\E[\varepsilon^2\mathbf x\mathbf x^\top]$. Their sample versions are $\hat A=X^\top X/n$ and $\hat B=\sum_ie_i^2\mathbf x_i\mathbf x_i^\top/n$, so $\hat A^{-1}\hat B\hat A^{-1}/n$ is White's sandwich estimator of Chapter~\ref{ch:dogrusal} (Proposition~\ref{prop:sandvic}). (ii) The quasi-likelihood approach of Chapter~\ref{ch:em-glm} rests on the GLM\index{generalised linear model glm@generalised linear model (GLM)} score equation being a Z-estimating equation: as long as the mean is correctly specified, $\theta^*$ is the true parameter, and if the variance is misspecified the sandwich standard error is used. (iii) For the median, $\psi=\operatorname{sign}(x-\theta)$ is not differentiable. However, $\E_G\psi(X;\theta)=1-2G(\theta)$ is differentiable; taking $A=2g(\theta^*)$ and $B=1$ gives $B/A^2=1/(4g(\theta^*)^2)$. This is the asymptotic variance used in Example~\ref{ex:are} (for a proof via order statistics\index{order statistics@order statistics} see \cite[Chapter~21]{vdv}). In general, if $\psi$ is Lipschitz in the parameter and $\theta\mapsto\E_G\psi(X;\theta)$ is differentiable, the theorem remains valid with $A$ taken as minus this derivative \cite[Theorem~5.21]{vdv}.
 \end{remark}
 
+\section{Model Selection: The Akaike Information Criterion}
+
+When choosing among candidate models, picking the largest log-likelihood\index{log likelihood@log-likelihood} does not work: among nested models the one with more parameters always gives a likelihood at least as large. The problem is that $\ell_n(\hat\theta)$ uses the same data both to estimate and to evaluate; it is therefore optimistic. Akaike \cite{akaike73} took as the target the log-likelihood the model will give on a \emph{new} data set, and showed that in large samples this optimism equals the number of parameters. In this section $\ell_n(\theta)=\sum_{i=1}^n\ln f(X_i;\theta)$ and $\theta\in\R^k$.
+
+\begin{definition}[Predictive Log-Likelihood and Optimism]\label{def:kestirim-olabilirlik}\index{optimism of the likelihood@optimism (of the likelihood)|textbf}
+Let $X_1,\dots,X_n\iid G$ and let $\hat\theta$ be the MLE\index{maximum likelihood estimator mle@maximum likelihood estimator (MLE)} computed from these data. Let $Y_1,\dots,Y_n$ be a ``new'' sample, independent of the $X$'s and also i.i.d.\ from $G$. With
+\[
+L_n(\theta)=\E_G\sum_{i=1}^n\ln f(Y_i;\theta)=n\,\E_G\ln f(Y;\theta),
+\]
+$L_n(\hat\theta)$ is called the \emph{predictive log-likelihood}; here the expectation is over $Y$ only, with $\hat\theta$ held fixed. Since $-2L_n(\hat\theta)=2n\,\mathrm{KL}(g\|f_{\hat\theta})+\text{const}$, the model maximising $L_n(\hat\theta)$ is, as fitted, the closest to $G$ in the Kullback--Leibler\index{kullback leibler divergence@Kullback--Leibler divergence} sense. The difference $\ell_n(\hat\theta)-L_n(\hat\theta)$ is called the \emph{optimism}.
+\end{definition}
+
+\begin{theorem}[The Limit of the Optimism \cite{akaike73}]\label{thm:aic}\index{optimism of the likelihood@optimism (of the likelihood)}
+Suppose the multidimensional conditions of Theorem~\ref{thm:z-an} hold for the score function\index{score function@score function}: $\theta^*$ is the unique maximiser of $\E_G\ln f(X;\theta)$ and an interior point, $\hat\theta\pto\theta^*$, $A=-\E_G\nabla^2\ln f(X;\theta^*)$ is invertible and $B=\E_G\,s\,s^\top<\infty$. Suppose also that in a neighbourhood of $\theta^*$, $-\frac1n\nabla^2\ell_n(\theta)$ converges uniformly to $-\nabla^2\E_G\ln f(X;\theta)$ and that this second derivative is continuous at $\theta^*$. With $\mathbf Z\sim\Normal_k(\mathbf 0,A^{-1}BA^{-1})$:
+\begin{enumerate}
+  \item $\ell_n(\hat\theta)-\ell_n(\theta^*)\dto\frac12\mathbf Z^\top A\mathbf Z$ and $L_n(\theta^*)-L_n(\hat\theta)\dto\frac12\mathbf Z^\top A\mathbf Z$; both limits have expectation $\frac12\operatorname{tr}(A^{-1}B)$.
+  \item $\E\big[\ell_n(\theta^*)-L_n(\theta^*)\big]=0$. Hence, provided the sequences in (1) are uniformly integrable,
+  \[
+  \E\big[\ell_n(\hat\theta)-L_n(\hat\theta)\big]\to\operatorname{tr}(A^{-1}B).
+  \]
+  \item If the model is correct, $A=B=I_1(\theta_0)$ and the limit is $\operatorname{tr}(I_k)=k$; moreover $2[\ell_n(\hat\theta)-\ell_n(\theta_0)]\dto\chi^2_k$.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+(1) Since $\nabla\ell_n(\hat\theta)=\mathbf 0$, a second-order expansion of $\ell_n$ about $\hat\theta$ gives, for some $\tilde\theta$ between $\hat\theta$ and $\theta^*$,
+\[
+\ell_n(\hat\theta)-\ell_n(\theta^*)=\tfrac12\sqrt n(\hat\theta-\theta^*)^\top\Big[-\tfrac1n\nabla^2\ell_n(\tilde\theta)\Big]\sqrt n(\hat\theta-\theta^*).
+\]
+By uniform convergence, continuity and $\tilde\theta\pto\theta^*$, the bracket is $\pto A$. By Theorem~\ref{thm:z-an}, $\sqrt n(\hat\theta-\theta^*)\dto\mathbf Z$; by the continuous mapping theorem\index{continuous mapping theorem@continuous mapping theorem} and Slutsky\index{slutsky s theorem@Slutsky's theorem} the limit is $\frac12\mathbf Z^\top A\mathbf Z$. For $M(\theta)=\E_G\ln f(Y;\theta)$, $\nabla M(\theta^*)=\mathbf 0$ ($\theta^*$ is an interior maximiser) and $\nabla^2M(\theta^*)=-A$. A similar expansion gives $L_n(\theta^*)-L_n(\hat\theta)=n[M(\theta^*)-M(\hat\theta)]=\frac12\sqrt n(\hat\theta-\theta^*)^\top[-\nabla^2M(\bar\theta)]\sqrt n(\hat\theta-\theta^*)$, which converges to the same limit. Expectation: $\E\,\mathbf Z^\top A\mathbf Z=\operatorname{tr}\big(A\Cov\mathbf Z\big)=\operatorname{tr}(AA^{-1}BA^{-1})=\operatorname{tr}(A^{-1}B)$.
+
+(2) $\E\,\ell_n(\theta^*)=n\E_G\ln f(X;\theta^*)=L_n(\theta^*)$. The optimism decomposes as
+\[
+\ell_n(\hat\theta)-L_n(\hat\theta)=\big[\ell_n(\hat\theta)-\ell_n(\theta^*)\big]+\big[\ell_n(\theta^*)-L_n(\theta^*)\big]+\big[L_n(\theta^*)-L_n(\hat\theta)\big].
+\]
+The middle term has expectation zero (this term is $O_P(\sqrt n)$ and does not converge to zero; this is why the claim concerns the expectation, not the distribution). Under uniform integrability the expectations of the outer terms converge to the expectations of their limits, $\frac12\operatorname{tr}(A^{-1}B)$ each.
+
+(3) The information identity\index{information identity@information identity} (Lemma~\ref{lem:skor}) gives $A=B$. Then $A^{1/2}\mathbf Z\sim\Normal_k(\mathbf 0,I_k)$ and $\mathbf Z^\top A\mathbf Z\sim\chi^2_k$; this is a form of Wilks\index{wilks theorem@Wilks' theorem}' theorem (Theorem~\ref{thm:wilks}).
+\end{proof}
+
+\begin{definition}[AIC and TIC]\label{def:aic}\index{akaike information criterion aic@Akaike information criterion (AIC)|textbf}
+The \emph{Akaike information criterion} of a model with $k$ parameters is
+\[
+\mathrm{AIC}=-2\ell_n(\hat\theta)+2k .
+\]
+By Theorem~\ref{thm:aic}, when the model is correct (or close to correct), $\mathrm{AIC}$ is an approximately unbiased estimate of $-2\E L_n(\hat\theta)$; among the candidate models the one with the smallest AIC is chosen. If the possibility that the model is wrong is taken into account, the penalty $2\operatorname{tr}(\hat A^{-1}\hat B)$ is used (with the estimates of Proposition~\ref{prop:sandvic-genel}). This is called the \emph{Takeuchi information criterion} (TIC) \cite{konishi-kitagawa08}.
+\end{definition}
+
+\begin{remark}[AIC or BIC?]\label{rem:aic-bic}
+Schwarz's \emph{Bayesian information criterion\index{bayesian information criterion bic@Bayesian information criterion (BIC)}} $\mathrm{BIC}=-2\ell_n(\hat\theta)+k\ln n$ \cite{schwarz78} arises from the Laplace approximation of the marginal likelihood (Chapter~\ref{ch:bayes}). The two criteria answer different questions. Because its penalty grows with $\ln n$, BIC is \emph{consistent}: if the true model is finite-dimensional and among the candidates, the probability of choosing it tends to $1$. AIC is not consistent. For example, a nested model that adds a single unnecessary parameter to the true model is chosen, by Wilks' theorem, with probability $\P(\chi^2_1>2)\approx0.157$. AIC, on the other hand, is aimed at prediction: if the true model is not among the candidates (as is usually the case in practice), it chooses the model that asymptotically minimises the prediction error. Differences in AIC are meaningful, not its absolute values. The models being compared must be fitted to the same data. In small samples the corrected AICc is used.
+\end{remark}
+
 \section{Worked Examples}
 
 \begin{example}[The Odds]\label{ex:odds}
@@ -285,6 +336,14 @@ A=\P_G(|X-\theta_0|\le c),\qquad B=\E_G\,\psi_c(X;\theta_0)^2,\qquad\sqrt n(\hat
 For $c=1.345$, $B/A^2\approx1.053$ under the standard normal; that is, on normal data the Huber estimator\index{huber estimator@Huber estimator} has $95\%$ of the efficiency of the mean. For the heavy-tailed $t_3$ distribution, $B/A^2\approx1.56$, smaller than the asymptotic variance $3$ of the mean and $\approx1.85$ of the median. A small loss of efficiency buys a large insurance against heavy tails.
 \end{example}
 
+\begin{example}[AIC in the Normal Linear Model]\label{ex:aic-normal}
+In the normal linear model with $p$ coefficients (Chapter~\ref{ch:dogrusal}) the MLE of $\sigma^2$ is $\hat\sigma^2=\mathrm{RSS}/n$ and $\ell_n(\hat\theta)=-\frac n2\big[\ln(2\pi\,\mathrm{RSS}/n)+1\big]$. Since the number of parameters is $k=p+1$,
+\[
+\mathrm{AIC}=n\ln\frac{\mathrm{RSS}}{n}+2(p+1)+n(1+\ln2\pi).
+\]
+The last term is the same for all models and can be dropped in comparisons. Adding a variable always lowers the RSS. But it improves the AIC\index{akaike information criterion aic@Akaike information criterion (AIC)} only if $n\ln(\mathrm{RSS}_{\text{old}}/\mathrm{RSS}_{\text{new}})>2$, roughly when it lowers the RSS by more than $(200/n)\%$.
+\end{example}
+
 \section{Computational Applications}
 
 \subsection{The Delta Method for the Odds}
@@ -338,6 +397,22 @@ Huber theoretical B/A^2 = 1.556 | mean theoretical = 3.000 | median theoretical 
 
 The model-based interval does not improve as $n$ grows; its coverage stays around $0.834$, because what is wrong is the variance itself. The sandwich interval undercovers slightly at $n=50$ ($\hat B_n$ underestimates the variance because of the heavy right tail) and reaches the target at $n=400$. On the $t_3$ data the simulated $n\Var$ values are close to the theoretical ones ($3$; $1.85$; $1.56$), and the Huber estimator is the best of the three.
 
+\subsection{AIC: The Optimism of the Likelihood and Model Selection}
+The first part checks Theorem~\ref{thm:aic}: the exponential model is fitted to $\text{Gamma}(a)$ data with mean $1$ ($n=50$) and the optimism\index{optimism of the likelihood@optimism (of the likelihood)} $\ell_n(\hat\lambda)-\ell_n^{\text{new}}(\hat\lambda)$ is computed by simulation. In this model the exact optimism is $n/(na-1)$ and its limit is $\operatorname{tr}(A^{-1}B)=1/a$ (the $\sigma^2/\mu^2$ of Example~\ref{ex:ustel-yanlis}). AIC\index{akaike information criterion aic@Akaike information criterion (AIC)} always assumes $k=1$. In the second part the true model is a cubic polynomial ($n=40$, $\sigma=0.5$); polynomials of degree $0$--$8$ are chosen by AIC and BIC\index{bayesian information criterion bic@Bayesian information criterion (BIC)}. The ``oracle'', knowing the true mean function, chooses the degree with the highest expected log-likelihood\index{log likelihood@log-likelihood} on new data.
+
+\pycode{code/ch12/c12_5_aic_optimism_model_selection.py}
+\begin{lstlisting}[style=output]
+a=2.0 | optimism = 0.511 | exact = 0.505 | tr(A^-1 B) = 1/a = 0.500 | k assumed by AIC = 1
+a=1.0 | optimism = 1.006 | exact = 1.020 | tr(A^-1 B) = 1/a = 1.000 | k assumed by AIC = 1
+a=0.5 | optimism = 2.103 | exact = 2.083 | tr(A^-1 B) = 1/a = 2.000 | k assumed by AIC = 1
+chosen degree:      0     1     2     3     4     5     6     7     8
+AIC    (%)         0     0     0    64    12     8     6     4     5   | mean log-likelihood on new data (per observation) = -0.8489
+BIC    (%)         0     0     0    89     7     2     1     0     0   | mean log-likelihood on new data (per observation) = -0.8158
+oracle (%)         0     0     0    90     7     1     1     0     0   | mean log-likelihood on new data (per observation) = -0.7997
+\end{lstlisting}
+
+When the model is correct ($a=1$) the optimism is $1$ and the AIC penalty is exactly right. When the data are more variable than the exponential ($a=1/2$) the optimism rises to $2$: AIC overstates the fit of the model, and the TIC penalty $\operatorname{tr}(\hat A^{-1}\hat B)$ is needed. In the polynomial selection AIC finds the right degree $64\%$ of the time and chooses extra terms $36\%$ of the time. BIC, at $89\%$, is close to the oracle. Since the true model is among the candidates and finite-dimensional, this is an instance of the consistency\index{consistency@consistency} difference in Remark~\ref{rem:aic-bic}. The difference in average log-likelihood on new data, however, is small: AIC's extra terms cost little in prediction.
+
 \section{Comments and Notes}
 
 \begin{remark}[Hodges' Superefficient Estimator]
@@ -362,6 +437,7 @@ The delta method\index{delta method@delta method} is a local linearisation; if $
   \item The delta method (Theorem~\ref{thm:delta}) carries asymptotic normality over to differentiable transformations. When $g'(\theta)=0$ the second-order version (Theorem~\ref{thm:delta2}) is used, and in several dimensions the gradient version (Theorem~\ref{thm:delta-cok}). A variance-stabilising transformation makes the asymptotic variance constant.
   \item If the model is misspecified, the MLE estimates the member of the model closest to the true distribution in the Kullback--Leibler sense (Definition~\ref{def:sozde-gercek}). The asymptotic variance of M- and Z-estimators has the sandwich form $A^{-1}BA^{-\top}$ (Theorem~\ref{thm:z-an}). If the model is correct, the information identity gives $A=B=I_1$. If the model is wrong, sandwich standard errors (Proposition~\ref{prop:sandvic-genel}) should be used.
   \item Hodges' superefficient estimator shows that asymptotic efficiency must be defined together with a local uniformity condition.
+  \item AIC corrects the optimism of the likelihood: the bias from using the same data to estimate and to evaluate is $\operatorname{tr}(A^{-1}B)$ in large samples, which equals $k$ if the model is correct (Theorem~\ref{thm:aic}). BIC is consistent, whereas AIC is aimed at prediction.
 \end{itemize}
 \end{summary}
 % --- END OF CHAPTER SUMMARY ---
@@ -398,6 +474,11 @@ The $\Normal(\mu,\sigma^2)$ model is fitted to data from an arbitrary distributi
 \begin{exercise}\label{exr:12-6}
 The Poisson model is fitted to count data with mean $\lambda$ and variance $\phi\lambda$ ($\phi>1$, overdispersion). Show that $\lambda^*=\lambda$, and that the model-based asymptotic variance of the MLE $\bar X$ is $\lambda$ while its sandwich asymptotic variance is $\phi\lambda$. Relate this to the quasi-likelihood correction of Chapter~\ref{ch:em-glm}.
 \hfill\hyperref[coz:12-6]{\footnotesize$\rightarrow$\,Solution}
+\end{exercise}
+
+\begin{exercise}\label{exr:12-7}
+For the exponential model $f(x;\lambda)=\lambda e^{-\lambda x}$, show that the TIC penalty is $2\operatorname{tr}(\hat A^{-1}\hat B)=2\hat\sigma^2/\bar x^2$, where $\hat\sigma^2=\frac1n\sum(x_i-\bar x)^2$. Hence $\mathrm{TIC}=\mathrm{AIC}+2(\widehat{\mathrm{CV}}^2-1)$. What is the difference between the two criteria for the $\text{Gamma}(1/2)$ data of Example~\ref{ex:ustel-yanlis}? Why might TIC not be needed when the exponential and Gamma models are compared by AIC?
+\hfill\hyperref[coz:12-7]{\footnotesize$\rightarrow$\,Solution}
 \end{exercise}
 
 \chapterlinks{12}

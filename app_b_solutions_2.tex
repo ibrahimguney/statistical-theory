@@ -67,6 +67,10 @@ B_{22}=\Var_G\psi_2=\frac{\Var_G(X-\mu)^2}{4\sigma^8}=\frac{\mu_4-\sigma^4}{4\si
 The score is $s(\lambda;x)=x/\lambda-1$, $\partial_\lambda s=-x/\lambda^2$. The equation $\E_Gs(\lambda^*;X)=0$ gives $\lambda^*=\E_GX=\lambda$; the MLE is $\bar X$. $A=\E_GX/\lambda^2=1/\lambda$ and $B=\Var_G(X)/\lambda^2=\phi/\lambda$; the sandwich variance is $B/A^2=\phi\lambda$ and the model-based variance is $1/I_1(\lambda)=\lambda$. The ratio is $\phi$. The quasi-likelihood approach of Chapter~\ref{ch:em-glm} multiplies the standard errors by $\sqrt{\hat\phi}$; when the structure $\Var X=\phi\lambda$ is correct this gives the same result as the sandwich correction. The sandwich estimator, however, needs no assumption about the variance structure.
 \end{solution}
 
+\begin{solution}{12-7}
+The score is $s=1/\lambda-x$ and $-\partial_\lambda s=1/\lambda^2$. The sample versions are $\hat A=1/\hat\lambda^2=\bar x^2$ and $\hat B=\frac1n\sum(1/\hat\lambda-x_i)^2=\frac1n\sum(\bar x-x_i)^2=\hat\sigma^2$. With one parameter, $\operatorname{tr}(\hat A^{-1}\hat B)=\hat\sigma^2/\bar x^2=\widehat{\mathrm{CV}}^2$ and $\mathrm{TIC}=-2\ell_n(\hat\lambda)+2\widehat{\mathrm{CV}}^2=\mathrm{AIC}+2(\widehat{\mathrm{CV}}^2-1)$. For $\text{Gamma}(1/2)$ data $\mathrm{CV}^2=2$; for large $n$, TIC exceeds AIC by about $2$ units. This reflects the optimism of $2$ in the simulation. However, the exponential model is the $a=1$ submodel of the $\text{Gamma}(a,\beta)$ model. When the Gamma model is correct, its AIC penalty is right ($k=2$) and the AIC comparison already favours the Gamma model: the AIC difference between the two models is the LRT statistic for $a=1$ minus $2$. TIC matters when one suspects that none of the candidates is correct. But because the estimate of $\hat A^{-1}\hat B$ is variable, TIC is more erratic than AIC in small samples.
+\end{solution}
+
 \section{The Neyman--Pearson Lemma}
 \noindent{\small Chapter~\ref{ch:neyman-pearson}.}
 
@@ -91,6 +95,18 @@ Let $I_0$ be the set of true null hypotheses. By Theorem~\ref{thm:p-uniform}, $\
 \P\Big(\bigcup_{i\in I_0}\{p_i\le\alpha/m\}\Big)\le\sum_{i\in I_0}\frac\alpha m=\frac{|I_0|}{m}\alpha\le\alpha .
 \]
 Independence is not required. The price is a loss of power; Holm's step-down method gives the same guarantee more powerfully.
+\end{solution}
+
+\begin{solution}{13-5}
+With $L_1=\ln(p_1/p_0)=\ln3=1.0986$ and $L_2=\ln\frac{1-p_1}{1-p_0}=\ln\frac79=-0.2513$, $S_n=K_nL_1+(n-K_n)L_2=K_n(L_1-L_2)+nL_2$. Dividing the continuation condition $a<S_n<b$ by $L_1-L_2=1.3499>0$ gives
+\[
+\frac{a}{L_1-L_2}+sn<K_n<\frac{b}{L_1-L_2}+sn,\qquad s=\frac{-L_2}{L_1-L_2}=0.186 .
+\]
+For $a=-b=-\ln19$ the intercepts are $\mp2.181$: sampling continues while $K_n$ stays between the lines $0.186\,n\pm2.181$. $\E_0Z=0.1L_1+0.9L_2=-0.1163$ and $\E_1Z=0.3L_1+0.7L_2=0.1537$; by Corollary~\ref{cor:sprt-asn}, $\E_0N\approx2.650/0.1163\approx22.8$ and $\E_1N\approx2.650/0.1537\approx17.2$. (By simulation, because of the overshoot, $24.5$ and $20.1$; the actual error probabilities are $0.032$ and $0.045$.) For the fixed-sample exact binomial test, the rule ``reject if $K\ge8$'' first achieves $\alpha\le0.05$ and power $\ge0.95$ at $n=41$ ($\alpha=0.048$, power $0.954$). On average the SPRT needs a little over half as many observations.
+\end{solution}
+
+\begin{solution}{13-6}
+With $10^5$ simulations the actual type I error is $\approx0.19$ for $n_{\max}=10$ and $\approx0.32$ for $n_{\max}=50$. The nominal $0.05$ level does not hold, because each look is a separate chance to reject. As $n_{\max}\to\infty$ the probability tends to $1$: by the law of the iterated logarithm, $\limsup_n\sqrt n\bar X_n/\sqrt{2\ln\ln n}=1$ a.s.; so $|\sqrt n\bar X_n|$ exceeds $1.96$ infinitely often a.s. A researcher who waits long enough is certain to find a ``significant'' result even when $H_0$ is true. The boundaries of the SPRT and of group sequential designs prevent exactly this problem.
 \end{solution}
 
 \section{Karlin--Rubin and UMP Tests}

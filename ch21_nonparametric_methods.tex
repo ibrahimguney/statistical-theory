@@ -140,6 +140,60 @@ U=W-\frac{n(n+1)}2,\qquad\E W=\frac{n(N+1)}2,\qquad\Var W=\Var U=\frac{mn(N+1)}{
 $U/(mn)$ is an unbiased estimator\index{unbiased estimator@unbiased estimator} of $\P(X<Y)$; the area under the ROC curve (AUC) is exactly this quantity. Under $H_0$, $\P(X<Y)=\frac12$. The alternatives against which the test is consistent are those with $\P(X<Y)\ne\frac12$; that is, the Mann--Whitney test does not answer the question ``are the means equal?'' but the question ``is an observation chosen at random from one group more likely to be larger than one from the other?''.
 \end{remark}
 
+To study the behaviour of the Wilcoxon and Mann--Whitney statistics away from the null hypothesis, and hence their power, we need a general tool. Hoeffding's theory of U-statistics\index{u statistic@U-statistic} provides it.
+
+\begin{definition}[U-Statistic \cite{hoeffding48}]\label{def:u-istatistik}
+Let $X_1,\dots,X_n\iid F$ and let $h(x_1,\dots,x_m)$ be a \emph{kernel} that does not depend on the order of its arguments (symmetric), $m\le n$. The \emph{U-statistic} of the parameter $\theta=\E h(X_1,\dots,X_m)$ is
+\[
+U_n=\binom nm^{-1}\sum_{1\le i_1<\dots<i_m\le n}h(X_{i_1},\dots,X_{i_m});
+\]
+$m$ is called the \emph{degree} of the kernel. For $c=1,\dots,m$ define
+\[
+h_c(x_1,\dots,x_c)=\E\,h(x_1,\dots,x_c,X_{c+1},\dots,X_m),\qquad\zeta_c=\Var h_c(X_1,\dots,X_c);
+\]
+$\zeta_m=\Var h$. Examples: the sample mean ($m=1$, $h(x)=x$); $S^2$ ($m=2$, $h=\frac12(x_1-x_2)^2$, Example~\ref{ex:s2-u}); Gini\index{gini s mean difference@Gini's mean difference}'s mean difference ($h=|x_1-x_2|$); Walsh pairs ($h=\I\{x_1+x_2>0\}$, the core of the Wilcoxon signed-rank\index{wilcoxon signed rank test@Wilcoxon signed-rank test} test); for bivariate data, Kendall\index{kendall s tau@Kendall's tau}'s $\tau$ ($h=\operatorname{sign}\{(x_1-x_2)(y_1-y_2)\}$, Exercise~\ref{exr:21-6}).
+\end{definition}
+
+\begin{theorem}[Variance of a U-Statistic \cite{hoeffding48}]\label{thm:u-varyans}
+If $\E h^2<\infty$, then $U_n$ is unbiased for $\theta$ and
+\[
+\Var U_n=\binom nm^{-1}\sum_{c=1}^m\binom mc\binom{n-m}{m-c}\zeta_c .
+\]
+In particular $n\Var U_n\to m^2\zeta_1$; for $m=2$, $\Var U_n=\frac{2}{n(n-1)}\big[2(n-2)\zeta_1+\zeta_2\big]$.
+\end{theorem}
+\begin{proof}
+Unbiasedness follows because each term has expectation $\theta$. Let $S$ and $S'$ be two $m$-element subsets of $\{1,\dots,n\}$, $C=S\cap S'$ and $|C|=c$. Given $X_C$, $h(X_S)$ and $h(X_{S'})$ are conditionally independent (the remaining observations are disjoint and independent), and each has conditional expectation\index{conditional expectation@conditional expectation} $h_c(X_C)$. By the tower rule\index{tower property@tower property} $\E[h(X_S)h(X_{S'})]=\E[h_c(X_C)^2]$, that is, $\Cov\big(h(X_S),h(X_{S'})\big)=\zeta_c$; for $c=0$ the covariance is $0$. For a fixed $S$ the number of $S'$ with $|S\cap S'|=c$ is $\binom mc\binom{n-m}{m-c}$. Hence
+\[
+\Var U_n=\binom nm^{-2}\sum_S\sum_{S'}\Cov\big(h(X_S),h(X_{S'})\big)=\binom nm^{-1}\sum_{c=1}^m\binom mc\binom{n-m}{m-c}\zeta_c .
+\]
+The coefficient of the $c$th term, $\binom mc\binom{n-m}{m-c}/\binom nm$, is of order $n^{-c}$. For $c=1$ the coefficient is $m\binom{n-m}{m-1}/\binom nm=\frac{m^2}{n}\big(1+O(1/n)\big)$. Hence $\Var U_n=\frac{m^2\zeta_1}{n}+O(n^{-2})$.
+\end{proof}
+
+\begin{theorem}[Hoeffding Projection and Asymptotic Normality \cite{hoeffding48}]\label{thm:u-an}
+Let $\E h^2<\infty$ and $\zeta_1>0$. For $\hat U_n=\theta+\frac mn\sum_{i=1}^n\big(h_1(X_i)-\theta\big)$ we have $n\,\E(U_n-\hat U_n)^2\to0$ and
+\[
+\sqrt n(U_n-\theta)\dto\Normal(0,\,m^2\zeta_1).
+\]
+\end{theorem}
+\begin{proof}
+Let $g=h_1-\theta$; $\E g(X)=0$ and $\Var g(X)=\zeta_1$. If $i\notin S$, then $h(X_S)$ is independent of $X_i$ and $\Cov(h(X_S),g(X_i))=0$. If $i\in S$, the tower rule gives $\Cov(h(X_S),g(X_i))=\Cov(h_1(X_i),g(X_i))=\zeta_1$. Since the proportion of subsets containing $i$ is $m/n$, $\Cov(U_n,g(X_i))=\frac mn\zeta_1$ and
+\[
+\Cov(U_n,\hat U_n)=\frac mn\sum_{i=1}^n\frac mn\zeta_1=\frac{m^2\zeta_1}n=\Var\hat U_n .
+\]
+Since both statistics have expectation $\theta$, $\E(U_n-\hat U_n)^2=\Var U_n-2\Cov(U_n,\hat U_n)+\Var\hat U_n=\Var U_n-\frac{m^2\zeta_1}{n}$. By the proof of Theorem~\ref{thm:u-varyans} this is $O(n^{-2})$; so $n\E(U_n-\hat U_n)^2\to0$ and, by Chebyshev\index{chebyshev s inequality@Chebyshev's inequality}'s inequality, $\sqrt n(U_n-\hat U_n)\pto0$. $\hat U_n$ is a mean of i.i.d.\ terms: by the CLT\index{central limit theorem clt@central limit theorem (CLT)}, $\sqrt n(\hat U_n-\theta)=\frac{m}{\sqrt n}\sum_ig(X_i)\dto\Normal(0,m^2\zeta_1)$. Slutsky\index{slutsky s theorem@Slutsky's theorem}'s theorem gives the result.
+\end{proof}
+
+\begin{corollary}[Asymptotic Distribution of the Wilcoxon Signed-Rank Statistic]\label{cor:wilcoxon-an}
+Let the $X_i$ be i.i.d.\ from a continuous distribution $F$, $p=\P(X_1+X_2>0)$ and $\zeta_1=\Var\big(1-F(-X_1)\big)>0$. Then
+\[
+\sqrt n\Big(\frac{W^+}{\binom n2}-p\Big)\dto\Normal(0,\,4\zeta_1).
+\]
+If $F$ is symmetric about $0$, then $p=\frac12$ and $4\zeta_1=\frac13$; this agrees with $\Var W^+\sim n^3/12$ from Theorem~\ref{thm:wilcoxon-isaretli}.
+\end{corollary}
+\begin{proof}
+First we show the identity $W^+=\#\{(i,j):i\le j,\ X_i+X_j>0\}$. In a pair $i\le j$ the sign of $X_i+X_j$ is the sign of the observation with the larger absolute value. So the count is the sum, over positive $X_j$, of the number of $i$ (including $j$ itself) with $|X_i|\le|X_j|$, that is, of the rank of $|X_j|$: $W^+$. Thus $W^+=\sum_i\I\{X_i>0\}+\binom n2U_n$, where $U_n$ is the U-statistic with kernel $h=\I\{x_1+x_2>0\}$. The first sum is at most $n$, so $\sqrt n\cdot n/\binom n2\to0$. Since $h_1(x)=\P(x+X>0)=1-F(-x)$, Theorem~\ref{thm:u-an} ($m=2$) gives the result. Under symmetry $1-F(-x)=F(x)$ and $F(X)\sim\text{Uniform}(0,1)$; $\zeta_1=\frac1{12}$.
+\end{proof}
+
 \begin{theorem}[The KS Statistic Is Distribution-Free]\label{thm:ks}\index{kolmogorov smirnov test@Kolmogorov--Smirnov test}
 If $F_0$ is continuous and $H_0:F=F_0$ is true, the distribution of $D_n$ equals that of $\sup_{u\in[0,1]}|\hat G_n(u)-u|$ built from $U_i\iid\text{Uniform}(0,1)$; i.e.\ it does not depend on $F_0$. Moreover \cite{kolmogorov33b}
 \[
@@ -191,7 +245,7 @@ By Noether's theorem \cite[Chapter~14]{vdv}, if $\sqrt n\big(T_n-\mu(\theta)\big
 \begin{itemize}
   \item $t$: $T=\bar X$, $\mu(\theta)=\theta$, $\tau^2=\sigma^2$; $e_t=1/\sigma^2$.
   \item Sign: $T=S/n$, $\mu(\theta)=\P(\varepsilon>-\theta)=F(\theta)$, $\mu'(0)=f(0)$, $\tau^2(0)=\frac14$; $e_S=4f(0)^2$.
-  \item Wilcoxon: $W^+/\binom n2$ is asymptotically equivalent to the average of $\I\{X_i+X_j>0\}$ over pairs $i<j$ (a $U$-statistic). $\mu(\theta)=\P(\varepsilon_1+\varepsilon_2>-2\theta)$; since the density of $\varepsilon_1+\varepsilon_2$ at $0$ is $\int f(x)f(-x)dx=\int f^2$, $\mu'(0)=2\int f^2$. The asymptotic variance of the $U$-statistic is $4\Var\big(F(\varepsilon_1)\big)=\frac4{12}=\frac13$. Hence $e_W=12(\int f^2)^2$.
+  \item Wilcoxon: $W^+/\binom n2$ is asymptotically equivalent to the average of $\I\{X_i+X_j>0\}$ over pairs $i<j$ (Corollary~\ref{cor:wilcoxon-an}). $\mu(\theta)=\P(\varepsilon_1+\varepsilon_2>-2\theta)$; since the density of $\varepsilon_1+\varepsilon_2$ at $0$ is $\int f(x)f(-x)dx=\int f^2$, $\mu'(0)=2\int f^2$. By Corollary~\ref{cor:wilcoxon-an} the asymptotic variance is $4\Var\big(F(\varepsilon_1)\big)=\frac4{12}=\frac13$. Hence $e_W=12(\int f^2)^2$.
 \end{itemize}
 Taking the ratios gives the result.
 \end{proof}
@@ -221,6 +275,14 @@ Uniform $(-1,1)$ & $\frac12$ & $1$ & $1/3$\\
 
 \begin{example}[Mann--Whitney: Exact Small-Sample Distribution]\label{ex:mw-kesin}
 $m=n=3$, $N=6$. Under $H_0$ the ranks of the $Y$'s are each of the $\binom63=20$ subsets with probability $\frac1{20}$. $W$ takes values from $6$ to $15$; $\P(W=15)=\P(W=6)=\frac1{20}$. Hence the one-sided test with $\alpha=0.05$ rejects only if all the $Y$'s are larger than all the $X$'s. In very small samples, the attainable levels of nonparametric\index{nonparametric methods@nonparametric methods} tests form a coarse grid.
+\end{example}
+
+\begin{example}[$S^2$ Is a U-Statistic]\label{ex:s2-u}
+From the identity $\sum_{i<j}(X_i-X_j)^2=n\sum_i(X_i-\bar X)^2$, $S^2=\binom n2^{-1}\sum_{i<j}\frac12(X_i-X_j)^2$; the kernel is $h=\frac12(x_1-x_2)^2$ and $\theta=\sigma^2$. With $\mu=\E X$ and $\mu_4=\E(X-\mu)^4$, $h_1(x)=\frac12\big[(x-\mu)^2+\sigma^2\big]$, hence $\zeta_1=\frac14\Var(X-\mu)^2=\frac14(\mu_4-\sigma^4)$. Since $\E(X_1-X_2)^4=2\mu_4+6\sigma^4$, $\zeta_2=\Var h=\frac14\big(2\mu_4+6\sigma^4-4\sigma^4\big)=\frac12(\mu_4+\sigma^4)$. By Theorem~\ref{thm:u-varyans},
+\[
+\Var S^2=\frac{2}{n(n-1)}\Big[\frac{(n-2)(\mu_4-\sigma^4)}{2}+\frac{\mu_4+\sigma^4}{2}\Big]=\frac1n\Big(\mu_4-\frac{n-3}{n-1}\sigma^4\Big),
+\]
+so the ``long but direct'' computation in Theorem~\ref{thm:s2-yansiz}(3) reduces to one line. Theorem~\ref{thm:u-an} also gives $\sqrt n(S^2-\sigma^2)\dto\Normal(0,\mu_4-\sigma^4)$ (compare Exercise~\ref{exr:12-5}).
 \end{example}
 
 \section{Computational Applications}
@@ -282,6 +344,22 @@ n=200: Silverman h = 0.592 | AMISE-optimal h = 0.245
 
 The log--log slope of the MISE is about $-0.76$, close to the theoretical $-4/5$. For small $n$ the slope is somewhat flatter because of the terms neglected by AMISE. This rate is slower than the $1/n$ of parametric models: estimating a density locally at every point is harder than estimating finitely many parameters. The rate $n^{-4/5}$ is the minimax\index{minimax rule@minimax rule} rate over the class of twice-differentiable densities (Chapter~\ref{ch:karar}). That Silverman\index{silverman s rule@Silverman's rule}'s rule gives $0.59$, far from the optimal $0.25$, is a reminder that the ``rule'' rests on a normality assumption.
 
+\subsection{U-Statistics: Exact Variance and Asymptotic Normality}\label{sec:u-istatistik}
+The first part compares, for standard normal data, $n\Var(U_n)$ of Gini\index{gini s mean difference@Gini's mean difference}'s mean difference ($h=|x_1-x_2|$, $\theta=2/\sqrt\pi$) with the exact formula of Theorem~\ref{thm:u-varyans} and with the limit $m^2\zeta_1=4\zeta_1$. Since $h_1(x)=\E|x-X|=2\varphi(x)+x\big(2\Phi(x)-1\big)$, $\zeta_1$ is found by numerical integration; $\zeta_2=\Var|X_1-X_2|=2-4/\pi$. The second part studies the Walsh-pair U-statistic\index{u statistic@U-statistic} (Corollary~\ref{cor:wilcoxon-an}) on $\Normal(0.3,\,1)$ data: away from the null hypothesis the asymptotic variance is not $1/3$ but $4\zeta_1$. The last column is the miss rate of the $95\%$ interval built with the normal approximation.
+
+\pycode{code/ch21/c21_5_u_statistics.py}
+\begin{lstlisting}[style=output]
+Gini: theta = 1.1284 | zeta_1 = 0.1628, zeta_2 = 0.7268 | m^2 zeta_1 = 0.6510
+  n=  5 | mean(U) = 1.1309 | n*Var(U) = 0.8675 | exact n*Var = 0.8516 | skewness = +0.457
+  n= 20 | mean(U) = 1.1286 | n*Var(U) = 0.7001 | exact n*Var = 0.6932 | skewness = +0.191
+  n=100 | mean(U) = 1.1281 | n*Var(U) = 0.6495 | exact n*Var = 0.6591 | skewness = +0.086
+Walsh: p = 0.6643 | 4 zeta_1 = 0.2883 (1/3 = 0.3333 under H0)
+  n= 10 | mean(U) = 0.6662 | n*Var(U) = 0.3058 | exact n*Var = 0.3058 | P(|z| > 1.96) = 0.0518
+  n= 50 | mean(U) = 0.6652 | n*Var(U) = 0.2910 | exact n*Var = 0.2915 | P(|z| > 1.96) = 0.0507
+\end{lstlisting}
+
+The exact variance formula agrees with the simulation at every $n$. $n\Var(U_n)$ approaches its limit $4\zeta_1$ at rate $O(1/n)$; the difference at small $n$ comes from the $\zeta_2$ term of the formula. The distribution of Gini's difference is skewed to the right in small samples and approaches normality slowly. For Walsh pairs the asymptotic variance under the alternative ($0.288$) is smaller than under the null hypothesis ($1/3$). When computing the power of the test, this variance, not the null variance, must be used. The miss rate of the interval based on the normal approximation is close to $5\%$ even at $n=10$.
+
 \subsection{Real Data: Student's Sleep Data}\label{sec:uyku}
 The data in which Cushny and Peebles measured the effect of two sleeping drugs on 10 patients \cite{cushny-peebles05} are the example Student\index{t distribution student@$t$ distribution (Student)} used in the paper that introduced the $t$ distribution \cite{student08}. Every patient took both drugs; the measurement is the extra sleep produced by the drug (hours). Since patients differ a lot, the analysis must use the differences $d_i=\text{drug}_2-\text{drug}_1$. The data have two small features: one difference is zero and two differences are equal. So in the sign and Wilcoxon tests the zero difference is dropped, the equal differences get midranks, and the null distribution is computed exactly (conditionally) by enumerating the $2^9$ sign assignments. The code compares the paired $t$ test (Chapter~\ref{ch:guven}), the sign test, the Wilcoxon signed-rank test and the sign-flip permutation test\index{permutation test@permutation test}; it then shows the wrong analysis that ignores the pairing.
 
@@ -321,6 +399,7 @@ Rank tests lose almost no power against shift alternatives. In estimating densit
   \item Pitman efficiency (Theorem~\ref{thm:pitman-are}): the Wilcoxon test has $95.5\%$ of the efficiency of the $t$-test for normal data and never falls below $0.864$ for any symmetric continuous distribution. For heavy tails it beats $t$.
   \item The Kolmogorov--Smirnov statistic is distribution-free (Theorem~\ref{thm:ks}). If parameters are estimated from the data this property is lost (the Lilliefors problem).
   \item In kernel density estimation the bias is of order $O(h^2)$ and the variance of order $O(1/(nh))$. The optimal bandwidth is $h^*\propto n^{-1/5}$, and the MISE decreases at the rate $n^{-4/5}$ (Theorem~\ref{thm:kde}).
+  \item U-statistics are unbiased, and their variances can be written exactly in terms of the $\zeta_c$ (Theorem~\ref{thm:u-varyans}). Thanks to the Hoeffding projection, $\sqrt n(U_n-\theta)\dto\Normal(0,m^2\zeta_1)$ (Theorem~\ref{thm:u-an}); Wilcoxon, Mann--Whitney, Kendall's $\tau$ and $S^2$ are special cases of this framework.
 \end{itemize}
 \end{summary}
 % --- END OF CHAPTER SUMMARY ---
@@ -352,6 +431,11 @@ For the Gaussian kernel and the true density $\Normal(\mu,\sigma^2)$, compute th
 \begin{exercise}\label{exr:21-5}
 In the sleep data the sample standard deviations of the two drugs are $s_1=1.789$ and $s_2=2.002$, and their correlation is $r=0.795$. Show that the standard deviation of the differences is $s_d=\sqrt{s_1^2+s_2^2-2rs_1s_2}$ and compute it. Compare the standard error of $\bar d$ in the paired analysis with $\sqrt{(s_1^2+s_2^2)/n}$ used in the two-sample analysis. When does pairing bring no gain?
 \hfill\hyperref[coz:21-5]{\footnotesize$\rightarrow$\,Solution}
+\end{exercise}
+
+\begin{exercise}\label{exr:21-6}
+Let the pairs $(X_i,Y_i)$ be i.i.d.\ from a continuous distribution with independent components. Show that Kendall's $\hat\tau=\binom n2^{-1}\sum_{i<j}\operatorname{sign}\{(X_i-X_j)(Y_i-Y_j)\}$ is a U-statistic with $\E\hat\tau=0$, $\zeta_1=\frac19$ and $\zeta_2=1$. Use Theorem~\ref{thm:u-varyans} to derive $\Var\hat\tau=\frac{2(2n+5)}{9n(n-1)}$, and write down the asymptotic distribution for the test of independence.
+\hfill\hyperref[coz:21-6]{\footnotesize$\rightarrow$\,Solution}
 \end{exercise}
 
 \chapterlinks{21}

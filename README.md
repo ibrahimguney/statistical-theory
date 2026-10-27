@@ -69,7 +69,7 @@ Labels (`thm:...`, `ex:...`, `ch:...`) are the same as in the Turkish edition, s
 edition can be located in the other by its label.
 
 ## Code
-All Python code is in the `code/chXX/*.py` files (76 files) and is shown in the book by the
+All Python code is in the `code/chXX/*.py` files (79 files) and is shown in the book by the
 `\pycode{...}` command. See `code/README.md` for setup, running and file naming. The "Output"
 boxes under the code blocks were produced by actually running the code.
 

@@ -3,7 +3,7 @@
 
 \chapter{The Neyman--Pearson Lemma and Most Powerful Tests}\label{ch:neyman-pearson}\chaptermark{The Neyman--Pearson Lemma}
 
-Estimation answers the question ``what is $\theta$?''; hypothesis testing\index{hypothesis test@hypothesis test} answers the question ``are the data consistent with a particular claim about $\theta$?''. The contribution of Neyman and Pearson in 1933 \cite{neyman-pearson33} was to set up the testing problem as an optimisation problem: bound the probability of a type I\index{type i and type ii errors@type I and type II errors} error at a prespecified level $\alpha$ and, subject to this constraint, minimise the type II error (maximise the power). For two simple hypotheses the solution is surprisingly simple: reject $H_0$ where the likelihood ratio\index{likelihood ratio@likelihood ratio} is large. This chapter lays the foundation for the next three (UMP\index{uniformly most powerful ump test@uniformly most powerful (UMP) test} tests, likelihood ratio tests\index{likelihood ratio test lrt@likelihood ratio test (LRT)}, confidence intervals).
+Estimation answers the question ``what is $\theta$?''; hypothesis testing\index{hypothesis test@hypothesis test} answers the question ``are the data consistent with a particular claim about $\theta$?''. The contribution of Neyman and Pearson in 1933 \cite{neyman-pearson33} was to set up the testing problem as an optimisation problem: bound the probability of a type I\index{type i and type ii errors@type I and type II errors} error at a prespecified level $\alpha$ and, subject to this constraint, minimise the type II error (maximise the power). For two simple hypotheses the solution is surprisingly simple: reject $H_0$ where the likelihood ratio\index{likelihood ratio@likelihood ratio} is large. At the end of the chapter we discuss the sequential probability ratio\index{sequential probability ratio test sprt@sequential probability ratio test (SPRT)} test, in which observations are collected one at a time and sampling stops once the data speak clearly enough. This chapter lays the foundation for the next three (UMP\index{uniformly most powerful ump test@uniformly most powerful (UMP) test} tests, likelihood ratio tests\index{likelihood ratio test lrt@likelihood ratio test (LRT)}, confidence intervals).
 
 \section{Definitions}
 
@@ -84,6 +84,61 @@ If the distribution of $T$ under (simple) $H_0$ is continuous and the test has t
 By the probability integral transform\index{probability integral transform@probability integral transform} (Theorem~\ref{thm:pit}), $F_0(T)\sim\text{Uniform}(0,1)$, and therefore so is $1-F_0(T)$.
 \end{proof}
 
+\section{The Sequential Probability Ratio Test}
+
+The Neyman--Pearson\index{neyman pearson lemma@Neyman--Pearson lemma} lemma fixes the sample size in advance. But if observations arrive one at a time (quality inspection, clinical trials), it is natural to stop once the data speak clearly enough. In the \emph{sequential probability ratio test}, which Wald \cite{wald45} developed for production inspection during the Second World War, one of three decisions is made after each observation: accept $H_0$, reject $H_0$, or take one more observation.
+
+\begin{definition}[SPRT]\label{def:sprt}\index{sequential probability ratio test sprt@sequential probability ratio test (SPRT)|textbf}
+Let $X_1,X_2,\dots$ be i.i.d., $H_0:f=f_0$ and $H_1:f=f_1$. Define $Z_i=\ln\frac{f_1(X_i)}{f_0(X_i)}$ and $S_n=\sum_{i=1}^nZ_i$ (the log-likelihood\index{log likelihood@log-likelihood} ratio\index{likelihood ratio@likelihood ratio}). For constants $a<0<b$, with
+\[
+N=\min\{n\ge1:\ S_n\notin(a,b)\},
+\]
+$H_0$ is rejected if $S_N\ge b$ and accepted if $S_N\le a$. The event $\{N=n\}$ depends only on $X_1,\dots,X_n$; such a random variable is called a \emph{stopping time\index{stopping time@stopping time}}.
+\end{definition}
+
+\begin{lemma}[The SPRT Stops in Finite Time]\label{lem:sprt-durur}\index{sequential probability ratio test sprt@sequential probability ratio test (SPRT)}
+If $\P(Z_1=0)<1$, then for some $r\in\N$ and $\delta>0$, $\P(N>n)\le(1-\delta)^{\lfloor n/r\rfloor}$ for every $n$. Hence $N<\infty$ a.s.\ and $\E N^k<\infty$ for every $k$. If $f_0\ne f_1$, the condition holds under both $H_0$ and $H_1$.
+\end{lemma}
+\begin{proof}
+Assume $\P(Z>0)>0$ (the other case is symmetric). Then there is $\varepsilon>0$ with $q=\P(Z>\varepsilon)>0$; choose $r$ with $r\varepsilon>b-a$ and set $\delta=q^r$. Split the observations into consecutive disjoint blocks of $r$. If all $r$ increments of a block exceed $\varepsilon$, the block sum exceeds $b-a$. If $S\in(a,b)$ at the start of the block, then $S$ has left the strip by the end of it. So for $N>kr$ this event must fail in each of the first $k$ blocks; since the blocks are independent, $\P(N>kr)\le(1-\delta)^k$. The geometric tail gives finiteness of all moments. If $f_0\ne f_1$ and $\P_0(Z=0)=1$, then $f_1=f_0$ everywhere on the set where $f_0$ is positive (outside a null set); since the integral of $f_1$ over this set would then be $1$, we would get $f_1=f_0$. The same argument works under $H_1$.
+\end{proof}
+
+\begin{theorem}[Wald's Inequalities]\label{thm:wald-sinirlar}
+Let $\alpha=\P_0(S_N\ge b)$ and $\beta=\P_1(S_N\le a)$. If $f_0\ne f_1$, then
+\[
+\alpha\le e^{-b}(1-\beta),\qquad\beta\le e^{a}(1-\alpha).
+\]
+If, for target error probabilities $\alpha^*,\beta^*$, one chooses $b=\ln\frac{1-\beta^*}{\alpha^*}$ and $a=\ln\frac{\beta^*}{1-\alpha^*}$, then $\alpha\le\frac{\alpha^*}{1-\beta^*}$, $\beta\le\frac{\beta^*}{1-\alpha^*}$ and $\alpha+\beta\le\alpha^*+\beta^*$.
+\end{theorem}
+\begin{proof}
+Let $R_n=\{(x_1,\dots,x_n):N=n,\ S_n\ge b\}$. On $R_n$, $\prod_{i\le n}f_1(x_i)\ge e^b\prod_{i\le n}f_0(x_i)$. By Lemma~\ref{lem:sprt-durur}, $N$ is a.s.\ finite under $H_1$ as well; hence
+\[
+\alpha=\sum_{n\ge1}\int_{R_n}\prod_{i\le n}f_0\le e^{-b}\sum_{n\ge1}\int_{R_n}\prod_{i\le n}f_1=e^{-b}\,\P_1(S_N\ge b)=e^{-b}(1-\beta).
+\]
+On the acceptance regions $\{N=n,\ S_n\le a\}$, $\prod f_1\le e^a\prod f_0$, so in the same way $\beta\le e^a(1-\alpha)$. Substituting the chosen $a,b$ gives $\alpha(1-\beta^*)\le\alpha^*(1-\beta)\le\alpha^*$ and $\beta(1-\alpha^*)\le\beta^*(1-\alpha)\le\beta^*$. Adding the middle forms of the first two inequalities and rearranging gives $\alpha+\beta\le\alpha^*+\beta^*$.
+\end{proof}
+
+\begin{theorem}[Wald's Identity]\label{thm:wald-ozdeslik}
+If $Z_1,Z_2,\dots$ are i.i.d.\ with $\E|Z_1|<\infty$ and $N$ is a stopping time with $\E N<\infty$, then $\E S_N=\E N\cdot\E Z_1$.
+\end{theorem}
+\begin{proof}
+$S_N=\sum_{i\ge1}Z_i\,\I\{N\ge i\}$. The event $\{N\ge i\}=\{N\le i-1\}^c$ depends only on $Z_1,\dots,Z_{i-1}$ and is therefore independent of $Z_i$. First with absolute values: $\E\sum_i|Z_i|\I\{N\ge i\}=\sum_i\E|Z_i|\P(N\ge i)=\E|Z_1|\,\E N<\infty$. This allows the sum and the expectation to be interchanged (Fubini): $\E S_N=\sum_i\E Z_i\,\P(N\ge i)=\E Z_1\,\E N$.
+\end{proof}
+
+\begin{corollary}[Average Sample Number]\label{cor:sprt-asn}
+Let $f_0\ne f_1$ and let $Z$ be integrable. Since $\E_0Z=-\mathrm{KL}(f_0\|f_1)<0$ and $\E_1Z=\mathrm{KL}(f_1\|f_0)>0$, $\E_jN=\E_jS_N/\E_jZ$ ($j=0,1$). If the overshoot of $S_N$ beyond the boundary is ignored ($S_N\approx b$ or $a$),
+\[
+\E_0N\approx\frac{\alpha b+(1-\alpha)a}{-\mathrm{KL}(f_0\|f_1)},\qquad\E_1N\approx\frac{(1-\beta)b+\beta a}{\mathrm{KL}(f_1\|f_0)} .
+\]
+\end{corollary}
+\begin{proof}
+Lemma~\ref{lem:sprt-durur} gives $\E_jN<\infty$, and Theorem~\ref{thm:wald-ozdeslik} applies. The KL expressions follow from the definition; for their signs see Lemma~\ref{lem:bilgi-esitsizligi}. The approximation replaces the conditional means by the boundaries in the decomposition $\E_0S_N=\alpha\E_0[S_N\mid\text{reject}]+(1-\alpha)\E_0[S_N\mid\text{accept}]$.
+\end{proof}
+
+\begin{remark}[Optimality and Optional Stopping]\label{rem:sprt-optimal}
+The Wald--Wolfowitz theorem \cite{wald-wolfowitz48} says that among all tests (fixed-sample or sequential) with error probabilities at most $\alpha$ and $\beta$, the SPRT minimises both $\E_0N$ and $\E_1N$ at the same time. The saving is typically of the order of half the fixed sample size (Example~\ref{ex:sprt-normal}). The boundaries of the SPRT account for looking at the data sequentially. By contrast, applying a fixed-sample test at level $\alpha$ after each observation and stopping at the first significant result inflates the type I\index{type i and type ii errors@type I and type II errors} error greatly (Exercise~\ref{exr:13-6}). The group sequential designs used in clinical trials are applications of this idea in which the data are examined in groups.
+\end{remark}
+
 \section{Worked Examples}
 
 \begin{example}[Normal Mean: MP Test and the Power Formula]\label{ex:normal-mp}
@@ -142,6 +197,34 @@ $X_1,\dots,X_{10}\iid\text{Poisson}(\lambda)$, $H_0:\lambda=1$, $H_1:\lambda=2$,
 $X_i\iid\Normal(0,\sigma^2)$, $H_0:\sigma^2=\sigma_0^2$, $H_1:\sigma^2=\sigma_1^2>\sigma_0^2$. The likelihood ratio is increasing in $\sum x_i^2$; since $\sum X_i^2/\sigma_0^2\sim\chi^2_n$ under $H_0$, the MP test rejects when $\sum X_i^2>\sigma_0^2\chi^2_{n,\alpha}$.
 \end{example}
 
+\begin{example}[SPRT for a Normal Mean]\label{ex:sprt-normal}
+$X_i\iid\Normal(\mu,1)$, $H_0:\mu=0$, $H_1:\mu=1$, $\alpha^*=\beta^*=0.05$. $Z_i=X_i-\frac12$, so $S_n=\sum X_i-\frac n2$. The boundaries are $b=\ln19\approx2.944$ and $a=-2.944$. Since $\mathrm{KL}(f_0\|f_1)=\mathrm{KL}(f_1\|f_0)=\frac12$, Corollary~\ref{cor:sprt-asn} gives
+\[
+\E_0N\approx\frac{0.05(2.944)+0.95(-2.944)}{-0.5}\approx5.3,
+\]
+and by symmetry $\E_1N\approx5.3$. To achieve the same error probabilities with a fixed sample, the formula of Example~\ref{ex:orneklem-guc} gives $n=\big((z_{0.05}+z_{0.05})/1\big)^2\approx10.8$, that is, $11$ observations. On average the SPRT\index{sequential probability ratio test sprt@sequential probability ratio test (SPRT)} makes do with about half. Figure~\ref{fig:sprt} shows three sample paths.
+\end{example}
+
+% <<fig:sprt>>
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[x=0.62cm,y=0.62cm,font=\small]
+\fill[red!8] (0,2.944) rectangle (16,4.6); \fill[blue!8] (0,-4.6) rectangle (16,-2.944);
+\draw[->] (0,0) -- (16.6,0) node[right] {$n$}; \draw[->] (0,-4.7) -- (0,4.9) node[above] {$S_n$};
+\foreach \t in {5,10,15} \draw (\t,0.12) -- (\t,-0.12) node[below] {\t};
+\draw[thick,red!70!black] (0,2.944) -- (16,2.944) node[right] {$b$};
+\draw[thick,blue!70!black] (0,-2.944) -- (16,-2.944) node[right] {$a$};
+\node[red!60!black] at (11.5,3.8) {reject $H_0$};
+\node[blue!60!black] at (11.5,-3.8) {accept $H_0$};
+\node[gray!70!black] at (11.5,-1.6) {continue (new observation)};
+\draw[thick,orange!85!black] plot[mark=*,mark size=1.1pt] coordinates {(0,0) (1,0.99) (2,1.847) (3,2.452) (4,2.022) (5,2.492) (6,3.688)};
+\draw[thick,teal!70!black] plot[mark=*,mark size=1.1pt] coordinates {(0,0) (1,-0.499) (2,-0.7) (3,-1.474) (4,-2.865) (5,-3.819)};
+\draw[thick,violet!80!black] plot[mark=*,mark size=1.1pt] coordinates {(0,0) (1,-1.11) (2,-2.44) (3,-1.49) (4,-1.47) (5,-2.69) (6,-0.58) (7,1.05) (8,0.28) (9,0.52) (10,0.32) (11,1.3) (12,1.35) (13,1.5) (14,2.74) (15,3.5)};
+\end{tikzpicture}
+\caption{The SPRT for a normal mean (Example~\ref{ex:sprt-normal}): $H_0:\mu=0$, $H_1:\mu=1$, $\alpha^*=\beta^*=0.05$. A new observation is taken as long as the log-likelihood ratio $S_n$ stays in the strip $(a,b)$. Three sample paths: acceptance after 5 observations under $H_0$ (green), rejection after 6 observations under $H_1$ (orange), and, again under $H_1$, a path that first approaches the acceptance boundary and rejects after 15 observations (purple). At stopping, $S_N$ overshoots the boundary somewhat; the approximations of Corollary~\ref{cor:sprt-asn} ignore this overshoot.}\label{fig:sprt}
+\end{figure}
+% <</fig:sprt>>
+
 \section{Computational Applications}
 
 \subsection{Power of the Test for a Normal Mean}
@@ -181,6 +264,21 @@ mu=0.5: P(p <= 0.05) = 0.2606
 \caption{Left: power functions of the one-sided $z$-test; all curves pass through $\alpha$ at $\mu=0$ and become steeper as $n$ grows. Right: when $H_0$ is true the $p$-values are uniformly distributed (Theorem~\ref{thm:p-uniform}); under $H_1$ they pile up near zero.}
 \end{figure}
 
+\subsection{The Sequential Probability Ratio Test (SPRT)}
+The SPRT\index{sequential probability ratio test sprt@sequential probability ratio test (SPRT)} of Example~\ref{ex:sprt-normal} is run $10^5$ times under each hypothesis. The actual error probabilities are compared with the bounds of Theorem~\ref{thm:wald-sinirlar}, and the average sample number with the approximation of Corollary~\ref{cor:sprt-asn}. The last line is the fixed sample size giving the same error probabilities.
+
+\pycode{code/ch13/c13_4_sequential_probability_ratio_test.py}
+\begin{lstlisting}[style=output]
+boundaries: a = -2.944, b = 2.944
+H0: type I error = 0.0290 (target 0.05, Wald bound alpha/(1-beta) = 0.0526)
+    E[N] = 6.93 | Wald approximation (ignoring overshoot) = 5.30 | median N = 6 | P(N > 11) = 0.137 | max N = 60
+H1: type II error = 0.0289 (target 0.05, Wald bound beta/(1-alpha) = 0.0526)
+    E[N] = 6.91 | Wald approximation (ignoring overshoot) = 5.30 | median N = 6 | P(N > 11) = 0.137 | max N = 54
+n required by the fixed-sample test = 11
+\end{lstlisting}
+
+The actual error probabilities ($\approx0.029$) are below the target ($0.05$) and satisfy Wald's bounds. The reason is the overshoot: since the test stops by passing the boundary rather than exactly on it, the likelihood ratio\index{likelihood ratio@likelihood ratio} decides on stronger evidence than required. For the same reason the average sample number ($6.9$) is above Wald's approximation ($5.3$). Still, it is on average $37\%$ fewer than the $11$ observations the fixed-sample test needs. The price is variability: about $14\%$ of the runs need more than 11 observations, and the longest run took 60. In practice, therefore, truncated SPRTs with an upper limit on the number of observations are used.
+
 \section{Comments and Notes}
 
 \begin{remark}[An Asymmetric Approach]
@@ -203,6 +301,7 @@ The $p$-value is \emph{not} the probability that $H_0$ is true; it is the probab
   \item The Neyman--Pearson lemma (Theorem~\ref{thm:neyman-pearson}): for simple hypotheses the most powerful test is the likelihood ratio test. For discrete distributions, randomisation may be needed to attain the level exactly.
   \item An MP test is unbiased (Corollary~\ref{cor:mp-yansiz}) and depends only on a sufficient statistic (Corollary~\ref{cor:np-yeterli}).
   \item The $p$-value (Definition~\ref{def:p-degeri}) is the probability under $H_0$ of a result at least as extreme as the one observed; for a continuous test statistic it is uniformly distributed under $H_0$ (Theorem~\ref{thm:p-uniform}). The $p$-value is not the probability that $H_0$ is true, and it does not measure effect size.
+  \item The SPRT collects observations until the log-likelihood ratio leaves the strip $(a,b)$. Its error probabilities are bounded by Wald's inequalities (Theorem~\ref{thm:wald-sinirlar}), and its average sample number follows from Wald's identity (Theorem~\ref{thm:wald-ozdeslik}). For the same errors, the SPRT needs about half as many observations as the fixed-sample test.
 \end{itemize}
 \end{summary}
 % --- END OF CHAPTER SUMMARY ---
@@ -229,6 +328,16 @@ $H_0:X\sim\Normal(0,1)$, $H_1:X\sim\text{Cauchy}(0,1)$ (a single observation). S
 \begin{exercise}\label{exr:13-4}
 Using Theorem~\ref{thm:p-uniform}, show that for the $p$-values of $m$ independent tests the Bonferroni correction (performing each test at level $\alpha/m$) bounds the family-wise error rate by $\alpha$ (Chapter~\ref{ch:olasilik-uzaylari}, Boole's inequality).
 \hfill\hyperref[coz:13-4]{\footnotesize$\rightarrow$\,Solution}
+\end{exercise}
+
+\begin{exercise}\label{exr:13-5}
+$X_i\iid\text{Bernoulli}(p)$, $H_0:p=0.1$, $H_1:p=0.3$, $\alpha^*=\beta^*=0.05$. Let $K_n$ be the number of successes in $n$ observations. Show that the continuation region of the SPRT is a strip between two parallel lines in the $(n,K_n)$ plane, and find the slope and intercepts of the lines. Compute Wald's approximations to $\E_0N$ and $\E_1N$, and compare them with the sample size of the fixed-sample binomial test with the same error probabilities.
+\hfill\hyperref[coz:13-5]{\footnotesize$\rightarrow$\,Solution}
+\end{exercise}
+
+\begin{exercise}\label{exr:13-6}
+(Optional stopping) Let $X_i\iid\Normal(\mu,1)$ and suppose $H_0:\mu=0$ is true. A researcher stops and rejects $H_0$ at the first $n=1,2,\dots,n_{\max}$ with $|\sqrt n\bar X_n|>1.96$. Find by simulation the actual type I error probability for $n_{\max}=10$ and $50$. What does this probability converge to as $n_{\max}\to\infty$?
+\hfill\hyperref[coz:13-6]{\footnotesize$\rightarrow$\,Solution}
 \end{exercise}
 
 \chapterlinks{13}

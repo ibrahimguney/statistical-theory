@@ -59,6 +59,14 @@ In practice $\sigma$ is estimated by $S$ or by $\min(S,\mathrm{IQR}/1.34)$, whic
 For $d_i=b_i-a_i$ a linear identity gives the sample variance $s_d^2=s_b^2+s_a^2-2\,\widehat{\Cov}(a,b)=s_1^2+s_2^2-2rs_1s_2$ (the sample counterpart of Proposition~\ref{prop:kovaryans}). Numerically $s_d=\sqrt{3.201+4.009-2(0.795)(1.789)(2.002)}=1.230$. In the paired analysis $\mathrm{SE}(\bar d)=1.230/\sqrt{10}=0.389$; in the two-sample analysis $\sqrt{(s_1^2+s_2^2)/10}=0.849$. The standard error falls by more than half and the $t$ statistic rises from $1.86$ to $4.06$. Pairing pays off when $r>0$. If $r\le0$, then $s_d^2\ge s_1^2+s_2^2$; moreover the paired analysis uses $n-1$ degrees of freedom and the two-sample analysis $2n-2$. So for uncorrelated measurements pairing is a slight loss.
 \end{solution}
 
+\begin{solution}{21-6}
+The kernel $h\big((x_1,y_1),(x_2,y_2)\big)=\operatorname{sign}(x_1-x_2)\operatorname{sign}(y_1-y_2)$ is symmetric; $\hat\tau$ is its U-statistic. Since the components are independent, $\E h=\E\operatorname{sign}(X_1-X_2)\cdot\E\operatorname{sign}(Y_1-Y_2)=0$. $h_1(x,y)=\E\operatorname{sign}(x-X)\cdot\E\operatorname{sign}(y-Y)=\big(2F(x)-1\big)\big(2G(y)-1\big)$; $2F(X)-1\sim\text{Uniform}(-1,1)$ has second moment $\frac13$, so by independence $\zeta_1=\frac13\cdot\frac13=\frac19$. Since $h=\pm1$ and $\E h=0$, $\zeta_2=\E h^2=1$. By Theorem~\ref{thm:u-varyans} ($m=2$),
+\[
+\Var\hat\tau=\frac{2}{n(n-1)}\Big[\frac{2(n-2)}{9}+1\Big]=\frac{2(2n+5)}{9n(n-1)} .
+\]
+By Theorem~\ref{thm:u-an}, $\sqrt n\,\hat\tau\dto\Normal(0,4/9)$. In practice the statistic\[Z=\hat\tau\Big/\sqrt{\frac{2(2n+5)}{9n(n-1)}}\]is compared with the standard normal. The test is distribution-free: its null distribution does not depend on $F$ and $G$.
+\end{solution}
+
 \section{Multiple Testing}
 \noindent{\small Chapter~\ref{ch:coklu-test}.}
 
