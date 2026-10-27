@@ -25,7 +25,7 @@
   before upper={\setlist[itemize]{leftmargin=1.2em,itemsep=3pt,topsep=2pt,parsep=0pt}}}
 % Chapter-end box with QR codes and links to the chapter's code (GitHub) and notebook (Colab)
 \usepackage{qrcode}
-\newcommand{\repourl}{https://github.com/izupress/statistical-theory}
+\newcommand{\repourl}{https://github.com/ibrahimguney/statistical-theory}
 \newcommand{\chapterlinks}[1]{%
   \par\vspace{1.5ex}\noindent
   \begin{tcolorbox}[enhanced,colback=gray!4!white,colframe=gray!60!black,boxrule=0.5pt,arc=2pt,
@@ -35,12 +35,12 @@
   \begin{minipage}[t]{0.49\linewidth}
     \begin{minipage}[t]{2.3cm}\vspace{0pt}\qrcode[height=2.1cm]{\repourl/tree/main/code/ch#1}\end{minipage}%
     \begin{minipage}[t]{\dimexpr\linewidth-2.5cm\relax}\vspace{0pt}\raggedright
-      \textbf{Code (GitHub)}\\[2pt]\footnotesize\href{\repourl/tree/main/code/ch#1}{\nolinkurl{github.com/izupress/statistical-theory/tree/main/code/ch#1}}\end{minipage}
+      \textbf{Code (GitHub)}\\[2pt]\footnotesize\href{\repourl/tree/main/code/ch#1}{\nolinkurl{github.com/ibrahimguney/statistical-theory/tree/main/code/ch#1}}\end{minipage}
   \end{minipage}\hfill
   \begin{minipage}[t]{0.49\linewidth}
-    \begin{minipage}[t]{2.3cm}\vspace{0pt}\qrcode[height=2.1cm]{https://colab.research.google.com/github/izupress/statistical-theory/blob/main/notebooks/ch_#1.ipynb}\end{minipage}%
+    \begin{minipage}[t]{2.3cm}\vspace{0pt}\qrcode[height=2.1cm]{https://colab.research.google.com/github/ibrahimguney/statistical-theory/blob/main/notebooks/ch_#1.ipynb}\end{minipage}%
     \begin{minipage}[t]{\dimexpr\linewidth-2.5cm\relax}\vspace{0pt}\raggedright
-      \textbf{Notebook (Colab)}\\[2pt]\footnotesize\href{https://colab.research.google.com/github/izupress/statistical-theory/blob/main/notebooks/ch_#1.ipynb}{\nolinkurl{colab.research.google.com/github/izupress/statistical-theory/blob/main/notebooks/ch_#1.ipynb}}\end{minipage}
+      \textbf{Notebook (Colab)}\\[2pt]\footnotesize\href{https://colab.research.google.com/github/ibrahimguney/statistical-theory/blob/main/notebooks/ch_#1.ipynb}{\nolinkurl{colab.research.google.com/github/ibrahimguney/statistical-theory/blob/main/notebooks/ch_#1.ipynb}}\end{minipage}
   \end{minipage}
   \end{tcolorbox}}
 \emergencystretch=2.5em          % avoids overfull lines with long inline math

@@ -17,7 +17,7 @@ import sys
 
 import nbformat
 
-DEPO = "izupress/statistical-theory"
+DEPO = "ibrahimguney/statistical-theory"
 DAL = "main"
 KOK = pathlib.Path(__file__).resolve().parent.parent
 HEDEF = KOK / "notebooks"
