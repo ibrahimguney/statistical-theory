@@ -3,7 +3,7 @@
 
 \chapter{Preface}
 
-This book aims to present the core ideas of mathematical statistics as a single whole, starting from measure-theoretic probability and continuing through point estimation, hypothesis testing, interval estimation and Bayesian inference. The final part unifies these topics within decision theory (minimaxity and admissibility) and extends them to three topics that arise often in practice: nonparametric methods, multiple testing and the false discovery rate, and the EM algorithm together with generalized linear models. Every chapter follows the same structure:
+This book aims to present the core ideas of mathematical statistics as a single whole, starting from measure-theoretic probability and continuing through point estimation, hypothesis testing, interval estimation and Bayesian inference. The final part unifies these topics within decision theory (minimaxity and admissibility) and extends them to three topics that arise often in practice: nonparametric methods, multiple testing and the false discovery rate, and the EM algorithm together with generalized linear models. Alongside this main line, the book also covers topics that show the limits of classical theory: Stein's paradox and empirical Bayes, misspecified models and the Akaike information criterion, sequential tests and U-statistics. Every chapter follows the same structure:
 
 \begin{enumerate}[label=\textbf{\arabic*.}]
   \item \textbf{Introduction and motivation:} the question the chapter sets out to answer.
@@ -21,6 +21,10 @@ This book aims to present the core ideas of mathematical statistics as a single 
 \paragraph{About the code.} All code is written in Python~3 with \texttt{numpy}, \texttt{scipy} and \texttt{matplotlib}. Each code block is a separate file in the \texttt{code/} folder of the book (the file name is printed above the code box) and runs on its own; all of them can be run with \texttt{python3 code/\allowbreak run\_all.py}. The simulations use numpy's recommended random number interface:
 \begin{center}\texttt{rng = np.random.default\_rng(42)}\end{center}
 Because the seed is fixed, the results are reproducible. The ``Output'' boxes directly below the code blocks were produced by actually running the code. Throughout the book the Gamma and exponential distributions are written with a \emph{rate} parameter (see Notation), whereas \texttt{numpy} and \texttt{scipy} parametrise them by the \emph{scale} $=1/\text{rate}$. Expressions such as \texttt{scale=1/beta} in the code perform this conversion.
+
+\paragraph{Figures and real data.} Every chapter has at least one figure that visualises its concepts; the figures were produced from the same numerical values as the computations in the text. Besides simulations, five applications use classic real data: Bortkiewicz's horse-kick data (Chapter~\ref{ch:lrt}), Efron and Tibshirani's law-school data (Chapter~\ref{ch:bootstrap}), the Efron--Morris baseball data (Chapter~\ref{ch:bayes}), Student's sleep data (Chapter~\ref{ch:parametrik-olmayan}) and the O-ring damage before Challenger (Chapter~\ref{ch:em-glm}). These data are small, so they are written directly into the code files.
+
+\paragraph{Online resources.} The box at the end of every chapter contains links and QR codes to the chapter's code (GitHub) and to a Colab notebook that opens in one click. The notebooks contain the chapter's code in the order of the book, together with its explanations. A Turkish edition with the same content is published separately as \emph{İstatistik Teorisi}.
 
 \section*{Notation}
 
