@@ -2,6 +2,8 @@
 
 [![Book check](https://github.com/ibrahimguney/statistical-theory/actions/workflows/check.yml/badge.svg)](https://github.com/ibrahimguney/statistical-theory/actions/workflows/check.yml)
 
+<img src="cover.png" alt="Front cover: a Galton board" width="240" align="right">
+
 LaTeX sources, Python code and Jupyter notebooks of *Theory of Statistics — Axiomatic Foundations,
 Proofs and Computational Applications* by İbrahim Güney: a 23-chapter book on mathematical
 statistics, from measure-theoretic probability to point estimation, hypothesis testing, interval
@@ -87,6 +89,9 @@ copies in R packages and checked against published results.
 | 23 | O-ring damage before Challenger | Dalal, Fowlkes and Hoadley (1989) | R `vcd::SpaceShuttle` |
 
 ## Tools (`tools/`)
+- `make_cover.py` — generates the front and back cover artwork (`cover_art.tex`) from a fixed-seed
+  simulation: a Galton board and repeated confidence intervals. The cover texts are in `cover.tex`.
+  `cover.png` (the preview in this README): `pdftoppm -r 50 -png -f 1 -l 1 -singlefile main.pdf cover`
 - `run_blocks.py` — runs the `\pycode{...}` files of a chapter and refreshes its "Output" boxes:
   `python3 tools/run_blocks.py ch05_inequalities_lln.tex` (whole book: `ch*.tex`)
 - `make_index.py` — subject index. `python3 tools/make_index.py add` removes all `\index`
